@@ -343,19 +343,6 @@
         body.concept-mode .button-group,
         body.concept-mode .download-group { display: none !important; }
 
-        /* 概念版红绿灯强制圆形 */
-        body.concept-mode .traffic-light {
-            width: 13px !important;
-            height: 13px !important;
-            min-width: 13px !important;
-            min-height: 13px !important;
-            max-width: 13px !important;
-            max-height: 13px !important;
-            border-radius: 50% !important;
-            aspect-ratio: 1 !important;
-            padding: 0 !important;
-        }
-
         .macos-dock {
             position: fixed; bottom: 10px; left: 50%;
             transform: translateX(-50%) translateY(160%);
@@ -489,12 +476,18 @@
             border-radius: 0 !important;
         }
 
+        body.concept-mode .calc-modal.fullscreen .macos-window-content { padding: 24px; align-items: center; }
+        body.concept-mode .calc-modal.fullscreen .calc-display,
+        body.concept-mode .calc-modal.fullscreen .calc-grid { width: 100%; max-width: 420px; }
+        body.concept-mode .calc-modal.fullscreen .calc-display { margin-left: auto; margin-right: auto; margin-bottom: 16px; }
+        body.concept-mode .calc-modal.fullscreen .calc-grid { margin-left: auto; margin-right: auto; }
+
         .macos-window-bar { display: none; flex-shrink: 0; height: 38px; align-items: center; padding: 0 14px; background: transparent; border-bottom: 1px solid rgba(0, 0, 0, 0.06); cursor: grab; user-select: none; }
         .macos-window-bar:active { cursor: grabbing; }
         [data-theme="dark"] .macos-window-bar { border-bottom-color: rgba(255, 255, 255, 0.06); }
         body.concept-mode .macos-window-bar { display: flex; }
         .macos-traffic-lights { display: flex; gap: 8px; align-items: center; }
-        .traffic-light { width: 13px; height: 13px; border-radius: 50%; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; line-height: 1; color: rgba(0,0,0,0.55); position: relative; pointer-events: auto !important; z-index: 100; aspect-ratio: 1; box-sizing: border-box; }
+        .traffic-light { width: 13px; height: 13px; border-radius: 50%; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; line-height: 1; color: rgba(0,0,0,0.55); position: relative; pointer-events: auto !important; z-index: 100; }
         .traffic-light.close { background: #ff5f57; box-shadow: inset 0 0 0 0.5px #e0443e; }
         .traffic-light.min { background: #ffbd2e; box-shadow: inset 0 0 0 0.5px #dea123; display: none; }
         .traffic-light.max { background: #28c840; box-shadow: inset 0 0 0 0.5px #18a32b; }
@@ -588,6 +581,7 @@
         body.windows10-mode .container,
         body.windows10-mode .macos-dock { display: none !important; }
 
+        /* 桌面 */
         .win10-desktop { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 40px; z-index: 1; }
         body.windows10-mode .win10-desktop { display: block; }
         .win10-desktop-icon {
@@ -608,6 +602,7 @@
         .win10-desktop-icon .icon-img { display: block; font-size: 38px; line-height: 1; margin-bottom: 6px; filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.6)); }
         .win10-desktop-icon .icon-label { display: block; line-height: 1.25; word-break: break-all; }
 
+        /* 任务栏 */
         .win10-taskbar {
             display: none;
             position: fixed; bottom: 0; left: 0; right: 0;
@@ -749,6 +744,7 @@
         }
         .win10-show-desktop:hover { background: rgba(255,255,255,0.1); }
 
+        /* 开始菜单 */
         .win10-startmenu {
             display: none;
             position: fixed;
@@ -855,6 +851,7 @@
         .win10-tile.wide { grid-column: span 2; aspect-ratio: 2.04; flex-direction: row; gap: 8px; justify-content: flex-start; padding-left: 12px; }
         .win10-tile.wide .ti { font-size: 22px; }
 
+        /* Win10 窗口 */
         body.windows10-mode .settings-overlay,
         body.windows10-mode .calc-overlay,
         body.windows10-mode .dialpad-overlay,
@@ -932,70 +929,34 @@
             max-width: 100vw !important; max-height: calc(100vh - 40px) !important;
         }
 
-        /* ---- Windows 10 标题栏 ---- */
         body.windows10-mode .macos-window-bar {
             display: flex !important;
             height: 30px !important;
             background: #ffffff !important;
             border-bottom: 1px solid #e5e5e5 !important;
             cursor: default !important;
-            padding: 0 !important;
+            padding: 0 0 0 12px !important;
             align-items: center !important;
             order: 0;
             border-radius: 0 !important;
-            flex-direction: row !important;
-            justify-content: flex-start !important;
         }
         body.windows10-mode .macos-window-bar:active { cursor: move !important; }
 
-        body.windows10-mode .macos-window-title {
-            order: 1 !important;
-            text-align: left !important;
-            margin: 0 !important;
-            padding-left: 12px !important;
-            padding-right: 8px !important;
-            font-size: 12px !important;
-            font-weight: 400 !important;
-            color: #000 !important;
-            letter-spacing: 0 !important;
-            flex: 1 !important;
-            display: flex !important;
-            align-items: center !important;
-            height: 100% !important;
-            white-space: nowrap !important;
-            overflow: hidden !important;
-            text-overflow: ellipsis !important;
-        }
-        body.windows10-mode .macos-window-title::before {
-            content: '📄 ';
-            font-size: 12px;
-            margin-right: 4px;
-        }
-
         body.windows10-mode .macos-traffic-lights {
             order: 2 !important;
-            margin-left: 0 !important;
+            margin-left: auto !important;
             gap: 0 !important;
             height: 30px !important;
             display: flex !important;
             align-items: stretch !important;
-            flex-direction: row !important;
-            flex-shrink: 0 !important;
         }
 
-        /* 按钮：长方形，明确覆盖 border-radius */
-        body.windows10-mode .macos-traffic-lights .traffic-light,
         body.windows10-mode .traffic-light {
             width: 46px !important;
             height: 30px !important;
             min-width: 46px !important;
-            min-height: 30px !important;
-            max-width: 46px !important;
-            max-height: 30px !important;
             border-radius: 0 !important;
-            aspect-ratio: auto !important;
             background: transparent !important;
-            background-color: transparent !important;
             box-shadow: none !important;
             color: #333 !important;
             font-size: 10px !important;
@@ -1003,24 +964,35 @@
             align-items: center !important;
             justify-content: center !important;
             transition: background 0.1s !important;
-            cursor: pointer !important;
-            padding: 0 !important;
-            box-sizing: border-box !important;
-            overflow: hidden !important;
+            cursor: default !important;
         }
+        body.windows10-mode .traffic-light.min { order: 1 !important; display: flex !important; }
+        body.windows10-mode .traffic-light.max { order: 2 !important; display: flex !important; }
+        body.windows10-mode .traffic-light.close { order: 3 !important; display: flex !important; }
 
-        /* 顺序：最小化 (左)、最大化 (中)、关闭 (右) */
-        body.windows10-mode .traffic-light.min { order: 1 !important; }
-        body.windows10-mode .traffic-light.max { order: 2 !important; }
-        body.windows10-mode .traffic-light.close { order: 3 !important; }
-
-        body.windows10-mode .traffic-light:hover { background: #e5e5e5 !important; background-color: #e5e5e5 !important; }
-        body.windows10-mode .traffic-light.close:hover { background: #e81123 !important; background-color: #e81123 !important; color: #fff !important; }
+        body.windows10-mode .traffic-light:hover { background: #e5e5e5 !important; }
+        body.windows10-mode .traffic-light.close:hover { background: #e81123 !important; color: #fff !important; }
 
         body.windows10-mode .traffic-light::before { opacity: 1 !important; font-weight: 400 !important; font-size: 11px !important; line-height: 1 !important; }
-        body.windows10-mode .traffic-light.min::before { content: '─' !important; font-size: 12px !important; }
+        body.windows10-mode .traffic-light.min::before { content: '─' !important; }
         body.windows10-mode .traffic-light.max::before { content: '□' !important; font-size: 13px !important; }
         body.windows10-mode .traffic-light.close::before { content: '✕' !important; font-size: 11px !important; }
+
+        body.windows10-mode .macos-window-title {
+            order: 1 !important;
+            text-align: left !important;
+            margin: 0 !important;
+            padding-left: 0 !important;
+            font-size: 12px !important;
+            font-weight: 400 !important;
+            color: #000 !important;
+            letter-spacing: 0 !important;
+        }
+        body.windows10-mode .macos-window-title::before {
+            content: '📄 ';
+            font-size: 12px;
+            margin-right: 4px;
+        }
 
         body.windows10-mode .settings-modal > .macos-window-content { padding: 0 !important; overflow: hidden; }
         body.windows10-mode .calc-modal .macos-window-content { padding: 14px !important; background: #f2f2f2; }
@@ -1031,6 +1003,7 @@
         body.windows10-mode .website-modal .macos-window-content,
         body.windows10-mode .ojang-modal .macos-window-content { padding: 0 !important; }
 
+        /* Win10 里的设置窗口内容 */
         body.windows10-mode .settings-simple-view { padding: 16px !important; overflow-y: auto !important; flex: 1; }
         body.windows10-mode .settings-title { color: #000 !important; }
         body.windows10-mode .settings-option-label { color: #000 !important; }
@@ -1056,6 +1029,7 @@
         body.windows10-mode .theme-thumb-label { color: #333 !important; }
         body.windows10-mode .about-panel p { color: #333 !important; }
 
+        /* Win10 里的计算器 */
         body.windows10-mode .calc-display { background: #fff !important; color: #000 !important; border: 1px solid #d5d5d5 !important; border-radius: 2px !important; font-weight: 300 !important; }
         body.windows10-mode .calc-key { background: #e6e6e6 !important; color: #000 !important; border-radius: 2px !important; font-size: 16px !important; box-shadow: none !important; aspect-ratio: auto !important; min-height: 46px !important; }
         body.windows10-mode .calc-key:hover { background: #d4d4d4 !important; }
@@ -1063,57 +1037,1702 @@
         body.windows10-mode .calc-key.equals { background: #0078d7 !important; color: #fff !important; }
         body.windows10-mode .calc-key.clear { background: #d4d4d4 !important; color: #000 !important; }
 
+        /* Win10 里的拨号盘 */
         body.windows10-mode .dialpad-display { background: #fff !important; color: #000 !important; border: 1px solid #d5d5d5 !important; border-radius: 2px !important; }
         body.windows10-mode .dial-key { background: #e6e6e6 !important; color: #000 !important; border-radius: 4px !important; }
         body.windows10-mode .dial-key:hover { background: #d4d4d4 !important; }
         body.windows10-mode .dial-action.delete { color: #333 !important; border-color: #d5d5d5 !important; }
         body.windows10-mode .dial-action.close { background: #0078d7 !important; }
 
+        /* Win10 里的更多窗口 */
         body.windows10-mode .more-section-title { color: #666 !important; }
         body.windows10-mode .more-link,
         body.windows10-mode .more-download { background: #f2f2f2 !important; border-color: #e5e5e5 !important; color: #000 !important; }
 
-        /* Win10 关于窗口 */
-        body.windows10-mode .about-overlay { background: transparent !important; pointer-events: none !important; display: flex !important; visibility: hidden !important; padding: 0 !important; align-items: flex-start !important; justify-content: flex-start !important; transition: none !important; }
-        body.windows10-mode .about-overlay.visible { visibility: visible !important; pointer-events: none !important; }
-        body.windows10-mode .about-modal {
-            pointer-events: auto !important;
-            position: fixed !important;
-            top: 50% !important;
-            left: 50% !important;
-            transform: translate(-50%, -50%) !important;
-            background: #ffffff !important;
-            border: 1px solid #0078d7 !important;
-            border-radius: 0 !important;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.2) !important;
-            color: #000 !important;
-            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif !important;
-            width: 360px !important;
-            max-width: calc(100vw - 40px) !important;
-            padding: 0 !important;
-            display: flex !important;
-            flex-direction: column !important;
-            overflow: hidden !important;
+        /* Win10 里的 traffic-light 图标只在悬停显示 */
+        body.windows10-mode .traffic-light.close { color: #333 !important; }
+        body.windows10-mode .traffic-light.close:hover { color: #fff !important; }
+
+        @media (max-width: 900px) {
+            .win10-search { min-width: 40px; width: 40px; padding: 0; justify-content: center; }
+            .win10-search-text { display: none; }
+            .win10-startmenu { width: 100vw; }
         }
-        body.windows10-mode .about-modal::before {
-            content: 'ℹ  关于';
-            display: flex;
-            align-items: center;
-            height: 30px;
-            background: #ffffff;
-            border-bottom: 1px solid #e5e5e5;
-            padding: 0 12px;
-            font-size: 12px;
-            color: #000;
-            font-weight: 400;
+        @media (max-width: 700px) {
+            body.windows10-mode .settings-modal { width: calc(100vw - 20px) !important; }
+            body.windows10-mode .settings-modal .settings-window-layout { flex-direction: column !important; }
+            body.windows10-mode .settings-sidebar { width: 100% !important; height: auto !important; max-height: 120px !important; border-right: none !important; border-bottom: 1px solid #e5e5e5 !important; }
+            .win10-tiles-grid { grid-template-columns: repeat(4, 1fr) !important; }
         }
-        body.windows10-mode .about-title { display: none !important; }
-        body.windows10-mode .about-info { padding: 20px 20px 8px !important; text-align: center !important; color: #333 !important; }
-        body.windows10-mode .about-info .version-text { color: #333 !important; }
-        body.windows10-mode .about-close-btn {
-            margin: 12px 20px 20px !important;
-            width: auto !important;
-            background: #0078d7 !important;
-            color: #fff !important;
-            border-radius: 2px !important;
-            padding: 6px 0 !important;
+
+        @media (max-width: 780px) {
+            body.concept-mode .settings-modal { width: calc(100vw - 20px) !important; max-width: 720px !important; height: 78vh !important; max-height: calc(100vh - 40px) !important; }
+            body.concept-mode .webmc-modal { width: calc(100vw - 20px) !important; max-width: 900px !important; height: 70vh !important; max-height: calc(100vh - 60px) !important; }
+            body.concept-mode .bilibili-modal { width: calc(100vw - 20px) !important; max-width: 1000px !important; height: 70vh !important; max-height: calc(100vh - 60px) !important; }
+            body.concept-mode .website-modal { width: calc(100vw - 20px) !important; max-width: 1000px !important; height: 70vh !important; max-height: calc(100vh - 60px) !important; }
+            body.concept-mode .ojang-modal { width: calc(100vw - 20px) !important; max-width: 1000px !important; height: 70vh !important; max-height: calc(100vh - 60px) !important; }
+            .settings-sidebar { width: 160px; }
+        }
+        @media (max-width: 520px) {
+            body.concept-mode .settings-modal { flex-direction: column; }
+            .settings-window-layout { flex-direction: column; }
+            .settings-sidebar { width: 100%; height: auto; max-height: 130px; border-right: none; border-bottom: 1px solid rgba(0,0,0,0.06); }
+            .settings-nav-item { font-size: 12.5px; padding: 6px 8px; }
+            .dock-item { width: 46px; height: 46px; font-size: 22px; border-radius: 12px; }
+            .macos-dock { gap: 8px; padding: 8px 10px 10px; }
+            body.concept-mode .more-modal { width: calc(100vw - 20px) !important; max-width: 400px !important; }
+            body.concept-mode .webmc-modal { width: calc(100vw - 10px) !important; max-width: 900px !important; height: 75vh !important; }
+            body.concept-mode .bilibili-modal { width: calc(100vw - 10px) !important; max-width: 1000px !important; height: 75vh !important; }
+            body.concept-mode .website-modal { width: calc(100vw - 10px) !important; max-width: 1000px !important; height: 75vh !important; }
+            body.concept-mode .ojang-modal { width: calc(100vw - 10px) !important; max-width: 1000px !important; height: 75vh !important; }
+        }
+        @media (max-width:480px) {
+            .site-title { font-size:0.9rem; }
+            body { padding-top:calc(var(--topbar-height) + 0.5rem); }
+            .calc-key { min-height: 54px; font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+    <audio id="mcMusic" loop preload="auto"></audio>
+
+    <header class="top-bar">
+        <div class="site-title" data-i18n="siteTitle">一架国泰航空A330官方网站</div>
+    </header>
+
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="打开菜单" type="button"
+        onclick="(function(){var m=document.getElementById('sidebarMenu');var o=document.getElementById('menuOverlay');var b=document.getElementById('hamburgerBtn');if(!m||!o||!b)return;var isOpen=m.classList.contains('open');if(isOpen){m.classList.remove('open');o.classList.remove('visible');b.classList.remove('active');}else{m.classList.add('open');o.classList.add('visible');b.classList.add('active');}})();return false;">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+    </button>
+
+    <div class="menu-overlay" id="menuOverlay"
+        onclick="(function(){var m=document.getElementById('sidebarMenu');var o=document.getElementById('menuOverlay');var b=document.getElementById('hamburgerBtn');if(m)m.classList.remove('open');if(o)o.classList.remove('visible');if(b)b.classList.remove('active');})();"></div>
+
+    <aside class="sidebar-menu" id="sidebarMenu">
+        <div class="sidebar-header" data-i18n="menu">菜单</div>
+        <div class="menu-divider"></div>
+        <button class="menu-item" id="settingsTrigger"><span data-i18n="settings">设置</span><span>⚙️</span></button>
+        <button class="menu-item" id="calcTrigger"><span data-i18n="calculator">计算器</span><span>🔢</span></button>
+        <button class="menu-item" id="aboutTrigger"><span data-i18n="about">关于</span><span>ℹ️</span></button>
+        <div class="menu-divider"></div>
+        <div class="menu-section" data-i18n="links">链接</div>
+        <a href="https://mcjs.cc" target="_blank" class="menu-item"><span data-i18n="webMC">网页版MC</span> <span>↗</span></a>
+        <a href="https://share.feijipan.com/s/Pw8OwB3N" target="_blank" class="menu-item"><span data-i18n="ojangDownload">ojang pe下载</span> <span>↗</span></a>
+        <button class="menu-item" id="dialpadTrigger"><span data-i18n="dialpad">拨号盘</span> <span>☎</span></button>
+    </aside>
+
+    <!-- ============ Windows 10 桌面 ============ -->
+    <div class="win10-desktop" id="win10Desktop">
+        <div class="win10-desktop-icon" ondblclick="win10OpenApp('settings')" style="top: 20px; left: 20px;">
+            <span class="icon-img">🖥️</span>
+            <span class="icon-label">此电脑</span>
+        </div>
+        <div class="win10-desktop-icon" ondblclick="win10OpenApp('more')" style="top: 120px; left: 20px;">
+            <span class="icon-img">🗑️</span>
+            <span class="icon-label">回收站</span>
+        </div>
+        <div class="win10-desktop-icon" ondblclick="win10OpenApp('more')" style="top: 220px; left: 20px;">
+            <span class="icon-img">📁</span>
+            <span class="icon-label">我的文档</span>
+        </div>
+        <div class="win10-desktop-icon" ondblclick="win10OpenApp('webmc')" style="top: 320px; left: 20px;">
+            <span class="icon-img">🌐</span>
+            <span class="icon-label">网络</span>
+        </div>
+        <div class="win10-desktop-icon" ondblclick="win10OpenApp('settings')" style="top: 20px; left: 120px;">
+            <span class="icon-img">⚙️</span>
+            <span class="icon-label">设置</span>
+        </div>
+        <div class="win10-desktop-icon" ondblclick="win10OpenApp('calc')" style="top: 120px; left: 120px;">
+            <span class="icon-img">🔢</span>
+            <span class="icon-label">计算器</span>
+        </div>
+    </div>
+
+    <!-- ============ Windows 10 任务栏 ============ -->
+    <div class="win10-taskbar" id="win10Taskbar">
+        <div class="win10-start-btn" id="win10StartBtn" onclick="win10ToggleStart(event)">
+            <div class="win10-logo"><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="win10-search">
+            <span class="win10-search-icon">🔍</span>
+            <span class="win10-search-text">在此处输入内容进行搜索</span>
+        </div>
+        <div class="win10-taskview-btn" title="任务视图" onclick="win10ToggleStart(event)">⊞</div>
+        <div class="win10-taskbar-apps" id="win10TaskbarApps">
+            <div class="win10-taskbar-app" data-app="settings" title="设置" onclick="win10ToggleApp('settings')">⚙️</div>
+            <div class="win10-taskbar-app" data-app="calc" title="计算器" onclick="win10ToggleApp('calc')">🔢</div>
+            <div class="win10-taskbar-app" data-app="more" title="更多" onclick="win10ToggleApp('more')">⋯</div>
+            <div class="win10-taskbar-app" data-app="website" title="官方网站" onclick="win10ToggleApp('website')">🏠</div>
+            <div class="win10-taskbar-app" data-app="webmc" title="网页版MC" onclick="win10ToggleApp('webmc')">🌐</div>
+            <div class="win10-taskbar-app" data-app="bilibili" title="Bilibili" onclick="win10ToggleApp('bilibili')">📺</div>
+            <div class="win10-taskbar-app" data-app="ojang" title="ojang pe下载" onclick="win10ToggleApp('ojang')">⬇️</div>
+            <div class="win10-taskbar-app" data-app="dialpad" title="拨号盘" onclick="win10ToggleApp('dialpad')">☎️</div>
+        </div>
+        <div class="win10-tray">
+            <div class="win10-tray-item" title="隐藏的图标">︿</div>
+            <div class="win10-tray-item" title="网络">📶</div>
+            <div class="win10-tray-item" title="音量">🔊</div>
+            <div class="win10-tray-item" title="输入法">中</div>
+            <div class="win10-clock" id="win10Clock" title="日期和时间">
+                <span class="time" id="win10ClockTime">12:00</span>
+                <span class="date" id="win10ClockDate">2026/1/1</span>
+            </div>
+            <div class="win10-show-desktop" title="显示桌面" onclick="win10ShowDesktop()"></div>
+        </div>
+    </div>
+
+    <!-- ============ Windows 10 开始菜单 ============ -->
+    <div class="win10-startmenu" id="win10StartMenu">
+        <div class="win10-startmenu-left">
+            <div class="win10-menu-item" onclick="win10OpenApp('settings')"><span class="mi-icon">⚙️</span><span>设置</span></div>
+            <div class="win10-menu-item" onclick="win10OpenApp('calc')"><span class="mi-icon">🔢</span><span>计算器</span></div>
+            <div class="win10-menu-item" onclick="win10OpenApp('dialpad')"><span class="mi-icon">☎️</span><span>拨号盘</span></div>
+            <div class="win10-menu-item" onclick="win10OpenApp('more')"><span class="mi-icon">⋯</span><span>更多</span></div>
+            <div class="win10-menu-item" onclick="win10OpenApp('website')"><span class="mi-icon">🏠</span><span>官方网站</span></div>
+            <div class="win10-menu-item" onclick="win10OpenApp('webmc')"><span class="mi-icon">🌐</span><span>网页版MC</span></div>
+            <div class="win10-menu-item" onclick="win10OpenApp('bilibili')"><span class="mi-icon">📺</span><span>Bilibili</span></div>
+            <div class="win10-menu-item" onclick="win10OpenApp('ojang')"><span class="mi-icon">⬇️</span><span>ojang pe下载</span></div>
+            <div class="win10-menu-bottom">
+                <div class="win10-menu-item" onclick="win10ExitToNormal()"><span class="mi-icon">⏻</span><span>退出 Windows 10 模式</span></div>
+            </div>
+        </div>
+        <div class="win10-startmenu-right">
+            <div class="win10-tiles-title">常用应用</div>
+            <div class="win10-tiles-grid">
+                <div class="win10-tile blue" onclick="win10OpenApp('settings')"><span class="ti">⚙️</span><span>设置</span></div>
+                <div class="win10-tile green" onclick="win10OpenApp('calc')"><span class="ti">🔢</span><span>计算器</span></div>
+                <div class="win10-tile teal" onclick="win10OpenApp('dialpad')"><span class="ti">☎️</span><span>拨号盘</span></div>
+                <div class="win10-tile purple" onclick="win10OpenApp('more')"><span class="ti">⋯</span><span>更多</span></div>
+                <div class="win10-tile blue" onclick="win10OpenApp('website')"><span class="ti">🏠</span><span>官方网站</span></div>
+                <div class="win10-tile green" onclick="win10OpenApp('webmc')"><span class="ti">🌐</span><span>网页版MC</span></div>
+                <div class="win10-tile red" onclick="win10OpenApp('bilibili')"><span class="ti">📺</span><span>Bilibili</span></div>
+                <div class="win10-tile orange" onclick="win10OpenApp('ojang')"><span class="ti">⬇️</span><span>ojang</span></div>
+                <div class="win10-tile wide blue" onclick="win10OpenApp('settings')"><span class="ti">✨</span><span>个性化你的电脑</span></div>
+                <div class="win10-tile wide teal" onclick="win10OpenApp('website')"><span class="ti">🌏</span><span>浏览网页</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="settings-overlay" id="settingsOverlay">
+        <div class="settings-modal" id="settingsModal">
+            <div class="macos-window-bar">
+                <div class="macos-traffic-lights">
+                    <button class="traffic-light close" data-role="close"></button>
+                    <button class="traffic-light min" data-role="min"></button>
+                    <button class="traffic-light max" data-role="max"></button>
+                </div>
+                <div class="macos-window-title" data-i18n="settings">设置</div>
+            </div>
+            <div class="macos-window-content">
+                <div class="settings-simple-view">
+                    <div class="settings-title" data-i18n="settings">设置</div>
+                    <div class="settings-section">
+                        <div class="settings-section-title" data-i18n="theme">主题模式</div>
+                        <div class="settings-option">
+                            <span class="settings-option-label" data-i18n="darkMode">深色模式</span>
+                            <button class="ios-switch" data-switch="themeDark"><span class="knob"></span></button>
+                        </div>
+                    </div>
+                    <div class="settings-section">
+                        <div class="settings-section-title" data-i18n="displayMode">显示模式</div>
+                        <div class="settings-option"><span class="settings-option-label" data-i18n="glassMode">透明模式</span><button class="ios-switch" data-switch="glassMode"><span class="knob"></span></button></div>
+                        <div class="settings-option"><span class="settings-option-label" data-i18n="liquidGlassMode">液态玻璃</span><button class="ios-switch" data-switch="liquidGlassMode"><span class="knob"></span></button></div>
+                        <div class="settings-option"><span class="settings-option-label" data-i18n="retroMode">怀旧模式</span><button class="ios-switch" data-switch="retroMode"><span class="knob"></span></button></div>
+                        <div class="settings-option"><span class="settings-option-label" data-i18n="minecraftMode">Minecraft模式</span><button class="ios-switch" data-switch="minecraftMode"><span class="knob"></span></button></div>
+                        <div class="settings-option"><span class="settings-option-label" data-i18n="conceptMode">概念版模式</span><button class="ios-switch" data-switch="conceptMode"><span class="knob"></span></button></div>
+                        <div class="settings-option"><span class="settings-option-label">Windows 10 模式</span><button class="ios-switch" data-switch="windows10Mode"><span class="knob"></span></button></div>
+                    </div>
+                    <div class="settings-section">
+                        <div class="settings-section-title" data-i18n="wallpaper">壁纸选择</div>
+                        <button class="wallpaper-btn" data-wallpaper="default" data-i18n="defaultWallpaper">默认</button>
+                        <button class="wallpaper-btn" data-wallpaper="creeper_sleep" data-i18n="creeperSleep">苦力怕娘睡觉</button>
+                        <button class="wallpaper-btn" data-wallpaper="minecart" data-i18n="minecart">矿车</button>
+                        <button class="wallpaper-btn" data-wallpaper="tnt" data-i18n="tnt">TNT！</button>
+                        <button class="wallpaper-btn" data-wallpaper="blue_archive_1" data-i18n="blueArchive1">蔚蓝档案1</button>
+                        <button class="wallpaper-btn" data-wallpaper="rowing" data-i18n="rowing">划船</button>
+                        <button class="wallpaper-btn" data-wallpaper="blue_archive_2" data-i18n="blueArchive2">蔚蓝档案2</button>
+                        <button class="wallpaper-btn" data-wallpaper="water_drop" data-i18n="waterDrop">水滴壁纸</button>
+                        <button class="wallpaper-btn" data-wallpaper="white" data-i18n="whiteWallpaper">白色壁纸</button>
+                    </div>
+                    <div class="settings-section">
+                        <div class="settings-section-title" data-i18n="language">语言</div>
+                        <div class="settings-option"><span class="settings-option-label">简体中文</span><button class="ios-switch" data-switch="lang" data-lang="zh-CN"><span class="knob"></span></button></div>
+                        <div class="settings-option"><span class="settings-option-label">繁體中文</span><button class="ios-switch" data-switch="lang" data-lang="zh-TW"><span class="knob"></span></button></div>
+                        <div class="settings-option"><span class="settings-option-label">English</span><button class="ios-switch" data-switch="lang" data-lang="en"><span class="knob"></span></button></div>
+                        <div class="settings-option"><span class="settings-option-label">日本語</span><button class="ios-switch" data-switch="lang" data-lang="ja"><span class="knob"></span></button></div>
+                        <div class="settings-option"><span class="settings-option-label">한국어</span><button class="ios-switch" data-switch="lang" data-lang="ko"><span class="knob"></span></button></div>
+                    </div>
+                    <button class="settings-close-btn" data-role="settings-close" data-i18n="close">关闭</button>
+                </div>
+
+                <div class="settings-macos-view settings-window-layout">
+                    <div class="settings-sidebar">
+                        <div class="settings-search">
+                            <span>🔍</span>
+                            <input type="text" placeholder="搜索" readonly>
+                        </div>
+                        <button class="settings-nav-item active" data-panel="appearance">
+                            <span class="settings-nav-icon blue">🎨</span>
+                            <span>外观</span>
+                        </button>
+                        <button class="settings-nav-item" data-panel="wallpaper">
+                            <span class="settings-nav-icon purple">🖼️</span>
+                            <span>墙纸</span>
+                        </button>
+                        <button class="settings-nav-item" data-panel="language">
+                            <span class="settings-nav-icon green">🌐</span>
+                            <span>语言</span>
+                        </button>
+                        <button class="settings-nav-item" data-panel="concept">
+                            <span class="settings-nav-icon orange">✨</span>
+                            <span>概念版</span>
+                        </button>
+                        <button class="settings-nav-item" data-panel="about">
+                            <span class="settings-nav-icon gray">ℹ️</span>
+                            <span>关于</span>
+                        </button>
+                    </div>
+                    <div class="settings-main">
+                        <div class="settings-panel active" data-panel="appearance">
+                            <div class="panel-title">外观</div>
+                            <div class="panel-group">
+                                <div class="panel-group-title" style="padding-bottom:6px;">外观</div>
+                                <div class="theme-thumbnails">
+                                    <div class="theme-thumb" data-theme-choice="light">
+                                        <div class="theme-thumb-inner light"><span class="theme-thumb-dot"></span></div>
+                                        <div class="theme-thumb-label">浅色</div>
+                                    </div>
+                                    <div class="theme-thumb" data-theme-choice="dark">
+                                        <div class="theme-thumb-inner dark"><span class="theme-thumb-dot"></span></div>
+                                        <div class="theme-thumb-label">深色</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-group">
+                                <div class="panel-group-title" style="padding-bottom:6px;">显示模式</div>
+                                <div class="panel-row"><span>透明模式</span><button class="ios-switch" data-switch="glassMode"><span class="knob"></span></button></div>
+                                <div class="panel-row"><span>液态玻璃</span><button class="ios-switch" data-switch="liquidGlassMode"><span class="knob"></span></button></div>
+                                <div class="panel-row"><span>怀旧模式</span><button class="ios-switch" data-switch="retroMode"><span class="knob"></span></button></div>
+                                <div class="panel-row"><span>Minecraft模式</span><button class="ios-switch" data-switch="minecraftMode"><span class="knob"></span></button></div>
+                                <div class="panel-row"><span>概念版模式</span><button class="ios-switch" data-switch="conceptMode"><span class="knob"></span></button></div>
+                                <div class="panel-row"><span>Windows 10 模式</span><button class="ios-switch" data-switch="windows10Mode"><span class="knob"></span></button></div>
+                            </div>
+                        </div>
+                        <div class="settings-panel" data-panel="wallpaper">
+                            <div class="panel-title">墙纸</div>
+                            <div class="panel-group" style="padding: 12px 14px;">
+                                <button class="wallpaper-btn" data-wallpaper="default">默认</button>
+                                <button class="wallpaper-btn" data-wallpaper="creeper_sleep">苦力怕娘睡觉</button>
+                                <button class="wallpaper-btn" data-wallpaper="minecart">矿车</button>
+                                <button class="wallpaper-btn" data-wallpaper="tnt">TNT！</button>
+                                <button class="wallpaper-btn" data-wallpaper="blue_archive_1">蔚蓝档案1</button>
+                                <button class="wallpaper-btn" data-wallpaper="rowing">划船</button>
+                                <button class="wallpaper-btn" data-wallpaper="blue_archive_2">蔚蓝档案2</button>
+                                <button class="wallpaper-btn" data-wallpaper="water_drop">水滴壁纸</button>
+                                <button class="wallpaper-btn" data-wallpaper="white">白色壁纸</button>
+                            </div>
+                        </div>
+                        <div class="settings-panel" data-panel="language">
+                            <div class="panel-title">语言</div>
+                            <div class="panel-group">
+                                <div class="panel-row"><span>简体中文</span><button class="ios-switch" data-switch="lang" data-lang="zh-CN"><span class="knob"></span></button></div>
+                                <div class="panel-row"><span>繁體中文</span><button class="ios-switch" data-switch="lang" data-lang="zh-TW"><span class="knob"></span></button></div>
+                                <div class="panel-row"><span>English</span><button class="ios-switch" data-switch="lang" data-lang="en"><span class="knob"></span></button></div>
+                                <div class="panel-row"><span>日本語</span><button class="ios-switch" data-switch="lang" data-lang="ja"><span class="knob"></span></button></div>
+                                <div class="panel-row"><span>한국어</span><button class="ios-switch" data-switch="lang" data-lang="ko"><span class="knob"></span></button></div>
+                            </div>
+                        </div>
+                        <div class="settings-panel" data-panel="concept">
+                            <div class="panel-title">概念版 (Beta)</div>
+                            <div class="panel-group">
+                                <div class="panel-row"><span>开启概念版模式</span><button class="ios-switch" data-switch="conceptMode"><span class="knob"></span></button></div>
+                                <div class="panel-row"><span>开启 Windows 10 模式</span><button class="ios-switch" data-switch="windows10Mode"><span class="knob"></span></button></div>
+                            </div>
+                            <p style="font-size:12.5px; color:var(--text-secondary); line-height:1.7; padding: 0 4px;">
+                                概念版：顶部栏隐藏，底部出现 macOS 风格程序坞。<br>
+                                Windows 10 模式：主界面变为 Windows 10 桌面、任务栏和开始菜单。
+                            </p>
+                        </div>
+                        <div class="settings-panel" data-panel="about">
+                            <div class="panel-title">关于</div>
+                            <div class="about-panel">
+                                <div class="settings-app-icon">
+                                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                        <defs>
+                                            <linearGradient id="gearRing" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2e2e8"/><stop offset="0.5" stop-color="#c0c0c8"/><stop offset="1" stop-color="#9a9aa2"/></linearGradient>
+                                            <linearGradient id="gearBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8e8e96"/><stop offset="1" stop-color="#6a6a72"/></linearGradient>
+                                        </defs>
+                                        <rect x="4" y="4" width="92" height="92" rx="22" fill="url(#gearBg)"/>
+                                        <circle cx="50" cy="50" r="30" fill="url(#gearBg)"/>
+                                        <circle cx="50" cy="50" r="27" fill="url(#gearRing)" opacity="0.92"/>
+                                        <circle cx="50" cy="50" r="22" fill="url(#gearBg)"/>
+                                        <circle cx="50" cy="50" r="4" fill="#5a5a62"/>
+                                    </svg>
+                                </div>
+                                <p data-i18n="aboutText">这是一架国泰航空A330官方网站</p>
+                                <p class="version-text" id="versionAreaSettings">
+                                    <span class="version-label" data-i18n="versionLabel">版本号</span>
+                                    <span class="version-number" data-i18n="versionNumber">9.0.0</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-overlay" id="aboutOverlay">
+        <div class="about-modal">
+            <div class="about-title" data-i18n="about">关于</div>
+            <div class="about-info">
+                <p data-i18n="aboutText">这是一架国泰航空A330官方网站</p>
+                <p class="version-text" id="versionArea">
+                    <span class="version-label" data-i18n="versionLabel">版本号</span>
+                    <span class="version-number" data-i18n="versionNumber">9.0.0</span>
+                </p>
+            </div>
+            <button class="about-close-btn" id="aboutCloseBtn" data-i18n="close">关闭</button>
+        </div>
+    </div>
+
+    <div class="easter-egg-overlay" id="easterEggOverlay">
+        <div class="easter-egg-modal">
+            <div class="easter-egg-title">彩蛋</div>
+            <div class="easter-egg-content">
+                <img src="https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/IMG_6036.gif" alt="彩蛋">
+            </div>
+            <button class="easter-egg-close" id="easterEggClose">关闭</button>
+        </div>
+    </div>
+
+    <div class="calc-overlay" id="calcOverlay">
+        <div class="calc-modal" id="calcModal">
+            <div class="macos-window-bar">
+                <div class="macos-traffic-lights">
+                    <button class="traffic-light close" data-role="close"></button>
+                    <button class="traffic-light min" data-role="min"></button>
+                    <button class="traffic-light max" data-role="max"></button>
+                </div>
+                <div class="macos-window-title" data-i18n="calculator">计算器</div>
+            </div>
+            <div class="macos-window-content">
+                <div class="calc-display" id="calcDisplay">0</div>
+                <div class="calc-grid" id="calcGrid">
+                    <button class="calc-key clear" data-action="clear">C</button>
+                    <button class="calc-key" data-action="backspace">⌫</button>
+                    <button class="calc-key" data-action="percent">%</button>
+                    <button class="calc-key operator" data-action="divide">÷</button>
+                    <button class="calc-key" data-value="7">7</button>
+                    <button class="calc-key" data-value="8">8</button>
+                    <button class="calc-key" data-value="9">9</button>
+                    <button class="calc-key operator" data-action="multiply">×</button>
+                    <button class="calc-key" data-value="4">4</button>
+                    <button class="calc-key" data-value="5">5</button>
+                    <button class="calc-key" data-value="6">6</button>
+                    <button class="calc-key operator" data-action="subtract">−</button>
+                    <button class="calc-key" data-value="1">1</button>
+                    <button class="calc-key" data-value="2">2</button>
+                    <button class="calc-key" data-value="3">3</button>
+                    <button class="calc-key operator" data-action="add">+</button>
+                    <button class="calc-key zero" data-value="0">0</button>
+                    <button class="calc-key" data-value=".">.</button>
+                    <button class="calc-key equals" data-action="equals">=</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dialpad-overlay" id="dialpadOverlay">
+        <div class="dialpad-modal" id="dialpadModal">
+            <div class="macos-window-bar">
+                <div class="macos-traffic-lights">
+                    <button class="traffic-light close" data-role="close"></button>
+                    <button class="traffic-light min" data-role="min"></button>
+                    <button class="traffic-light max" data-role="max"></button>
+                </div>
+                <div class="macos-window-title" data-i18n="dialpad">拨号盘</div>
+            </div>
+            <div class="macos-window-content">
+                <div class="dialpad-display" id="dialpadDisplay"></div>
+                <div class="dialpad-grid" id="dialpadGrid"></div>
+                <div class="dial-actions">
+                    <button class="dial-action delete" id="dialDelete" data-i18n="delete">删除</button>
+                    <button class="dial-action close" id="dialClose" data-i18n="close">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="more-overlay" id="moreOverlay">
+        <div class="more-modal" id="moreModal">
+            <div class="macos-window-bar">
+                <div class="macos-traffic-lights">
+                    <button class="traffic-light close" data-role="close"></button>
+                    <button class="traffic-light min" data-role="min"></button>
+                    <button class="traffic-light max" data-role="max"></button>
+                </div>
+                <div class="macos-window-title" data-i18n="more">更多</div>
+            </div>
+            <div class="macos-window-content">
+                <div class="more-body">
+                    <div class="more-section">
+                        <div class="more-section-title">社交</div>
+                        <a href="https://space.bilibili.com/3546948707551378?spm_id_from=333.1007.0.0" target="_blank" class="more-link" data-i18n="bilibili">
+                            <span class="more-link-icon bili">📺</span>
+                            <span class="more-link-text" data-i18n="bilibili">我的 bilibili</span>
+                            <span class="more-link-arrow">↗</span>
+                        </a>
+                        <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=tR1lPtOfDCeQ7X7EhR0%2BtmavDrNaxJ831B8mpYbP4K0w5SXrYdRbSvWcoAnsoZ4%2F&busi_data=eyJncm91cENvZGUiOiIxMDgxMTA0MzM0IiwidG9rZW4iOiJPOVVsVUxlSDFCL0ZwMHJTSm5QdGZCall5Q3paNld6LzNrVjZ5UFpCOUNQL3R3Q1FiV3V4SmdtTWJUajRVVmZxIiwidWluIjoiMzk5NTQ5MzQ1MyJ9&data=2Di3RQOCRkJZft-Fq-4Mgb7-jYVOWyYNzbmHOgH74lXne5vtTYX4s-80Gs0ZUwhl6ZOFqssj1Ebn3lcV7YDnfg&svctype=4&tempid=h5_group_info" target="_blank" class="more-link" data-i18n="fanGroup">
+                            <span class="more-link-icon qq">💬</span>
+                            <span class="more-link-text" data-i18n="fanGroup">加入粉丝群</span>
+                            <span class="more-link-arrow">↗</span>
+                        </a>
+                    </div>
+                    <div class="more-section">
+                        <div class="more-section-title" data-i18n="download">下载</div>
+                        <a href="https://share.feijipan.com/s/Az5pwlUT" target="_blank" rel="noopener noreferrer" class="more-download">
+                            <span class="more-download-icon bili">📱</span>
+                            <span class="more-download-text" data-i18n="bilibiliDownload">bilibili国际版3.19.2</span>
+                            <span class="more-download-action" data-i18n="download">下载</span>
+                        </a>
+                        <a href="https://share.feijipan.com/s/2G5pg0br" target="_blank" rel="noopener noreferrer" class="more-download">
+                            <span class="more-download-icon netease">🎵</span>
+                            <span class="more-download-text" data-i18n="netEaseDownload">网易云音乐极速版1.0.0</span>
+                            <span class="more-download-action" data-i18n="download">下载</span>
+                        </a>
+                        <a href="https://share.feijipan.com/s/Wy8brXh9" target="_blank" rel="noopener noreferrer" class="more-download">
+                            <span class="more-download-icon kugou">🎧</span>
+                            <span class="more-download-text" data-i18n="kuGouDownload">酷狗概念版2.4.2</span>
+                            <span class="more-download-action" data-i18n="download">下载</span>
+                        </a>
+                        <a href="https://share.feijipan.com/s/Wy8brXh9" target="_blank" rel="noopener noreferrer" class="more-download">
+                            <span class="more-download-icon jianying">🎬</span>
+                            <span class="more-download-text" data-i18n="jianYingDownload">剪映5.7.0</span>
+                            <span class="more-download-action" data-i18n="download">下载</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="webmc-overlay" id="webmcOverlay">
+        <div class="webmc-modal" id="webmcModal">
+            <div class="macos-window-bar">
+                <div class="macos-traffic-lights">
+                    <button class="traffic-light close" data-role="close"></button>
+                    <button class="traffic-light min" data-role="min"></button>
+                    <button class="traffic-light max" data-role="max"></button>
+                </div>
+                <div class="macos-window-title" data-i18n="webMC">网页版MC</div>
+            </div>
+            <div class="macos-window-content">
+                <iframe class="webmc-iframe" id="webmcIframe" src="about:blank" allow="fullscreen" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="bilibili-overlay" id="bilibiliOverlay">
+        <div class="bilibili-modal" id="bilibiliModal">
+            <div class="macos-window-bar">
+                <div class="macos-traffic-lights">
+                    <button class="traffic-light close" data-role="close"></button>
+                    <button class="traffic-light min" data-role="min"></button>
+                    <button class="traffic-light max" data-role="max"></button>
+                </div>
+                <div class="macos-window-title">Bilibili</div>
+            </div>
+            <div class="macos-window-content">
+                <iframe class="bilibili-iframe" id="bilibiliIframe" src="about:blank" allow="fullscreen" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="website-overlay" id="websiteOverlay">
+        <div class="website-modal" id="websiteModal">
+            <div class="macos-window-bar">
+                <div class="macos-traffic-lights">
+                    <button class="traffic-light close" data-role="close"></button>
+                    <button class="traffic-light min" data-role="min"></button>
+                    <button class="traffic-light max" data-role="max"></button>
+                </div>
+                <div class="macos-window-title" data-i18n="officialWebsite">官方网站</div>
+            </div>
+            <div class="macos-window-content">
+                <iframe class="website-iframe" id="websiteIframe" src="about:blank" allow="fullscreen" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="ojang-overlay" id="ojangOverlay">
+        <div class="ojang-modal" id="ojangModal">
+            <div class="macos-window-bar">
+                <div class="macos-traffic-lights">
+                    <button class="traffic-light close" data-role="close"></button>
+                    <button class="traffic-light min" data-role="min"></button>
+                    <button class="traffic-light max" data-role="max"></button>
+                </div>
+                <div class="macos-window-title" data-i18n="ojangDownload">ojang pe下载</div>
+            </div>
+            <div class="macos-window-content">
+                <iframe class="ojang-iframe" id="ojangIframe" src="about:blank" allow="fullscreen" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="macos-dock" id="macosDock">
+        <div class="dock-item" data-app="website" title="官方网站">🏠<span class="dock-label" data-i18n="officialWebsite">官方网站</span></div>
+        <div class="dock-item" data-app="webmc" title="网页版MC">
+            <img class="dock-icon-img" src="https://raw.githubusercontent.com/Xinghe2711/xinghe2711.github.io/refs/heads/main/HEIF%E5%9B%BE%E5%83%8F%204.heic" alt="网页版MC" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span style="display:none">🌐</span>
+            <span class="dock-label" data-i18n="webMC">网页版MC</span>
+        </div>
+        <div class="dock-item" data-app="bilibili" title="Bilibili">
+            <img class="dock-icon-img" src="https://raw.githubusercontent.com/Xinghe2711/xinghe2711.github.io/refs/heads/main/HEIF%E5%9B%BE%E5%83%8F.heic" alt="Bilibili" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span style="display:none">📺</span>
+            <span class="dock-label">Bilibili</span>
+        </div>
+        <div class="dock-item" data-app="ojang" title="ojang pe下载">
+            <img class="dock-icon-img" src="https://raw.githubusercontent.com/Xinghe2711/xinghe2711.github.io/refs/heads/main/IMG_6292.jpg" alt="ojang pe下载" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span style="display:none">⬇️</span>
+            <span class="dock-label" data-i18n="ojangDownload">ojang pe下载</span>
+        </div>
+        <div class="dock-item" data-app="dialpad" title="拨号盘">
+            <img class="dock-icon-img" src="https://raw.githubusercontent.com/Xinghe2711/xinghe2711.github.io/refs/heads/main/HEIF%E5%9B%BE%E5%83%8F%205.heic" alt="拨号盘" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span style="display:none">☎️</span>
+            <span class="dock-label" data-i18n="dialpad">拨号盘</span>
+        </div>
+        <div class="dock-item" data-app="settings" title="设置">
+            <img class="dock-icon-img" src="https://raw.githubusercontent.com/Xinghe2711/xinghe2711.github.io/refs/heads/main/HEIF%E5%9B%BE%E5%83%8F%202.heic" alt="设置" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <svg style="display:none" viewBox="0 0 100 100" width="42" height="42" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="92" height="92" rx="22" fill="#6a6a72"/><circle cx="50" cy="50" r="22" fill="#8e8e96"/><circle cx="50" cy="50" r="4" fill="#5a5a62"/></svg>
+            <span class="dock-label" data-i18n="settings">设置</span>
+        </div>
+        <div class="dock-item" data-app="calc" title="计算器">
+            <img class="dock-icon-img" src="https://raw.githubusercontent.com/Xinghe2711/xinghe2711.github.io/refs/heads/main/HEIF%E5%9B%BE%E5%83%8F%203.heic" alt="计算器" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span style="display:none">🔢</span>
+            <span class="dock-label" data-i18n="calculator">计算器</span>
+        </div>
+        <div class="dock-item" data-app="more" title="更多">
+            <img class="dock-icon-img dock-icon-more-light" src="https://s3-new.macosicons.com/macosicons/parse/Apps__Tahoe_Light__try71dvRAx_iOS-8079e3499b.png" alt="更多" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <img class="dock-icon-img dock-icon-more-dark" src="https://s3-new.macosicons.com/macosicons/parse/low_res_Apps__Golden_Gate_Dark__m7MoJeaLur-162ff5ef5c.png?qq_aio_chat_type=3" alt="更多" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <span style="display:none">⋯</span>
+            <span class="dock-label" data-i18n="more">更多</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 id="mainTitle" data-i18n="welcome">欢迎来到<br>一架国泰航空A330官方网站</h1>
+        <div class="divider"></div>
+        <div class="button-group">
+            <a href="https://space.bilibili.com/3546948707551378?spm_id_from=333.1007.0.0" target="_blank" class="btn" data-i18n="bilibili">我的 bilibili</a>
+            <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=tR1lPtOfDCeQ7X7EhR0%2BtmavDrNaxJ831B8mpYbP4K0w5SXrYdRbSvWcoAnsoZ4%2F&busi_data=eyJncm91cENvZGUiOiIxMDgxMTA0MzM0IiwidG9rZW4iOiJPOVVsVUxlSDFCL0ZwMHJTSm5QdGZCall5Q3paNld6LzNrVjZ5UFpCOUNQL3R3Q1FiV3V4SmdtTWJUajRVVmZxIiwidWluIjoiMzk5NTQ5MzQ1MyJ9&data=2Di3RQOCRkJZft-Fq-4Mgb7-jYVOWyYNzbmHOgH74lXne5vtTYX4s-80Gs0ZUwhl6ZOFqssj1Ebn3lcV7YDnfg&svctype=4&tempid=h5_group_info" target="_blank" class="btn" data-i18n="fanGroup">加入粉丝群</a>
+        </div>
+        <div class="announcement">
+            <div class="announcement-title" data-i18n="announcementTitle">公告栏</div>
+            <div class="announcement-subtitle" data-i18n="announcementSubtitle">支持多语言</div>
+        </div>
+        <div class="download-group">
+            <div class="download-item">
+                <span class="download-text" data-i18n="bilibiliDownload">bilibili国际版3.19.2下载</span>
+                <a href="https://share.feijipan.com/s/Az5pwlUT" target="_blank" rel="noopener noreferrer" class="download-btn-action" data-i18n="download">下载</a>
+            </div>
+            <div class="download-item">
+                <span class="download-text" data-i18n="netEaseDownload">网易云音乐极速版1.0.0下载</span>
+                <a href="https://share.feijipan.com/s/2G5pg0br" target="_blank" rel="noopener noreferrer" class="download-btn-action" data-i18n="download">下载</a>
+            </div>
+            <div class="download-item">
+                <span class="download-text" data-i18n="kuGouDownload">酷狗概念版2.4.2下载</span>
+                <a href="https://share.feijipan.com/s/Wy8brXh9" target="_blank" rel="noopener noreferrer" class="download-btn-action" data-i18n="download">下载</a>
+            </div>
+            <div class="download-item">
+                <span class="download-text" data-i18n="jianYingDownload">剪映5.7.0下载</span>
+                <a href="https://share.feijipan.com/s/Wy8brXh9" target="_blank" rel="noopener noreferrer" class="download-btn-action" data-i18n="download">下载</a>
+            </div>
+        </div>
+        <div class="footer-note" data-i18n="footer">Cathay Pacific &bull; A330 &bull; Minimal</div>
+    </div>
+
+    <script>
+        (function() {
+            'use strict';
+
+            const $ = id => document.getElementById(id);
+            const settingsTrigger = $('settingsTrigger'), settingsOverlay = $('settingsOverlay');
+            const aboutTrigger = $('aboutTrigger'), aboutOverlay = $('aboutOverlay'), aboutCloseBtn = $('aboutCloseBtn');
+            const calcTrigger = $('calcTrigger'), calcOverlay = $('calcOverlay'), calcDisplay = $('calcDisplay');
+            const langSwitches = document.querySelectorAll('[data-switch="lang"]');
+            const wallpaperBtns = document.querySelectorAll('.wallpaper-btn');
+            const dialpadOverlay = $('dialpadOverlay'), dialpadDisplay = $('dialpadDisplay'), dialpadGrid = $('dialpadGrid');
+            const dialDelete = $('dialDelete'), dialClose = $('dialClose'), dialpadTrigger = $('dialpadTrigger');
+            const htmlElement = document.documentElement;
+            const mcMusic = $('mcMusic');
+            const versionArea = $('versionArea');
+            const versionAreaSettings = $('versionAreaSettings');
+            const easterEggOverlay = $('easterEggOverlay');
+            const easterEggClose = $('easterEggClose');
+            const macosDock = $('macosDock');
+            const settingsModal = $('settingsModal');
+            const calcModal = $('calcModal');
+            const dialpadModal = $('dialpadModal');
+            const moreOverlay = $('moreOverlay');
+            const moreModal = $('moreModal');
+            const webmcOverlay = $('webmcOverlay');
+            const webmcModal = $('webmcModal');
+            const webmcIframe = $('webmcIframe');
+            const bilibiliOverlay = $('bilibiliOverlay');
+            const bilibiliModal = $('bilibiliModal');
+            const bilibiliIframe = $('bilibiliIframe');
+            const websiteOverlay = $('websiteOverlay');
+            const websiteModal = $('websiteModal');
+            const websiteIframe = $('websiteIframe');
+            const ojangOverlay = $('ojangOverlay');
+            const ojangModal = $('ojangModal');
+            const ojangIframe = $('ojangIframe');
+            const navItems = document.querySelectorAll('.settings-nav-item');
+            const panels = document.querySelectorAll('.settings-panel');
+            const themeThumbs = document.querySelectorAll('.theme-thumb');
+            const simpleView = document.querySelector('.settings-simple-view');
+            const macosView = document.querySelector('.settings-macos-view');
+
+            let currentTheme = localStorage.getItem('theme') || 'light';
+            let currentLang = localStorage.getItem('lang') || 'zh-CN';
+            let glassEnabled = localStorage.getItem('glassMode') === 'enabled';
+            let liquidGlassEnabled = localStorage.getItem('liquidGlassMode') === 'enabled';
+            let retroEnabled = localStorage.getItem('retroMode') === 'enabled';
+            let minecraftEnabled = localStorage.getItem('minecraftMode') === 'enabled';
+            let conceptEnabled = localStorage.getItem('conceptMode') === 'enabled';
+            let windows10Enabled = localStorage.getItem('windows10Mode') === 'enabled';
+            let wallpaperChoice = localStorage.getItem('wallpaperChoice') || 'default';
+            let dialValue = '';
+            let calcFirstOperand = null, calcOperator = null, calcShouldResetDisplay = false;
+            let versionClickCount = 0;
+            let windowZCounter = 7000;
+            let webmcLoaded = false;
+            let bilibiliLoaded = false;
+            let websiteLoaded = false;
+            let ojangLoaded = false;
+            let win10ClockTimer = null;
+
+            const OJANG_URL = 'https://share.feijipan.com/s/Pw8OwB3N';
+
+            const MUSIC_URLS = [
+                'https://github.com/Xinghe2711/Xinghe2711.github.io/raw/refs/heads/main/Sweden%20(Caution%20%26%20Crisis%20Remix).mp3',
+                'https://github.com/Xinghe2711/Xinghe2711.github.io/raw/refs/heads/main/tsuki%20no%20koibumi.mp3',
+                'https://raw.githubusercontent.com/Xinghe2711/xinghe2711.github.io/refs/heads/main/Minecraft.mp3'
+            ];
+            let musicStarted = false;
+
+            const translations = {
+                'zh-CN': { siteTitle:'一架国泰航空A330官方网站', settings:'设置', menu:'菜单', calculator:'计算器', about:'关于', more:'更多', aboutText:'这是一架国泰航空A330官方网站', versionLabel:'版本号', versionNumber:'9.0.0', links:'链接', webMC:'网页版MC', ojangDownload:'ojang pe下载', dialpad:'拨号盘', officialWebsite:'官方网站', theme:'主题模式', darkMode:'深色模式', displayMode:'显示模式', glassMode:'透明模式', liquidGlassMode:'液态玻璃', retroMode:'怀旧模式', minecraftMode:'Minecraft模式', conceptMode:'概念版模式', wallpaper:'壁纸选择', defaultWallpaper:'默认', creeperSleep:'苦力怕娘睡觉', minecart:'矿车', tnt:'TNT！', blueArchive1:'蔚蓝档案1', rowing:'划船', blueArchive2:'蔚蓝档案2', waterDrop:'水滴壁纸', whiteWallpaper:'白色壁纸', language:'语言', close:'关闭', welcome:'欢迎来到<br>一架国泰航空A330官方网站', bilibili:'我的 bilibili', fanGroup:'加入粉丝群', announcementTitle:'公告栏', announcementSubtitle:'支持多语言', bilibiliDownload:'bilibili国际版3.19.2下载', netEaseDownload:'网易云音乐极速版1.0.0下载', kuGouDownload:'酷狗概念版2.4.2下载', jianYingDownload:'剪映5.7.0下载', download:'下载', delete:'删除', footer:'Cathay Pacific • A330 • Minimal' },
+                'zh-TW': { siteTitle:'一架國泰航空A330官方網站', settings:'設置', menu:'選單', calculator:'計算機', about:'關於', more:'更多', aboutText:'這是一架國泰航空A330官方網站', versionLabel:'版本號', versionNumber:'9.0.0', links:'連結', webMC:'網頁版MC', ojangDownload:'ojang pe下載', dialpad:'撥號盤', officialWebsite:'官方網站', theme:'主題模式', darkMode:'深色模式', displayMode:'顯示模式', glassMode:'透明模式', liquidGlassMode:'液態玻璃', retroMode:'懷舊模式', minecraftMode:'Minecraft模式', conceptMode:'概念版模式', wallpaper:'壁紙選擇', defaultWallpaper:'預設', creeperSleep:'苦力怕娘睡覺', minecart:'礦車', tnt:'TNT！', blueArchive1:'蔚藍檔案1', rowing:'划船', blueArchive2:'蔚藍檔案2', waterDrop:'水滴桌布', whiteWallpaper:'白色桌布', language:'語言', close:'關閉', welcome:'歡迎來到<br>一架國泰航空A330官方網站', bilibili:'我的 bilibili', fanGroup:'加入粉絲群', announcementTitle:'公告欄', announcementSubtitle:'支援多語言', bilibiliDownload:'bilibili國際版3.19.2下載', netEaseDownload:'網易雲音樂極速版1.0.0下載', kuGouDownload:'酷狗概念版2.4.2下載', jianYingDownload:'剪映5.7.0下載', download:'下載', delete:'刪除', footer:'Cathay Pacific • A330 • Minimal' },
+                'en': { siteTitle:'Cathay Pacific A330 Official Website', settings:'Settings', menu:'Menu', calculator:'Calculator', about:'About', more:'More', aboutText:'This is Cathay Pacific A330 Official Website', versionLabel:'Version', versionNumber:'9.0.0', links:'Links', webMC:'Web MC', ojangDownload:'ojang pe Download', dialpad:'Dial Pad', officialWebsite:'Official Website', theme:'Theme', darkMode:'Dark Mode', displayMode:'Display Mode', glassMode:'Glass Mode', liquidGlassMode:'Liquid Glass', retroMode:'Retro Mode', minecraftMode:'Minecraft Mode', conceptMode:'Concept Mode', wallpaper:'Wallpaper Selection', defaultWallpaper:'Default', creeperSleep:'Creeper Girl Sleeping', minecart:'Minecart', tnt:'TNT!', blueArchive1:'Blue Archive 1', rowing:'Rowing', blueArchive2:'Blue Archive 2', waterDrop:'Water Drop', whiteWallpaper:'White Wallpaper', language:'Language', close:'Close', welcome:'Welcome to<br>Cathay Pacific A330 Official Website', bilibili:'My bilibili', fanGroup:'Join Fan Group', announcementTitle:'Announcement', announcementSubtitle:'Supports multiple languages', bilibiliDownload:'bilibili International 3.19.2 Download', netEaseDownload:'NetEase Cloud Music Lite 1.0.0 Download', kuGouDownload:'KuGou Concept 2.4.2 Download', jianYingDownload:'JianYing 5.7.0 Download', download:'Download', delete:'Delete', footer:'Cathay Pacific • A330 • Minimal' },
+                'ja': { siteTitle:'キャセイパシフィックA330公式サイト', settings:'設定', menu:'メニュー', calculator:'電卓', about:'について', more:'その他', aboutText:'これはキャセイパシフィックA330公式サイトです', versionLabel:'バージョン', versionNumber:'9.0.0', links:'リンク', webMC:'ウェブ版MC', ojangDownload:'ojang peダウンロード', dialpad:'ダイヤルパッド', officialWebsite:'公式サイト', theme:'テーマ', darkMode:'ダークモード', displayMode:'表示モード', glassMode:'グラスモード', liquidGlassMode:'リキッドグラス', retroMode:'レトロモード', minecraftMode:'Minecraftモード', conceptMode:'コンセプトモード', wallpaper:'壁紙選択', defaultWallpaper:'デフォルト', creeperSleep:'クリーパー娘の睡眠', minecart:'トロッコ', tnt:'TNT！', blueArchive1:'ブルーアーカイブ1', rowing:'ボート', blueArchive2:'ブルーアーカイブ2', waterDrop:'水滴の壁紙', whiteWallpaper:'白い壁紙', language:'言語', close:'閉じる', welcome:'ようこそ<br>キャセイパシフィックA330公式サイトへ', bilibili:'My bilibili', fanGroup:'ファングループに参加', announcementTitle:'お知らせ', announcementSubtitle:'多言語対応', bilibiliDownload:'bilibili国際版3.19.2ダウンロード', netEaseDownload:'NetEase Cloud Music Lite 1.0.0ダウンロード', kuGouDownload:'KuGou Concept 2.4.2ダウンロード', jianYingDownload:'JianYing 5.7.0ダウンロード', download:'ダウンロード', delete:'削除', footer:'Cathay Pacific • A330 • Minimal' },
+                'ko': { siteTitle:'캐세이퍼시픽 A330 공식 웹사이트', settings:'설정', menu:'메뉴', calculator:'계산기', about:'정보', more:'더 보기', aboutText:'이것은 캐세이퍼시픽 A330 공식 웹사이트입니다', versionLabel:'버전', versionNumber:'9.0.0', links:'링크', webMC:'웹 MC', ojangDownload:'ojang pe 다운로드', dialpad:'다이얼 패드', officialWebsite:'공식 웹사이트', theme:'테마', darkMode:'다크 모드', displayMode:'디스플레이 모드', glassMode:'글래스 모드', liquidGlassMode:'리퀴드 글래스', retroMode:'레트로 모드', minecraftMode:'Minecraft 모드', conceptMode:'컨셉트 모드', wallpaper:'배경화면 선택', defaultWallpaper:'기본값', creeperSleep:'크리퍼 소녀 수면', minecart:'광차', tnt:'TNT!', blueArchive1:'블루 아카이브 1', rowing:'조정', blueArchive2:'블루 아카이브 2', waterDrop:'물방울 배경화면', whiteWallpaper:'흰색 배경화면', language:'언어', close:'닫기', welcome:'환영합니다<br>캐세이퍼시픽 A330 공식 웹사이트', bilibili:'My bilibili', fanGroup:'팬 그룹 가입', announcementTitle:'공지사항', announcementSubtitle:'다국어 지원', bilibiliDownload:'bilibili 국제판 3.19.2 다운로드', netEaseDownload:'NetEase Cloud Music Lite 1.0.0 다운로드', kuGouDownload:'KuGou Concept 2.4.2 다운로드', jianYingDownload:'JianYing 5.7.0 다운로드', download:'다운로드', delete:'삭제', footer:'Cathay Pacific • A330 • Minimal' }
+            };
+
+            const wallpaperURLs = {
+                default: '',
+                creeper_sleep: 'https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/IMG_6140.jpeg',
+                minecart: 'https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/IMG_6134.jpeg',
+                tnt: 'https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/IMG_6141.jpeg',
+                blue_archive_1: 'https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/IMG_4720.jpeg',
+                rowing: 'https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/F2C1C98699FC68E42D9EF476F436318B.png',
+                blue_archive_2: 'https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/IMG_4671.jpeg',
+                water_drop: 'https://static.applewalls.com/iOS/iOS%204/compress/iOS%204%20-%20100.webp?qq_aio_chat_type=3',
+                white: 'white'
+            };
+
+            const dialKeys = [
+                { digit:'1', sub:'' }, { digit:'2', sub:'ABC' }, { digit:'3', sub:'DEF' },
+                { digit:'4', sub:'GHI' }, { digit:'5', sub:'JKL' }, { digit:'6', sub:'MNO' },
+                { digit:'7', sub:'PQRS' }, { digit:'8', sub:'TUV' }, { digit:'9', sub:'WXYZ' },
+                { digit:'*', sub:'' }, { digit:'0', sub:'+' }, { digit:'#', sub:'' },
+            ];
+
+            function buildDialpad() {
+                dialKeys.forEach(key => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'dial-key';
+                    btn.innerHTML = key.digit + (key.sub ? '<span class="sub">'+key.sub+'</span>' : '');
+                    btn.addEventListener('click', () => { dialValue += key.digit; dialpadDisplay.textContent = dialValue; });
+                    dialpadGrid.appendChild(btn);
+                });
+            }
+
+            function applyWallpaper(url) {
+                if (windows10Enabled) return;
+                if (url === 'white') {
+                    document.body.style.backgroundImage = 'none';
+                    document.body.style.backgroundColor = '#ffffff';
+                } else if (url) {
+                    document.body.style.backgroundImage = 'url("' + url + '")';
+                    document.body.style.backgroundColor = '';
+                    document.body.style.backgroundSize = 'cover';
+                    document.body.style.backgroundPosition = 'center';
+                    document.body.style.backgroundAttachment = 'fixed';
+                } else {
+                    document.body.style.backgroundImage = '';
+                    document.body.style.backgroundColor = '';
+                    document.body.style.backgroundSize = '';
+                    document.body.style.backgroundPosition = '';
+                    document.body.style.backgroundAttachment = '';
+                }
+            }
+
+            function applyTranslations(lang) {
+                const t = translations[lang] || translations['zh-CN'];
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (t[key]) {
+                        if (el.id === 'mainTitle') el.innerHTML = t[key];
+                        else el.textContent = t[key];
+                    }
+                });
+                syncSwitches('lang', null, lang);
+            }
+
+            function playRandomMusic() {
+                if (musicStarted) return;
+                musicStarted = true;
+                const randomIndex = Math.floor(Math.random() * MUSIC_URLS.length);
+                mcMusic.src = MUSIC_URLS[randomIndex];
+                mcMusic.loop = true;
+                mcMusic.load();
+                mcMusic.play().catch(() => { musicStarted = false; });
+            }
+
+            function initMusicOnFirstInteraction() {
+                const startOnce = () => {
+                    playRandomMusic();
+                    document.removeEventListener('click', startOnce);
+                    document.removeEventListener('touchstart', startOnce);
+                    document.removeEventListener('keydown', startOnce);
+                };
+                document.addEventListener('click', startOnce, { once: true });
+                document.addEventListener('touchstart', startOnce, { once: true });
+                document.addEventListener('keydown', startOnce, { once: true });
+            }
+
+            function createRipple(e) {
+                const target = e.currentTarget;
+                if (!target || !target.getBoundingClientRect) return;
+                const rect = target.getBoundingClientRect();
+                let clientX, clientY;
+                if (e.touches && e.touches[0]) { clientX = e.touches[0].clientX; clientY = e.touches[0].clientY; }
+                else { clientX = e.clientX; clientY = e.clientY; }
+                if (clientX == null || clientY == null) { clientX = rect.left + rect.width/2; clientY = rect.top + rect.height/2; }
+                const relX = clientX - rect.left, relY = clientY - rect.top;
+                const dx = Math.max(relX, rect.width - relX), dy = Math.max(relY, rect.height - relY);
+                const radius = Math.sqrt(dx*dx + dy*dy), size = radius * 2;
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                ripple.style.width = size + 'px'; ripple.style.height = size + 'px';
+                ripple.style.left = relX + 'px'; ripple.style.top = relY + 'px';
+                target.appendChild(ripple);
+                ripple.addEventListener('animationend', () => ripple.remove());
+            }
+
+            function attachRippleToElements() {
+                const clickableSelector = '.menu-item, .btn, .download-btn-action, .ios-switch, .wallpaper-btn, .settings-close-btn, .about-close-btn, .calc-key, .dial-key, .dial-action, .easter-egg-close, .dock-item, .settings-nav-item, .theme-thumb, .more-link, .more-download, .more-download-action, [data-role="settings-close"]';
+                document.querySelectorAll(clickableSelector).forEach(el => {
+                    if (el.dataset.rippleBound === 'true') return;
+                    el.dataset.rippleBound = 'true';
+                    el.addEventListener('click', createRipple);
+                    el.addEventListener('touchstart', createRipple, { passive: true });
+                });
+            }
+
+            function syncSwitches(name, isOn, extra) {
+                document.querySelectorAll('[data-switch="' + name + '"]').forEach(sw => {
+                    if (name === 'lang') {
+                        sw.classList.toggle('on', sw.getAttribute('data-lang') === extra);
+                    } else {
+                        sw.classList.toggle('on', !!isOn);
+                    }
+                });
+            }
+
+            function updateSettingsView() {
+                if (!simpleView || !macosView) return;
+                if (conceptEnabled) {
+                    simpleView.style.display = 'none';
+                    macosView.style.display = 'flex';
+                } else {
+                    simpleView.style.display = 'block';
+                    macosView.style.display = 'none';
+                }
+            }
+
+            function checkFullscreenState() {
+                const anyFullscreen = document.querySelector('.settings-modal.fullscreen, .calc-modal.fullscreen, .dialpad-modal.fullscreen, .more-modal.fullscreen, .webmc-modal.fullscreen, .bilibili-modal.fullscreen, .website-modal.fullscreen, .ojang-modal.fullscreen');
+                const isActive = !!anyFullscreen;
+                const wasActive = document.body.classList.contains('fullscreen-active');
+                document.body.classList.toggle('fullscreen-active', isActive);
+                if (isActive !== wasActive || !isActive) {
+                    macosDock.classList.remove('dock-visible');
+                }
+            }
+
+            function bringToFront(modal) {
+                const overlay = modal.closest('.settings-overlay, .calc-overlay, .dialpad-overlay, .more-overlay, .webmc-overlay, .bilibili-overlay, .website-overlay, .ojang-overlay');
+                if (!overlay) return;
+                windowZCounter++;
+                overlay.style.zIndex = windowZCounter;
+                updateWin10TaskbarActiveState();
+            }
+
+            function closeTopWindow() {
+                const overlays = Array.from(document.querySelectorAll('.settings-overlay.visible, .calc-overlay.visible, .dialpad-overlay.visible, .more-overlay.visible, .webmc-overlay.visible, .bilibili-overlay.visible, .website-overlay.visible, .ojang-overlay.visible'));
+                if (overlays.length === 0) return;
+                let topOverlay = overlays[0];
+                let maxZ = parseInt(topOverlay.style.zIndex) || 0;
+                overlays.forEach(o => {
+                    const z = parseInt(o.style.zIndex) || 0;
+                    if (z > maxZ) { maxZ = z; topOverlay = o; }
+                });
+                topOverlay.classList.remove('visible');
+                const modal = topOverlay.querySelector('.settings-modal, .calc-modal, .dialpad-modal, .more-modal, .webmc-modal, .bilibili-modal, .website-modal, .ojang-modal');
+                if (modal) {
+                    modal.classList.remove('fullscreen');
+                    resetModalScale(modal);
+                }
+                checkFullscreenState();
+                updateWin10TaskbarActiveState();
+            }
+
+            function closeWindow(overlay, modal) {
+                overlay.classList.remove('visible');
+                if (modal) {
+                    modal.classList.remove('fullscreen');
+                    resetModalScale(modal);
+                }
+                if (overlay === webmcOverlay) { try { webmcIframe.src = 'about:blank'; } catch(e) {} webmcLoaded = false; }
+                if (overlay === bilibiliOverlay) { try { bilibiliIframe.src = 'about:blank'; } catch(e) {} bilibiliLoaded = false; }
+                if (overlay === websiteOverlay) { try { websiteIframe.src = 'about:blank'; } catch(e) {} websiteLoaded = false; }
+                if (overlay === ojangOverlay) { try { ojangIframe.src = 'about:blank'; } catch(e) {} ojangLoaded = false; }
+                checkFullscreenState();
+                updateWin10TaskbarActiveState();
+            }
+
+            document.addEventListener('click', (e) => {
+                if (!e.target || !e.target.closest) return;
+                const closeBtn = e.target.closest('.traffic-light.close');
+                if (!closeBtn) return;
+                e.stopPropagation();
+                e.preventDefault();
+                const overlay = closeBtn.closest('.settings-overlay, .calc-overlay, .dialpad-overlay, .more-overlay, .webmc-overlay, .bilibili-overlay, .website-overlay, .ojang-overlay');
+                if (!overlay) return;
+                const modal = overlay.querySelector('.settings-modal, .calc-modal, .dialpad-modal, .more-modal, .webmc-modal, .bilibili-modal, .website-modal, .ojang-modal');
+                closeWindow(overlay, modal);
+            }, true);
+
+            document.addEventListener('click', (e) => {
+                if (!e.target || !e.target.closest) return;
+                const maxBtn = e.target.closest('.traffic-light.max');
+                if (!maxBtn) return;
+                e.stopPropagation();
+                e.preventDefault();
+                const modal = maxBtn.closest('.settings-modal, .calc-modal, .dialpad-modal, .more-modal, .webmc-modal, .bilibili-modal, .website-modal, .ojang-modal');
+                if (!modal) return;
+                modal.classList.toggle('fullscreen');
+                checkFullscreenState();
+            }, true);
+
+            document.addEventListener('click', (e) => {
+                if (!e.target || !e.target.closest) return;
+                const minBtn = e.target.closest('.traffic-light.min');
+                if (!minBtn) return;
+                e.stopPropagation();
+                e.preventDefault();
+                const overlay = minBtn.closest('.settings-overlay, .calc-overlay, .dialpad-overlay, .more-overlay, .webmc-overlay, .bilibili-overlay, .website-overlay, .ojang-overlay');
+                if (!overlay) return;
+                overlay.classList.remove('visible');
+                const modal = overlay.querySelector('.settings-modal, .calc-modal, .dialpad-modal, .more-modal, .webmc-modal, .bilibili-modal, .website-modal, .ojang-modal');
+                if (modal) { modal.classList.remove('fullscreen'); resetModalScale(modal); }
+                checkFullscreenState();
+                updateWin10TaskbarActiveState();
+            }, true);
+
+            function updateUI() {
+                document.body.classList.remove('glass-mode','liquid-glass-mode','retro-mode','minecraft-mode');
+                if (!windows10Enabled) {
+                    if (minecraftEnabled) document.body.classList.add('minecraft-mode');
+                    else if (retroEnabled) document.body.classList.add('retro-mode');
+                    else if (liquidGlassEnabled) document.body.classList.add('liquid-glass-mode');
+                    else if (glassEnabled) document.body.classList.add('glass-mode');
+                }
+
+                document.body.classList.toggle('concept-mode', conceptEnabled);
+                document.body.classList.toggle('windows10-mode', windows10Enabled);
+
+                htmlElement.setAttribute('data-theme', currentTheme);
+
+                syncSwitches('themeDark', currentTheme === 'dark');
+                syncSwitches('glassMode', glassEnabled && !minecraftEnabled);
+                syncSwitches('liquidGlassMode', liquidGlassEnabled && !minecraftEnabled);
+                syncSwitches('retroMode', retroEnabled && !minecraftEnabled);
+                syncSwitches('minecraftMode', minecraftEnabled);
+                syncSwitches('conceptMode', conceptEnabled);
+                syncSwitches('windows10Mode', windows10Enabled);
+                syncSwitches('lang', null, currentLang);
+
+                themeThumbs.forEach(t => {
+                    t.classList.toggle('active', t.getAttribute('data-theme-choice') === currentTheme);
+                });
+
+                wallpaperBtns.forEach(btn => {
+                    btn.classList.toggle('active', btn.getAttribute('data-wallpaper') === wallpaperChoice);
+                });
+
+                applyTranslations(currentLang);
+
+                if (!windows10Enabled && !minecraftEnabled && !retroEnabled) {
+                    applyWallpaper(wallpaperURLs[wallpaperChoice] || '');
+                }
+
+                if (!conceptEnabled && !windows10Enabled) {
+                    if (webmcOverlay.classList.contains('visible')) {
+                        webmcOverlay.classList.remove('visible');
+                        try { webmcIframe.src = 'about:blank'; } catch(e) {}
+                        webmcLoaded = false;
+                    }
+                    if (bilibiliOverlay.classList.contains('visible')) {
+                        bilibiliOverlay.classList.remove('visible');
+                        try { bilibiliIframe.src = 'about:blank'; } catch(e) {}
+                        bilibiliLoaded = false;
+                    }
+                    if (websiteOverlay.classList.contains('visible')) {
+                        websiteOverlay.classList.remove('visible');
+                        try { websiteIframe.src = 'about:blank'; } catch(e) {}
+                        websiteLoaded = false;
+                    }
+                    if (ojangOverlay.classList.contains('visible')) {
+                        ojangOverlay.classList.remove('visible');
+                        try { ojangIframe.src = 'about:blank'; } catch(e) {}
+                        ojangLoaded = false;
+                    }
+                }
+
+                updateSettingsView();
+                checkFullscreenState();
+                attachRippleToElements();
+
+                if (windows10Enabled) {
+                    startWin10Clock();
+                } else {
+                    stopWin10Clock();
+                    const sm = document.getElementById('win10StartMenu');
+                    if (sm) sm.classList.remove('open');
+                    const sb = document.getElementById('win10StartBtn');
+                    if (sb) sb.classList.remove('active');
+                }
+            }
+
+            function closeMenuIfOpen() {
+                const m = document.getElementById('sidebarMenu');
+                const o = document.getElementById('menuOverlay');
+                const b = document.getElementById('hamburgerBtn');
+                if (m) m.classList.remove('open');
+                if (o) o.classList.remove('visible');
+                if (b) b.classList.remove('active');
+            }
+
+            /* ============ 双指缩放 ============ */
+            const modalScales = new WeakMap();
+            const MIN_SCALE = 0.4;
+            const MAX_SCALE = 3;
+            let pinchStartDist = 0;
+            let pinchStartScale = 1;
+            let pinchTargetModal = null;
+
+            function getModalFromTouchPoint(clientX, clientY) {
+                const el = document.elementFromPoint(clientX, clientY);
+                if (!el || !el.closest) return null;
+                return el.closest('.settings-modal, .calc-modal, .dialpad-modal, .more-modal, .webmc-modal, .bilibili-modal, .website-modal, .ojang-modal');
+            }
+
+            function setModalScale(modal, scale) {
+                const clamped = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale));
+                modalScales.set(modal, clamped);
+                modal.style.setProperty('transform', 'scale(' + clamped + ')', 'important');
+                if (Math.abs(clamped - 1) < 0.001) {
+                    modal.style.removeProperty('transform');
+                    modalScales.delete(modal);
+                }
+            }
+
+            function resetModalScale(modal) {
+                if (!modal) return;
+                modal.style.removeProperty('transform');
+                modalScales.delete(modal);
+            }
+
+            document.addEventListener('touchstart', function(e) {
+                if (!conceptEnabled) return;
+                if (e.touches.length !== 2) { pinchTargetModal = null; return; }
+                let modal = getModalFromTouchPoint(e.touches[0].clientX, e.touches[0].clientY);
+                if (!modal) modal = getModalFromTouchPoint(e.touches[1].clientX, e.touches[1].clientY);
+                if (!modal) { pinchTargetModal = null; return; }
+                pinchTargetModal = modal;
+                const dx = e.touches[0].clientX - e.touches[1].clientX;
+                const dy = e.touches[0].clientY - e.touches[1].clientY;
+                pinchStartDist = Math.hypot(dx, dy) || 1;
+                pinchStartScale = modalScales.get(modal) || 1;
+            }, { passive: true });
+
+            document.addEventListener('touchmove', function(e) {
+                if (!conceptEnabled || !pinchTargetModal) return;
+                if (e.touches.length !== 2) return;
+                const dx = e.touches[0].clientX - e.touches[1].clientX;
+                const dy = e.touches[0].clientY - e.touches[1].clientY;
+                const dist = Math.hypot(dx, dy);
+                if (dist < 1) return;
+                const ratio = dist / pinchStartDist;
+                setModalScale(pinchTargetModal, pinchStartScale * ratio);
+                e.preventDefault();
+            }, { passive: false });
+
+            document.addEventListener('touchend', function(e) {
+                if (e.touches.length < 2) pinchTargetModal = null;
+            }, { passive: true });
+
+            document.addEventListener('touchcancel', function() { pinchTargetModal = null; }, { passive: true });
+
+            const allModalElements = [settingsModal, calcModal, dialpadModal, moreModal, webmcModal, bilibiliModal, websiteModal, ojangModal];
+            function resetAllModalScales() { allModalElements.forEach(m => resetModalScale(m)); }
+
+            function closeAllModals(includeConcept) {
+                if ((conceptEnabled || windows10Enabled) && !includeConcept) return;
+                settingsOverlay.classList.remove('visible');
+                aboutOverlay.classList.remove('visible');
+                dialpadOverlay.classList.remove('visible');
+                calcOverlay.classList.remove('visible');
+                easterEggOverlay.classList.remove('visible');
+                moreOverlay.classList.remove('visible');
+                webmcOverlay.classList.remove('visible');
+                bilibiliOverlay.classList.remove('visible');
+                websiteOverlay.classList.remove('visible');
+                ojangOverlay.classList.remove('visible');
+                try { webmcIframe.src = 'about:blank'; } catch(e) {}
+                try { bilibiliIframe.src = 'about:blank'; } catch(e) {}
+                try { websiteIframe.src = 'about:blank'; } catch(e) {}
+                try { ojangIframe.src = 'about:blank'; } catch(e) {}
+                webmcLoaded = false;
+                bilibiliLoaded = false;
+                websiteLoaded = false;
+                ojangLoaded = false;
+                resetAllModalScales();
+            }
+
+            function makeDraggable(win) {
+                const handle = win.querySelector('.macos-window-bar');
+                if (!handle) return;
+                let dragging = false, startX = 0, startY = 0, startLeft = 0, startTop = 0;
+                function onStart(e) {
+                    if (e.touches && e.touches.length > 1) return;
+                    if (win.classList.contains('fullscreen')) return;
+                    if (e.target.closest && e.target.closest('.traffic-light')) return;
+                    if (e.target.closest && e.target.closest('input, textarea, iframe')) return;
+                    dragging = true;
+                    const p = e.touches ? e.touches[0] : e;
+                    startX = p.clientX; startY = p.clientY;
+                    const rect = win.getBoundingClientRect();
+                    startLeft = rect.left; startTop = rect.top;
+                    document.addEventListener('mousemove', onMove);
+                    document.addEventListener('touchmove', onMove, { passive: false });
+                    document.addEventListener('mouseup', onEnd);
+                    document.addEventListener('touchend', onEnd);
+                    e.preventDefault();
+                }
+                function onMove(e) {
+                    if (!dragging) return;
+                    const p = e.touches ? e.touches[0] : e;
+                    let newLeft = startLeft + (p.clientX - startX);
+                    let newTop = startTop + (p.clientY - startY);
+                    newLeft = Math.max(-win.offsetWidth + 100, Math.min(window.innerWidth - 100, newLeft));
+                    newTop = Math.max(0, Math.min(window.innerHeight - 60, newTop));
+                    win.style.left = newLeft + 'px';
+                    win.style.top = newTop + 'px';
+                    e.preventDefault();
+                }
+                function onEnd() {
+                    dragging = false;
+                    document.removeEventListener('mousemove', onMove);
+                    document.removeEventListener('touchmove', onMove);
+                    document.removeEventListener('mouseup', onEnd);
+                    document.removeEventListener('touchend', onEnd);
+                }
+                handle.addEventListener('mousedown', onStart);
+                handle.addEventListener('touchstart', onStart, { passive: false });
+            }
+
+            function positionWindow(win, offsetIndex) {
+                const w = win.offsetWidth || 340, h = win.offsetHeight || 400;
+                const offset = Math.min(offsetIndex, 6) * 32;
+                const baseLeft = Math.max(20, (window.innerWidth - w) / 2 - 80);
+                const baseTop = Math.max(20, (window.innerHeight - h) / 2 - 60);
+                win.style.left = (baseLeft + offset) + 'px';
+                win.style.top = (baseTop + offset) + 'px';
+                win.dataset.positioned = 'true';
+            }
+
+            function openWindow(overlay, modal) {
+                if (conceptEnabled || windows10Enabled) {
+                    if (overlay.classList.contains('visible')) {
+                        bringToFront(modal);
+                        return;
+                    }
+                    const openCount = document.querySelectorAll('.settings-overlay.visible, .calc-overlay.visible, .dialpad-overlay.visible, .more-overlay.visible, .webmc-overlay.visible, .bilibili-overlay.visible, .website-overlay.visible, .ojang-overlay.visible').length;
+                    overlay.classList.add('visible');
+                    windowZCounter++;
+                    overlay.style.zIndex = windowZCounter;
+                    positionWindow(modal, openCount);
+                    modal.classList.remove('macos-window-opening');
+                    void modal.offsetWidth;
+                    modal.classList.add('macos-window-opening');
+                    setTimeout(() => modal.classList.remove('macos-window-opening'), 500);
+                    updateWin10TaskbarActiveState();
+                } else {
+                    closeAllModals(true);
+                    overlay.classList.add('visible');
+                }
+            }
+
+            function openWebmcWindow() {
+                if (!webmcLoaded) { webmcIframe.src = 'https://playmcjscc.pages.dev/1.8.8'; webmcLoaded = true; }
+                openWindow(webmcOverlay, webmcModal);
+            }
+            function openBilibiliWindow() {
+                if (!bilibiliLoaded) { bilibiliIframe.src = 'https://www.bilibili.com'; bilibiliLoaded = true; }
+                openWindow(bilibiliOverlay, bilibiliModal);
+            }
+            function openWebsiteWindow() {
+                if (!websiteLoaded) { websiteIframe.src = 'https://xinghe2711.github.io'; websiteLoaded = true; }
+                openWindow(websiteOverlay, websiteModal);
+            }
+            function openOjangWindow() {
+                if (!ojangLoaded) { ojangIframe.src = OJANG_URL; ojangLoaded = true; }
+                openWindow(ojangOverlay, ojangModal);
+            }
+            function openSettingsWindow() { openWindow(settingsOverlay, settingsModal); updateUI(); }
+            function openCalcWindow() { openWindow(calcOverlay, calcModal); }
+            function openDialpadWindow() { openWindow(dialpadOverlay, dialpadModal); }
+            function openMoreWindow() { openWindow(moreOverlay, moreModal); }
+
+            [settingsModal, calcModal, dialpadModal, moreModal, webmcModal, bilibiliModal, websiteModal, ojangModal].forEach(win => {
+                makeDraggable(win);
+                win.addEventListener('mousedown', (e) => {
+                    if (!conceptEnabled && !windows10Enabled) return;
+                    if (e.target.closest && e.target.closest('.traffic-light')) return;
+                    bringToFront(win);
+                });
+                win.addEventListener('touchstart', (e) => {
+                    if (!conceptEnabled && !windows10Enabled) return;
+                    if (e.target.closest && e.target.closest('.traffic-light')) return;
+                    bringToFront(win);
+                }, { passive: true });
+            });
+
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const panelKey = item.getAttribute('data-panel');
+                    navItems.forEach(n => n.classList.toggle('active', n === item));
+                    panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-panel') === panelKey));
+                });
+            });
+
+            themeThumbs.forEach(t => {
+                t.addEventListener('click', () => {
+                    const choice = t.getAttribute('data-theme-choice');
+                    if (choice !== currentTheme) {
+                        currentTheme = choice;
+                        localStorage.setItem('theme', currentTheme);
+                        updateUI();
+                    }
+                });
+            });
+
+            document.querySelectorAll('[data-role="settings-close"]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    settingsOverlay.classList.remove('visible');
+                    resetModalScale(settingsModal);
+                    updateWin10TaskbarActiveState();
+                });
+            });
+
+            settingsTrigger.addEventListener('click', () => { closeMenuIfOpen(); openSettingsWindow(); });
+            settingsOverlay.addEventListener('click', e => {
+                if(!conceptEnabled && !windows10Enabled && e.target === settingsOverlay) {
+                    settingsOverlay.classList.remove('visible');
+                    resetModalScale(settingsModal);
+                }
+            });
+
+            aboutTrigger.addEventListener('click', () => { closeAllModals(true); closeMenuIfOpen(); aboutOverlay.classList.add('visible'); });
+            aboutCloseBtn.addEventListener('click', () => aboutOverlay.classList.remove('visible'));
+            aboutOverlay.addEventListener('click', e => { if(e.target === aboutOverlay) aboutOverlay.classList.remove('visible'); });
+
+            calcTrigger.addEventListener('click', () => { closeMenuIfOpen(); openCalcWindow(); });
+            calcOverlay.addEventListener('click', e => {
+                if(!conceptEnabled && !windows10Enabled && e.target === calcOverlay) {
+                    calcOverlay.classList.remove('visible');
+                    resetModalScale(calcModal);
+                }
+            });
+
+            dialpadTrigger.addEventListener('click', () => { closeMenuIfOpen(); openDialpadWindow(); });
+            dialClose.addEventListener('click', () => {
+                dialpadOverlay.classList.remove('visible');
+                dialValue = '';
+                dialpadDisplay.textContent = '';
+                resetModalScale(dialpadModal);
+                updateWin10TaskbarActiveState();
+            });
+            dialDelete.addEventListener('click', () => { dialValue = dialValue.slice(0,-1); dialpadDisplay.textContent = dialValue; });
+            dialpadOverlay.addEventListener('click', e => {
+                if(!conceptEnabled && !windows10Enabled && e.target === dialpadOverlay) {
+                    dialpadOverlay.classList.remove('visible');
+                    resetModalScale(dialpadModal);
+                }
+            });
+
+            moreOverlay.addEventListener('click', e => { if(!conceptEnabled && !windows10Enabled && e.target === moreOverlay) { moreOverlay.classList.remove('visible'); resetModalScale(moreModal); } });
+            webmcOverlay.addEventListener('click', e => { if(!conceptEnabled && !windows10Enabled && e.target === webmcOverlay) { webmcOverlay.classList.remove('visible'); resetModalScale(webmcModal); } });
+            bilibiliOverlay.addEventListener('click', e => { if(!conceptEnabled && !windows10Enabled && e.target === bilibiliOverlay) { bilibiliOverlay.classList.remove('visible'); resetModalScale(bilibiliModal); } });
+            websiteOverlay.addEventListener('click', e => { if(!conceptEnabled && !windows10Enabled && e.target === websiteOverlay) { websiteOverlay.classList.remove('visible'); resetModalScale(websiteModal); } });
+            ojangOverlay.addEventListener('click', e => { if(!conceptEnabled && !windows10Enabled && e.target === ojangOverlay) { ojangOverlay.classList.remove('visible'); resetModalScale(ojangModal); } });
+
+            macosDock.addEventListener('click', e => {
+                const item = e.target.closest('.dock-item');
+                if (!item) return;
+                const app = item.getAttribute('data-app');
+                if (app === 'website') { if (conceptEnabled) openWebsiteWindow(); else window.open('https://xinghe2711.github.io', '_blank'); return; }
+                if (app === 'webmc') { if (conceptEnabled) openWebmcWindow(); else window.open('https://playmcjscc.pages.dev/1.8.8', '_blank'); return; }
+                if (app === 'bilibili') { if (conceptEnabled) openBilibiliWindow(); else window.open('https://www.bilibili.com', '_blank'); return; }
+                if (app === 'ojang') { if (conceptEnabled) openOjangWindow(); else window.open(OJANG_URL, '_blank'); return; }
+                if (app === 'settings') { openSettingsWindow(); return; }
+                if (app === 'calc') { openCalcWindow(); return; }
+                if (app === 'dialpad') { openDialpadWindow(); return; }
+                if (app === 'more') { openMoreWindow(); return; }
+            });
+            macosDock.addEventListener('touchstart', e => {
+                const item = e.target.closest('.dock-item');
+                if (item) item.classList.add('touch-active');
+            }, { passive: true });
+            macosDock.addEventListener('touchend', () => {
+                document.querySelectorAll('.dock-item.touch-active').forEach(el => el.classList.remove('touch-active'));
+            });
+
+            document.addEventListener('keydown', e => {
+                if(e.key === 'Escape') {
+                    closeMenuIfOpen();
+                    const sm = document.getElementById('win10StartMenu');
+                    if (sm && sm.classList.contains('open')) { sm.classList.remove('open'); const sb = document.getElementById('win10StartBtn'); if (sb) sb.classList.remove('active'); return; }
+                    if (conceptEnabled || windows10Enabled) closeTopWindow();
+                    else closeAllModals(true);
+                }
+            });
+
+            document.querySelectorAll('[data-switch="themeDark"]').forEach(sw => {
+                sw.addEventListener('click', () => {
+                    currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    localStorage.setItem('theme', currentTheme);
+                    updateUI();
+                });
+            });
+            document.querySelectorAll('[data-switch="glassMode"]').forEach(sw => {
+                sw.addEventListener('click', () => {
+                    glassEnabled = !glassEnabled;
+                    localStorage.setItem('glassMode', glassEnabled ? 'enabled' : 'disabled');
+                    if (glassEnabled) {
+                        liquidGlassEnabled = false; localStorage.setItem('liquidGlassMode','disabled');
+                        retroEnabled = false; localStorage.setItem('retroMode','disabled');
+                        minecraftEnabled = false; localStorage.setItem('minecraftMode','disabled');
+                        conceptEnabled = false; localStorage.setItem('conceptMode','disabled');
+                        windows10Enabled = false; localStorage.setItem('windows10Mode','disabled');
+                    }
+                    updateUI();
+                });
+            });
+            document.querySelectorAll('[data-switch="liquidGlassMode"]').forEach(sw => {
+                sw.addEventListener('click', () => {
+                    liquidGlassEnabled = !liquidGlassEnabled;
+                    localStorage.setItem('liquidGlassMode', liquidGlassEnabled ? 'enabled' : 'disabled');
+                    if (liquidGlassEnabled) {
+                        glassEnabled = false; localStorage.setItem('glassMode','disabled');
+                        retroEnabled = false; localStorage.setItem('retroMode','disabled');
+                        minecraftEnabled = false; localStorage.setItem('minecraftMode','disabled');
+                        conceptEnabled = false; localStorage.setItem('conceptMode','disabled');
+                        windows10Enabled = false; localStorage.setItem('windows10Mode','disabled');
+                    }
+                    updateUI();
+                });
+            });
+            document.querySelectorAll('[data-switch="retroMode"]').forEach(sw => {
+                sw.addEventListener('click', () => {
+                    retroEnabled = !retroEnabled;
+                    localStorage.setItem('retroMode', retroEnabled ? 'enabled' : 'disabled');
+                    if (retroEnabled) {
+                        glassEnabled = false; localStorage.setItem('glassMode','disabled');
+                        liquidGlassEnabled = false; localStorage.setItem('liquidGlassMode','disabled');
+                        minecraftEnabled = false; localStorage.setItem('minecraftMode','disabled');
+                        conceptEnabled = false; localStorage.setItem('conceptMode','disabled');
+                        windows10Enabled = false; localStorage.setItem('windows10Mode','disabled');
+                    }
+                    updateUI();
+                });
+            });
+            document.querySelectorAll('[data-switch="minecraftMode"]').forEach(sw => {
+                sw.addEventListener('click', () => {
+                    minecraftEnabled = !minecraftEnabled;
+                    localStorage.setItem('minecraftMode', minecraftEnabled ? 'enabled' : 'disabled');
+                    if (minecraftEnabled) {
+                        glassEnabled = false; localStorage.setItem('glassMode','disabled');
+                        liquidGlassEnabled = false; localStorage.setItem('liquidGlassMode','disabled');
+                        retroEnabled = false; localStorage.setItem('retroMode','disabled');
+                        conceptEnabled = false; localStorage.setItem('conceptMode','disabled');
+                        windows10Enabled = false; localStorage.setItem('windows10Mode','disabled');
+                    }
+                    updateUI();
+                });
+            });
+            document.querySelectorAll('[data-switch="conceptMode"]').forEach(sw => {
+                sw.addEventListener('click', () => {
+                    conceptEnabled = !conceptEnabled;
+                    localStorage.setItem('conceptMode', conceptEnabled ? 'enabled' : 'disabled');
+                    if (conceptEnabled) {
+                        windows10Enabled = false; localStorage.setItem('windows10Mode','disabled');
+                    }
+                    if (!conceptEnabled) {
+                        [settingsOverlay, calcOverlay, dialpadOverlay, moreOverlay, webmcOverlay, bilibiliOverlay, websiteOverlay, ojangOverlay].forEach(ov => ov.classList.remove('visible'));
+                        [settingsModal, calcModal, dialpadModal, moreModal, webmcModal, bilibiliModal, websiteModal, ojangModal].forEach(w => w.classList.remove('fullscreen'));
+                        try { webmcIframe.src = 'about:blank'; } catch(e) {}
+                        try { bilibiliIframe.src = 'about:blank'; } catch(e) {}
+                        try { websiteIframe.src = 'about:blank'; } catch(e) {}
+                        try { ojangIframe.src = 'about:blank'; } catch(e) {}
+                        webmcLoaded = false; bilibiliLoaded = false; websiteLoaded = false; ojangLoaded = false;
+                        macosDock.classList.remove('dock-visible');
+                        resetAllModalScales();
+                    }
+                    updateUI();
+                });
+            });
+            document.querySelectorAll('[data-switch="windows10Mode"]').forEach(sw => {
+                sw.addEventListener('click', () => {
+                    windows10Enabled = !windows10Enabled;
+                    localStorage.setItem('windows10Mode', windows10Enabled ? 'enabled' : 'disabled');
+                    if (windows10Enabled) {
+                        conceptEnabled = false; localStorage.setItem('conceptMode','disabled');
+                        glassEnabled = false; localStorage.setItem('glassMode','disabled');
+                        liquidGlassEnabled = false; localStorage.setItem('liquidGlassMode','disabled');
+                        retroEnabled = false; localStorage.setItem('retroMode','disabled');
+                        minecraftEnabled = false; localStorage.setItem('minecraftMode','disabled');
+                        // 打开一个欢迎窗口
+                        setTimeout(() => { openSettingsWindow(); }, 100);
+                    } else {
+                        [settingsOverlay, calcOverlay, dialpadOverlay, moreOverlay, webmcOverlay, bilibiliOverlay, websiteOverlay, ojangOverlay].forEach(ov => ov.classList.remove('visible'));
+                        [settingsModal, calcModal, dialpadModal, moreModal, webmcModal, bilibiliModal, websiteModal, ojangModal].forEach(w => w.classList.remove('fullscreen'));
+                        try { webmcIframe.src = 'about:blank'; } catch(e) {}
+                        try { bilibiliIframe.src = 'about:blank'; } catch(e) {}
+                        try { websiteIframe.src = 'about:blank'; } catch(e) {}
+                        try { ojangIframe.src = 'about:blank'; } catch(e) {}
+                        webmcLoaded = false; bilibiliLoaded = false; websiteLoaded = false; ojangLoaded = false;
+                        resetAllModalScales();
+                    }
+                    updateUI();
+                });
+            });
+            langSwitches.forEach(sw => {
+                sw.addEventListener('click', () => {
+                    const lang = sw.getAttribute('data-lang');
+                    if (currentLang !== lang) {
+                        currentLang = lang;
+                        localStorage.setItem('lang', lang);
+                        htmlElement.setAttribute('lang', lang);
+                        updateUI();
+                    }
+                });
+            });
+
+            wallpaperBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    wallpaperChoice = btn.getAttribute('data-wallpaper');
+                    localStorage.setItem('wallpaperChoice', wallpaperChoice);
+                    minecraftEnabled = false; retroEnabled = false;
+                    localStorage.setItem('minecraftMode', 'disabled');
+                    localStorage.setItem('retroMode', 'disabled');
+                    updateUI();
+                });
+            });
+
+            function triggerEasterEgg() {
+                versionClickCount++;
+                if (versionClickCount >= 7) { versionClickCount = 0; easterEggOverlay.classList.add('visible'); }
+            }
+            if (versionArea) versionArea.addEventListener('click', triggerEasterEgg);
+            if (versionAreaSettings) versionAreaSettings.addEventListener('click', triggerEasterEgg);
+            easterEggClose.addEventListener('click', () => easterEggOverlay.classList.remove('visible'));
+            easterEggOverlay.addEventListener('click', e => { if (e.target === easterEggOverlay) easterEggOverlay.classList.remove('visible'); });
+
+            let swipeStartY = 0, swipeStartX = 0, swipeStartTime = 0, swipeHandled = false;
+            document.addEventListener('touchstart', (e) => {
+                if (!conceptEnabled || !document.body.classList.contains('fullscreen-active')) return;
+                const t = e.touches[0];
+                swipeStartY = t.clientY; swipeStartX = t.clientX; swipeStartTime = Date.now(); swipeHandled = false;
+            }, { passive: true });
+            document.addEventListener('touchmove', (e) => {
+                if (!conceptEnabled || !document.body.classList.contains('fullscreen-active') || swipeHandled) return;
+                const t = e.touches[0];
+                const deltaY = swipeStartY - t.clientY;
+                if (swipeStartY > window.innerHeight - 80 && deltaY > 25) { macosDock.classList.add('dock-visible'); swipeHandled = true; }
+            }, { passive: true });
+            document.addEventListener('touchend', (e) => {
+                if (!conceptEnabled || !document.body.classList.contains('fullscreen-active')) return;
+                const t = e.changedTouches[0];
+                const deltaY = swipeStartY - t.clientY;
+                const deltaTime = Date.now() - swipeStartTime;
+                if (deltaY > 30 && swipeStartY > window.innerHeight - 80 && deltaTime < 600) macosDock.classList.add('dock-visible');
+                if (deltaY < -30 && macosDock.classList.contains('dock-visible') && swipeStartY > window.innerHeight - 140 && deltaTime < 600) macosDock.classList.remove('dock-visible');
+            }, { passive: true });
+            document.addEventListener('mousemove', (e) => {
+                if (!conceptEnabled || !document.body.classList.contains('fullscreen-active')) return;
+                if (e.clientY > window.innerHeight - 20) macosDock.classList.add('dock-visible');
+            });
+            let dockAutoHideTimer = null;
+            macosDock.addEventListener('mouseenter', () => { if (dockAutoHideTimer) { clearTimeout(dockAutoHideTimer); dockAutoHideTimer = null; } });
+            macosDock.addEventListener('mouseleave', () => {
+                if (!document.body.classList.contains('fullscreen-active')) return;
+                if (dockAutoHideTimer) clearTimeout(dockAutoHideTimer);
+                dockAutoHideTimer = setTimeout(() => macosDock.classList.remove('dock-visible'), 1200);
+            });
+            macosDock.addEventListener('click', () => {
+                if (document.body.classList.contains('fullscreen-active')) {
+                    setTimeout(() => macosDock.classList.remove('dock-visible'), 200);
+                }
+            }, true);
+
+            function calcInput(value) {
+                if (calcShouldResetDisplay) { calcDisplay.textContent = '0'; calcShouldResetDisplay = false; }
+                const current = calcDisplay.textContent;
+                if (value === '.' && current.includes('.')) return;
+                if (current === '0' && value !== '.') calcDisplay.textContent = value;
+                else calcDisplay.textContent = current + value;
+            }
+            function calcSetOperator(op) {
+                const currentValue = parseFloat(calcDisplay.textContent);
+                if (calcOperator && !calcShouldResetDisplay) { const result = calcCalculate(); calcDisplay.textContent = String(result); calcFirstOperand = result; }
+                else calcFirstOperand = currentValue;
+                calcOperator = op; calcShouldResetDisplay = true;
+            }
+            function calcCalculate() {
+                const second = parseFloat(calcDisplay.textContent);
+                let result = 0;
+                switch(calcOperator) {
+                    case 'add': result = calcFirstOperand + second; break;
+                    case 'subtract': result = calcFirstOperand - second; break;
+                    case 'multiply': result = calcFirstOperand * second; break;
+                    case 'divide': result = calcFirstOperand / second; break;
+                    default: result = second;
+                }
+                return Math.round(result * 1000000) / 1000000;
+            }
+            function calcEquals() {
+                if (calcOperator !== null) { const result = calcCalculate(); calcDisplay.textContent = String(result); calcFirstOperand = null; calcOperator = null; calcShouldResetDisplay = true; }
+            }
+            function calcClear() { calcDisplay.textContent = '0'; calcFirstOperand = null; calcOperator = null; calcShouldResetDisplay = false; }
+            function calcBackspace() {
+                const c = calcDisplay.textContent;
+                if (c.length > 1 && !calcShouldResetDisplay) calcDisplay.textContent = c.slice(0, -1);
+                else { calcDisplay.textContent = '0'; calcShouldResetDisplay = false; }
+            }
+            function calcPercent() { calcDisplay.textContent = String(parseFloat(calcDisplay.textContent) / 100); }
+            document.querySelectorAll('.calc-key').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const value = btn.getAttribute('data-value');
+                    const action = btn.getAttribute('data-action');
+                    if (value !== null) calcInput(value);
+                    else if (action) {
+                        switch(action) {
+                            case 'clear': calcClear(); break;
+                            case 'backspace': calcBackspace(); break;
+                            case 'percent': calcPercent(); break;
+                            case 'add': calcSetOperator('add'); break;
+                            case 'subtract': calcSetOperator('subtract'); break;
+                            case 'multiply': calcSetOperator('multiply'); break;
+                            case 'divide': calcSetOperator('divide'); break;
+                            case 'equals': calcEquals(); break;
+                        }
+                    }
+                });
+            });
+
+            /* ============ Windows 10 逻辑 ============ */
+            function startWin10Clock() {
+                if (win10ClockTimer) return;
+                const updateClock = () => {
+                    const t = document.getElementById('win10ClockTime');
+                    const d = document.getElementById('win10ClockDate');
+                    if (!t || !d) return;
+                    const now = new Date();
+                    const hh = String(now.getHours()).padStart(2, '0');
+                    const mm = String(now.getMinutes()).padStart(2, '0');
+                    t.textContent = hh + ':' + mm;
+                    d.textContent = (now.getFullYear()) + '/' + (now.getMonth()+1) + '/' + now.getDate();
+                };
+                updateClock();
+                win10ClockTimer = setInterval(updateClock, 1000);
+            }
+            function stopWin10Clock() {
+                if (win10ClockTimer) { clearInterval(win10ClockTimer); win10ClockTimer = null; }
+            }
+
+            function updateWin10TaskbarActiveState() {
+                const apps = document.querySelectorAll('.win10-taskbar-app');
+                const visibleSet = new Set();
+                const map = {
+                    settings: settingsOverlay,
+                    calc: calcOverlay,
+                    dialpad: dialpadOverlay,
+                    more: moreOverlay,
+                    website: websiteOverlay,
+                    webmc: webmcOverlay,
+                    bilibili: bilibiliOverlay,
+                    ojang: ojangOverlay
+                };
+                apps.forEach(a => {
+                    const key = a.getAttribute('data-app');
+                    const ov = map[key];
+                    const running = ov && ov.classList.contains('visible');
+                    a.classList.toggle('running', !!running);
+                    a.classList.remove('active');
+                });
+                // 找 zIndex 最高的窗口作为活动窗口
+                let topOverlay = null, topZ = -1;
+                Object.values(map).forEach(ov => {
+                    if (ov && ov.classList.contains('visible')) {
+                        const z = parseInt(ov.style.zIndex) || 0;
+                        if (z > topZ) { topZ = z; topOverlay = ov; }
+                    }
+                });
+                if (topOverlay) {
+                    for (const key in map) {
+                        if (map[key] === topOverlay) {
+                            const el = document.querySelector('.win10-taskbar-app[data-app="' + key + '"]');
+                            if (el) el.classList.add('active');
+                            break;
+                        }
+                    }
+                }
+            }
+
+            window.win10ToggleStart = function(event) {
+                if (event) { event.stopPropagation(); event.preventDefault(); }
+                const sm = document.getElementById('win10StartMenu');
+                const sb = document.getElementById('win10StartBtn');
+                if (!sm) return;
+                const isOpen = sm.classList.contains('open');
+                if (isOpen) {
+                    sm.classList.remove('open');
+                    if (sb) sb.classList.remove('active');
+                } else {
+                    sm.classList.add('open');
+                    if (sb) sb.classList.add('active');
+                }
+            };
+
+            window.win10OpenApp = function(app) {
+                const sm = document.getElementById('win10StartMenu');
+                const sb = document.getElementById('win10StartBtn');
+                if (sm) sm.classList.remove('open');
+                if (sb) sb.classList.remove('active');
+                if (app === 'settings') openSettingsWindow();
+                else if (app === 'calc') openCalcWindow();
+                else if (app === 'dialpad') openDialpadWindow();
+                else if (app === 'more') openMoreWindow();
+                else if (app === 'website') openWebsiteWindow();
+                else if (app === 'webmc') openWebmcWindow();
+                else if (app === 'bilibili') openBilibiliWindow();
+                else if (app === 'ojang') openOjangWindow();
+            };
+
+            window.win10ToggleApp = function(app) {
+                const map = {
+                    settings: settingsOverlay, calc: calcOverlay, dialpad: dialpadOverlay, more: moreOverlay,
+                    website: websiteOverlay, webmc: webmcOverlay, bilibili: bilibiliOverlay, ojang: ojangOverlay
+                };
+                const ov = map[app];
+                if (!ov) return;
+                if (!ov.classList.contains('visible')) {
+                    window.win10OpenApp(app);
+                } else {
+                    // 检查是否是最上层
+                    let topZ = -1, topKey = null;
+                    for (const k in map) {
+                        const o = map[k];
+                        if (o && o.classList.contains('visible')) {
+                            const z = parseInt(o.style.zIndex) || 0;
+                            if (z > topZ) { topZ = z; topKey = k; }
+                        }
+                    }
+                    if (topKey === app) {
+                        // 已激活，最小化
+                        ov.classList.remove('visible');
+                        const modal = ov.querySelector('.settings-modal, .calc-modal, .dialpad-modal, .more-modal, .webmc-modal, .bilibili-modal, .website-modal, .ojang-modal');
+                        if (modal) { modal.classList.remove('fullscreen'); resetModalScale(modal); }
+                        updateWin10TaskbarActiveState();
+                        checkFullscreenState();
+                    } else {
+                        // 前置
+                        const modal = ov.querySelector('.settings-modal, .calc-modal, .dialpad-modal, .more-modal, .webmc-modal, .bilibili-modal, .website-modal, .ojang-modal');
+                        if (modal) bringToFront(modal);
+                    }
+                }
+            };
+
+            window.win10ShowDesktop = function() {
+                [settingsOverlay, calcOverlay, dialpadOverlay, moreOverlay, webmcOverlay, bilibiliOverlay, websiteOverlay, ojangOverlay].forEach(ov => {
+                    ov.classList.remove('visible');
+                });
+                const sm = document.getElementById('win10StartMenu');
+                if (sm) sm.classList.remove('open');
+                const sb = document.getElementById('win10StartBtn');
+                if (sb) sb.classList.remove('active');
+                updateWin10TaskbarActiveState();
+                checkFullscreenState();
+            };
+
+            window.win10ExitToNormal = function() {
+                windows10Enabled = false;
+                localStorage.setItem('windows10Mode', 'disabled');
+                [settingsOverlay, calcOverlay, dialpadOverlay, moreOverlay, webmcOverlay, bilibiliOverlay, websiteOverlay, ojangOverlay].forEach(ov => ov.classList.remove('visible'));
+                [settingsModal, calcModal, dialpadModal, moreModal, webmcModal, bilibiliModal, websiteModal, ojangModal].forEach(w => w.classList.remove('fullscreen'));
+                resetAllModalScales();
+                updateUI();
+            };
+
+            document.addEventListener('click', function(e) {
+                if (!windows10Enabled) return;
+                const sm = document.getElementById('win10StartMenu');
+                const sb = document.getElementById('win10StartBtn');
+                if (!sm || !sm.classList.contains('open')) return;
+                if (e.target.closest && (e.target.closest('#win10StartMenu') || e.target.closest('#win10StartBtn'))) return;
+                sm.classList.remove('open');
+                if (sb) sb.classList.remove('active');
+            });
+
+            /* ============ 初始化 ============ */
+            buildDialpad();
+            updateUI();
+            attachRippleToElements();
+            initMusicOnFirstInteraction();
+
+            console.log('[v9.0.0] Windows 10 模式已就绪');
+        })();
+    </script>
+</body>
+</html>
