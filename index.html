@@ -343,6 +343,9 @@
         body.concept-mode .button-group,
         body.concept-mode .download-group { display: none !important; }
 
+        /* 默认：min 按钮隐藏（只在 windows10-mode 下显示） */
+        .traffic-light.min { display: none !important; }
+
         .macos-dock {
             position: fixed; bottom: 10px; left: 50%;
             transform: translateX(-50%) translateY(160%);
@@ -489,8 +492,8 @@
         .macos-traffic-lights { display: flex; gap: 8px; align-items: center; }
         .traffic-light { width: 13px; height: 13px; border-radius: 50%; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; line-height: 1; color: rgba(0,0,0,0.55); position: relative; pointer-events: auto !important; z-index: 100; }
         .traffic-light.close { background: #ff5f57; box-shadow: inset 0 0 0 0.5px #e0443e; }
-        .traffic-light.min { background: #ffbd2e; box-shadow: inset 0 0 0 0.5px #dea123; display: none; }
         .traffic-light.max { background: #28c840; box-shadow: inset 0 0 0 0.5px #18a32b; }
+        .traffic-light.min { background: #ffbd2e; box-shadow: inset 0 0 0 0.5px #dea123; }
         .traffic-light::before { opacity: 0; transition: opacity 0.15s; font-weight: 700; }
         .macos-traffic-lights:hover .traffic-light::before { opacity: 1; }
         .traffic-light.close::before { content: "×"; }
@@ -557,7 +560,7 @@
         body.concept-mode .settings-modal > .macos-window-content { padding: 0 !important; overflow: hidden; }
 
         /* ============================================================
-           WINDOWS 10 MODE
+           WINDOWS 10 MODE - 修复版
            ============================================================ */
         body.windows10-mode {
             padding: 0 !important;
@@ -758,7 +761,7 @@
             backdrop-filter: blur(30px) saturate(180%);
             -webkit-backdrop-filter: blur(30px) saturate(180%);
             color: #fff;
-            z-index: 99999;
+            z-index: 100001;
             box-shadow: 0 0 24px rgba(0,0,0,0.6), 0 4px 12px rgba(0,0,0,0.4);
             font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
             overflow: hidden;
@@ -937,8 +940,8 @@
             cursor: default !important;
             padding: 0 0 0 12px !important;
             align-items: center !important;
-            order: 0;
             border-radius: 0 !important;
+            order: 0 !important;
         }
         body.windows10-mode .macos-window-bar:active { cursor: move !important; }
 
@@ -949,33 +952,41 @@
             height: 30px !important;
             display: flex !important;
             align-items: stretch !important;
+            flex-shrink: 0;
         }
 
-        body.windows10-mode .traffic-light {
+        body.windows10-mode .traffic-light,
+        body.windows10-mode .traffic-light.close,
+        body.windows10-mode .traffic-light.min,
+        body.windows10-mode .traffic-light.max {
             width: 46px !important;
             height: 30px !important;
             min-width: 46px !important;
+            min-height: 30px !important;
             border-radius: 0 !important;
             background: transparent !important;
             box-shadow: none !important;
             color: #333 !important;
             font-size: 10px !important;
-            display: flex !important;
+            display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
             transition: background 0.1s !important;
             cursor: default !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            border: none !important;
         }
-        body.windows10-mode .traffic-light.min { order: 1 !important; display: flex !important; }
-        body.windows10-mode .traffic-light.max { order: 2 !important; display: flex !important; }
-        body.windows10-mode .traffic-light.close { order: 3 !important; display: flex !important; }
+        body.windows10-mode .traffic-light.min { order: 1 !important; }
+        body.windows10-mode .traffic-light.max { order: 2 !important; }
+        body.windows10-mode .traffic-light.close { order: 3 !important; }
 
         body.windows10-mode .traffic-light:hover { background: #e5e5e5 !important; }
         body.windows10-mode .traffic-light.close:hover { background: #e81123 !important; color: #fff !important; }
 
         body.windows10-mode .traffic-light::before { opacity: 1 !important; font-weight: 400 !important; font-size: 11px !important; line-height: 1 !important; }
         body.windows10-mode .traffic-light.min::before { content: '─' !important; }
-        body.windows10-mode .traffic-light.max::before { content: '□' !important; font-size: 13px !important; }
+        body.windows10-mode .traffic-light.max::before { content: '□' !important; font-size: 12px !important; }
         body.windows10-mode .traffic-light.close::before { content: '✕' !important; font-size: 11px !important; }
 
         body.windows10-mode .macos-window-title {
@@ -1003,7 +1014,6 @@
         body.windows10-mode .website-modal .macos-window-content,
         body.windows10-mode .ojang-modal .macos-window-content { padding: 0 !important; }
 
-        /* Win10 里的设置窗口内容 */
         body.windows10-mode .settings-simple-view { padding: 16px !important; overflow-y: auto !important; flex: 1; }
         body.windows10-mode .settings-title { color: #000 !important; }
         body.windows10-mode .settings-option-label { color: #000 !important; }
@@ -1029,7 +1039,6 @@
         body.windows10-mode .theme-thumb-label { color: #333 !important; }
         body.windows10-mode .about-panel p { color: #333 !important; }
 
-        /* Win10 里的计算器 */
         body.windows10-mode .calc-display { background: #fff !important; color: #000 !important; border: 1px solid #d5d5d5 !important; border-radius: 2px !important; font-weight: 300 !important; }
         body.windows10-mode .calc-key { background: #e6e6e6 !important; color: #000 !important; border-radius: 2px !important; font-size: 16px !important; box-shadow: none !important; aspect-ratio: auto !important; min-height: 46px !important; }
         body.windows10-mode .calc-key:hover { background: #d4d4d4 !important; }
@@ -1037,21 +1046,15 @@
         body.windows10-mode .calc-key.equals { background: #0078d7 !important; color: #fff !important; }
         body.windows10-mode .calc-key.clear { background: #d4d4d4 !important; color: #000 !important; }
 
-        /* Win10 里的拨号盘 */
         body.windows10-mode .dialpad-display { background: #fff !important; color: #000 !important; border: 1px solid #d5d5d5 !important; border-radius: 2px !important; }
         body.windows10-mode .dial-key { background: #e6e6e6 !important; color: #000 !important; border-radius: 4px !important; }
         body.windows10-mode .dial-key:hover { background: #d4d4d4 !important; }
         body.windows10-mode .dial-action.delete { color: #333 !important; border-color: #d5d5d5 !important; }
         body.windows10-mode .dial-action.close { background: #0078d7 !important; }
 
-        /* Win10 里的更多窗口 */
         body.windows10-mode .more-section-title { color: #666 !important; }
         body.windows10-mode .more-link,
         body.windows10-mode .more-download { background: #f2f2f2 !important; border-color: #e5e5e5 !important; color: #000 !important; }
-
-        /* Win10 里的 traffic-light 图标只在悬停显示 */
-        body.windows10-mode .traffic-light.close { color: #333 !important; }
-        body.windows10-mode .traffic-light.close:hover { color: #fff !important; }
 
         @media (max-width: 900px) {
             .win10-search { min-width: 40px; width: 40px; padding: 0; justify-content: center; }
@@ -1125,29 +1128,37 @@
 
     <!-- ============ Windows 10 桌面 ============ -->
     <div class="win10-desktop" id="win10Desktop">
-        <div class="win10-desktop-icon" ondblclick="win10OpenApp('settings')" style="top: 20px; left: 20px;">
+        <div class="win10-desktop-icon" onclick="win10OpenApp('about')" style="top: 20px; left: 20px;">
             <span class="icon-img">🖥️</span>
             <span class="icon-label">此电脑</span>
         </div>
-        <div class="win10-desktop-icon" ondblclick="win10OpenApp('more')" style="top: 120px; left: 20px;">
+        <div class="win10-desktop-icon" onclick="win10OpenApp('more')" style="top: 120px; left: 20px;">
             <span class="icon-img">🗑️</span>
             <span class="icon-label">回收站</span>
         </div>
-        <div class="win10-desktop-icon" ondblclick="win10OpenApp('more')" style="top: 220px; left: 20px;">
+        <div class="win10-desktop-icon" onclick="win10OpenApp('more')" style="top: 220px; left: 20px;">
             <span class="icon-img">📁</span>
             <span class="icon-label">我的文档</span>
         </div>
-        <div class="win10-desktop-icon" ondblclick="win10OpenApp('webmc')" style="top: 320px; left: 20px;">
+        <div class="win10-desktop-icon" onclick="win10OpenApp('webmc')" style="top: 320px; left: 20px;">
             <span class="icon-img">🌐</span>
             <span class="icon-label">网络</span>
         </div>
-        <div class="win10-desktop-icon" ondblclick="win10OpenApp('settings')" style="top: 20px; left: 120px;">
+        <div class="win10-desktop-icon" onclick="win10OpenApp('settings')" style="top: 20px; left: 120px;">
             <span class="icon-img">⚙️</span>
             <span class="icon-label">设置</span>
         </div>
-        <div class="win10-desktop-icon" ondblclick="win10OpenApp('calc')" style="top: 120px; left: 120px;">
+        <div class="win10-desktop-icon" onclick="win10OpenApp('calc')" style="top: 120px; left: 120px;">
             <span class="icon-img">🔢</span>
             <span class="icon-label">计算器</span>
+        </div>
+        <div class="win10-desktop-icon" onclick="win10OpenApp('dialpad')" style="top: 220px; left: 120px;">
+            <span class="icon-img">☎️</span>
+            <span class="icon-label">拨号盘</span>
+        </div>
+        <div class="win10-desktop-icon" onclick="win10OpenApp('website')" style="top: 320px; left: 120px;">
+            <span class="icon-img">🏠</span>
+            <span class="icon-label">官方网站</span>
         </div>
     </div>
 
@@ -1195,6 +1206,7 @@
             <div class="win10-menu-item" onclick="win10OpenApp('webmc')"><span class="mi-icon">🌐</span><span>网页版MC</span></div>
             <div class="win10-menu-item" onclick="win10OpenApp('bilibili')"><span class="mi-icon">📺</span><span>Bilibili</span></div>
             <div class="win10-menu-item" onclick="win10OpenApp('ojang')"><span class="mi-icon">⬇️</span><span>ojang pe下载</span></div>
+            <div class="win10-menu-item" onclick="win10OpenApp('about')"><span class="mi-icon">ℹ️</span><span>关于此电脑</span></div>
             <div class="win10-menu-bottom">
                 <div class="win10-menu-item" onclick="win10ExitToNormal()"><span class="mi-icon">⏻</span><span>退出 Windows 10 模式</span></div>
             </div>
@@ -1210,8 +1222,8 @@
                 <div class="win10-tile green" onclick="win10OpenApp('webmc')"><span class="ti">🌐</span><span>网页版MC</span></div>
                 <div class="win10-tile red" onclick="win10OpenApp('bilibili')"><span class="ti">📺</span><span>Bilibili</span></div>
                 <div class="win10-tile orange" onclick="win10OpenApp('ojang')"><span class="ti">⬇️</span><span>ojang</span></div>
-                <div class="win10-tile wide blue" onclick="win10OpenApp('settings')"><span class="ti">✨</span><span>个性化你的电脑</span></div>
-                <div class="win10-tile wide teal" onclick="win10OpenApp('website')"><span class="ti">🌏</span><span>浏览网页</span></div>
+                <div class="win10-tile wide blue" onclick="win10OpenApp('about')"><span class="ti">🖥️</span><span>此电脑</span></div>
+                <div class="win10-tile wide teal" onclick="win10OpenApp('settings')"><span class="ti">✨</span><span>个性化你的电脑</span></div>
             </div>
         </div>
     </div>
@@ -1375,7 +1387,7 @@
                                 <p data-i18n="aboutText">这是一架国泰航空A330官方网站</p>
                                 <p class="version-text" id="versionAreaSettings">
                                     <span class="version-label" data-i18n="versionLabel">版本号</span>
-                                    <span class="version-number" data-i18n="versionNumber">9.0.0</span>
+                                    <span class="version-number" data-i18n="versionNumber">7.0.2</span>
                                 </p>
                             </div>
                         </div>
@@ -1392,7 +1404,7 @@
                 <p data-i18n="aboutText">这是一架国泰航空A330官方网站</p>
                 <p class="version-text" id="versionArea">
                     <span class="version-label" data-i18n="versionLabel">版本号</span>
-                    <span class="version-number" data-i18n="versionNumber">9.0.0</span>
+                    <span class="version-number" data-i18n="versionNumber">7.0.2</span>
                 </p>
             </div>
             <button class="about-close-btn" id="aboutCloseBtn" data-i18n="close">关闭</button>
@@ -1710,7 +1722,8 @@
             let dialValue = '';
             let calcFirstOperand = null, calcOperator = null, calcShouldResetDisplay = false;
             let versionClickCount = 0;
-            let windowZCounter = 7000;
+            // ★ 修复：初始 z-index 提到 200000，比 windows10 taskbar (100000) 更高
+            let windowZCounter = 200000;
             let webmcLoaded = false;
             let bilibiliLoaded = false;
             let websiteLoaded = false;
@@ -1727,11 +1740,11 @@
             let musicStarted = false;
 
             const translations = {
-                'zh-CN': { siteTitle:'一架国泰航空A330官方网站', settings:'设置', menu:'菜单', calculator:'计算器', about:'关于', more:'更多', aboutText:'这是一架国泰航空A330官方网站', versionLabel:'版本号', versionNumber:'9.0.0', links:'链接', webMC:'网页版MC', ojangDownload:'ojang pe下载', dialpad:'拨号盘', officialWebsite:'官方网站', theme:'主题模式', darkMode:'深色模式', displayMode:'显示模式', glassMode:'透明模式', liquidGlassMode:'液态玻璃', retroMode:'怀旧模式', minecraftMode:'Minecraft模式', conceptMode:'概念版模式', wallpaper:'壁纸选择', defaultWallpaper:'默认', creeperSleep:'苦力怕娘睡觉', minecart:'矿车', tnt:'TNT！', blueArchive1:'蔚蓝档案1', rowing:'划船', blueArchive2:'蔚蓝档案2', waterDrop:'水滴壁纸', whiteWallpaper:'白色壁纸', language:'语言', close:'关闭', welcome:'欢迎来到<br>一架国泰航空A330官方网站', bilibili:'我的 bilibili', fanGroup:'加入粉丝群', announcementTitle:'公告栏', announcementSubtitle:'支持多语言', bilibiliDownload:'bilibili国际版3.19.2下载', netEaseDownload:'网易云音乐极速版1.0.0下载', kuGouDownload:'酷狗概念版2.4.2下载', jianYingDownload:'剪映5.7.0下载', download:'下载', delete:'删除', footer:'Cathay Pacific • A330 • Minimal' },
-                'zh-TW': { siteTitle:'一架國泰航空A330官方網站', settings:'設置', menu:'選單', calculator:'計算機', about:'關於', more:'更多', aboutText:'這是一架國泰航空A330官方網站', versionLabel:'版本號', versionNumber:'9.0.0', links:'連結', webMC:'網頁版MC', ojangDownload:'ojang pe下載', dialpad:'撥號盤', officialWebsite:'官方網站', theme:'主題模式', darkMode:'深色模式', displayMode:'顯示模式', glassMode:'透明模式', liquidGlassMode:'液態玻璃', retroMode:'懷舊模式', minecraftMode:'Minecraft模式', conceptMode:'概念版模式', wallpaper:'壁紙選擇', defaultWallpaper:'預設', creeperSleep:'苦力怕娘睡覺', minecart:'礦車', tnt:'TNT！', blueArchive1:'蔚藍檔案1', rowing:'划船', blueArchive2:'蔚藍檔案2', waterDrop:'水滴桌布', whiteWallpaper:'白色桌布', language:'語言', close:'關閉', welcome:'歡迎來到<br>一架國泰航空A330官方網站', bilibili:'我的 bilibili', fanGroup:'加入粉絲群', announcementTitle:'公告欄', announcementSubtitle:'支援多語言', bilibiliDownload:'bilibili國際版3.19.2下載', netEaseDownload:'網易雲音樂極速版1.0.0下載', kuGouDownload:'酷狗概念版2.4.2下載', jianYingDownload:'剪映5.7.0下載', download:'下載', delete:'刪除', footer:'Cathay Pacific • A330 • Minimal' },
-                'en': { siteTitle:'Cathay Pacific A330 Official Website', settings:'Settings', menu:'Menu', calculator:'Calculator', about:'About', more:'More', aboutText:'This is Cathay Pacific A330 Official Website', versionLabel:'Version', versionNumber:'9.0.0', links:'Links', webMC:'Web MC', ojangDownload:'ojang pe Download', dialpad:'Dial Pad', officialWebsite:'Official Website', theme:'Theme', darkMode:'Dark Mode', displayMode:'Display Mode', glassMode:'Glass Mode', liquidGlassMode:'Liquid Glass', retroMode:'Retro Mode', minecraftMode:'Minecraft Mode', conceptMode:'Concept Mode', wallpaper:'Wallpaper Selection', defaultWallpaper:'Default', creeperSleep:'Creeper Girl Sleeping', minecart:'Minecart', tnt:'TNT!', blueArchive1:'Blue Archive 1', rowing:'Rowing', blueArchive2:'Blue Archive 2', waterDrop:'Water Drop', whiteWallpaper:'White Wallpaper', language:'Language', close:'Close', welcome:'Welcome to<br>Cathay Pacific A330 Official Website', bilibili:'My bilibili', fanGroup:'Join Fan Group', announcementTitle:'Announcement', announcementSubtitle:'Supports multiple languages', bilibiliDownload:'bilibili International 3.19.2 Download', netEaseDownload:'NetEase Cloud Music Lite 1.0.0 Download', kuGouDownload:'KuGou Concept 2.4.2 Download', jianYingDownload:'JianYing 5.7.0 Download', download:'Download', delete:'Delete', footer:'Cathay Pacific • A330 • Minimal' },
-                'ja': { siteTitle:'キャセイパシフィックA330公式サイト', settings:'設定', menu:'メニュー', calculator:'電卓', about:'について', more:'その他', aboutText:'これはキャセイパシフィックA330公式サイトです', versionLabel:'バージョン', versionNumber:'9.0.0', links:'リンク', webMC:'ウェブ版MC', ojangDownload:'ojang peダウンロード', dialpad:'ダイヤルパッド', officialWebsite:'公式サイト', theme:'テーマ', darkMode:'ダークモード', displayMode:'表示モード', glassMode:'グラスモード', liquidGlassMode:'リキッドグラス', retroMode:'レトロモード', minecraftMode:'Minecraftモード', conceptMode:'コンセプトモード', wallpaper:'壁紙選択', defaultWallpaper:'デフォルト', creeperSleep:'クリーパー娘の睡眠', minecart:'トロッコ', tnt:'TNT！', blueArchive1:'ブルーアーカイブ1', rowing:'ボート', blueArchive2:'ブルーアーカイブ2', waterDrop:'水滴の壁紙', whiteWallpaper:'白い壁紙', language:'言語', close:'閉じる', welcome:'ようこそ<br>キャセイパシフィックA330公式サイトへ', bilibili:'My bilibili', fanGroup:'ファングループに参加', announcementTitle:'お知らせ', announcementSubtitle:'多言語対応', bilibiliDownload:'bilibili国際版3.19.2ダウンロード', netEaseDownload:'NetEase Cloud Music Lite 1.0.0ダウンロード', kuGouDownload:'KuGou Concept 2.4.2ダウンロード', jianYingDownload:'JianYing 5.7.0ダウンロード', download:'ダウンロード', delete:'削除', footer:'Cathay Pacific • A330 • Minimal' },
-                'ko': { siteTitle:'캐세이퍼시픽 A330 공식 웹사이트', settings:'설정', menu:'메뉴', calculator:'계산기', about:'정보', more:'더 보기', aboutText:'이것은 캐세이퍼시픽 A330 공식 웹사이트입니다', versionLabel:'버전', versionNumber:'9.0.0', links:'링크', webMC:'웹 MC', ojangDownload:'ojang pe 다운로드', dialpad:'다이얼 패드', officialWebsite:'공식 웹사이트', theme:'테마', darkMode:'다크 모드', displayMode:'디스플레이 모드', glassMode:'글래스 모드', liquidGlassMode:'리퀴드 글래스', retroMode:'레트로 모드', minecraftMode:'Minecraft 모드', conceptMode:'컨셉트 모드', wallpaper:'배경화면 선택', defaultWallpaper:'기본값', creeperSleep:'크리퍼 소녀 수면', minecart:'광차', tnt:'TNT!', blueArchive1:'블루 아카이브 1', rowing:'조정', blueArchive2:'블루 아카이브 2', waterDrop:'물방울 배경화면', whiteWallpaper:'흰색 배경화면', language:'언어', close:'닫기', welcome:'환영합니다<br>캐세이퍼시픽 A330 공식 웹사이트', bilibili:'My bilibili', fanGroup:'팬 그룹 가입', announcementTitle:'공지사항', announcementSubtitle:'다국어 지원', bilibiliDownload:'bilibili 국제판 3.19.2 다운로드', netEaseDownload:'NetEase Cloud Music Lite 1.0.0 다운로드', kuGouDownload:'KuGou Concept 2.4.2 다운로드', jianYingDownload:'JianYing 5.7.0 다운로드', download:'다운로드', delete:'삭제', footer:'Cathay Pacific • A330 • Minimal' }
+                'zh-CN': { siteTitle:'一架国泰航空A330官方网站', settings:'设置', menu:'菜单', calculator:'计算器', about:'关于', more:'更多', aboutText:'这是一架国泰航空A330官方网站', versionLabel:'版本号', versionNumber:'7.0.2', links:'链接', webMC:'网页版MC', ojangDownload:'ojang pe下载', dialpad:'拨号盘', officialWebsite:'官方网站', theme:'主题模式', darkMode:'深色模式', displayMode:'显示模式', glassMode:'透明模式', liquidGlassMode:'液态玻璃', retroMode:'怀旧模式', minecraftMode:'Minecraft模式', conceptMode:'概念版模式', wallpaper:'壁纸选择', defaultWallpaper:'默认', creeperSleep:'苦力怕娘睡觉', minecart:'矿车', tnt:'TNT！', blueArchive1:'蔚蓝档案1', rowing:'划船', blueArchive2:'蔚蓝档案2', waterDrop:'水滴壁纸', whiteWallpaper:'白色壁纸', language:'语言', close:'关闭', welcome:'欢迎来到<br>一架国泰航空A330官方网站', bilibili:'我的 bilibili', fanGroup:'加入粉丝群', announcementTitle:'公告栏', announcementSubtitle:'支持多语言', bilibiliDownload:'bilibili国际版3.19.2下载', netEaseDownload:'网易云音乐极速版1.0.0下载', kuGouDownload:'酷狗概念版2.4.2下载', jianYingDownload:'剪映5.7.0下载', download:'下载', delete:'删除', footer:'Cathay Pacific • A330 • Minimal' },
+                'zh-TW': { siteTitle:'一架國泰航空A330官方網站', settings:'設置', menu:'選單', calculator:'計算機', about:'關於', more:'更多', aboutText:'這是一架國泰航空A330官方網站', versionLabel:'版本號', versionNumber:'7.0.2', links:'連結', webMC:'網頁版MC', ojangDownload:'ojang pe下載', dialpad:'撥號盤', officialWebsite:'官方網站', theme:'主題模式', darkMode:'深色模式', displayMode:'顯示模式', glassMode:'透明模式', liquidGlassMode:'液態玻璃', retroMode:'懷舊模式', minecraftMode:'Minecraft模式', conceptMode:'概念版模式', wallpaper:'壁紙選擇', defaultWallpaper:'預設', creeperSleep:'苦力怕娘睡覺', minecart:'礦車', tnt:'TNT！', blueArchive1:'蔚藍檔案1', rowing:'划船', blueArchive2:'蔚藍檔案2', waterDrop:'水滴桌布', whiteWallpaper:'白色桌布', language:'語言', close:'關閉', welcome:'歡迎來到<br>一架國泰航空A330官方網站', bilibili:'我的 bilibili', fanGroup:'加入粉絲群', announcementTitle:'公告欄', announcementSubtitle:'支援多語言', bilibiliDownload:'bilibili國際版3.19.2下載', netEaseDownload:'網易雲音樂極速版1.0.0下載', kuGouDownload:'酷狗概念版2.4.2下載', jianYingDownload:'剪映5.7.0下載', download:'下載', delete:'刪除', footer:'Cathay Pacific • A330 • Minimal' },
+                'en': { siteTitle:'Cathay Pacific A330 Official Website', settings:'Settings', menu:'Menu', calculator:'Calculator', about:'About', more:'More', aboutText:'This is Cathay Pacific A330 Official Website', versionLabel:'Version', versionNumber:'7.0.2', links:'Links', webMC:'Web MC', ojangDownload:'ojang pe Download', dialpad:'Dial Pad', officialWebsite:'Official Website', theme:'Theme', darkMode:'Dark Mode', displayMode:'Display Mode', glassMode:'Glass Mode', liquidGlassMode:'Liquid Glass', retroMode:'Retro Mode', minecraftMode:'Minecraft Mode', conceptMode:'Concept Mode', wallpaper:'Wallpaper Selection', defaultWallpaper:'Default', creeperSleep:'Creeper Girl Sleeping', minecart:'Minecart', tnt:'TNT!', blueArchive1:'Blue Archive 1', rowing:'Rowing', blueArchive2:'Blue Archive 2', waterDrop:'Water Drop', whiteWallpaper:'White Wallpaper', language:'Language', close:'Close', welcome:'Welcome to<br>Cathay Pacific A330 Official Website', bilibili:'My bilibili', fanGroup:'Join Fan Group', announcementTitle:'Announcement', announcementSubtitle:'Supports multiple languages', bilibiliDownload:'bilibili International 3.19.2 Download', netEaseDownload:'NetEase Cloud Music Lite 1.0.0 Download', kuGouDownload:'KuGou Concept 2.4.2 Download', jianYingDownload:'JianYing 5.7.0 Download', download:'Download', delete:'Delete', footer:'Cathay Pacific • A330 • Minimal' },
+                'ja': { siteTitle:'キャセイパシフィックA330公式サイト', settings:'設定', menu:'メニュー', calculator:'電卓', about:'について', more:'その他', aboutText:'これはキャセイパシフィックA330公式サイトです', versionLabel:'バージョン', versionNumber:'7.0.2', links:'リンク', webMC:'ウェブ版MC', ojangDownload:'ojang peダウンロード', dialpad:'ダイヤルパッド', officialWebsite:'公式サイト', theme:'テーマ', darkMode:'ダークモード', displayMode:'表示モード', glassMode:'グラスモード', liquidGlassMode:'リキッドグラス', retroMode:'レトロモード', minecraftMode:'Minecraftモード', conceptMode:'コンセプトモード', wallpaper:'壁紙選択', defaultWallpaper:'デフォルト', creeperSleep:'クリーパー娘の睡眠', minecart:'トロッコ', tnt:'TNT！', blueArchive1:'ブルーアーカイブ1', rowing:'ボート', blueArchive2:'ブルーアーカイブ2', waterDrop:'水滴の壁紙', whiteWallpaper:'白い壁紙', language:'言語', close:'閉じる', welcome:'ようこそ<br>キャセイパシフィックA330公式サイトへ', bilibili:'My bilibili', fanGroup:'ファングループに参加', announcementTitle:'お知らせ', announcementSubtitle:'多言語対応', bilibiliDownload:'bilibili国際版3.19.2ダウンロード', netEaseDownload:'NetEase Cloud Music Lite 1.0.0ダウンロード', kuGouDownload:'KuGou Concept 2.4.2ダウンロード', jianYingDownload:'JianYing 5.7.0ダウンロード', download:'ダウンロード', delete:'削除', footer:'Cathay Pacific • A330 • Minimal' },
+                'ko': { siteTitle:'캐세이퍼시픽 A330 공식 웹사이트', settings:'설정', menu:'메뉴', calculator:'계산기', about:'정보', more:'더 보기', aboutText:'이것은 캐세이퍼시픽 A330 공식 웹사이트입니다', versionLabel:'버전', versionNumber:'7.0.2', links:'링크', webMC:'웹 MC', ojangDownload:'ojang pe 다운로드', dialpad:'다이얼 패드', officialWebsite:'공식 웹사이트', theme:'테마', darkMode:'다크 모드', displayMode:'디스플레이 모드', glassMode:'글래스 모드', liquidGlassMode:'리퀴드 글래스', retroMode:'레트로 모드', minecraftMode:'Minecraft 모드', conceptMode:'컨셉트 모드', wallpaper:'배경화면 선택', defaultWallpaper:'기본값', creeperSleep:'크리퍼 소녀 수면', minecart:'광차', tnt:'TNT!', blueArchive1:'블루 아카이브 1', rowing:'조정', blueArchive2:'블루 아카이브 2', waterDrop:'물방울 배경화면', whiteWallpaper:'흰색 배경화면', language:'언어', close:'닫기', welcome:'환영합니다<br>캐세이퍼시픽 A330 공식 웹사이트', bilibili:'My bilibili', fanGroup:'팬 그룹 가입', announcementTitle:'공지사항', announcementSubtitle:'다국어 지원', bilibiliDownload:'bilibili 국제판 3.19.2 다운로드', netEaseDownload:'NetEase Cloud Music Lite 1.0.0 다운로드', kuGouDownload:'KuGou Concept 2.4.2 다운로드', jianYingDownload:'JianYing 5.7.0 다운로드', download:'다운로드', delete:'삭제', footer:'Cathay Pacific • A330 • Minimal' }
             };
 
             const wallpaperURLs = {
@@ -2042,7 +2055,6 @@
                 if (b) b.classList.remove('active');
             }
 
-            /* ============ 双指缩放 ============ */
             const modalScales = new WeakMap();
             const MIN_SCALE = 0.4;
             const MAX_SCALE = 3;
@@ -2432,7 +2444,6 @@
                         liquidGlassEnabled = false; localStorage.setItem('liquidGlassMode','disabled');
                         retroEnabled = false; localStorage.setItem('retroMode','disabled');
                         minecraftEnabled = false; localStorage.setItem('minecraftMode','disabled');
-                        // 打开一个欢迎窗口
                         setTimeout(() => { openSettingsWindow(); }, 100);
                     } else {
                         [settingsOverlay, calcOverlay, dialpadOverlay, moreOverlay, webmcOverlay, bilibiliOverlay, websiteOverlay, ojangOverlay].forEach(ov => ov.classList.remove('visible'));
@@ -2571,7 +2582,6 @@
                 });
             });
 
-            /* ============ Windows 10 逻辑 ============ */
             function startWin10Clock() {
                 if (win10ClockTimer) return;
                 const updateClock = () => {
@@ -2593,16 +2603,9 @@
 
             function updateWin10TaskbarActiveState() {
                 const apps = document.querySelectorAll('.win10-taskbar-app');
-                const visibleSet = new Set();
                 const map = {
-                    settings: settingsOverlay,
-                    calc: calcOverlay,
-                    dialpad: dialpadOverlay,
-                    more: moreOverlay,
-                    website: websiteOverlay,
-                    webmc: webmcOverlay,
-                    bilibili: bilibiliOverlay,
-                    ojang: ojangOverlay
+                    settings: settingsOverlay, calc: calcOverlay, dialpad: dialpadOverlay, more: moreOverlay,
+                    website: websiteOverlay, webmc: webmcOverlay, bilibili: bilibiliOverlay, ojang: ojangOverlay
                 };
                 apps.forEach(a => {
                     const key = a.getAttribute('data-app');
@@ -2611,7 +2614,6 @@
                     a.classList.toggle('running', !!running);
                     a.classList.remove('active');
                 });
-                // 找 zIndex 最高的窗口作为活动窗口
                 let topOverlay = null, topZ = -1;
                 Object.values(map).forEach(ov => {
                     if (ov && ov.classList.contains('visible')) {
@@ -2658,6 +2660,7 @@
                 else if (app === 'webmc') openWebmcWindow();
                 else if (app === 'bilibili') openBilibiliWindow();
                 else if (app === 'ojang') openOjangWindow();
+                else if (app === 'about') { aboutOverlay.classList.add('visible'); }
             };
 
             window.win10ToggleApp = function(app) {
@@ -2670,7 +2673,6 @@
                 if (!ov.classList.contains('visible')) {
                     window.win10OpenApp(app);
                 } else {
-                    // 检查是否是最上层
                     let topZ = -1, topKey = null;
                     for (const k in map) {
                         const o = map[k];
@@ -2680,14 +2682,12 @@
                         }
                     }
                     if (topKey === app) {
-                        // 已激活，最小化
                         ov.classList.remove('visible');
                         const modal = ov.querySelector('.settings-modal, .calc-modal, .dialpad-modal, .more-modal, .webmc-modal, .bilibili-modal, .website-modal, .ojang-modal');
                         if (modal) { modal.classList.remove('fullscreen'); resetModalScale(modal); }
                         updateWin10TaskbarActiveState();
                         checkFullscreenState();
                     } else {
-                        // 前置
                         const modal = ov.querySelector('.settings-modal, .calc-modal, .dialpad-modal, .more-modal, .webmc-modal, .bilibili-modal, .website-modal, .ojang-modal');
                         if (modal) bringToFront(modal);
                     }
@@ -2725,13 +2725,12 @@
                 if (sb) sb.classList.remove('active');
             });
 
-            /* ============ 初始化 ============ */
             buildDialpad();
             updateUI();
             attachRippleToElements();
             initMusicOnFirstInteraction();
 
-            console.log('[v9.0.0] Windows 10 模式已就绪');
+            console.log('[v7.0.2] Windows 10 模式已就绪');
         })();
     </script>
 </body>
