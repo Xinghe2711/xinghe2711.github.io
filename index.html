@@ -232,10 +232,10 @@
         .webmc-overlay.visible, .bilibili-overlay.visible, .website-overlay.visible, .ojang-overlay.visible { opacity:1; pointer-events:auto; visibility:visible; }
         .webmc-modal, .bilibili-modal, .website-modal, .ojang-modal { background-color:var(--modal-bg); border-radius:16px; padding:0; width:100%; max-width:900px; height:620px; box-shadow:0 12px 48px rgba(0,0,0,0.3); transform:translateY(16px) scale(0.96); transition:all 0.3s cubic-bezier(0.22,1,0.36,1); border:1px solid var(--divider); display:flex; flex-direction:column; overflow:hidden; }
         .webmc-overlay.visible .webmc-modal, .bilibili-overlay.visible .bilibili-modal, .website-overlay.visible .website-modal, .ojang-overlay.visible .ojang-modal { transform:translateY(0) scale(1); }
-        body:not(.concept-mode) .webmc-overlay,
-        body:not(.concept-mode) .bilibili-overlay,
-        body:not(.concept-mode) .website-overlay,
-        body:not(.concept-mode) .ojang-overlay {
+        body:not(.concept-mode):not(.windows10-mode) .webmc-overlay,
+        body:not(.concept-mode):not(.windows10-mode) .bilibili-overlay,
+        body:not(.concept-mode):not(.windows10-mode) .website-overlay,
+        body:not(.concept-mode):not(.windows10-mode) .ojang-overlay {
             display: none !important;
             visibility: hidden !important;
             opacity: 0 !important;
@@ -377,14 +377,7 @@
         [data-theme="dark"] .dock-item { background: linear-gradient(135deg, rgba(80,80,88,0.9), rgba(55,55,62,0.85)); border-color: rgba(255,255,255,0.15); }
         .dock-item:hover, .dock-item.touch-active { transform: scale(1.55) translateY(-14px); z-index: 10; }
 
-        .dock-icon-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 12px;
-            display: block;
-            pointer-events: none;
-        }
+        .dock-icon-img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; display: block; pointer-events: none; }
 
         .dock-icon-more-light { display: block; }
         .dock-icon-more-dark  { display: none; }
@@ -460,13 +453,7 @@
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), 0 8px 24px rgba(0, 0, 0, 0.3), inset 1px 1px 0 rgba(255, 255, 255, 0.14), inset -1px -1px 0 rgba(255, 255, 255, 0.05) !important;
         }
 
-        body.concept-mode .settings-modal {
-            width: 720px !important;
-            max-width: min(720px, calc(100vw - 20px)) !important;
-            height: 520px !important;
-            max-height: calc(100vh - 40px) !important;
-            padding: 0 !important;
-        }
+        body.concept-mode .settings-modal { width: 720px !important; max-width: min(720px, calc(100vw - 20px)) !important; height: 520px !important; max-height: calc(100vh - 40px) !important; padding: 0 !important; }
         body.concept-mode .calc-modal { width: 340px !important; max-width: 340px !important; padding: 0 !important; }
         body.concept-mode .dialpad-modal { width: 320px !important; max-width: 320px !important; padding: 0 !important; }
         body.concept-mode .more-modal { width: 400px !important; max-width: 400px !important; padding: 0 !important; }
@@ -502,10 +489,12 @@
         .macos-traffic-lights { display: flex; gap: 8px; align-items: center; }
         .traffic-light { width: 13px; height: 13px; border-radius: 50%; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; line-height: 1; color: rgba(0,0,0,0.55); position: relative; pointer-events: auto !important; z-index: 100; }
         .traffic-light.close { background: #ff5f57; box-shadow: inset 0 0 0 0.5px #e0443e; }
+        .traffic-light.min { background: #ffbd2e; box-shadow: inset 0 0 0 0.5px #dea123; display: none; }
         .traffic-light.max { background: #28c840; box-shadow: inset 0 0 0 0.5px #18a32b; }
         .traffic-light::before { opacity: 0; transition: opacity 0.15s; font-weight: 700; }
         .macos-traffic-lights:hover .traffic-light::before { opacity: 1; }
         .traffic-light.close::before { content: "×"; }
+        .traffic-light.min::before { content: "−"; }
         .traffic-light.max::before { content: "⤢"; font-size: 9px; }
         .macos-window-title { flex: 1; text-align: center; font-size: 13px; font-weight: 600; color: var(--text); margin-right: 56px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .macos-window-content { flex: 1; overflow: hidden; display: flex; flex-direction: column; min-height: 0; }
@@ -567,6 +556,515 @@
 
         body.concept-mode .settings-modal > .macos-window-content { padding: 0 !important; overflow: hidden; }
 
+        /* ============================================================
+           WINDOWS 10 MODE
+           ============================================================ */
+        body.windows10-mode {
+            padding: 0 !important;
+            background-color: #0a1a35 !important;
+            background-image:
+                radial-gradient(ellipse 80% 60% at 50% 55%, rgba(30, 90, 160, 0.85) 0%, rgba(15, 50, 100, 0.6) 30%, rgba(5, 15, 35, 0.95) 70%, #02060e 100%),
+                linear-gradient(135deg, #061024 0%, #0a1a35 50%, #02060e 100%) !important;
+            background-size: cover !important;
+            background-position: center !important;
+            background-attachment: fixed !important;
+            min-height: 100vh !important;
+            align-items: stretch !important;
+            justify-content: flex-start !important;
+            overflow: hidden !important;
+            font-family: 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif !important;
+        }
+        body.windows10-mode .top-bar,
+        body.windows10-mode .hamburger-btn,
+        body.windows10-mode .sidebar-menu,
+        body.windows10-mode .menu-overlay,
+        body.windows10-mode .container,
+        body.windows10-mode .macos-dock { display: none !important; }
+
+        /* 桌面 */
+        .win10-desktop { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 40px; z-index: 1; }
+        body.windows10-mode .win10-desktop { display: block; }
+        .win10-desktop-icon {
+            position: absolute;
+            width: 84px;
+            text-align: center;
+            color: #fff;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 8px 4px 6px;
+            border-radius: 2px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.9);
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .win10-desktop-icon:hover { background: rgba(255,255,255,0.14); outline: 1px solid rgba(255,255,255,0.3); outline-offset: -1px; }
+        .win10-desktop-icon.selected { background: rgba(0,120,215,0.45); outline: 1px solid rgba(120,190,255,0.8); outline-offset: -1px; }
+        .win10-desktop-icon .icon-img { display: block; font-size: 38px; line-height: 1; margin-bottom: 6px; filter: drop-shadow(1px 1px 2px rgba(0,0,0,0.6)); }
+        .win10-desktop-icon .icon-label { display: block; line-height: 1.25; word-break: break-all; }
+
+        /* 任务栏 */
+        .win10-taskbar {
+            display: none;
+            position: fixed; bottom: 0; left: 0; right: 0;
+            height: 40px;
+            background: rgba(23, 23, 23, 0.88);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            z-index: 100000;
+            align-items: center;
+            color: #fff;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            font-size: 12px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        body.windows10-mode .win10-taskbar { display: flex; }
+
+        .win10-start-btn {
+            width: 48px; height: 40px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: background 0.12s;
+            flex-shrink: 0;
+        }
+        .win10-start-btn:hover { background: rgba(255,255,255,0.1); }
+        .win10-start-btn.active { background: rgba(255,255,255,0.18); }
+        .win10-logo {
+            width: 20px; height: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 2px;
+        }
+        .win10-logo span { background: #fff; display: block; }
+
+        .win10-search {
+            background: rgba(255,255,255,0.08);
+            height: 30px;
+            border-radius: 2px;
+            margin: 5px 6px 5px 2px;
+            display: flex; align-items: center;
+            padding: 0 12px;
+            gap: 8px;
+            color: #b0b0b0;
+            cursor: text;
+            min-width: 250px;
+            flex-shrink: 0;
+            transition: background 0.12s;
+        }
+        .win10-search:hover { background: rgba(255,255,255,0.12); }
+        .win10-search-icon { font-size: 12px; }
+
+        .win10-taskview-btn {
+            width: 48px; height: 40px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            font-size: 16px;
+        }
+        .win10-taskview-btn:hover { background: rgba(255,255,255,0.1); }
+
+        .win10-taskbar-apps {
+            display: flex;
+            align-items: center;
+            padding: 0 6px;
+            gap: 0;
+            flex: 1;
+            overflow: hidden;
+        }
+        .win10-taskbar-app {
+            width: 44px; height: 40px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            position: relative;
+            font-size: 22px;
+            transition: background 0.12s;
+            flex-shrink: 0;
+        }
+        .win10-taskbar-app:hover { background: rgba(255,255,255,0.1); }
+        .win10-taskbar-app.active { background: rgba(255,255,255,0.14); }
+        .win10-taskbar-app.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 22%; right: 22%;
+            height: 3px;
+            background: #0078d7;
+            border-radius: 3px 3px 0 0;
+        }
+        .win10-taskbar-app.running::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 32%; right: 32%;
+            height: 3px;
+            background: #8a8a8a;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .win10-tray {
+            display: flex; align-items: center;
+            height: 40px;
+            padding: 0 2px;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+        .win10-tray-item {
+            padding: 6px 8px;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 14px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 32px;
+        }
+        .win10-tray-item:hover { background: rgba(255,255,255,0.1); }
+        .win10-clock {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 10px;
+            line-height: 1.15;
+            height: 40px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 11px;
+        }
+        .win10-clock:hover { background: rgba(255,255,255,0.1); }
+        .win10-clock .time { font-size: 12px; }
+        .win10-clock .date { font-size: 11px; color: #d0d0d0; }
+        .win10-show-desktop {
+            width: 8px;
+            height: 40px;
+            border-left: 1px solid rgba(255,255,255,0.22);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .win10-show-desktop:hover { background: rgba(255,255,255,0.1); }
+
+        /* 开始菜单 */
+        .win10-startmenu {
+            display: none;
+            position: fixed;
+            bottom: 40px;
+            left: 0;
+            width: 660px;
+            max-width: 100vw;
+            height: 620px;
+            max-height: calc(100vh - 40px);
+            background: rgba(31, 31, 31, 0.96);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            color: #fff;
+            z-index: 99999;
+            box-shadow: 0 0 24px rgba(0,0,0,0.6), 0 4px 12px rgba(0,0,0,0.4);
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            animation: win10StartOpen 0.18s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+        }
+        @keyframes win10StartOpen {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .win10-startmenu.open { display: flex; }
+
+        .win10-startmenu-left {
+            width: 260px;
+            flex-shrink: 0;
+            padding: 8px 0;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid rgba(255,255,255,0.06);
+        }
+        .win10-startmenu-left::-webkit-scrollbar { width: 6px; }
+        .win10-startmenu-left::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
+
+        .win10-menu-item {
+            padding: 10px 16px 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.1s;
+        }
+        .win10-menu-item:hover { background: rgba(255,255,255,0.1); }
+        .win10-menu-item .mi-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+
+        .win10-menu-bottom {
+            margin-top: auto;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .win10-startmenu-right {
+            flex: 1;
+            padding: 16px 20px;
+            overflow-y: auto;
+            background: rgba(31, 31, 31, 0.5);
+        }
+        .win10-startmenu-right::-webkit-scrollbar { width: 6px; }
+        .win10-startmenu-right::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
+        .win10-tiles-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            padding: 0 2px;
+            color: #fff;
+        }
+        .win10-tiles-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 4px;
+        }
+        .win10-tile {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #fff;
+            font-size: 11px;
+            gap: 5px;
+            padding: 6px 4px;
+            transition: transform 0.12s, outline-color 0.12s;
+            outline: 2px solid transparent;
+            outline-offset: -2px;
+            text-align: center;
+            line-height: 1.15;
+        }
+        .win10-tile:hover { outline-color: rgba(255,255,255,0.7); }
+        .win10-tile:active { transform: scale(0.96); }
+        .win10-tile .ti { font-size: 26px; line-height: 1; }
+        .win10-tile.blue { background: #0078d7; }
+        .win10-tile.green { background: #107c10; }
+        .win10-tile.orange { background: #d83b01; }
+        .win10-tile.red { background: #e81123; }
+        .win10-tile.purple { background: #886ce4; }
+        .win10-tile.teal { background: #00b294; }
+        .win10-tile.gray { background: #4a4a4a; }
+        .win10-tile.wide { grid-column: span 2; aspect-ratio: 2.04; flex-direction: row; gap: 8px; justify-content: flex-start; padding-left: 12px; }
+        .win10-tile.wide .ti { font-size: 22px; }
+
+        /* Win10 窗口 */
+        body.windows10-mode .settings-overlay,
+        body.windows10-mode .calc-overlay,
+        body.windows10-mode .dialpad-overlay,
+        body.windows10-mode .more-overlay,
+        body.windows10-mode .webmc-overlay,
+        body.windows10-mode .bilibili-overlay,
+        body.windows10-mode .website-overlay,
+        body.windows10-mode .ojang-overlay {
+            background: transparent !important;
+            padding: 0 !important;
+            align-items: flex-start !important;
+            justify-content: flex-start !important;
+            pointer-events: none !important;
+            display: flex !important;
+            visibility: hidden !important;
+            opacity: 1 !important;
+            transition: none !important;
+        }
+        body.windows10-mode .settings-overlay.visible,
+        body.windows10-mode .calc-overlay.visible,
+        body.windows10-mode .dialpad-overlay.visible,
+        body.windows10-mode .more-overlay.visible,
+        body.windows10-mode .webmc-overlay.visible,
+        body.windows10-mode .bilibili-overlay.visible,
+        body.windows10-mode .website-overlay.visible,
+        body.windows10-mode .ojang-overlay.visible {
+            visibility: visible !important;
+            pointer-events: none !important;
+        }
+
+        body.windows10-mode .settings-modal,
+        body.windows10-mode .calc-modal,
+        body.windows10-mode .dialpad-modal,
+        body.windows10-mode .more-modal,
+        body.windows10-mode .webmc-modal,
+        body.windows10-mode .bilibili-modal,
+        body.windows10-mode .website-modal,
+        body.windows10-mode .ojang-modal {
+            pointer-events: auto !important;
+            position: fixed !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+            background: #ffffff !important;
+            border: 1px solid #0078d7 !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.2) !important;
+            transform: none !important;
+            transition: none !important;
+            color: #000 !important;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif !important;
+            display: flex !important;
+            flex-direction: column !important;
+            overflow: hidden !important;
+            max-height: none !important;
+            will-change: left, top;
+        }
+        body.windows10-mode .settings-modal { width: 720px !important; max-width: min(720px, calc(100vw - 20px)) !important; height: 520px !important; max-height: calc(100vh - 60px) !important; padding: 0 !important; }
+        body.windows10-mode .calc-modal { width: 340px !important; max-width: 340px !important; padding: 0 !important; }
+        body.windows10-mode .dialpad-modal { width: 320px !important; max-width: 320px !important; padding: 0 !important; }
+        body.windows10-mode .more-modal { width: 400px !important; max-width: 400px !important; padding: 0 !important; }
+        body.windows10-mode .webmc-modal { width: 900px !important; max-width: min(900px, calc(100vw - 40px)) !important; height: 620px !important; max-height: calc(100vh - 80px) !important; padding: 0 !important; }
+        body.windows10-mode .bilibili-modal { width: 1000px !important; max-width: min(1000px, calc(100vw - 40px)) !important; height: 700px !important; max-height: calc(100vh - 80px) !important; padding: 0 !important; }
+        body.windows10-mode .website-modal { width: 1000px !important; max-width: min(1000px, calc(100vw - 40px)) !important; height: 700px !important; max-height: calc(100vh - 80px) !important; padding: 0 !important; }
+        body.windows10-mode .ojang-modal { width: 1000px !important; max-width: min(1000px, calc(100vw - 40px)) !important; height: 700px !important; max-height: calc(100vh - 80px) !important; padding: 0 !important; }
+
+        body.windows10-mode .settings-modal.fullscreen,
+        body.windows10-mode .calc-modal.fullscreen,
+        body.windows10-mode .dialpad-modal.fullscreen,
+        body.windows10-mode .more-modal.fullscreen,
+        body.windows10-mode .webmc-modal.fullscreen,
+        body.windows10-mode .bilibili-modal.fullscreen,
+        body.windows10-mode .website-modal.fullscreen,
+        body.windows10-mode .ojang-modal.fullscreen {
+            top: 0 !important; left: 0 !important;
+            width: 100vw !important; height: calc(100vh - 40px) !important;
+            max-width: 100vw !important; max-height: calc(100vh - 40px) !important;
+        }
+
+        body.windows10-mode .macos-window-bar {
+            display: flex !important;
+            height: 30px !important;
+            background: #ffffff !important;
+            border-bottom: 1px solid #e5e5e5 !important;
+            cursor: default !important;
+            padding: 0 0 0 12px !important;
+            align-items: center !important;
+            order: 0;
+            border-radius: 0 !important;
+        }
+        body.windows10-mode .macos-window-bar:active { cursor: move !important; }
+
+        body.windows10-mode .macos-traffic-lights {
+            order: 2 !important;
+            margin-left: auto !important;
+            gap: 0 !important;
+            height: 30px !important;
+            display: flex !important;
+            align-items: stretch !important;
+        }
+
+        body.windows10-mode .traffic-light {
+            width: 46px !important;
+            height: 30px !important;
+            min-width: 46px !important;
+            border-radius: 0 !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            color: #333 !important;
+            font-size: 10px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transition: background 0.1s !important;
+            cursor: default !important;
+        }
+        body.windows10-mode .traffic-light.min { order: 1 !important; display: flex !important; }
+        body.windows10-mode .traffic-light.max { order: 2 !important; display: flex !important; }
+        body.windows10-mode .traffic-light.close { order: 3 !important; display: flex !important; }
+
+        body.windows10-mode .traffic-light:hover { background: #e5e5e5 !important; }
+        body.windows10-mode .traffic-light.close:hover { background: #e81123 !important; color: #fff !important; }
+
+        body.windows10-mode .traffic-light::before { opacity: 1 !important; font-weight: 400 !important; font-size: 11px !important; line-height: 1 !important; }
+        body.windows10-mode .traffic-light.min::before { content: '─' !important; }
+        body.windows10-mode .traffic-light.max::before { content: '□' !important; font-size: 13px !important; }
+        body.windows10-mode .traffic-light.close::before { content: '✕' !important; font-size: 11px !important; }
+
+        body.windows10-mode .macos-window-title {
+            order: 1 !important;
+            text-align: left !important;
+            margin: 0 !important;
+            padding-left: 0 !important;
+            font-size: 12px !important;
+            font-weight: 400 !important;
+            color: #000 !important;
+            letter-spacing: 0 !important;
+        }
+        body.windows10-mode .macos-window-title::before {
+            content: '📄 ';
+            font-size: 12px;
+            margin-right: 4px;
+        }
+
+        body.windows10-mode .settings-modal > .macos-window-content { padding: 0 !important; overflow: hidden; }
+        body.windows10-mode .calc-modal .macos-window-content { padding: 14px !important; background: #f2f2f2; }
+        body.windows10-mode .dialpad-modal .macos-window-content { padding: 14px !important; }
+        body.windows10-mode .more-modal .macos-window-content { padding: 14px !important; overflow-y: auto !important; }
+        body.windows10-mode .webmc-modal .macos-window-content,
+        body.windows10-mode .bilibili-modal .macos-window-content,
+        body.windows10-mode .website-modal .macos-window-content,
+        body.windows10-mode .ojang-modal .macos-window-content { padding: 0 !important; }
+
+        /* Win10 里的设置窗口内容 */
+        body.windows10-mode .settings-simple-view { padding: 16px !important; overflow-y: auto !important; flex: 1; }
+        body.windows10-mode .settings-title { color: #000 !important; }
+        body.windows10-mode .settings-option-label { color: #000 !important; }
+        body.windows10-mode .settings-option { border-bottom-color: #e5e5e5 !important; }
+        body.windows10-mode .settings-section-title { color: #666 !important; }
+        body.windows10-mode .wallpaper-btn { color: #000 !important; border-color: #e5e5e5 !important; }
+        body.windows10-mode .settings-close-btn { background: #0078d7 !important; }
+
+        body.windows10-mode .settings-macos-view.settings-window-layout { flex-direction: row !important; }
+        body.windows10-mode .settings-sidebar { background: #f2f2f2 !important; border-right: 1px solid #e5e5e5 !important; }
+        body.windows10-mode .settings-search { background: #fff !important; border: 1px solid #e5e5e5 !important; }
+        body.windows10-mode .settings-search input { color: #000 !important; }
+        body.windows10-mode .settings-nav-item { color: #000 !important; }
+        body.windows10-mode .settings-nav-item:hover { background: #e5e5e5 !important; }
+        body.windows10-mode .settings-nav-item.active { background: #0078d7 !important; color: #fff !important; }
+        body.windows10-mode .settings-main { background: #ffffff !important; }
+        body.windows10-mode .panel-title { color: #000 !important; }
+        body.windows10-mode .panel-group { background: #f8f8f8 !important; border-color: #e5e5e5 !important; }
+        body.windows10-mode .panel-group-title { color: #000 !important; }
+        body.windows10-mode .panel-row { color: #000 !important; border-bottom-color: #e5e5e5 !important; }
+        body.windows10-mode .theme-thumb { border-color: #e5e5e5; }
+        body.windows10-mode .theme-thumb.active { border-color: #0078d7 !important; }
+        body.windows10-mode .theme-thumb-label { color: #333 !important; }
+        body.windows10-mode .about-panel p { color: #333 !important; }
+
+        /* Win10 里的计算器 */
+        body.windows10-mode .calc-display { background: #fff !important; color: #000 !important; border: 1px solid #d5d5d5 !important; border-radius: 2px !important; font-weight: 300 !important; }
+        body.windows10-mode .calc-key { background: #e6e6e6 !important; color: #000 !important; border-radius: 2px !important; font-size: 16px !important; box-shadow: none !important; aspect-ratio: auto !important; min-height: 46px !important; }
+        body.windows10-mode .calc-key:hover { background: #d4d4d4 !important; }
+        body.windows10-mode .calc-key.operator { background: #d4d4d4 !important; color: #000 !important; }
+        body.windows10-mode .calc-key.equals { background: #0078d7 !important; color: #fff !important; }
+        body.windows10-mode .calc-key.clear { background: #d4d4d4 !important; color: #000 !important; }
+
+        /* Win10 里的拨号盘 */
+        body.windows10-mode .dialpad-display { background: #fff !important; color: #000 !important; border: 1px solid #d5d5d5 !important; border-radius: 2px !important; }
+        body.windows10-mode .dial-key { background: #e6e6e6 !important; color: #000 !important; border-radius: 4px !important; }
+        body.windows10-mode .dial-key:hover { background: #d4d4d4 !important; }
+        body.windows10-mode .dial-action.delete { color: #333 !important; border-color: #d5d5d5 !important; }
+        body.windows10-mode .dial-action.close { background: #0078d7 !important; }
+
+        /* Win10 里的更多窗口 */
+        body.windows10-mode .more-section-title { color: #666 !important; }
+        body.windows10-mode .more-link,
+        body.windows10-mode .more-download { background: #f2f2f2 !important; border-color: #e5e5e5 !important; color: #000 !important; }
+
+        /* Win10 里的 traffic-light 图标只在悬停显示 */
+        body.windows10-mode .traffic-light.close { color: #333 !important; }
+        body.windows10-mode .traffic-light.close:hover { color: #fff !important; }
+
+        @media (max-width: 900px) {
+            .win10-search { min-width: 40px; width: 40px; padding: 0; justify-content: center; }
+            .win10-search-text { display: none; }
+            .win10-startmenu { width: 100vw; }
+        }
+        @media (max-width: 700px) {
+            body.windows10-mode .settings-modal { width: calc(100vw - 20px) !important; }
+            body.windows10-mode .settings-modal .settings-window-layout { flex-direction: column !important; }
+            body.windows10-mode .settings-sidebar { width: 100% !important; height: auto !important; max-height: 120px !important; border-right: none !important; border-bottom: 1px solid #e5e5e5 !important; }
+            .win10-tiles-grid { grid-template-columns: repeat(4, 1fr) !important; }
+        }
+
         @media (max-width: 780px) {
             body.concept-mode .settings-modal { width: calc(100vw - 20px) !important; max-width: 720px !important; height: 78vh !important; max-height: calc(100vh - 40px) !important; }
             body.concept-mode .webmc-modal { width: calc(100vw - 20px) !important; max-width: 900px !important; height: 70vh !important; max-height: calc(100vh - 60px) !important; }
@@ -625,11 +1123,105 @@
         <button class="menu-item" id="dialpadTrigger"><span data-i18n="dialpad">拨号盘</span> <span>☎</span></button>
     </aside>
 
+    <!-- ============ Windows 10 桌面 ============ -->
+    <div class="win10-desktop" id="win10Desktop">
+        <div class="win10-desktop-icon" ondblclick="win10OpenApp('settings')" style="top: 20px; left: 20px;">
+            <span class="icon-img">🖥️</span>
+            <span class="icon-label">此电脑</span>
+        </div>
+        <div class="win10-desktop-icon" ondblclick="win10OpenApp('more')" style="top: 120px; left: 20px;">
+            <span class="icon-img">🗑️</span>
+            <span class="icon-label">回收站</span>
+        </div>
+        <div class="win10-desktop-icon" ondblclick="win10OpenApp('more')" style="top: 220px; left: 20px;">
+            <span class="icon-img">📁</span>
+            <span class="icon-label">我的文档</span>
+        </div>
+        <div class="win10-desktop-icon" ondblclick="win10OpenApp('webmc')" style="top: 320px; left: 20px;">
+            <span class="icon-img">🌐</span>
+            <span class="icon-label">网络</span>
+        </div>
+        <div class="win10-desktop-icon" ondblclick="win10OpenApp('settings')" style="top: 20px; left: 120px;">
+            <span class="icon-img">⚙️</span>
+            <span class="icon-label">设置</span>
+        </div>
+        <div class="win10-desktop-icon" ondblclick="win10OpenApp('calc')" style="top: 120px; left: 120px;">
+            <span class="icon-img">🔢</span>
+            <span class="icon-label">计算器</span>
+        </div>
+    </div>
+
+    <!-- ============ Windows 10 任务栏 ============ -->
+    <div class="win10-taskbar" id="win10Taskbar">
+        <div class="win10-start-btn" id="win10StartBtn" onclick="win10ToggleStart(event)">
+            <div class="win10-logo"><span></span><span></span><span></span><span></span></div>
+        </div>
+        <div class="win10-search">
+            <span class="win10-search-icon">🔍</span>
+            <span class="win10-search-text">在此处输入内容进行搜索</span>
+        </div>
+        <div class="win10-taskview-btn" title="任务视图" onclick="win10ToggleStart(event)">⊞</div>
+        <div class="win10-taskbar-apps" id="win10TaskbarApps">
+            <div class="win10-taskbar-app" data-app="settings" title="设置" onclick="win10ToggleApp('settings')">⚙️</div>
+            <div class="win10-taskbar-app" data-app="calc" title="计算器" onclick="win10ToggleApp('calc')">🔢</div>
+            <div class="win10-taskbar-app" data-app="more" title="更多" onclick="win10ToggleApp('more')">⋯</div>
+            <div class="win10-taskbar-app" data-app="website" title="官方网站" onclick="win10ToggleApp('website')">🏠</div>
+            <div class="win10-taskbar-app" data-app="webmc" title="网页版MC" onclick="win10ToggleApp('webmc')">🌐</div>
+            <div class="win10-taskbar-app" data-app="bilibili" title="Bilibili" onclick="win10ToggleApp('bilibili')">📺</div>
+            <div class="win10-taskbar-app" data-app="ojang" title="ojang pe下载" onclick="win10ToggleApp('ojang')">⬇️</div>
+            <div class="win10-taskbar-app" data-app="dialpad" title="拨号盘" onclick="win10ToggleApp('dialpad')">☎️</div>
+        </div>
+        <div class="win10-tray">
+            <div class="win10-tray-item" title="隐藏的图标">︿</div>
+            <div class="win10-tray-item" title="网络">📶</div>
+            <div class="win10-tray-item" title="音量">🔊</div>
+            <div class="win10-tray-item" title="输入法">中</div>
+            <div class="win10-clock" id="win10Clock" title="日期和时间">
+                <span class="time" id="win10ClockTime">12:00</span>
+                <span class="date" id="win10ClockDate">2026/1/1</span>
+            </div>
+            <div class="win10-show-desktop" title="显示桌面" onclick="win10ShowDesktop()"></div>
+        </div>
+    </div>
+
+    <!-- ============ Windows 10 开始菜单 ============ -->
+    <div class="win10-startmenu" id="win10StartMenu">
+        <div class="win10-startmenu-left">
+            <div class="win10-menu-item" onclick="win10OpenApp('settings')"><span class="mi-icon">⚙️</span><span>设置</span></div>
+            <div class="win10-menu-item" onclick="win10OpenApp('calc')"><span class="mi-icon">🔢</span><span>计算器</span></div>
+            <div class="win10-menu-item" onclick="win10OpenApp('dialpad')"><span class="mi-icon">☎️</span><span>拨号盘</span></div>
+            <div class="win10-menu-item" onclick="win10OpenApp('more')"><span class="mi-icon">⋯</span><span>更多</span></div>
+            <div class="win10-menu-item" onclick="win10OpenApp('website')"><span class="mi-icon">🏠</span><span>官方网站</span></div>
+            <div class="win10-menu-item" onclick="win10OpenApp('webmc')"><span class="mi-icon">🌐</span><span>网页版MC</span></div>
+            <div class="win10-menu-item" onclick="win10OpenApp('bilibili')"><span class="mi-icon">📺</span><span>Bilibili</span></div>
+            <div class="win10-menu-item" onclick="win10OpenApp('ojang')"><span class="mi-icon">⬇️</span><span>ojang pe下载</span></div>
+            <div class="win10-menu-bottom">
+                <div class="win10-menu-item" onclick="win10ExitToNormal()"><span class="mi-icon">⏻</span><span>退出 Windows 10 模式</span></div>
+            </div>
+        </div>
+        <div class="win10-startmenu-right">
+            <div class="win10-tiles-title">常用应用</div>
+            <div class="win10-tiles-grid">
+                <div class="win10-tile blue" onclick="win10OpenApp('settings')"><span class="ti">⚙️</span><span>设置</span></div>
+                <div class="win10-tile green" onclick="win10OpenApp('calc')"><span class="ti">🔢</span><span>计算器</span></div>
+                <div class="win10-tile teal" onclick="win10OpenApp('dialpad')"><span class="ti">☎️</span><span>拨号盘</span></div>
+                <div class="win10-tile purple" onclick="win10OpenApp('more')"><span class="ti">⋯</span><span>更多</span></div>
+                <div class="win10-tile blue" onclick="win10OpenApp('website')"><span class="ti">🏠</span><span>官方网站</span></div>
+                <div class="win10-tile green" onclick="win10OpenApp('webmc')"><span class="ti">🌐</span><span>网页版MC</span></div>
+                <div class="win10-tile red" onclick="win10OpenApp('bilibili')"><span class="ti">📺</span><span>Bilibili</span></div>
+                <div class="win10-tile orange" onclick="win10OpenApp('ojang')"><span class="ti">⬇️</span><span>ojang</span></div>
+                <div class="win10-tile wide blue" onclick="win10OpenApp('settings')"><span class="ti">✨</span><span>="个性化你的电脑</span></div>
+                <div class="win10-tile wide teal" onclick="win10OpenApp('website')"><span class="ti">🌏</span><span>浏览网页</span></div>
+            </div>
+        </div>
+    </div>
+
     <div class="settings-overlay" id="settingsOverlay">
         <div class="settings-modal" id="settingsModal">
             <div class="macos-window-bar">
                 <div class="macos-traffic-lights">
-                    <button class="traffic-light close" data-role="close"></button>
+                    <button classtraffic-light close" data-role="close"></button>
+                    <button class="traffic-light min" data-role="min"></button>
                     <button class="traffic-light max" data-role="max"></button>
                 </div>
                 <div class="macos-window-title" data-i18n="settings">设置</div>
@@ -650,13 +1242,8 @@
                         <div class="settings-option"><span class="settings-option-label" data-i18n="liquidGlassMode">液态玻璃</span><button class="ios-switch" data-switch="liquidGlassMode"><span class="knob"></span></button></div>
                         <div class="settings-option"><span class="settings-option-label" data-i18n="retroMode">怀旧模式</span><button class="ios-switch" data-switch="retroMode"><span class="knob"></span></button></div>
                         <div class="settings-option"><span class="settings-option-label" data-i18n="minecraftMode">Minecraft模式</span><button class="ios-switch" data-switch="minecraftMode"><span class="knob"></span></button></div>
-                    </div>
-                    <div class="settings-section">
-                        <div class="settings-section-title">概念版 (Beta)</div>
-                        <div class="settings-option">
-                            <span class="settings-option-label" data-i18n="conceptMode">概念版模式</span>
-                            <button class="ios-switch" data-switch="conceptMode"><span class="knob"></span></button>
-                        </div>
+                        <div class="settings-option"><span class="settings-option-label" data-i18n="conceptMode">概念版模式</span><button class="ios-switch" data-switch="conceptMode"><span class="knob"></span></button></div>
+                        <div class="settings-option"><span class="settings-option-label">Windows 10 模式</span><button class="ios-switch" data-switch="windows10Mode"><span class="knob"></span></button></div>
                     </div>
                     <div class="settings-section">
                         <div class="settings-section-title" data-i18n="wallpaper">壁纸选择</div>
@@ -730,6 +1317,8 @@
                                 <div class="panel-row"><span>液态玻璃</span><button class="ios-switch" data-switch="liquidGlassMode"><span class="knob"></span></button></div>
                                 <div class="panel-row"><span>怀旧模式</span><button class="ios-switch" data-switch="retroMode"><span class="knob"></span></button></div>
                                 <div class="panel-row"><span>Minecraft模式</span><button class="ios-switch" data-switch="minecraftMode"><span class="knob"></span></button></div>
+                                <div class="panel-row"><span>概念版模式</span><button class="ios-switch" data-switch="conceptMode"><span class="knob"></span></button></div>
+                                <div class="panel-row"><span>Windows 10 模式</span><button class="ios-switch" data-switch="windows10Mode"><span class="knob"></span></button></div>
                             </div>
                         </div>
                         <div class="settings-panel" data-panel="wallpaper">
@@ -760,9 +1349,11 @@
                             <div class="panel-title">概念版 (Beta)</div>
                             <div class="panel-group">
                                 <div class="panel-row"><span>开启概念版模式</span><button class="ios-switch" data-switch="conceptMode"><span class="knob"></span></button></div>
+                                <div class="panel-row"><span>开启 Windows 10 模式</span><button class="ios-switch" data-switch="windows10Mode"><span class="knob"></span></button></div>
                             </div>
                             <p style="font-size:12.5px; color:var(--text-secondary); line-height:1.7; padding: 0 4px;">
-                                开启后，顶部栏与菜单按钮将被隐藏，底部出现 macOS 风格的程序坞。程序坞上的"菜单"图标可以呼出侧边菜单。
+                                概念版：顶部栏隐藏，底部出现 macOS 风格程序坞。<br>
+                                Windows 10 模式：主界面变为 Windows 10 桌面、任务栏和开始菜单。
                             </p>
                         </div>
                         <div class="settings-panel" data-panel="about">
@@ -771,38 +1362,20 @@
                                 <div class="settings-app-icon">
                                     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                                         <defs>
-                                            <linearGradient id="gearRing" x1="0" y1="0" x2="0" y2="1">
-                                                <stop offset="0" stop-color="#e2e2e8"/>
-                                                <stop offset="0.5" stop-color="#c0c0c8"/>
-                                                <stop offset="1" stop-color="#9a9aa2"/>
-                                            </linearGradient>
-                                            <linearGradient id="gearBg" x1="0" y1="0" x2="0" y2="1">
-                                                <stop offset="0" stop-color="#8e8e96"/>
-                                                <stop offset="1" stop-color="#6a6a72"/>
-                                            </linearGradient>
+                                            <linearGradient id="gearRing" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2e2e8"/><stop offset="0.5" stop-color="#c0c0c8"/><stop offset="1" stop-color="#9a9aa2"/></linearGradient>
+                                            <linearGradient id="gearBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8e8e96"/><stop offset="1" stop-color="#6a6a72"/></linearGradient>
                                         </defs>
                                         <rect x="4" y="4" width="92" height="92" rx="22" fill="url(#gearBg)"/>
-                                        <g fill="url(#gearRing)">
-                                            <path d="M50 8 L55 8 L57 16 L62 17 L68 10 L72 14 L66 21 L68 25 L77 25 L77 31 L69 33 L69 37 L77 40 L77 46 L69 46 L68 50 L76 54 L76 60 L68 60 L68 65 L76 69 L72 74 L65 68 L60 70 L60 78 L54 78 L53 70 L48 70 L46 78 L40 78 L40 70 L35 69 L29 76 L24 72 L30 65 L28 60 L20 60 L20 54 L28 52 L28 48 L20 45 L20 40 L28 40 L29 35 L21 31 L21 25 L29 25 L30 21 L24 14 L28 10 L35 16 L40 15 L41 8 Z"/>
-                                        </g>
                                         <circle cx="50" cy="50" r="30" fill="url(#gearBg)"/>
                                         <circle cx="50" cy="50" r="27" fill="url(#gearRing)" opacity="0.92"/>
                                         <circle cx="50" cy="50" r="22" fill="url(#gearBg)"/>
-                                        <g fill="url(#gearRing)">
-                                            <path d="M50 32 L53 32 L54 36 L56 36 L58 33 L60 35 L58 38 L59 40 L63 40 L63 43 L60 43 L59 45 L62 47 L62 50 L59 50 L58 52 L60 55 L58 57 L56 54 L53 55 L53 58 L50 58 L50 55 L47 55 L45 58 L43 58 L43 55 L40 54 L38 57 L36 55 L39 52 L38 50 L35 50 L35 47 L38 47 L39 45 L36 43 L36 40 L39 40 L40 38 L38 35 L40 33 L43 36 L45 36 L45 32 Z"/>
-                                        </g>
-                                        <g stroke="url(#gearRing)" stroke-width="6" stroke-linecap="round" fill="none">
-                                            <line x1="50" y1="50" x2="50" y2="30"/>
-                                            <line x1="50" y1="50" x2="67" y2="60"/>
-                                            <line x1="50" y1="50" x2="33" y2="60"/>
-                                        </g>
                                         <circle cx="50" cy="50" r="4" fill="#5a5a62"/>
                                     </svg>
                                 </div>
                                 <p data-i18n="aboutText">这是一架国泰航空A330官方网站</p>
                                 <p class="version-text" id="versionAreaSettings">
                                     <span class="version-label" data-i18n="versionLabel">版本号</span>
-                                    <span class="version-number" data-i18n="versionNumber">8.0.0</span>
+                                    <span class="version-number" data-i18n="versionNumber">9.0.0</span>
                                 </p>
                             </div>
                         </div>
@@ -819,7 +1392,7 @@
                 <p data-i18n="aboutText">这是一架国泰航空A330官方网站</p>
                 <p class="version-text" id="versionArea">
                     <span class="version-label" data-i18n="versionLabel">版本号</span>
-                    <span class="version-number" data-i18n="versionNumber">8.0.0</span>
+                    <span class="version-number" data-i18n="versionNumber">9.0.0</span>
                 </p>
             </div>
             <button class="about-close-btn" id="aboutCloseBtn" data-i18n="close">关闭</button>
@@ -841,6 +1414,7 @@
             <div class="macos-window-bar">
                 <div class="macos-traffic-lights">
                     <button class="traffic-light close" data-role="close"></button>
+                    <button class="traffic-light min" data-role="min"></button>
                     <button class="traffic-light max" data-role="max"></button>
                 </div>
                 <div class="macos-window-title" data-i18n="calculator">计算器</div>
@@ -877,6 +1451,7 @@
             <div class="macos-window-bar">
                 <div class="macos-traffic-lights">
                     <button class="traffic-light close" data-role="close"></button>
+                    <button class="traffic-light min" data-role="min"></button>
                     <button class="traffic-light max" data-role="max"></button>
                 </div>
                 <div class="macos-window-title" data-i18n="dialpad">拨号盘</div>
@@ -897,6 +1472,7 @@
             <div class="macos-window-bar">
                 <div class="macos-traffic-lights">
                     <button class="traffic-light close" data-role="close"></button>
+                    <button class="traffic-light min" data-role="min"></button>
                     <button class="traffic-light max" data-role="max"></button>
                 </div>
                 <div class="macos-window-title" data-i18n="more">更多</div>
@@ -949,6 +1525,7 @@
             <div class="macos-window-bar">
                 <div class="macos-traffic-lights">
                     <button class="traffic-light close" data-role="close"></button>
+                    <button class="traffic-light min" data-role="min"></button>
                     <button class="traffic-light max" data-role="max"></button>
                 </div>
                 <div class="macos-window-title" data-i18n="webMC">网页版MC</div>
@@ -964,6 +1541,7 @@
             <div class="macos-window-bar">
                 <div class="macos-traffic-lights">
                     <button class="traffic-light close" data-role="close"></button>
+                    <button class="traffic-light min" data-role="min"></button>
                     <button class="traffic-light max" data-role="max"></button>
                 </div>
                 <div class="macos-window-title">Bilibili</div>
@@ -979,6 +1557,7 @@
             <div class="macos-window-bar">
                 <div class="macos-traffic-lights">
                     <button class="traffic-light close" data-role="close"></button>
+                    <button class="traffic-light min" data-role="min"></button>
                     <button class="traffic-light max" data-role="max"></button>
                 </div>
                 <div class="macos-window-title" data-i18n="officialWebsite">官方网站</div>
@@ -994,6 +1573,7 @@
             <div class="macos-window-bar">
                 <div class="macos-traffic-lights">
                     <button class="traffic-light close" data-role="close"></button>
+                    <button class="traffic-light min" data-role="min"></button>
                     <button class="traffic-light max" data-role="max"></button>
                 </div>
                 <div class="macos-window-title" data-i18n="ojangDownload">ojang pe下载</div>
@@ -1005,11 +1585,6 @@
     </div>
 
     <div class="macos-dock" id="macosDock">
-        <div class="dock-item" data-app="menu" title="菜单"
-            onclick="event.stopPropagation();(function(){var m=document.getElementById('sidebarMenu');var o=document.getElementById('menuOverlay');if(!m||!o)return;var isOpen=m.classList.contains('open');if(isOpen){m.classList.remove('open');o.classList.remove('visible');}else{m.classList.add('open');o.classList.add('visible');}})();">
-            <span>☰</span>
-            <span class="dock-label" data-i18n="menu">菜单</span>
-        </div>
         <div class="dock-item" data-app="website" title="官方网站">🏠<span class="dock-label" data-i18n="officialWebsite">官方网站</span></div>
         <div class="dock-item" data-app="webmc" title="网页版MC">
             <img class="dock-icon-img" src="https://raw.githubusercontent.com/Xinghe2711/xinghe2711.github.io/refs/heads/main/HEIF%E5%9B%BE%E5%83%8F%204.heic" alt="网页版MC" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -1033,34 +1608,7 @@
         </div>
         <div class="dock-item" data-app="settings" title="设置">
             <img class="dock-icon-img" src="https://raw.githubusercontent.com/Xinghe2711/xinghe2711.github.io/refs/heads/main/HEIF%E5%9B%BE%E5%83%8F%202.heic" alt="设置" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-            <svg style="display:none" viewBox="0 0 100 100" width="42" height="42" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="gearRingDock" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0" stop-color="#e2e2e8"/>
-                        <stop offset="1" stop-color="#9a9aa2"/>
-                    </linearGradient>
-                    <linearGradient id="gearBgDock" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0" stop-color="#8e8e96"/>
-                        <stop offset="1" stop-color="#6a6a72"/>
-                    </linearGradient>
-                </defs>
-                <rect x="4" y="4" width="92" height="92" rx="22" fill="url(#gearBgDock)"/>
-                <g fill="url(#gearRingDock)">
-                    <path d="M50 8 L55 8 L57 16 L62 17 L68 10 L72 14 L66 21 L68 25 L77 25 L77 31 L69 33 L69 37 L77 40 L77 46 L69 46 L68 50 L76 54 L76 60 L68 60 L68 65 L76 69 L72 74 L65 68 L60 70 L60 78 L54 78 L53 70 L48 70 L46 78 L40 78 L40 70 L35 69 L29 76 L24 72 L30 65 L28 60 L20 60 L20 54 L28 52 L28 48 L20 45 L20 40 L28 40 L29 35 L21 31 L21 25 L29 25 L30 21 L24 14 L28 10 L35 16 L40 15 L41 8 Z"/>
-                </g>
-                <circle cx="50" cy="50" r="30" fill="url(#gearBgDock)"/>
-                <circle cx="50" cy="50" r="27" fill="url(#gearRingDock)" opacity="0.92"/>
-                <circle cx="50" cy="50" r="22" fill="url(#gearBgDock)"/>
-                <g fill="url(#gearRingDock)">
-                    <path d="M50 32 L53 32 L54 36 L56 36 L58 33 L60 35 L58 38 L59 40 L63 40 L63 43 L60 43 L59 45 L62 47 L62 50 L59 50 L58 52 L60 55 L58 57 L56 54 L53 55 L53 58 L50 58 L50 55 L47 55 L45 58 L43 58 L43 55 L40 54 L38 57 L36 55 L39 52 L38 50 L35 50 L35 47 L38 47 L39 45 L36 43 L36 40 L39 40 L40 38 L38 35 L40 33 L43 36 L45 36 L45 32 Z"/>
-                </g>
-                <g stroke="url(#gearRingDock)" stroke-width="6" stroke-linecap="round" fill="none">
-                    <line x1="50" y1="50" x2="50" y2="30"/>
-                    <line x1="50" y1="50" x2="67" y2="60"/>
-                    <line x1="50" y1="50" x2="33" y2="60"/>
-                </g>
-                <circle cx="50" cy="50" r="4" fill="#5a5a62"/>
-            </svg>
+            <svg style="display:none" viewBox="0 0 100 100" width="42" height="42" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="92" height="92" rx="22" fill="#6a6a72"/><circle cx="50" cy="50" r="22" fill="#8e8e96"/><circle cx="50" cy="50" r="4" fill="#5a5a62"/></svg>
             <span class="dock-label" data-i18n="settings">设置</span>
         </div>
         <div class="dock-item" data-app="calc" title="计算器">
@@ -1157,6 +1705,7 @@
             let retroEnabled = localStorage.getItem('retroMode') === 'enabled';
             let minecraftEnabled = localStorage.getItem('minecraftMode') === 'enabled';
             let conceptEnabled = localStorage.getItem('conceptMode') === 'enabled';
+            let windows10Enabled = localStorage.getItem('windows10Mode') === 'enabled';
             let wallpaperChoice = localStorage.getItem('wallpaperChoice') || 'default';
             let dialValue = '';
             let calcFirstOperand = null, calcOperator = null, calcShouldResetDisplay = false;
@@ -1166,22 +1715,23 @@
             let bilibiliLoaded = false;
             let websiteLoaded = false;
             let ojangLoaded = false;
+            let win10ClockTimer = null;
 
             const OJANG_URL = 'https://share.feijipan.com/s/Pw8OwB3N';
 
             const MUSIC_URLS = [
-                'https://github.com/Xinghe2711/Xinghe2711.github.io/raw/refs/heads/main/Sweden%20(Caution%20&%20Crisis%20Remix).mp3',
+                'https://github.com/Xinghe2711/Xinghe2711.github.io/raw/refs/heads/main/Sweden%20(Caution%20%26%20Crisis%20Remix).mp3',
                 'https://github.com/Xinghe2711/Xinghe2711.github.io/raw/refs/heads/main/tsuki%20no%20koibumi.mp3',
                 'https://raw.githubusercontent.com/Xinghe2711/xinghe2711.github.io/refs/heads/main/Minecraft.mp3'
             ];
             let musicStarted = false;
 
             const translations = {
-                'zh-CN': { siteTitle:'一架国泰航空A330官方网站', settings:'设置', menu:'菜单', calculator:'计算器', about:'关于', more:'更多', aboutText:'这是一架国泰航空A330官方网站', versionLabel:'版本号', versionNumber:'8.0.0', links:'链接', webMC:'网页版MC', ojangDownload:'ojang pe下载', dialpad:'拨号盘', officialWebsite:'官方网站', theme:'主题模式', darkMode:'深色模式', displayMode:'显示模式', glassMode:'透明模式', liquidGlassMode:'液态玻璃', retroMode:'怀旧模式', minecraftMode:'Minecraft模式', conceptMode:'概念版模式', wallpaper:'壁纸选择', defaultWallpaper:'默认', creeperSleep:'苦力怕娘睡觉', minecart:'矿车', tnt:'TNT！', blueArchive1:'蔚蓝档案1', rowing:'划船', blueArchive2:'蔚蓝档案2', waterDrop:'水滴壁纸', whiteWallpaper:'白色壁纸', language:'语言', close:'关闭', welcome:'欢迎来到<br>一架国泰航空A330官方网站', bilibili:'我的 bilibili', fanGroup:'加入粉丝群', announcementTitle:'公告栏', announcementSubtitle:'支持多语言', bilibiliDownload:'bilibili国际版3.19.2下载', netEaseDownload:'网易云音乐极速版1.0.0下载', kuGouDownload:'酷狗概念版2.4.2下载', jianYingDownload:'剪映5.7.0下载', download:'下载', delete:'删除', footer:'Cathay Pacific • A330 • Minimal' },
-                'zh-TW': { siteTitle:'一架國泰航空A330官方網站', settings:'設置', menu:'選單', calculator:'計算機', about:'關於', more:'更多', aboutText:'這是一架國泰航空A330官方網站', versionLabel:'版本號', versionNumber:'8.0.0', links:'連結', webMC:'網頁版MC', ojangDownload:'ojang pe下載', dialpad:'撥號盤', officialWebsite:'官方網站', theme:'主題模式', darkMode:'深色模式', displayMode:'顯示模式', glassMode:'透明模式', liquidGlassMode:'液態玻璃', retroMode:'懷舊模式', minecraftMode:'Minecraft模式', conceptMode:'概念版模式', wallpaper:'壁紙選擇', defaultWallpaper:'預設', creeperSleep:'苦力怕娘睡覺', minecart:'礦車', tnt:'TNT！', blueArchive1:'蔚藍檔案1', rowing:'划船', blueArchive2:'蔚藍檔案2', waterDrop:'水滴桌布', whiteWallpaper:'白色桌布', language:'語言', close:'關閉', welcome:'歡迎來到<br>一架國泰航空A330官方網站', bilibili:'我的 bilibili', fanGroup:'加入粉絲群', announcementTitle:'公告欄', announcementSubtitle:'支援多語言', bilibiliDownload:'bilibili國際版3.19.2下載', netEaseDownload:'網易雲音樂極速版1.0.0下載', kuGouDownload:'酷狗概念版2.4.2下載', jianYingDownload:'剪映5.7.0下載', download:'下載', delete:'刪除', footer:'Cathay Pacific • A330 • Minimal' },
-                'en': { siteTitle:'Cathay Pacific A330 Official Website', settings:'Settings', menu:'Menu', calculator:'Calculator', about:'About', more:'More', aboutText:'This is Cathay Pacific A330 Official Website', versionLabel:'Version', versionNumber:'8.0.0', links:'Links', webMC:'Web MC', ojangDownload:'ojang pe Download', dialpad:'Dial Pad', officialWebsite:'Official Website', theme:'Theme', darkMode:'Dark Mode', displayMode:'Display Mode', glassMode:'Glass Mode', liquidGlassMode:'Liquid Glass', retroMode:'Retro Mode', minecraftMode:'Minecraft Mode', conceptMode:'Concept Mode', wallpaper:'Wallpaper Selection', defaultWallpaper:'Default', creeperSleep:'Creeper Girl Sleeping', minecart:'Minecart', tnt:'TNT!', blueArchive1:'Blue Archive 1', rowing:'Rowing', blueArchive2:'Blue Archive 2', waterDrop:'Water Drop', whiteWallpaper:'White Wallpaper', language:'Language', close:'Close', welcome:'Welcome to<br>Cathay Pacific A330 Official Website', bilibili:'My bilibili', fanGroup:'Join Fan Group', announcementTitle:'Announcement', announcementSubtitle:'Supports multiple languages', bilibiliDownload:'bilibili International 3.19.2 Download', netEaseDownload:'NetEase Cloud Music Lite 1.0.0 Download', kuGouDownload:'KuGou Concept 2.4.2 Download', jianYingDownload:'JianYing 5.7.0 Download', download:'Download', delete:'Delete', footer:'Cathay Pacific • A330 • Minimal' },
-                'ja': { siteTitle:'キャセイパシフィックA330公式サイト', settings:'設定', menu:'メニュー', calculator:'電卓', about:'について', more:'その他', aboutText:'これはキャセイパシフィックA330公式サイトです', versionLabel:'バージョン', versionNumber:'8.0.0', links:'リンク', webMC:'ウェブ版MC', ojangDownload:'ojang peダウンロード', dialpad:'ダイヤルパッド', officialWebsite:'公式サイト', theme:'テーマ', darkMode:'ダークモード', displayMode:'表示モード', glassMode:'グラスモード', liquidGlassMode:'リキッドグラス', retroMode:'レトロモード', minecraftMode:'Minecraftモード', conceptMode:'コンセプトモード', wallpaper:'壁紙選択', defaultWallpaper:'デフォルト', creeperSleep:'クリーパー娘の睡眠', minecart:'トロッコ', tnt:'TNT！', blueArchive1:'ブルーアーカイブ1', rowing:'ボート', blueArchive2:'ブルーアーカイブ2', waterDrop:'水滴の壁紙', whiteWallpaper:'白い壁紙', language:'言語', close:'閉じる', welcome:'ようこそ<br>キャセイパシフィックA330公式サイトへ', bilibili:'My bilibili', fanGroup:'ファングループに参加', announcementTitle:'お知らせ', announcementSubtitle:'多言語対応', bilibiliDownload:'bilibili国際版3.19.2ダウンロード', netEaseDownload:'NetEase Cloud Music Lite 1.0.0ダウンロード', kuGouDownload:'KuGou Concept 2.4.2ダウンロード', jianYingDownload:'JianYing 5.7.0ダウンロード', download:'ダウンロード', delete:'削除', footer:'Cathay Pacific • A330 • Minimal' },
-                'ko': { siteTitle:'캐세이퍼시픽 A330 공식 웹사이트', settings:'설정', menu:'메뉴', calculator:'계산기', about:'정보', more:'더 보기', aboutText:'이것은 캐세이퍼시픽 A330 공식 웹사이트입니다', versionLabel:'버전', versionNumber:'8.0.0', links:'링크', webMC:'웹 MC', ojangDownload:'ojang pe 다운로드', dialpad:'다이얼 패드', officialWebsite:'공식 웹사이트', theme:'테마', darkMode:'다크 모드', displayMode:'디스플레이 모드', glassMode:'글래스 모드', liquidGlassMode:'리퀴드 글래스', retroMode:'레트로 모드', minecraftMode:'Minecraft 모드', conceptMode:'컨셉트 모드', wallpaper:'배경화면 선택', defaultWallpaper:'기본값', creeperSleep:'크리퍼 소녀 수면', minecart:'광차', tnt:'TNT!', blueArchive1:'블루 아카이브 1', rowing:'조정', blueArchive2:'블루 아카이브 2', waterDrop:'물방울 배경화면', whiteWallpaper:'흰색 배경화면', language:'언어', close:'닫기', welcome:'환영합니다<br>캐세이퍼시픽 A330 공식 웹사이트', bilibili:'My bilibili', fanGroup:'팬 그룹 가입', announcementTitle:'공지사항', announcementSubtitle:'다국어 지원', bilibiliDownload:'bilibili 국제판 3.19.2 다운로드', netEaseDownload:'NetEase Cloud Music Lite 1.0.0 다운로드', kuGouDownload:'KuGou Concept 2.4.2 다운로드', jianYingDownload:'JianYing 5.7.0 다운로드', download:'다운로드', delete:'삭제', footer:'Cathay Pacific • A330 • Minimal' }
+                'zh-CN': { siteTitle:'一架国泰航空A330官方网站', settings:'设置', menu:'菜单', calculator:'计算器', about:'关于', more:'更多', aboutText:'这是一架国泰航空A330官方网站', versionLabel:'版本号', versionNumber:'9.0.0', links:'链接', webMC:'网页版MC', ojangDownload:'ojang pe下载', dialpad:'拨号盘', officialWebsite:'官方网站', theme:'主题模式', darkMode:'深色模式', displayMode:'显示模式', glassMode:'透明模式', liquidGlassMode:'液态玻璃', retroMode:'怀旧模式', minecraftMode:'Minecraft模式', conceptMode:'概念版模式', wallpaper:'壁纸选择', defaultWallpaper:'默认', creeperSleep:'苦力怕娘睡觉', minecart:'矿车', tnt:'TNT！', blueArchive1:'蔚蓝档案1', rowing:'划船', blueArchive2:'蔚蓝档案2', waterDrop:'水滴壁纸', whiteWallpaper:'白色壁纸', language:'语言', close:'关闭', welcome:'欢迎来到<br>一架国泰航空A330官方网站', bilibili:'我的 bilibili', fanGroup:'加入粉丝群', announcementTitle:'公告栏', announcementSubtitle:'支持多语言', bilibiliDownload:'bilibili国际版3.19.2下载', netEaseDownload:'网易云音乐极速版1.0.0下载', kuGouDownload:'酷狗概念版2.4.2下载', jianYingDownload:'剪映5.7.0下载', download:'下载', delete:'删除', footer:'Cathay Pacific • A330 • Minimal' },
+                'zh-TW': { siteTitle:'一架國泰航空A330官方網站', settings:'設置', menu:'選單', calculator:'計算機', about:'關於', more:'更多', aboutText:'這是一架國泰航空A330官方網站', versionLabel:'版本號', versionNumber:'9.0.0', links:'連結', webMC:'網頁版MC', ojangDownload:'ojang pe下載', dialpad:'撥號盤', officialWebsite:'官方網站', theme:'主題模式', darkMode:'深色模式', displayMode:'顯示模式', glassMode:'透明模式', liquidGlassMode:'液態玻璃', retroMode:'懷舊模式', minecraftMode:'Minecraft模式', conceptMode:'概念版模式', wallpaper:'壁紙選擇', defaultWallpaper:'預設', creeperSleep:'苦力怕娘睡覺', minecart:'礦車', tnt:'TNT！', blueArchive1:'蔚藍檔案1', rowing:'划船', blueArchive2:'蔚藍檔案2', waterDrop:'水滴桌布', whiteWallpaper:'白色桌布', language:'語言', close:'關閉', welcome:'歡迎來到<br>一架國泰航空A330官方網站', bilibili:'我的 bilibili', fanGroup:'加入粉絲群', announcementTitle:'公告欄', announcementSubtitle:'支援多語言', bilibiliDownload:'bilibili國際版3.19.2下載', netEaseDownload:'網易雲音樂極速版1.0.0下載', kuGouDownload:'酷狗概念版2.4.2下載', jianYingDownload:'剪映5.7.0下載', download:'下載', delete:'刪除', footer:'Cathay Pacific • A330 • Minimal' },
+                'en': { siteTitle:'Cathay Pacific A330 Official Website', settings:'Settings', menu:'Menu', calculator:'Calculator', about:'About', more:'More', aboutText:'This is Cathay Pacific A330 Official Website', versionLabel:'Version', versionNumber:'9.0.0', links:'Links', webMC:'Web MC', ojangDownload:'ojang pe Download', dialpad:'Dial Pad', officialWebsite:'Official Website', theme:'Theme', darkMode:'Dark Mode', displayMode:'Display Mode', glassMode:'Glass Mode', liquidGlassMode:'Liquid Glass', retroMode:'Retro Mode', minecraftMode:'Minecraft Mode', conceptMode:'Concept Mode', wallpaper:'Wallpaper Selection', defaultWallpaper:'Default', creeperSleep:'Creeper Girl Sleeping', minecart:'Minecart', tnt:'TNT!', blueArchive1:'Blue Archive 1', rowing:'Rowing', blueArchive2:'Blue Archive 2', waterDrop:'Water Drop', whiteWallpaper:'White Wallpaper', language:'Language', close:'Close', welcome:'Welcome to<br>Cathay Pacific A330 Official Website', bilibili:'My bilibili', fanGroup:'Join Fan Group', announcementTitle:'Announcement', announcementSubtitle:'Supports multiple languages', bilibiliDownload:'bilibili International 3.19.2 Download', netEaseDownload:'NetEase Cloud Music Lite 1.0.0 Download', kuGouDownload:'KuGou Concept 2.4.2 Download', jianYingDownload:'JianYing 5.7.0 Download', download:'Download', delete:'Delete', footer:'Cathay Pacific • A330 • Minimal' },
+                'ja': { siteTitle:'キャセイパシフィックA330公式サイト', settings:'設定', menu:'メニュー', calculator:'電卓', about:'について', more:'その他', aboutText:'これはキャセイパシフィックA330公式サイトです', versionLabel:'バージョン', versionNumber:'9.0.0', links:'リンク', webMC:'ウェブ版MC', ojangDownload:'ojang peダウンロード', dialpad:'ダイヤルパッド', officialWebsite:'公式サイト', theme:'テーマ', darkMode:'ダークモード', displayMode:'表示モード', glassMode:'グラスモード', liquidGlassMode:'リキッドグラス', retroMode:'レトロモード', minecraftMode:'Minecraftモード', conceptMode:'コンセプトモード', wallpaper:'壁紙選択', defaultWallpaper:'デフォルト', creeperSleep:'クリーパー娘の睡眠', minecart:'トロッコ', tnt:'TNT！', blueArchive1:'ブルーアーカイブ1', rowing:'ボート', blueArchive2:'ブルーアーカイブ2', waterDrop:'水滴の壁紙', whiteWallpaper:'白い壁紙', language:'言語', close:'閉じる', welcome:'ようこそ<br>キャセイパシフィックA330公式サイトへ', bilibili:'My bilibili', fanGroup:'ファングループに参加', announcementTitle:'お知らせ', announcementSubtitle:'多言語対応', bilibiliDownload:'bilibili国際版3.19.2ダウンロード', netEaseDownload:'NetEase Cloud Music Lite 1.0.0ダウンロード', kuGouDownload:'KuGou Concept 2.4.2ダウンロード', jianYingDownload:'JianYing 5.7.0ダウンロード', download:'ダウンロード', delete:'削除', footer:'Cathay Pacific • A330 • Minimal' },
+                'ko': { siteTitle:'캐세이퍼시픽 A330 공식 웹사이트', settings:'설정', menu:'메뉴', calculator:'계산기', about:'정보', more:'더 보기', aboutText:'이것은 캐세이퍼시픽 A330 공식 웹사이트입니다', versionLabel:'버전', versionNumber:'9.0.0', links:'링크', webMC:'웹 MC', ojangDownload:'ojang pe 다운로드', dialpad:'다이얼 패드', officialWebsite:'공식 웹사이트', theme:'테마', darkMode:'다크 모드', displayMode:'디스플레이 모드', glassMode:'글래스 모드', liquidGlassMode:'리퀴드 글래스', retroMode:'레트로 모드', minecraftMode:'Minecraft 모드', conceptMode:'컨셉트 모드', wallpaper:'배경화면 선택', defaultWallpaper:'기본값', creeperSleep:'크리퍼 소녀 수면', minecart:'광차', tnt:'TNT!', blueArchive1:'블루 아카이브 1', rowing:'조정', blueArchive2:'블루 아카이브 2', waterDrop:'물방울 배경화면', whiteWallpaper:'흰색 배경화면', language:'언어', close:'닫기', welcome:'환영합니다<br>캐세이퍼시픽 A330 공식 웹사이트', bilibili:'My bilibili', fanGroup:'팬 그룹 가입', announcementTitle:'공지사항', announcementSubtitle:'다국어 지원', bilibiliDownload:'bilibili 국제판 3.19.2 다운로드', netEaseDownload:'NetEase Cloud Music Lite 1.0.0 다운로드', kuGouDownload:'KuGou Concept 2.4.2 다운로드', jianYingDownload:'JianYing 5.7.0 다운로드', download:'다운로드', delete:'삭제', footer:'Cathay Pacific • A330 • Minimal' }
             };
 
             const wallpaperURLs = {
@@ -1208,18 +1758,19 @@
                     const btn = document.createElement('button');
                     btn.type = 'button';
                     btn.className = 'dial-key';
-                    btn.innerHTML = key.digit + (key.sub ? `<span class="sub">${key.sub}</span>` : '');
+                    btn.innerHTML = key.digit + (key.sub ? '<span class="sub">'+key.sub+'</span>' : '');
                     btn.addEventListener('click', () => { dialValue += key.digit; dialpadDisplay.textContent = dialValue; });
                     dialpadGrid.appendChild(btn);
                 });
             }
 
             function applyWallpaper(url) {
+                if (windows10Enabled) return;
                 if (url === 'white') {
                     document.body.style.backgroundImage = 'none';
                     document.body.style.backgroundColor = '#ffffff';
                 } else if (url) {
-                    document.body.style.backgroundImage = `url("${url}")`;
+                    document.body.style.backgroundImage = 'url("' + url + '")';
                     document.body.style.backgroundColor = '';
                     document.body.style.backgroundSize = 'cover';
                     document.body.style.backgroundPosition = 'center';
@@ -1297,7 +1848,7 @@
             }
 
             function syncSwitches(name, isOn, extra) {
-                document.querySelectorAll(`[data-switch="${name}"]`).forEach(sw => {
+                document.querySelectorAll('[data-switch="' + name + '"]').forEach(sw => {
                     if (name === 'lang') {
                         sw.classList.toggle('on', sw.getAttribute('data-lang') === extra);
                     } else {
@@ -1332,6 +1883,7 @@
                 if (!overlay) return;
                 windowZCounter++;
                 overlay.style.zIndex = windowZCounter;
+                updateWin10TaskbarActiveState();
             }
 
             function closeTopWindow() {
@@ -1350,6 +1902,7 @@
                     resetModalScale(modal);
                 }
                 checkFullscreenState();
+                updateWin10TaskbarActiveState();
             }
 
             function closeWindow(overlay, modal) {
@@ -1358,23 +1911,12 @@
                     modal.classList.remove('fullscreen');
                     resetModalScale(modal);
                 }
-                if (overlay === webmcOverlay) {
-                    try { webmcIframe.src = 'about:blank'; } catch(e) {}
-                    webmcLoaded = false;
-                }
-                if (overlay === bilibiliOverlay) {
-                    try { bilibiliIframe.src = 'about:blank'; } catch(e) {}
-                    bilibiliLoaded = false;
-                }
-                if (overlay === websiteOverlay) {
-                    try { websiteIframe.src = 'about:blank'; } catch(e) {}
-                    websiteLoaded = false;
-                }
-                if (overlay === ojangOverlay) {
-                    try { ojangIframe.src = 'about:blank'; } catch(e) {}
-                    ojangLoaded = false;
-                }
+                if (overlay === webmcOverlay) { try { webmcIframe.src = 'about:blank'; } catch(e) {} webmcLoaded = false; }
+                if (overlay === bilibiliOverlay) { try { bilibiliIframe.src = 'about:blank'; } catch(e) {} bilibiliLoaded = false; }
+                if (overlay === websiteOverlay) { try { websiteIframe.src = 'about:blank'; } catch(e) {} websiteLoaded = false; }
+                if (overlay === ojangOverlay) { try { ojangIframe.src = 'about:blank'; } catch(e) {} ojangLoaded = false; }
                 checkFullscreenState();
+                updateWin10TaskbarActiveState();
             }
 
             document.addEventListener('click', (e) => {
@@ -1401,14 +1943,32 @@
                 checkFullscreenState();
             }, true);
 
+            document.addEventListener('click', (e) => {
+                if (!e.target || !e.target.closest) return;
+                const minBtn = e.target.closest('.traffic-light.min');
+                if (!minBtn) return;
+                e.stopPropagation();
+                e.preventDefault();
+                const overlay = minBtn.closest('.settings-overlay, .calc-overlay, .dialpad-overlay, .more-overlay, .webmc-overlay, .bilibili-overlay, .website-overlay, .ojang-overlay');
+                if (!overlay) return;
+                overlay.classList.remove('visible');
+                const modal = overlay.querySelector('.settings-modal, .calc-modal, .dialpad-modal, .more-modal, .webmc-modal, .bilibili-modal, .website-modal, .ojang-modal');
+                if (modal) { modal.classList.remove('fullscreen'); resetModalScale(modal); }
+                checkFullscreenState();
+                updateWin10TaskbarActiveState();
+            }, true);
+
             function updateUI() {
                 document.body.classList.remove('glass-mode','liquid-glass-mode','retro-mode','minecraft-mode');
-                if (minecraftEnabled) document.body.classList.add('minecraft-mode');
-                else if (retroEnabled) document.body.classList.add('retro-mode');
-                else if (liquidGlassEnabled) document.body.classList.add('liquid-glass-mode');
-                else if (glassEnabled) document.body.classList.add('glass-mode');
+                if (!windows10Enabled) {
+                    if (minecraftEnabled) document.body.classList.add('minecraft-mode');
+                    else if (retroEnabled) document.body.classList.add('retro-mode');
+                    else if (liquidGlassEnabled) document.body.classList.add('liquid-glass-mode');
+                    else if (glassEnabled) document.body.classList.add('glass-mode');
+                }
 
                 document.body.classList.toggle('concept-mode', conceptEnabled);
+                document.body.classList.toggle('windows10-mode', windows10Enabled);
 
                 htmlElement.setAttribute('data-theme', currentTheme);
 
@@ -1418,6 +1978,7 @@
                 syncSwitches('retroMode', retroEnabled && !minecraftEnabled);
                 syncSwitches('minecraftMode', minecraftEnabled);
                 syncSwitches('conceptMode', conceptEnabled);
+                syncSwitches('windows10Mode', windows10Enabled);
                 syncSwitches('lang', null, currentLang);
 
                 themeThumbs.forEach(t => {
@@ -1430,11 +1991,11 @@
 
                 applyTranslations(currentLang);
 
-                if (!minecraftEnabled && !retroEnabled) {
+                if (!windows10Enabled && !minecraftEnabled && !retroEnabled) {
                     applyWallpaper(wallpaperURLs[wallpaperChoice] || '');
                 }
 
-                if (!conceptEnabled) {
+                if (!conceptEnabled && !windows10Enabled) {
                     if (webmcOverlay.classList.contains('visible')) {
                         webmcOverlay.classList.remove('visible');
                         try { webmcIframe.src = 'about:blank'; } catch(e) {}
@@ -1455,16 +2016,21 @@
                         try { ojangIframe.src = 'about:blank'; } catch(e) {}
                         ojangLoaded = false;
                     }
-                    const active = document.querySelector('.settings-panel.active');
-                    if (active && active.getAttribute('data-panel') === 'about') {
-                        navItems.forEach(n => n.classList.toggle('active', n.getAttribute('data-panel') === 'appearance'));
-                        panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-panel') === 'appearance'));
-                    }
                 }
 
                 updateSettingsView();
                 checkFullscreenState();
                 attachRippleToElements();
+
+                if (windows10Enabled) {
+                    startWin10Clock();
+                } else {
+                    stopWin10Clock();
+                    const sm = document.getElementById('win10StartMenu');
+                    if (sm) sm.classList.remove('open');
+                    const sb = document.getElementById('win10StartBtn');
+                    if (sb) sb.classList.remove('active');
+                }
             }
 
             function closeMenuIfOpen() {
@@ -1476,6 +2042,7 @@
                 if (b) b.classList.remove('active');
             }
 
+            /* ============ 双指缩放 ============ */
             const modalScales = new WeakMap();
             const MIN_SCALE = 0.4;
             const MAX_SCALE = 3;
@@ -1507,18 +2074,10 @@
 
             document.addEventListener('touchstart', function(e) {
                 if (!conceptEnabled) return;
-                if (e.touches.length !== 2) {
-                    pinchTargetModal = null;
-                    return;
-                }
+                if (e.touches.length !== 2) { pinchTargetModal = null; return; }
                 let modal = getModalFromTouchPoint(e.touches[0].clientX, e.touches[0].clientY);
-                if (!modal) {
-                    modal = getModalFromTouchPoint(e.touches[1].clientX, e.touches[1].clientY);
-                }
-                if (!modal) {
-                    pinchTargetModal = null;
-                    return;
-                }
+                if (!modal) modal = getModalFromTouchPoint(e.touches[1].clientX, e.touches[1].clientY);
+                if (!modal) { pinchTargetModal = null; return; }
                 pinchTargetModal = modal;
                 const dx = e.touches[0].clientX - e.touches[1].clientX;
                 const dy = e.touches[0].clientY - e.touches[1].clientY;
@@ -1534,28 +2093,21 @@
                 const dist = Math.hypot(dx, dy);
                 if (dist < 1) return;
                 const ratio = dist / pinchStartDist;
-                const newScale = pinchStartScale * ratio;
-                setModalScale(pinchTargetModal, newScale);
+                setModalScale(pinchTargetModal, pinchStartScale * ratio);
                 e.preventDefault();
             }, { passive: false });
 
             document.addEventListener('touchend', function(e) {
-                if (e.touches.length < 2) {
-                    pinchTargetModal = null;
-                }
+                if (e.touches.length < 2) pinchTargetModal = null;
             }, { passive: true });
 
-            document.addEventListener('touchcancel', function() {
-                pinchTargetModal = null;
-            }, { passive: true });
+            document.addEventListener('touchcancel', function() { pinchTargetModal = null; }, { passive: true });
 
             const allModalElements = [settingsModal, calcModal, dialpadModal, moreModal, webmcModal, bilibiliModal, websiteModal, ojangModal];
-            function resetAllModalScales() {
-                allModalElements.forEach(m => resetModalScale(m));
-            }
+            function resetAllModalScales() { allModalElements.forEach(m => resetModalScale(m)); }
 
             function closeAllModals(includeConcept) {
-                if (conceptEnabled && !includeConcept) return;
+                if ((conceptEnabled || windows10Enabled) && !includeConcept) return;
                 settingsOverlay.classList.remove('visible');
                 aboutOverlay.classList.remove('visible');
                 dialpadOverlay.classList.remove('visible');
@@ -1623,14 +2175,14 @@
                 const w = win.offsetWidth || 340, h = win.offsetHeight || 400;
                 const offset = Math.min(offsetIndex, 6) * 32;
                 const baseLeft = Math.max(20, (window.innerWidth - w) / 2 - 80);
-                const baseTop = Math.max(30, (window.innerHeight - h) / 2 - 60);
+                const baseTop = Math.max(20, (window.innerHeight - h) / 2 - 60);
                 win.style.left = (baseLeft + offset) + 'px';
                 win.style.top = (baseTop + offset) + 'px';
                 win.dataset.positioned = 'true';
             }
 
             function openWindow(overlay, modal) {
-                if (conceptEnabled) {
+                if (conceptEnabled || windows10Enabled) {
                     if (overlay.classList.contains('visible')) {
                         bringToFront(modal);
                         return;
@@ -1644,6 +2196,7 @@
                     void modal.offsetWidth;
                     modal.classList.add('macos-window-opening');
                     setTimeout(() => modal.classList.remove('macos-window-opening'), 500);
+                    updateWin10TaskbarActiveState();
                 } else {
                     closeAllModals(true);
                     overlay.classList.add('visible');
@@ -1651,46 +2204,35 @@
             }
 
             function openWebmcWindow() {
-                if (!webmcLoaded) {
-                    webmcIframe.src = 'https://playmcjscc.pages.dev/1.8.8';
-                    webmcLoaded = true;
-                }
+                if (!webmcLoaded) { webmcIframe.src = 'https://playmcjscc.pages.dev/1.8.8'; webmcLoaded = true; }
                 openWindow(webmcOverlay, webmcModal);
             }
-
             function openBilibiliWindow() {
-                if (!bilibiliLoaded) {
-                    bilibiliIframe.src = 'https://www.bilibili.com';
-                    bilibiliLoaded = true;
-                }
+                if (!bilibiliLoaded) { bilibiliIframe.src = 'https://www.bilibili.com'; bilibiliLoaded = true; }
                 openWindow(bilibiliOverlay, bilibiliModal);
             }
-
             function openWebsiteWindow() {
-                if (!websiteLoaded) {
-                    websiteIframe.src = 'https://xinghe2711.github.io';
-                    websiteLoaded = true;
-                }
+                if (!websiteLoaded) { websiteIframe.src = 'https://xinghe2711.github.io'; websiteLoaded = true; }
                 openWindow(websiteOverlay, websiteModal);
             }
-
             function openOjangWindow() {
-                if (!ojangLoaded) {
-                    ojangIframe.src = OJANG_URL;
-                    ojangLoaded = true;
-                }
+                if (!ojangLoaded) { ojangIframe.src = OJANG_URL; ojangLoaded = true; }
                 openWindow(ojangOverlay, ojangModal);
             }
+            function openSettingsWindow() { openWindow(settingsOverlay, settingsModal); updateUI(); }
+            function openCalcWindow() { openWindow(calcOverlay, calcModal); }
+            function openDialpadWindow() { openWindow(dialpadOverlay, dialpadModal); }
+            function openMoreWindow() { openWindow(moreOverlay, moreModal); }
 
             [settingsModal, calcModal, dialpadModal, moreModal, webmcModal, bilibiliModal, websiteModal, ojangModal].forEach(win => {
                 makeDraggable(win);
                 win.addEventListener('mousedown', (e) => {
-                    if (!conceptEnabled) return;
+                    if (!conceptEnabled && !windows10Enabled) return;
                     if (e.target.closest && e.target.closest('.traffic-light')) return;
                     bringToFront(win);
                 });
                 win.addEventListener('touchstart', (e) => {
-                    if (!conceptEnabled) return;
+                    if (!conceptEnabled && !windows10Enabled) return;
                     if (e.target.closest && e.target.closest('.traffic-light')) return;
                     bringToFront(win);
                 }, { passive: true });
@@ -1719,12 +2261,13 @@
                 btn.addEventListener('click', () => {
                     settingsOverlay.classList.remove('visible');
                     resetModalScale(settingsModal);
+                    updateWin10TaskbarActiveState();
                 });
             });
 
-            settingsTrigger.addEventListener('click', () => { closeMenuIfOpen(); openWindow(settingsOverlay, settingsModal); updateUI(); });
+            settingsTrigger.addEventListener('click', () => { closeMenuIfOpen(); openSettingsWindow(); });
             settingsOverlay.addEventListener('click', e => {
-                if(!conceptEnabled && e.target === settingsOverlay) {
+                if(!conceptEnabled && !windows10Enabled && e.target === settingsOverlay) {
                     settingsOverlay.classList.remove('visible');
                     resetModalScale(settingsModal);
                 }
@@ -1734,89 +2277,48 @@
             aboutCloseBtn.addEventListener('click', () => aboutOverlay.classList.remove('visible'));
             aboutOverlay.addEventListener('click', e => { if(e.target === aboutOverlay) aboutOverlay.classList.remove('visible'); });
 
-            calcTrigger.addEventListener('click', () => { closeMenuIfOpen(); openWindow(calcOverlay, calcModal); });
+            calcTrigger.addEventListener('click', () => { closeMenuIfOpen(); openCalcWindow(); });
             calcOverlay.addEventListener('click', e => {
-                if(!conceptEnabled && e.target === calcOverlay) {
+                if(!conceptEnabled && !windows10Enabled && e.target === calcOverlay) {
                     calcOverlay.classList.remove('visible');
                     resetModalScale(calcModal);
                 }
             });
 
-            dialpadTrigger.addEventListener('click', () => { closeMenuIfOpen(); openWindow(dialpadOverlay, dialpadModal); });
+            dialpadTrigger.addEventListener('click', () => { closeMenuIfOpen(); openDialpadWindow(); });
             dialClose.addEventListener('click', () => {
                 dialpadOverlay.classList.remove('visible');
                 dialValue = '';
                 dialpadDisplay.textContent = '';
                 resetModalScale(dialpadModal);
+                updateWin10TaskbarActiveState();
             });
             dialDelete.addEventListener('click', () => { dialValue = dialValue.slice(0,-1); dialpadDisplay.textContent = dialValue; });
             dialpadOverlay.addEventListener('click', e => {
-                if(!conceptEnabled && e.target === dialpadOverlay) {
+                if(!conceptEnabled && !windows10Enabled && e.target === dialpadOverlay) {
                     dialpadOverlay.classList.remove('visible');
                     resetModalScale(dialpadModal);
                 }
             });
 
-            moreOverlay.addEventListener('click', e => {
-                if(!conceptEnabled && e.target === moreOverlay) {
-                    moreOverlay.classList.remove('visible');
-                    resetModalScale(moreModal);
-                }
-            });
-            webmcOverlay.addEventListener('click', e => {
-                if(!conceptEnabled && e.target === webmcOverlay) {
-                    webmcOverlay.classList.remove('visible');
-                    resetModalScale(webmcModal);
-                }
-            });
-            bilibiliOverlay.addEventListener('click', e => {
-                if(!conceptEnabled && e.target === bilibiliOverlay) {
-                    bilibiliOverlay.classList.remove('visible');
-                    resetModalScale(bilibiliModal);
-                }
-            });
-            websiteOverlay.addEventListener('click', e => {
-                if(!conceptEnabled && e.target === websiteOverlay) {
-                    websiteOverlay.classList.remove('visible');
-                    resetModalScale(websiteModal);
-                }
-            });
-            ojangOverlay.addEventListener('click', e => {
-                if(!conceptEnabled && e.target === ojangOverlay) {
-                    ojangOverlay.classList.remove('visible');
-                    resetModalScale(ojangModal);
-                }
-            });
+            moreOverlay.addEventListener('click', e => { if(!conceptEnabled && !windows10Enabled && e.target === moreOverlay) { moreOverlay.classList.remove('visible'); resetModalScale(moreModal); } });
+            webmcOverlay.addEventListener('click', e => { if(!conceptEnabled && !windows10Enabled && e.target === webmcOverlay) { webmcOverlay.classList.remove('visible'); resetModalScale(webmcModal); } });
+            bilibiliOverlay.addEventListener('click', e => { if(!conceptEnabled && !windows10Enabled && e.target === bilibiliOverlay) { bilibiliOverlay.classList.remove('visible'); resetModalScale(bilibiliModal); } });
+            websiteOverlay.addEventListener('click', e => { if(!conceptEnabled && !windows10Enabled && e.target === websiteOverlay) { websiteOverlay.classList.remove('visible'); resetModalScale(websiteModal); } });
+            ojangOverlay.addEventListener('click', e => { if(!conceptEnabled && !windows10Enabled && e.target === ojangOverlay) { ojangOverlay.classList.remove('visible'); resetModalScale(ojangModal); } });
 
             macosDock.addEventListener('click', e => {
                 const item = e.target.closest('.dock-item');
                 if (!item) return;
                 const app = item.getAttribute('data-app');
-                if (app === 'menu') return; // 内联 onclick 已处理
-                if (app === 'website') {
-                    if (conceptEnabled) openWebsiteWindow();
-                    else window.open('https://xinghe2711.github.io', '_blank');
-                    return;
-                }
-                if (app === 'webmc') {
-                    if (conceptEnabled) openWebmcWindow();
-                    else window.open('https://playmcjscc.pages.dev/1.8.8', '_blank');
-                    return;
-                }
-                if (app === 'bilibili') {
-                    if (conceptEnabled) openBilibiliWindow();
-                    else window.open('https://www.bilibili.com', '_blank');
-                    return;
-                }
-                if (app === 'ojang') {
-                    if (conceptEnabled) openOjangWindow();
-                    else window.open(OJANG_URL, '_blank');
-                    return;
-                }
-                if (app === 'settings') { openWindow(settingsOverlay, settingsModal); updateUI(); return; }
-                if (app === 'calc') { openWindow(calcOverlay, calcModal); return; }
-                if (app === 'dialpad') { openWindow(dialpadOverlay, dialpadModal); return; }
-                if (app === 'more') { openWindow(moreOverlay, moreModal); return; }
+                if (app === 'website') { if (conceptEnabled) openWebsiteWindow(); else window.open('https://xinghe2711.github.io', '_blank'); return; }
+                if (app === 'webmc') { if (conceptEnabled) openWebmcWindow(); else window.open('https://playmcjscc.pages.dev/1.8.8', '_blank'); return; }
+                if (app === 'bilibili') { if (conceptEnabled) openBilibiliWindow(); else window.open('https://www.bilibili.com', '_blank'); return; }
+                if (app === 'ojang') { if (conceptEnabled) openOjangWindow(); else window.open(OJANG_URL, '_blank'); return; }
+                if (app === 'settings') { openSettingsWindow(); return; }
+                if (app === 'calc') { openCalcWindow(); return; }
+                if (app === 'dialpad') { openDialpadWindow(); return; }
+                if (app === 'more') { openMoreWindow(); return; }
             });
             macosDock.addEventListener('touchstart', e => {
                 const item = e.target.closest('.dock-item');
@@ -1829,7 +2331,9 @@
             document.addEventListener('keydown', e => {
                 if(e.key === 'Escape') {
                     closeMenuIfOpen();
-                    if (conceptEnabled) closeTopWindow();
+                    const sm = document.getElementById('win10StartMenu');
+                    if (sm && sm.classList.contains('open')) { sm.classList.remove('open'); const sb = document.getElementById('win10StartBtn'); if (sb) sb.classList.remove('active'); return; }
+                    if (conceptEnabled || windows10Enabled) closeTopWindow();
                     else closeAllModals(true);
                 }
             });
@@ -1849,6 +2353,8 @@
                         liquidGlassEnabled = false; localStorage.setItem('liquidGlassMode','disabled');
                         retroEnabled = false; localStorage.setItem('retroMode','disabled');
                         minecraftEnabled = false; localStorage.setItem('minecraftMode','disabled');
+                        conceptEnabled = false; localStorage.setItem('conceptMode','disabled');
+                        windows10Enabled = false; localStorage.setItem('windows10Mode','disabled');
                     }
                     updateUI();
                 });
@@ -1861,6 +2367,8 @@
                         glassEnabled = false; localStorage.setItem('glassMode','disabled');
                         retroEnabled = false; localStorage.setItem('retroMode','disabled');
                         minecraftEnabled = false; localStorage.setItem('minecraftMode','disabled');
+                        conceptEnabled = false; localStorage.setItem('conceptMode','disabled');
+                        windows10Enabled = false; localStorage.setItem('windows10Mode','disabled');
                     }
                     updateUI();
                 });
@@ -1873,6 +2381,8 @@
                         glassEnabled = false; localStorage.setItem('glassMode','disabled');
                         liquidGlassEnabled = false; localStorage.setItem('liquidGlassMode','disabled');
                         minecraftEnabled = false; localStorage.setItem('minecraftMode','disabled');
+                        conceptEnabled = false; localStorage.setItem('conceptMode','disabled');
+                        windows10Enabled = false; localStorage.setItem('windows10Mode','disabled');
                     }
                     updateUI();
                 });
@@ -1885,6 +2395,8 @@
                         glassEnabled = false; localStorage.setItem('glassMode','disabled');
                         liquidGlassEnabled = false; localStorage.setItem('liquidGlassMode','disabled');
                         retroEnabled = false; localStorage.setItem('retroMode','disabled');
+                        conceptEnabled = false; localStorage.setItem('conceptMode','disabled');
+                        windows10Enabled = false; localStorage.setItem('windows10Mode','disabled');
                     }
                     updateUI();
                 });
@@ -1893,6 +2405,9 @@
                 sw.addEventListener('click', () => {
                     conceptEnabled = !conceptEnabled;
                     localStorage.setItem('conceptMode', conceptEnabled ? 'enabled' : 'disabled');
+                    if (conceptEnabled) {
+                        windows10Enabled = false; localStorage.setItem('windows10Mode','disabled');
+                    }
                     if (!conceptEnabled) {
                         [settingsOverlay, calcOverlay, dialpadOverlay, moreOverlay, webmcOverlay, bilibiliOverlay, websiteOverlay, ojangOverlay].forEach(ov => ov.classList.remove('visible'));
                         [settingsModal, calcModal, dialpadModal, moreModal, webmcModal, bilibiliModal, websiteModal, ojangModal].forEach(w => w.classList.remove('fullscreen'));
@@ -1900,11 +2415,33 @@
                         try { bilibiliIframe.src = 'about:blank'; } catch(e) {}
                         try { websiteIframe.src = 'about:blank'; } catch(e) {}
                         try { ojangIframe.src = 'about:blank'; } catch(e) {}
-                        webmcLoaded = false;
-                        bilibiliLoaded = false;
-                        websiteLoaded = false;
-                        ojangLoaded = false;
+                        webmcLoaded = false; bilibiliLoaded = false; websiteLoaded = false; ojangLoaded = false;
                         macosDock.classList.remove('dock-visible');
+                        resetAllModalScales();
+                    }
+                    updateUI();
+                });
+            });
+            document.querySelectorAll('[data-switch="windows10Mode"]').forEach(sw => {
+                sw.addEventListener('click', () => {
+                    windows10Enabled = !windows10Enabled;
+                    localStorage.setItem('windows10Mode', windows10Enabled ? 'enabled' : 'disabled');
+                    if (windows10Enabled) {
+                        conceptEnabled = false; localStorage.setItem('conceptMode','disabled');
+                        glassEnabled = false; localStorage.setItem('glassMode','disabled');
+                        liquidGlassEnabled = false; localStorage.setItem('liquidGlassMode','disabled');
+                        retroEnabled = false; localStorage.setItem('retroMode','disabled');
+                        minecraftEnabled = false; localStorage.setItem('minecraftMode','disabled');
+                        // 打开一个欢迎窗口
+                        setTimeout(() => { openSettingsWindow(); }, 100);
+                    } else {
+                        [settingsOverlay, calcOverlay, dialpadOverlay, moreOverlay, webmcOverlay, bilibiliOverlay, websiteOverlay, ojangOverlay].forEach(ov => ov.classList.remove('visible'));
+                        [settingsModal, calcModal, dialpadModal, moreModal, webmcModal, bilibiliModal, websiteModal, ojangModal].forEach(w => w.classList.remove('fullscreen'));
+                        try { webmcIframe.src = 'about:blank'; } catch(e) {}
+                        try { bilibiliIframe.src = 'about:blank'; } catch(e) {}
+                        try { websiteIframe.src = 'about:blank'; } catch(e) {}
+                        try { ojangIframe.src = 'about:blank'; } catch(e) {}
+                        webmcLoaded = false; bilibiliLoaded = false; websiteLoaded = false; ojangLoaded = false;
                         resetAllModalScales();
                     }
                     updateUI();
@@ -1935,10 +2472,7 @@
 
             function triggerEasterEgg() {
                 versionClickCount++;
-                if (versionClickCount >= 7) {
-                    versionClickCount = 0;
-                    easterEggOverlay.classList.add('visible');
-                }
+                if (versionClickCount >= 7) { versionClickCount = 0; easterEggOverlay.classList.add('visible'); }
             }
             if (versionArea) versionArea.addEventListener('click', triggerEasterEgg);
             if (versionAreaSettings) versionAreaSettings.addEventListener('click', triggerEasterEgg);
@@ -1955,8 +2489,7 @@
                 if (!conceptEnabled || !document.body.classList.contains('fullscreen-active') || swipeHandled) return;
                 const t = e.touches[0];
                 const deltaY = swipeStartY - t.clientY;
-                const fromBottom = swipeStartY > window.innerHeight - 80;
-                if (fromBottom && deltaY > 25) { macosDock.classList.add('dock-visible'); swipeHandled = true; }
+                if (swipeStartY > window.innerHeight - 80 && deltaY > 25) { macosDock.classList.add('dock-visible'); swipeHandled = true; }
             }, { passive: true });
             document.addEventListener('touchend', (e) => {
                 if (!conceptEnabled || !document.body.classList.contains('fullscreen-active')) return;
@@ -1965,7 +2498,6 @@
                 const deltaTime = Date.now() - swipeStartTime;
                 if (deltaY > 30 && swipeStartY > window.innerHeight - 80 && deltaTime < 600) macosDock.classList.add('dock-visible');
                 if (deltaY < -30 && macosDock.classList.contains('dock-visible') && swipeStartY > window.innerHeight - 140 && deltaTime < 600) macosDock.classList.remove('dock-visible');
-                if (!swipeHandled && macosDock.classList.contains('dock-visible') && deltaY < -30 && swipeStartY > window.innerHeight - 60) macosDock.classList.remove('dock-visible');
             }, { passive: true });
             document.addEventListener('mousemove', (e) => {
                 if (!conceptEnabled || !document.body.classList.contains('fullscreen-active')) return;
@@ -2039,12 +2571,167 @@
                 });
             });
 
+            /* ============ Windows 10 逻辑 ============ */
+            function startWin10Clock() {
+                if (win10ClockTimer) return;
+                const updateClock = () => {
+                    const t = document.getElementById('win10ClockTime');
+                    const d = document.getElementById('win10ClockDate');
+                    if (!t || !d) return;
+                    const now = new Date();
+                    const hh = String(now.getHours()).padStart(2, '0');
+                    const mm = String(now.getMinutes()).padStart(2, '0');
+                    t.textContent = hh + ':' + mm;
+                    d.textContent = (now.getFullYear()) + '/' + (now.getMonth()+1) + '/' + now.getDate();
+                };
+                updateClock();
+                win10ClockTimer = setInterval(updateClock, 1000);
+            }
+            function stopWin10Clock() {
+                if (win10ClockTimer) { clearInterval(win10ClockTimer); win10ClockTimer = null; }
+            }
+
+            function updateWin10TaskbarActiveState() {
+                const apps = document.querySelectorAll('.win10-taskbar-app');
+                const visibleSet = new Set();
+                const map = {
+                    settings: settingsOverlay,
+                    calc: calcOverlay,
+                    dialpad: dialpadOverlay,
+                    more: moreOverlay,
+                    website: websiteOverlay,
+                    webmc: webmcOverlay,
+                    bilibili: bilibiliOverlay,
+                    ojang: ojangOverlay
+                };
+                apps.forEach(a => {
+                    const key = a.getAttribute('data-app');
+                    const ov = map[key];
+                    const running = ov && ov.classList.contains('visible');
+                    a.classList.toggle('running', !!running);
+                    a.classList.remove('active');
+                });
+                // 找 zIndex 最高的窗口作为活动窗口
+                let topOverlay = null, topZ = -1;
+                Object.values(map).forEach(ov => {
+                    if (ov && ov.classList.contains('visible')) {
+                        const z = parseInt(ov.style.zIndex) || 0;
+                        if (z > topZ) { topZ = z; topOverlay = ov; }
+                    }
+                });
+                if (topOverlay) {
+                    for (const key in map) {
+                        if (map[key] === topOverlay) {
+                            const el = document.querySelector('.win10-taskbar-app[data-app="' + key + '"]');
+                            if (el) el.classList.add('active');
+                            break;
+                        }
+                    }
+                }
+            }
+
+            window.win10ToggleStart = function(event) {
+                if (event) { event.stopPropagation(); event.preventDefault(); }
+                const sm = document.getElementById('win10StartMenu');
+                const sb = document.getElementById('win10StartBtn');
+                if (!sm) return;
+                const isOpen = sm.classList.contains('open');
+                if (isOpen) {
+                    sm.classList.remove('open');
+                    if (sb) sb.classList.remove('active');
+                } else {
+                    sm.classList.add('open');
+                    if (sb) sb.classList.add('active');
+                }
+            };
+
+            window.win10OpenApp = function(app) {
+                const sm = document.getElementById('win10StartMenu');
+                const sb = document.getElementById('win10StartBtn');
+                if (sm) sm.classList.remove('open');
+                if (sb) sb.classList.remove('active');
+                if (app === 'settings') openSettingsWindow();
+                else if (app === 'calc') openCalcWindow();
+                else if (app === 'dialpad') openDialpadWindow();
+                else if (app === 'more') openMoreWindow();
+                else if (app === 'website') openWebsiteWindow();
+                else if (app === 'webmc') openWebmcWindow();
+                else if (app === 'bilibili') openBilibiliWindow();
+                else if (app === 'ojang') openOjangWindow();
+            };
+
+            window.win10ToggleApp = function(app) {
+                const map = {
+                    settings: settingsOverlay, calc: calcOverlay, dialpad: dialpadOverlay, more: moreOverlay,
+                    website: websiteOverlay, webmc: webmcOverlay, bilibili: bilibiliOverlay, ojang: ojangOverlay
+                };
+                const ov = map[app];
+                if (!ov) return;
+                if (!ov.classList.contains('visible')) {
+                    window.win10OpenApp(app);
+                } else {
+                    // 检查是否是最上层
+                    let topZ = -1, topKey = null;
+                    for (const k in map) {
+                        const o = map[k];
+                        if (o && o.classList.contains('visible')) {
+                            const z = parseInt(o.style.zIndex) || 0;
+                            if (z > topZ) { topZ = z; topKey = k; }
+                        }
+                    }
+                    if (topKey === app) {
+                        // 已激活，最小化
+                        ov.classList.remove('visible');
+                        const modal = ov.querySelector('.settings-modal, .calc-modal, .dialpad-modal, .more-modal, .webmc-modal, .bilibili-modal, .website-modal, .ojang-modal');
+                        if (modal) { modal.classList.remove('fullscreen'); resetModalScale(modal); }
+                        updateWin10TaskbarActiveState();
+                        checkFullscreenState();
+                    } else {
+                        // 前置
+                        const modal = ov.querySelector('.settings-modal, .calc-modal, .dialpad-modal, .more-modal, .webmc-modal, .bilibili-modal, .website-modal, .ojang-modal');
+                        if (modal) bringToFront(modal);
+                    }
+                }
+            };
+
+            window.win10ShowDesktop = function() {
+                [settingsOverlay, calcOverlay, dialpadOverlay, moreOverlay, webmcOverlay, bilibiliOverlay, websiteOverlay, ojangOverlay].forEach(ov => {
+                    ov.classList.remove('visible');
+                });
+                const sm = document.getElementById('win10StartMenu');
+                if (sm) sm.classList.remove('open');
+                const sb = document.getElementById('win10StartBtn');
+                if (sb) sb.classList.remove('active');
+                updateWin10TaskbarActiveState();
+                checkFullscreenState();
+            };
+
+            window.win10ExitToNormal = function() {
+                windows10Enabled = false;
+                localStorage.setItem('windows10Mode', 'disabled');
+                [settingsOverlay, calcOverlay, dialpadOverlay, moreOverlay, webmcOverlay, bilibiliOverlay, websiteOverlay, ojangOverlay].forEach(ov => ov.classList.remove('visible'));
+                [settingsModal, calcModal, dialpadModal, moreModal, webmcModal, bilibiliModal, websiteModal, ojangModal].forEach(w => w.classList.remove('fullscreen'));
+                resetAllModalScales();
+                updateUI();
+            };
+
+            document.addEventListener('click', function(e) {
+                if (!windows10Enabled) return;
+                const sm = document.getElementById('win10StartMenu');
+                const sb = document.getElementById('win10StartBtn');
+                if (!sm || !sm.classList.contains('open')) return;
+                if (e.target.closest && (e.target.closest('#win10StartMenu') || e.target.closest('#win10StartBtn'))) return;
+                sm.classList.remove('open');
+                if (sb) sb.classList.remove('active');
+            });
+
+            /* ============ 初始化 ============ */
             buildDialpad();
             updateUI();
             attachRippleToElements();
             initMusicOnFirstInteraction();
 
-            console.log('[v8.0.0] 页面初始化完成');
+            console.log('[v9.0.0] Windows 10 模式已就绪');
         })();
     </script>
 </body>
