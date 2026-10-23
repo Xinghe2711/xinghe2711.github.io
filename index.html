@@ -168,7 +168,7 @@
         }
         h1 { font-size:clamp(1.3rem,4vw,2rem); font-weight:300; color:var(--text); letter-spacing:0.04em; line-height:1.5; margin-bottom:0; }
         
-        /* 修复闪烁标语定位：确保不会飞出屏幕 */
+        /* 修复闪烁标语定位 */
         .splash-text {
             position: absolute;
             right: -30px;
@@ -217,7 +217,6 @@
         }
 
         /* ============ 模态框修复（避免iPad错位） ============ */
-        /* 默认全部 display: none，防止隐形元素干扰布局 */
         .settings-overlay, .about-overlay, .easter-egg-overlay, .calc-overlay, 
         .dialpad-overlay, .more-overlay, .webmc-overlay, .bilibili-overlay, 
         .website-overlay, .ojang-overlay {
@@ -228,7 +227,6 @@
             justify-content:center; align-items:center; 
             padding:1rem; 
         }
-        /* 当处于 visible 状态时才显示并添加动画 */
         .settings-overlay.visible, .about-overlay.visible, .easter-egg-overlay.visible, 
         .calc-overlay.visible, .dialpad-overlay.visible, .more-overlay.visible, 
         .webmc-overlay.visible, .bilibili-overlay.visible, .website-overlay.visible, 
@@ -238,7 +236,6 @@
         }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* 弹窗内部容器 */
         .settings-modal, .about-modal, .easter-egg-modal, .calc-modal, 
         .dialpad-modal, .more-modal, .webmc-modal, .bilibili-modal, 
         .website-modal, .ojang-modal {
@@ -253,7 +250,6 @@
             max-height: 85vh;
         }
 
-        .settings-modal { max-width:340px; padding:1.2rem; overflow-y:auto; }
         .about-modal { max-width:320px; padding:1.5rem; }
         .easter-egg-modal { max-width:400px; padding:20px; }
         .calc-modal { max-width:340px; padding:1rem; }
@@ -261,27 +257,171 @@
         .more-modal { max-width:400px; padding:1rem; }
         .webmc-modal, .bilibili-modal, .website-modal, .ojang-modal { max-width:900px; height: 620px; padding: 0; }
 
-        /* 其他小样式略，保持原有逻辑 */
-        .settings-title { font-size:1.2rem; font-weight:600; color:var(--text); margin-bottom:0.8rem; text-align:center; }
-        .settings-section { margin-bottom:0.7rem; }
-        .settings-section-title { font-size:0.7rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-secondary); margin-bottom:0.3rem; }
-        .settings-option { display:flex; align-items:center; justify-content:space-between; padding:0.4rem 0; border-bottom:1px solid var(--divider); }
-        .settings-option:last-child { border-bottom:none; }
-        .settings-option-label { font-size:0.85rem; color:var(--text); }
-        .wallpaper-btn { display:block; width:100%; text-align:left; margin:2px 0; padding:0.5rem 1rem; font-size:0.85rem; border:1px solid var(--divider); border-radius:8px; background-color:transparent; color:var(--text); cursor:pointer; position:relative; overflow:hidden; }
-        .wallpaper-btn.active { background-color:var(--accent); border-color:var(--accent); color:#fff; }
-        .settings-close-btn { display:block; width:100%; margin-top:0.8rem; padding:0.55rem; background-color:var(--accent); color:#fff; border:none; border-radius:10px; font-size:0.85rem; cursor:pointer; position:relative; overflow:hidden; }
+        /* ================= iOS 风格设置 ================= */
+        .ios-settings {
+            background: #f2f2f7;
+            padding: 0;
+            border-radius: 18px;
+            max-width: 500px;
+            width: 100%;
+            height: auto;
+            max-height: 85vh;
+            border: none;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.3);
+        }
+        [data-theme="dark"] .ios-settings { background: #000; }
 
-        .ios-switch { position:relative; width:51px; height:31px; background-color:var(--toggle-off); border-radius:16px; cursor:pointer; flex-shrink:0; border:none; padding:0; overflow:hidden; }
-        .ios-switch .knob { position:absolute; top:2px; left:2px; width:27px; height:27px; background-color:#fff; border-radius:50%; box-shadow:0 2px 4px rgba(0,0,0,0.2); transition:transform 0.3s ease; }
-        .ios-switch.on { background-color:var(--toggle-on); }
-        .ios-switch.on .knob { transform:translateX(20px); }
-        
-        .ios-switch.disabled { opacity: 0.35; cursor: not-allowed; filter: grayscale(1); }
-        .ios-switch.disabled .knob { pointer-events: none; }
-        .settings-option.disabled { opacity: 0.6; }
+        .ios-nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            background: rgba(249, 249, 249, 0.94);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 0.5px solid #c6c6c8;
+            height: 54px;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 10;
+        }
+        [data-theme="dark"] .ios-nav-bar {
+            background: rgba(30, 30, 30, 0.94);
+            border-bottom-color: #3a3a3c;
+        }
 
-        /* 其他模式主题（保持正常） */
+        .ios-back-btn {
+            background: none; border: none;
+            color: #007aff;
+            font-size: 17px;
+            display: flex; align-items: center;
+            cursor: pointer;
+            padding: 0;
+            height: 100%;
+        }
+        [data-theme="dark"] .ios-back-btn { color: #0a84ff; }
+        .ios-back-icon { font-size: 20px; margin-right: 4px; margin-top: -2px; line-height: 1; }
+
+        .ios-nav-title {
+            font-size: 17px;
+            font-weight: 600;
+            position: absolute;
+            left: 50%; transform: translateX(-50%);
+            color: #000;
+        }
+        [data-theme="dark"] .ios-nav-title { color: #fff; }
+
+        .ios-settings-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 16px calc(30px + var(--safe-bottom));
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .ios-group { margin-bottom: 24px; }
+
+        .ios-group-title {
+            font-size: 13px;
+            color: #6e6e73;
+            margin-bottom: 8px;
+            padding-left: 16px;
+            text-transform: uppercase;
+        }
+        [data-theme="dark"] .ios-group-title { color: #8e8e93; }
+
+        .ios-group-item {
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            font-size: 17px;
+            color: #000;
+            border-bottom: 0.5px solid #e5e5ea;
+            width: 100%;
+            border: none;
+            text-align: left;
+        }
+        [data-theme="dark"] .ios-group-item {
+            background: #1c1c1e;
+            color: #fff;
+            border-bottom-color: #2c2c2e;
+        }
+
+        .ios-group-item:first-of-type { border-radius: 10px 10px 0 0; }
+        .ios-group-item:last-of-type { border-radius: 0 0 10px 10px; border-bottom: none; }
+        .ios-group-item:only-of-type { border-radius: 10px; border-bottom: none; }
+
+        .ios-group-item.disabled { opacity: 0.6; pointer-events: none; }
+        .ios-disabled-text { color: #8e8e93; font-size: 15px; }
+
+        /* 开关 */
+        .ios-switch {
+            width: 51px; height: 31px;
+            background: var(--toggle-off);
+            border-radius: 16px;
+            position: relative;
+            cursor: pointer;
+            border: none;
+            transition: background 0.3s;
+            flex-shrink: 0;
+        }
+        .ios-switch.on { background: var(--toggle-on); }
+        .ios-switch .knob {
+            width: 27px; height: 27px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px; left: 2px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15), 0 3px 1px rgba(0,0,0,0.06);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .ios-switch.on .knob { transform: translateX(20px); }
+
+        /* 壁纸选择 */
+        .ios-selectable {
+            cursor: pointer;
+            color: #000;
+            justify-content: flex-start;
+            transition: background 0.2s;
+        }
+        [data-theme="dark"] .ios-selectable { color: #fff; }
+        .ios-selectable:active { background: #e5e5ea; }
+        [data-theme="dark"] .ios-selectable:active { background: #2c2c2e; }
+        .ios-selectable.active { color: #007aff; }
+        [data-theme="dark"] .ios-selectable.active { color: #0a84ff; }
+        .ios-selectable.active::after {
+            content: '✓';
+            margin-left: auto;
+            font-weight: bold;
+            color: #007aff;
+        }
+        [data-theme="dark"] .ios-selectable.active::after { color: #0a84ff; }
+
+        /* 手机端设置窗口全屏 */
+        @media (max-width: 600px) {
+            .settings-overlay {
+                align-items: flex-end; /* 贴底 */
+                padding: 0;
+            }
+            .ios-settings {
+                max-width: 100vw;
+                height: calc(100vh - var(--safe-top) - 20px); /* 留一点顶部空间 */
+                max-height: 100vh;
+                border-radius: 18px 18px 0 0;
+            }
+            .ios-nav-bar {
+                border-radius: 18px 18px 0 0;
+            }
+        }
+
+        .about-close-btn, .easter-egg-close, .dial-action.close, .settings-close-btn { display:block; width:100%; margin-top:0.8rem; padding:0.6rem; background-color:var(--accent); color:#fff; border:none; border-radius:10px; font-size:0.9rem; cursor:pointer; }
+        .version-text { cursor: pointer; user-select: none; display: inline-block; padding: 5px 10px; border-radius: 6px; }
+        .version-label { color: var(--version-label-color); font-weight: 500; }
+        .version-number { color: #0077cc; font-weight: 600; margin-left: 5px; }
+        [data-theme="dark"] .version-number { color: #42a5f5; }
+
+        /* 其他模式主题 */
         body.glass-mode { background-color:rgba(255,255,255,0.35) !important; }
         [data-theme="dark"] body.glass-mode { background-color:rgba(18,18,18,0.35) !important; }
         body.glass-mode .top-bar { background-color:rgba(255,255,255,0.75) !important; backdrop-filter:blur(22px) saturate(180%) !important; border-bottom:1px solid rgba(255,255,255,0.5) !important; }
@@ -289,7 +429,6 @@
         body.glass-mode .btn { background-color:rgba(0,122,255,0.8) !important; border-color:rgba(255,255,255,0.35) !important; backdrop-filter:blur(6px) !important; }
         body.glass-mode .download-item { background-color:rgba(255,255,255,0.55) !important; border-color:rgba(0,0,0,0.18) !important; backdrop-filter:blur(6px) !important; }
         body.glass-mode .announcement { background-color:rgba(255,255,255,0.55) !important; border-color:rgba(0,0,0,0.18) !important; backdrop-filter:blur(8px) !important; }
-        body.glass-mode .settings-modal, body.glass-mode .about-modal { background-color:rgba(255,255,255,0.85) !important; backdrop-filter:blur(22px) !important; }
 
         body.liquid-glass-mode { background-color:rgba(255,255,255,0.2) !important; }
         body.liquid-glass-mode .top-bar { background:linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0.15)) !important; backdrop-filter:blur(28px) saturate(200%) !important; }
@@ -297,7 +436,6 @@
         body.liquid-glass-mode .btn { background-color: rgba(0,119,204,0.65) !important; border: 1px solid rgba(255,255,255,0.35) !important; }
         body.liquid-glass-mode .download-item { background:linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.35)) !important; backdrop-filter:blur(10px) !important; }
         body.liquid-glass-mode .announcement { background:linear-gradient(135deg, rgba(255,255,255,0.45), rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.3)) !important; backdrop-filter:blur(20px) !important; }
-        body.liquid-glass-mode .settings-modal, body.liquid-glass-mode .about-modal { background:linear-gradient(135deg, rgba(255,255,255,0.45), rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.3)) !important; backdrop-filter:blur(28px) !important; }
 
         body.retro-mode { background-color: #a0a8b0 !important; background-image: url('https://static.applewalls.com/iOS/iOS%204/compress/iOS%204%20-%20100.webp') !important; }
         body.retro-mode .top-bar { background:linear-gradient(to bottom,#f0f0f0,#c8c8c8) !important; border-bottom:1px solid #7f7f7f !important; }
@@ -307,7 +445,6 @@
         body.retro-mode .btn { background:linear-gradient(to bottom,#6db3f2,#1e69de) !important; border:1px solid #1c4f9c !important; border-radius:6px !important; color:#fff !important; }
         body.retro-mode .download-item { background:#fff !important; border:1px solid #8f8f8f !important; border-radius:5px !important; color:#333 !important; }
         body.retro-mode .announcement { background:#fafafa !important; border:1px solid #a0a0a0 !important; border-radius:6px !important; }
-        body.retro-mode .settings-modal { background:#f5f5f5 !important; border:1px solid #8f8f8f !important; border-radius:12px !important; }
 
         body.minecraft-mode { background-color: #2d2d2d !important; background-image: url('https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/IMG_6134.jpeg') !important; font-family: 'Press Start 2P', 'Courier New', monospace !important; }
         body.minecraft-mode .top-bar { background:linear-gradient(to bottom, #4a4a4a, #2d2d2d) !important; border-bottom:2px solid #1a1a1a !important; }
@@ -321,18 +458,14 @@
         body.minecraft-mode .announcement-title { color:#ffffff; font-family:'Press Start 2P', monospace; font-size: 0.9rem; }
 
         .traffic-light { display: none !important; }
-        
-        /* 隐藏被禁用的功能的相关结构 */
         .macos-dock { display: none !important; }
 
         /* 响应式调整 */
         @media (max-width: 520px) {
-            .settings-modal { max-width: calc(100vw - 32px) !important; padding: 1rem !important; }
             .title-wrapper h1 { font-size: 1.4rem; }
             .splash-text { font-size: 0.85rem; right: -10px; bottom: -10px; }
         }
         @media (min-width: 1024px) {
-            /* 在 iPad 或更宽的屏幕上，避免标题变形 */
             .splash-text { right: -60px; bottom: -15px; font-size: 1.2rem; }
         }
     </style>
@@ -370,56 +503,94 @@
         <button class="menu-item" id="dialpadTrigger"><span data-i18n="dialpad">拨号盘</span> <span>☎</span></button>
     </aside>
 
-    <!-- 设置 -->
+    <!-- 设置（iOS UI 风格） -->
     <div class="settings-overlay" id="settingsOverlay">
-        <div class="settings-modal" id="settingsModal">
-            <div class="settings-title" data-i18n="settings">设置</div>
-            <div class="settings-section">
-                <div class="settings-section-title" data-i18n="theme">主题模式</div>
-                <div class="settings-option">
-                    <span class="settings-option-label" data-i18n="darkMode">深色模式</span>
-                    <button class="ios-switch" data-switch="themeDark"><span class="knob"></span></button>
+        <div class="settings-modal ios-settings" id="settingsModal">
+            <div class="ios-nav-bar">
+                <button class="ios-back-btn" id="settingsBackBtn">
+                    <span class="ios-back-icon">❮</span> 返回
+                </button>
+                <div class="ios-nav-title" data-i18n="settings">设置</div>
+                <div style="width: 44px;"></div> <!-- 占位平衡左边宽度 -->
+            </div>
+            <div class="ios-settings-content">
+                <div class="ios-group">
+                    <div class="ios-group-title">主题模式</div>
+                    <div class="ios-group-item">
+                        <span class="ios-group-label" data-i18n="darkMode">深色模式</span>
+                        <button class="ios-switch" data-switch="themeDark"><span class="knob"></span></button>
+                    </div>
+                </div>
+                
+                <div class="ios-group">
+                    <div class="ios-group-title">显示模式</div>
+                    <div class="ios-group-item">
+                        <span class="ios-group-label" data-i18n="glassMode">透明模式</span>
+                        <button class="ios-switch" data-switch="glassMode"><span class="knob"></span></button>
+                    </div>
+                    <div class="ios-group-item">
+                        <span class="ios-group-label" data-i18n="liquidGlassMode">液态玻璃</span>
+                        <button class="ios-switch" data-switch="liquidGlassMode"><span class="knob"></span></button>
+                    </div>
+                    <div class="ios-group-item">
+                        <span class="ios-group-label" data-i18n="retroMode">怀旧模式</span>
+                        <button class="ios-switch" data-switch="retroMode"><span class="knob"></span></button>
+                    </div>
+                    <div class="ios-group-item">
+                        <span class="ios-group-label" data-i18n="minecraftMode">Minecraft模式</span>
+                        <button class="ios-switch" data-switch="minecraftMode"><span class="knob"></span></button>
+                    </div>
+                </div>
+
+                <div class="ios-group">
+                    <div class="ios-group-title">特殊模式</div>
+                    <div class="ios-group-item disabled">
+                        <span class="ios-group-label" data-i18n="conceptMode">概念版模式</span>
+                        <span class="ios-disabled-text">已禁用</span>
+                    </div>
+                    <div class="ios-group-item disabled">
+                        <span class="ios-group-label">Windows 10 模式</span>
+                        <span class="ios-disabled-text">已禁用</span>
+                    </div>
+                </div>
+
+                <div class="ios-group">
+                    <div class="ios-group-title" data-i18n="wallpaper">壁纸选择</div>
+                    <div class="ios-group-item ios-selectable" data-wallpaper="default" data-i18n="defaultWallpaper">默认</div>
+                    <div class="ios-group-item ios-selectable" data-wallpaper="creeper_sleep" data-i18n="creeperSleep">苦力怕娘睡觉</div>
+                    <div class="ios-group-item ios-selectable" data-wallpaper="minecart" data-i18n="minecart">矿车</div>
+                    <div class="ios-group-item ios-selectable" data-wallpaper="tnt" data-i18n="tnt">TNT！</div>
+                    <div class="ios-group-item ios-selectable" data-wallpaper="blue_archive_1" data-i18n="blueArchive1">蔚蓝档案1</div>
+                    <div class="ios-group-item ios-selectable" data-wallpaper="rowing" data-i18n="rowing">划船</div>
+                    <div class="ios-group-item ios-selectable" data-wallpaper="blue_archive_2" data-i18n="blueArchive2">蔚蓝档案2</div>
+                    <div class="ios-group-item ios-selectable" data-wallpaper="water_drop" data-i18n="waterDrop">水滴壁纸</div>
+                    <div class="ios-group-item ios-selectable" data-wallpaper="white" data-i18n="whiteWallpaper">白色壁纸</div>
+                </div>
+
+                <div class="ios-group">
+                    <div class="ios-group-title" data-i18n="language">语言</div>
+                    <div class="ios-group-item">
+                        <span class="ios-group-label">简体中文</span>
+                        <button class="ios-switch" data-switch="lang" data-lang="zh-CN"><span class="knob"></span></button>
+                    </div>
+                    <div class="ios-group-item">
+                        <span class="ios-group-label">繁體中文</span>
+                        <button class="ios-switch" data-switch="lang" data-lang="zh-TW"><span class="knob"></span></button>
+                    </div>
+                    <div class="ios-group-item">
+                        <span class="ios-group-label">English</span>
+                        <button class="ios-switch" data-switch="lang" data-lang="en"><span class="knob"></span></button>
+                    </div>
+                    <div class="ios-group-item">
+                        <span class="ios-group-label">日本語</span>
+                        <button class="ios-switch" data-switch="lang" data-lang="ja"><span class="knob"></span></button>
+                    </div>
+                    <div class="ios-group-item">
+                        <span class="ios-group-label">한국어</span>
+                        <button class="ios-switch" data-switch="lang" data-lang="ko"><span class="knob"></span></button>
+                    </div>
                 </div>
             </div>
-            <div class="settings-section">
-                <div class="settings-section-title" data-i18n="displayMode">显示模式</div>
-                <div class="settings-option"><span class="settings-option-label" data-i18n="glassMode">透明模式</span><button class="ios-switch" data-switch="glassMode"><span class="knob"></span></button></div>
-                <div class="settings-option"><span class="settings-option-label" data-i18n="liquidGlassMode">液态玻璃</span><button class="ios-switch" data-switch="liquidGlassMode"><span class="knob"></span></button></div>
-                <div class="settings-option"><span class="settings-option-label" data-i18n="retroMode">怀旧模式</span><button class="ios-switch" data-switch="retroMode"><span class="knob"></span></button></div>
-                <div class="settings-option"><span class="settings-option-label" data-i18n="minecraftMode">Minecraft模式</span><button class="ios-switch" data-switch="minecraftMode"><span class="knob"></span></button></div>
-            </div>
-            <div class="settings-section">
-                <div class="settings-section-title">特殊模式 (已禁用)</div>
-                <div class="settings-option disabled">
-                    <span class="settings-option-label" data-i18n="conceptMode">概念版模式</span>
-                    <button class="ios-switch disabled" data-switch="conceptMode"><span class="knob"></span></button>
-                </div>
-                <div class="settings-option disabled">
-                    <span class="settings-option-label">Windows 10 模式</span>
-                    <button class="ios-switch disabled" data-switch="windows10Mode"><span class="knob"></span></button>
-                </div>
-            </div>
-            <div class="settings-section">
-                <div class="settings-section-title" data-i18n="wallpaper">壁纸选择</div>
-                <button class="wallpaper-btn" data-wallpaper="default" data-i18n="defaultWallpaper">默认</button>
-                <button class="wallpaper-btn" data-wallpaper="creeper_sleep" data-i18n="creeperSleep">苦力怕娘睡觉</button>
-                <button class="wallpaper-btn" data-wallpaper="minecart" data-i18n="minecart">矿车</button>
-                <button class="wallpaper-btn" data-wallpaper="tnt" data-i18n="tnt">TNT！</button>
-                <button class="wallpaper-btn" data-wallpaper="blue_archive_1" data-i18n="blueArchive1">蔚蓝档案1</button>
-                <button class="wallpaper-btn" data-wallpaper="rowing" data-i18n="rowing">划船</button>
-                <button class="wallpaper-btn" data-wallpaper="blue_archive_2" data-i18n="blueArchive2">蔚蓝档案2</button>
-                <button class="wallpaper-btn" data-wallpaper="water_drop" data-i18n="waterDrop">水滴壁纸</button>
-                <button class="wallpaper-btn" data-wallpaper="white" data-i18n="whiteWallpaper">白色壁纸</button>
-            </div>
-            <div class="settings-section">
-                <div class="settings-section-title" data-i18n="language">语言</div>
-                <div class="settings-option"><span class="settings-option-label">简体中文</span><button class="ios-switch" data-switch="lang" data-lang="zh-CN"><span class="knob"></span></button></div>
-                <div class="settings-option"><span class="settings-option-label">繁體中文</span><button class="ios-switch" data-switch="lang" data-lang="zh-TW"><span class="knob"></span></button></div>
-                <div class="settings-option"><span class="settings-option-label">English</span><button class="ios-switch" data-switch="lang" data-lang="en"><span class="knob"></span></button></div>
-                <div class="settings-option"><span class="settings-option-label">日本語</span><button class="ios-switch" data-switch="lang" data-lang="ja"><span class="knob"></span></button></div>
-                <div class="settings-option"><span class="settings-option-label">한국어</span><button class="ios-switch" data-switch="lang" data-lang="ko"><span class="knob"></span></button></div>
-            </div>
-            <button class="settings-close-btn" data-role="settings-close" data-i18n="close">关闭</button>
         </div>
     </div>
 
@@ -430,10 +601,10 @@
                 <p data-i18n="aboutText">这是一架国泰航空A330官方网站</p>
                 <p class="version-text" id="versionArea" style="margin-top:8px;">
                     <span class="version-label" data-i18n="versionLabel">版本号</span>
-                    <span class="version-number" data-i18n="versionNumber">7.1.1</span>
+                    <span class="version-number" data-i18n="versionNumber">7.1.2</span>
                 </p>
             </div>
-            <button class="about-close-btn" id="aboutCloseBtn" data-i18n="close" style="display:block;width:100%;margin-top:1.2rem;padding:0.6rem 0;background-color:var(--accent);color:#fff;border:none;border-radius:10px;font-size:0.9rem;cursor:pointer;">关闭</button>
+            <button class="about-close-btn" id="aboutCloseBtn" data-i18n="close">关闭</button>
         </div>
     </div>
 
@@ -443,7 +614,7 @@
             <div style="display:flex;justify-content:center;align-items:center;margin:15px 0;">
                 <img src="https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/IMG_6036.gif" alt="彩蛋" style="max-width:100%;max-height:300px;border-radius:8px;object-fit:contain;">
             </div>
-            <button class="easter-egg-close" id="easterEggClose" style="display:block;margin-left:auto;margin-top:15px;padding:8px 24px;background-color:var(--btn-primary);color:#ffffff;border:none;border-radius:8px;font-size:0.9rem;cursor:pointer;">关闭</button>
+            <button class="easter-egg-close" id="easterEggClose">关闭</button>
         </div>
     </div>
 
@@ -552,10 +723,11 @@
 
             const $ = id => document.getElementById(id);
             const settingsTrigger = $('settingsTrigger'), settingsOverlay = $('settingsOverlay');
+            const settingsBackBtn = $('settingsBackBtn');
             const aboutTrigger = $('aboutTrigger'), aboutOverlay = $('aboutOverlay'), aboutCloseBtn = $('aboutCloseBtn');
             const calcTrigger = $('calcTrigger'), calcOverlay = $('calcOverlay'), calcDisplay = $('calcDisplay');
             const langSwitches = document.querySelectorAll('[data-switch="lang"]');
-            const wallpaperBtns = document.querySelectorAll('.wallpaper-btn');
+            const wallpaperBtns = document.querySelectorAll('.ios-selectable');
             const dialpadOverlay = $('dialpadOverlay'), dialpadDisplay = $('dialpadDisplay'), dialpadGrid = $('dialpadGrid');
             const dialDelete = $('dialDelete'), dialClose = $('dialClose'), dialpadTrigger = $('dialpadTrigger');
             const htmlElement = document.documentElement;
@@ -631,11 +803,11 @@
             }
 
             const translations = {
-                'zh-CN': { siteTitle:'一架国泰航空A330官方网站', settings:'设置', menu:'菜单', calculator:'计算器', about:'关于', more:'更多', aboutText:'这是一架国泰航空A330官方网站', versionLabel:'版本号', versionNumber:'7.1.1', links:'链接', webMC:'网页版MC', ojangDownload:'ojang pe下载', dialpad:'拨号盘', officialWebsite:'官方网站', theme:'主题模式', darkMode:'深色模式', displayMode:'显示模式', glassMode:'透明模式', liquidGlassMode:'液态玻璃', retroMode:'怀旧模式', minecraftMode:'Minecraft模式', conceptMode:'概念版模式', wallpaper:'壁纸选择', defaultWallpaper:'默认', creeperSleep:'苦力怕娘睡觉', minecart:'矿车', tnt:'TNT！', blueArchive1:'蔚蓝档案1', rowing:'划船', blueArchive2:'蔚蓝档案2', waterDrop:'水滴壁纸', whiteWallpaper:'白色壁纸', language:'语言', close:'关闭', welcome:'欢迎来到<br>一架国泰航空A330官方网站', bilibili:'我的 bilibili', fanGroup:'加入粉丝群', announcementTitle:'公告栏', announcementSubtitle:'支持多语言', bilibiliDownload:'bilibili国际版3.19.2下载', netEaseDownload:'网易云音乐极速版1.0.0下载', kuGouDownload:'酷狗概念版2.4.2下载', jianYingDownload:'剪映5.7.0下载', download:'下载', delete:'删除', footer:'Cathay Pacific • A330 • Minimal' },
-                'zh-TW': { siteTitle:'一架國泰航空A330官方網站', settings:'設置', menu:'選單', calculator:'計算機', about:'關於', more:'更多', aboutText:'這是一架國泰航空A330官方網站', versionLabel:'版本號', versionNumber:'7.1.1', links:'連結', webMC:'網頁版MC', ojangDownload:'ojang pe下載', dialpad:'撥號盤', officialWebsite:'官方網站', theme:'主題模式', darkMode:'深色模式', displayMode:'顯示模式', glassMode:'透明模式', liquidGlassMode:'液態玻璃', retroMode:'懷舊模式', minecraftMode:'Minecraft模式', conceptMode:'概念版模式', wallpaper:'壁紙選擇', defaultWallpaper:'預設', creeperSleep:'苦力怕娘睡覺', minecart:'礦車', tnt:'TNT！', blueArchive1:'蔚藍檔案1', rowing:'划船', blueArchive2:'蔚藍檔案2', waterDrop:'水滴桌布', whiteWallpaper:'白色桌布', language:'語言', close:'關閉', welcome:'歡迎來到<br>一架國泰航空A330官方網站', bilibili:'我的 bilibili', fanGroup:'加入粉絲群', announcementTitle:'公告欄', announcementSubtitle:'支援多語言', bilibiliDownload:'bilibili國際版3.19.2下載', netEaseDownload:'網易雲音樂極速版1.0.0下載', kuGouDownload:'酷狗概念版2.4.2下載', jianYingDownload:'剪映5.7.0下載', download:'下載', delete:'刪除', footer:'Cathay Pacific • A330 • Minimal' },
-                'en': { siteTitle:'Cathay Pacific A330 Official Website', settings:'Settings', menu:'Menu', calculator:'Calculator', about:'About', more:'More', aboutText:'This is Cathay Pacific A330 Official Website', versionLabel:'Version', versionNumber:'7.1.1', links:'Links', webMC:'Web MC', ojangDownload:'ojang pe Download', dialpad:'Dial Pad', officialWebsite:'Official Website', theme:'Theme', darkMode:'Dark Mode', displayMode:'Display Mode', glassMode:'Glass Mode', liquidGlassMode:'Liquid Glass', retroMode:'Retro Mode', minecraftMode:'Minecraft Mode', conceptMode:'Concept Mode', wallpaper:'Wallpaper Selection', defaultWallpaper:'Default', creeperSleep:'Creeper Girl Sleeping', minecart:'Minecart', tnt:'TNT!', blueArchive1:'Blue Archive 1', rowing:'Rowing', blueArchive2:'Blue Archive 2', waterDrop:'Water Drop', whiteWallpaper:'White Wallpaper', language:'Language', close:'Close', welcome:'Welcome to<br>Cathay Pacific A330 Official Website', bilibili:'My bilibili', fanGroup:'Join Fan Group', announcementTitle:'Announcement', announcementSubtitle:'Supports multiple languages', bilibiliDownload:'bilibili International 3.19.2 Download', netEaseDownload:'NetEase Cloud Music Lite 1.0.0 Download', kuGouDownload:'KuGou Concept 2.4.2 Download', jianYingDownload:'JianYing 5.7.0 Download', download:'Download', delete:'Delete', footer:'Cathay Pacific • A330 • Minimal' },
-                'ja': { siteTitle:'キャセイパシフィックA330公式サイト', settings:'設定', menu:'メニュー', calculator:'電卓', about:'について', more:'その他', aboutText:'これはキャセイパシフィックA330公式サイトです', versionLabel:'バージョン', versionNumber:'7.1.1', links:'リンク', webMC:'ウェブ版MC', ojangDownload:'ojang peダウンロード', dialpad:'ダイヤルパッド', officialWebsite:'公式サイト', theme:'テーマ', darkMode:'ダークモード', displayMode:'表示モード', glassMode:'グラスモード', liquidGlassMode:'リキッドグラス', retroMode:'レトロモード', minecraftMode:'Minecraftモード', conceptMode:'コンセプトモード', wallpaper:'壁紙選択', defaultWallpaper:'デフォルト', creeperSleep:'クリーパー娘の睡眠', minecart:'トロッコ', tnt:'TNT！', blueArchive1:'ブルーアーカイブ1', rowing:'ボート', blueArchive2:'ブルーアーカイブ2', waterDrop:'水滴の壁紙', whiteWallpaper:'白い壁紙', language:'言語', close:'閉じる', welcome:'ようこそ<br>キャセイパシフィックA330公式サイトへ', bilibili:'My bilibili', fanGroup:'ファングループに参加', announcementTitle:'お知らせ', announcementSubtitle:'多言語対応', bilibiliDownload:'bilibili国際版3.19.2ダウンロード', netEaseDownload:'NetEase Cloud Music Lite 1.0.0ダウンロード', kuGouDownload:'KuGou Concept 2.4.2ダウンロード', jianYingDownload:'JianYing 5.7.0ダウンロード', download:'ダウンロード', delete:'削除', footer:'Cathay Pacific • A330 • Minimal' },
-                'ko': { siteTitle:'캐세이퍼시픽 A330 공식 웹사이트', settings:'설정', menu:'메뉴', calculator:'계산기', about:'정보', more:'더 보기', aboutText:'이것은 캐세이퍼시픽 A330 공식 웹사이트입니다', versionLabel:'버전', versionNumber:'7.1.1', links:'링크', webMC:'웹 MC', ojangDownload:'ojang pe 다운로드', dialpad:'다이얼 패드', officialWebsite:'공식 웹사이트', theme:'테마', darkMode:'다크 모드', displayMode:'디스플레이 모드', glassMode:'글래스 모드', liquidGlassMode:'리퀴드 글래스', retroMode:'레트로 모드', minecraftMode:'Minecraft 모드', conceptMode:'컨셉트 모드', wallpaper:'배경화면 선택', defaultWallpaper:'기본값', creeperSleep:'크리퍼 소녀 수면', minecart:'광차', tnt:'TNT!', blueArchive1:'블루 아카이브 1', rowing:'조정', blueArchive2:'블루 아카이브 2', waterDrop:'물방울 배경화면', whiteWallpaper:'흰색 배경화면', language:'언어', close:'닫기', welcome:'환영합니다<br>캐세이퍼시픽 A330 공식 웹사이트', bilibili:'My bilibili', fanGroup:'팬 그룹 가입', announcementTitle:'공지사항', announcementSubtitle:'다국어 지원', bilibiliDownload:'bilibili 국제판 3.19.2 다운로드', netEaseDownload:'NetEase Cloud Music Lite 1.0.0 다운로드', kuGouDownload:'KuGou Concept 2.4.2 다운로드', jianYingDownload:'JianYing 5.7.0 다운로드', download:'다운로드', delete:'삭제', footer:'Cathay Pacific • A330 • Minimal' }
+                'zh-CN': { siteTitle:'一架国泰航空A330官方网站', settings:'设置', menu:'菜单', calculator:'计算器', about:'关于', more:'更多', aboutText:'这是一架国泰航空A330官方网站', versionLabel:'版本号', versionNumber:'7.1.2', links:'链接', webMC:'网页版MC', ojangDownload:'ojang pe下载', dialpad:'拨号盘', officialWebsite:'官方网站', theme:'主题模式', darkMode:'深色模式', displayMode:'显示模式', glassMode:'透明模式', liquidGlassMode:'液态玻璃', retroMode:'怀旧模式', minecraftMode:'Minecraft模式', conceptMode:'概念版模式', wallpaper:'壁纸选择', defaultWallpaper:'默认', creeperSleep:'苦力怕娘睡觉', minecart:'矿车', tnt:'TNT！', blueArchive1:'蔚蓝档案1', rowing:'划船', blueArchive2:'蔚蓝档案2', waterDrop:'水滴壁纸', whiteWallpaper:'白色壁纸', language:'语言', close:'关闭', welcome:'欢迎来到<br>一架国泰航空A330官方网站', bilibili:'我的 bilibili', fanGroup:'加入粉丝群', announcementTitle:'公告栏', announcementSubtitle:'支持多语言', bilibiliDownload:'bilibili国际版3.19.2下载', netEaseDownload:'网易云音乐极速版1.0.0下载', kuGouDownload:'酷狗概念版2.4.2下载', jianYingDownload:'剪映5.7.0下载', download:'下载', delete:'删除', footer:'Cathay Pacific • A330 • Minimal' },
+                'zh-TW': { siteTitle:'一架國泰航空A330官方網站', settings:'設置', menu:'選單', calculator:'計算機', about:'關於', more:'更多', aboutText:'這是一架國泰航空A330官方網站', versionLabel:'版本號', versionNumber:'7.1.2', links:'連結', webMC:'網頁版MC', ojangDownload:'ojang pe下載', dialpad:'撥號盤', officialWebsite:'官方網站', theme:'主題模式', darkMode:'深色模式', displayMode:'顯示模式', glassMode:'透明模式', liquidGlassMode:'液態玻璃', retroMode:'懷舊模式', minecraftMode:'Minecraft模式', conceptMode:'概念版模式', wallpaper:'壁紙選擇', defaultWallpaper:'預設', creeperSleep:'苦力怕娘睡覺', minecart:'礦車', tnt:'TNT！', blueArchive1:'蔚藍檔案1', rowing:'划船', blueArchive2:'蔚藍檔案2', waterDrop:'水滴桌布', whiteWallpaper:'白色桌布', language:'語言', close:'關閉', welcome:'歡迎來到<br>一架國泰航空A330官方網站', bilibili:'我的 bilibili', fanGroup:'加入粉絲群', announcementTitle:'公告欄', announcementSubtitle:'支援多語言', bilibiliDownload:'bilibili國際版3.19.2下載', netEaseDownload:'網易雲音樂極速版1.0.0下載', kuGouDownload:'酷狗概念版2.4.2下載', jianYingDownload:'剪映5.7.0下載', download:'下載', delete:'刪除', footer:'Cathay Pacific • A330 • Minimal' },
+                'en': { siteTitle:'Cathay Pacific A330 Official Website', settings:'Settings', menu:'Menu', calculator:'Calculator', about:'About', more:'More', aboutText:'This is Cathay Pacific A330 Official Website', versionLabel:'Version', versionNumber:'7.1.2', links:'Links', webMC:'Web MC', ojangDownload:'ojang pe Download', dialpad:'Dial Pad', officialWebsite:'Official Website', theme:'Theme', darkMode:'Dark Mode', displayMode:'Display Mode', glassMode:'Glass Mode', liquidGlassMode:'Liquid Glass', retroMode:'Retro Mode', minecraftMode:'Minecraft Mode', conceptMode:'Concept Mode', wallpaper:'Wallpaper Selection', defaultWallpaper:'Default', creeperSleep:'Creeper Girl Sleeping', minecart:'Minecart', tnt:'TNT!', blueArchive1:'Blue Archive 1', rowing:'Rowing', blueArchive2:'Blue Archive 2', waterDrop:'Water Drop', whiteWallpaper:'White Wallpaper', language:'Language', close:'Close', welcome:'Welcome to<br>Cathay Pacific A330 Official Website', bilibili:'My bilibili', fanGroup:'Join Fan Group', announcementTitle:'Announcement', announcementSubtitle:'Supports multiple languages', bilibiliDownload:'bilibili International 3.19.2 Download', netEaseDownload:'NetEase Cloud Music Lite 1.0.0 Download', kuGouDownload:'KuGou Concept 2.4.2 Download', jianYingDownload:'JianYing 5.7.0 Download', download:'Download', delete:'Delete', footer:'Cathay Pacific • A330 • Minimal' },
+                'ja': { siteTitle:'キャセイパシフィックA330公式サイト', settings:'設定', menu:'メニュー', calculator:'電卓', about:'について', more:'その他', aboutText:'これはキャセイパシフィックA330公式サイトです', versionLabel:'バージョン', versionNumber:'7.1.2', links:'リンク', webMC:'ウェブ版MC', ojangDownload:'ojang peダウンロード', dialpad:'ダイヤルパッド', officialWebsite:'公式サイト', theme:'テーマ', darkMode:'ダークモード', displayMode:'表示モード', glassMode:'グラスモード', liquidGlassMode:'リキッドグラス', retroMode:'レトロモード', minecraftMode:'Minecraftモード', conceptMode:'コンセプトモード', wallpaper:'壁紙選択', defaultWallpaper:'デフォルト', creeperSleep:'クリーパー娘の睡眠', minecart:'トロッコ', tnt:'TNT！', blueArchive1:'ブルーアーカイブ1', rowing:'ボート', blueArchive2:'ブルーアーカイブ2', waterDrop:'水滴の壁紙', whiteWallpaper:'白い壁紙', language:'言語', close:'閉じる', welcome:'ようこそ<br>キャセイパシフィックA330公式サイトへ', bilibili:'My bilibili', fanGroup:'ファングループに参加', announcementTitle:'お知らせ', announcementSubtitle:'多言語対応', bilibiliDownload:'bilibili国際版3.19.2ダウンロード', netEaseDownload:'NetEase Cloud Music Lite 1.0.0ダウンロード', kuGouDownload:'KuGou Concept 2.4.2ダウンロード', jianYingDownload:'JianYing 5.7.0ダウンロード', download:'ダウンロード', delete:'削除', footer:'Cathay Pacific • A330 • Minimal' },
+                'ko': { siteTitle:'캐세이퍼시픽 A330 공식 웹사이트', settings:'설정', menu:'메뉴', calculator:'계산기', about:'정보', more:'더 보기', aboutText:'이것은 캐세이퍼시픽 A330 공식 웹사이트입니다', versionLabel:'버전', versionNumber:'7.1.2', links:'링크', webMC:'웹 MC', ojangDownload:'ojang pe 다운로드', dialpad:'다이얼 패드', officialWebsite:'공식 웹사이트', theme:'테마', darkMode:'다크 모드', displayMode:'디스플레이 모드', glassMode:'글래스 모드', liquidGlassMode:'리퀴드 글래스', retroMode:'레트로 모드', minecraftMode:'Minecraft 모드', conceptMode:'컨셉트 모드', wallpaper:'배경화면 선택', defaultWallpaper:'기본값', creeperSleep:'크리퍼 소녀 수면', minecart:'광차', tnt:'TNT!', blueArchive1:'블루 아카이브 1', rowing:'조정', blueArchive2:'블루 아카이브 2', waterDrop:'물방울 배경화면', whiteWallpaper:'흰색 배경화면', language:'언어', close:'닫기', welcome:'환영합니다<br>캐세이퍼시픽 A330 공식 웹사이트', bilibili:'My bilibili', fanGroup:'팬 그룹 가입', announcementTitle:'공지사항', announcementSubtitle:'다국어 지원', bilibiliDownload:'bilibili 국제판 3.19.2 다운로드', netEaseDownload:'NetEase Cloud Music Lite 1.0.0 다운로드', kuGouDownload:'KuGou Concept 2.4.2 다운로드', jianYingDownload:'JianYing 5.7.0 다운로드', download:'다운로드', delete:'삭제', footer:'Cathay Pacific • A330 • Minimal' }
             };
 
             const wallpaperURLs = {
@@ -722,10 +894,6 @@
                 document.addEventListener('keydown', startOnce, { once: true });
             }
 
-            function attachRippleToElements() {
-                // 移除涟漪逻辑，保证点击绝对稳定
-            }
-
             function syncSwitches(name, isOn, extra) {
                 document.querySelectorAll('[data-switch="' + name + '"]').forEach(sw => {
                     if (name === 'lang') {
@@ -750,10 +918,9 @@
                 syncSwitches('liquidGlassMode', liquidGlassEnabled && !minecraftEnabled);
                 syncSwitches('retroMode', retroEnabled && !minecraftEnabled);
                 syncSwitches('minecraftMode', minecraftEnabled);
-                syncSwitches('conceptMode', false);
-                syncSwitches('windows10Mode', false);
                 syncSwitches('lang', null, currentLang);
 
+                // 更新壁纸选中状态
                 wallpaperBtns.forEach(btn => {
                     btn.classList.toggle('active', btn.getAttribute('data-wallpaper') === wallpaperChoice);
                 });
@@ -776,10 +943,11 @@
 
             // --- 事件绑定 ---
             settingsTrigger.addEventListener('click', () => { closeMenuIfOpen(); settingsOverlay.classList.add('visible'); });
+            
+            // 返回按钮点击关闭设置
+            settingsBackBtn.addEventListener('click', () => { settingsOverlay.classList.remove('visible'); });
+            // 点击遮罩也关闭设置
             settingsOverlay.addEventListener('click', e => { if(e.target === settingsOverlay) settingsOverlay.classList.remove('visible'); });
-            document.querySelectorAll('[data-role="settings-close"]').forEach(btn => {
-                btn.addEventListener('click', () => settingsOverlay.classList.remove('visible'));
-            });
 
             aboutTrigger.addEventListener('click', () => { closeMenuIfOpen(); aboutOverlay.classList.add('visible'); });
             aboutCloseBtn.addEventListener('click', () => aboutOverlay.classList.remove('visible'));
@@ -796,11 +964,6 @@
             });
             dialDelete.addEventListener('click', () => { dialValue = dialValue.slice(0,-1); dialpadDisplay.textContent = dialValue; });
             dialpadOverlay.addEventListener('click', e => { if(e.target === dialpadOverlay) dialpadOverlay.classList.remove('visible'); });
-
-            // 禁用开关点击
-            document.querySelectorAll('[data-switch="conceptMode"], [data-switch="windows10Mode"]').forEach(sw => {
-                sw.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); });
-            });
 
             document.querySelectorAll('[data-switch="themeDark"]').forEach(sw => {
                 sw.addEventListener('click', () => {
@@ -869,6 +1032,7 @@
                 });
             });
 
+            // 壁纸按钮点击（iOS 列表样式）
             wallpaperBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
                     wallpaperChoice = btn.getAttribute('data-wallpaper');
@@ -950,7 +1114,7 @@
             initMusicOnFirstInteraction();
             initLeaves();
 
-            console.log('[v7.1.1] 布局异常已修复');
+            console.log('[v7.1.2] iOS 设置 UI 已应用');
         })();
     </script>
 </body>
