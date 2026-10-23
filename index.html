@@ -244,6 +244,8 @@
 
         /* ================= 特效图层 ================= */
         .fx-container { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+        
+        /* 落叶雪花 */
         .particle { position: fixed; top: -30px; user-select: none; animation: fall linear forwards; }
         @keyframes fall {
             0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
@@ -252,9 +254,24 @@
             100% { transform: translateY(105vh) translateX(var(--sway)) rotate(720deg); opacity: 0; }
         }
 
+        /* 烟花特效 */
+        .fireworks-container { position: fixed; inset: 0; pointer-events: none; z-index: 999; overflow: hidden; }
+        .firework-particle {
+            position: absolute;
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: explode 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+        @keyframes explode {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; box-shadow: 0 0 10px currentColor; }
+            80% { opacity: 0.8; }
+            100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0); opacity: 0; box-shadow: none; }
+        }
+
         /* 灯笼特效 */
         .lantern {
-            position: fixed; top: 0; width: 60px; height: 120px; z-index: 999;
+            position: fixed; top: 0; width: 60px; height: 120px; z-index: 1000;
             pointer-events: none; display: none;
             transform-origin: top center;
         }
@@ -262,14 +279,8 @@
         .lantern.left { left: 20px; animation: swingLeft 3s ease-in-out infinite alternate; }
         .lantern.right { right: 20px; animation: swingRight 3s ease-in-out infinite alternate; }
         
-        @keyframes swingLeft {
-            0% { transform: rotate(-8deg); }
-            100% { transform: rotate(8deg); }
-        }
-        @keyframes swingRight {
-            0% { transform: rotate(8deg); }
-            100% { transform: rotate(-8deg); }
-        }
+        @keyframes swingLeft { 0% { transform: rotate(-8deg); } 100% { transform: rotate(8deg); } }
+        @keyframes swingRight { 0% { transform: rotate(8deg); } 100% { transform: rotate(-8deg); } }
 
         /* CSS 绘制灯笼 */
         .lantern-rope { width: 2px; height: 30px; background: #333; margin: 0 auto; }
@@ -455,9 +466,12 @@
 </head>
 <body>
     <audio id="mcMusic" loop preload="auto"></audio>
+    <audio id="fireworksAudio" src="https://mc-ojang.github.io/fireworks.mp3" loop preload="auto"></audio>
     
     <!-- 特效容器 -->
     <div class="fx-container" id="leavesContainer"></div>
+    <div class="fireworks-container" id="fireworksContainer"></div>
+    
     <div class="lantern left" id="lanternLeft">
         <div class="lantern-rope"></div>
         <div class="lantern-top"></div>
@@ -621,7 +635,7 @@
                 <p data-i18n="aboutText">这是一架国泰航空A330官方网站</p>
                 <p class="version-text" id="versionArea" style="margin-top:8px;">
                     <span class="version-label" data-i18n="versionLabel">版本号</span>
-                    <span class="version-number" data-i18n="versionNumber">7.3.0</span>
+                    <span class="version-number" data-i18n="versionNumber">7.3.1</span>
                 </p>
             </div>
             <button class="about-close-btn" id="aboutCloseBtn" data-i18n="close">关闭</button>
@@ -724,11 +738,11 @@
 
             // 翻译词条
             const translations = {
-                'zh-CN': { siteTitle:'一架国泰航空A330官方网站', settings:'设置', menu:'菜单', calculator:'计算器', about:'关于', aboutText:'这是一架国泰航空A330官方网站', versionLabel:'版本号', versionNumber:'7.3.0', links:'链接', webMC:'网页版MC', ojangDownload:'ojang pe下载', dialpad:'拨号盘', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁纸', language:'语言', close:'关闭', welcome:'欢迎来到<br>一架国泰航空A330官方网站', bilibili:'我的 bilibili', fanGroup:'加入粉丝群', announcementTitle:'公告栏', announcementSubtitle:'修复了一些bug，添加了雪花，优化了新春主题', bilibiliDownload:'哔哩哔哩国际版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下载', delete:'删除', footer:'Cathay Pacific • A330 • Minimal' },
-                'zh-TW': { siteTitle:'一架國泰航空A330官方網站', settings:'設置', menu:'選單', calculator:'計算機', about:'關於', aboutText:'這是一架國泰航空A330官方網站', versionLabel:'版本號', versionNumber:'7.3.0', links:'連結', webMC:'網頁版MC', ojangDownload:'ojang pe下載', dialpad:'撥號盤', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁紙', language:'語言', close:'關閉', welcome:'歡迎來到<br>一架國泰航空A330官方網站', bilibili:'我的 bilibili', fanGroup:'加入粉絲群', announcementTitle:'公告欄', announcementSubtitle:'修復了一些bug，添加了雪花，優化了新春主題', bilibiliDownload:'嗶哩嗶哩國際版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下載', delete:'刪除', footer:'Cathay Pacific • A330 • Minimal' },
-                'en': { siteTitle:'Cathay Pacific A330 Official Website', settings:'Settings', menu:'Menu', calculator:'Calculator', about:'About', aboutText:'This is Cathay Pacific A330 Official Website', versionLabel:'Version', versionNumber:'7.3.0', links:'Links', webMC:'Web MC', ojangDownload:'ojang pe Download', dialpad:'Dial Pad', darkMode:'Dark Mode', glassMode:'Glass Mode', wallpaper:'Wallpaper', language:'Language', close:'Close', welcome:'Welcome to<br>Cathay Pacific A330 Official Website', bilibili:'My bilibili', fanGroup:'Join Fan Group', announcementTitle:'Announcement', announcementSubtitle:'Fixed some bugs, added snow, optimized New Year theme', bilibiliDownload:'Bilibili International 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'Download', delete:'Delete', footer:'Cathay Pacific • A330 • Minimal' },
-                'ja': { siteTitle:'キャセイパシフィックA330公式サイト', settings:'設定', menu:'メニュー', calculator:'電卓', about:'について', aboutText:'これはキャセイパシフィックA330公式サイトです', versionLabel:'バージョン', versionNumber:'7.3.0', links:'リンク', webMC:'ウェブ版MC', ojangDownload:'ojang peダウンロード', dialpad:'ダイヤルパッド', darkMode:'ダークモード', glassMode:'グラスモード', wallpaper:'壁紙', language:'言語', close:'閉じる', welcome:'ようこそ<br>キャセイパシフィックA330公式サイトへ', bilibili:'My bilibili', fanGroup:'ファングループに参加', announcementTitle:'お知らせ', announcementSubtitle:'バグ修正、雪を追加、新春テーマを最適化', bilibiliDownload:'Bilibili国際版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'ダウンロード', delete:'削除', footer:'Cathay Pacific • A330 • Minimal' },
-                'ko': { siteTitle:'캐세이퍼시픽 A330 공식 웹사이트', settings:'설정', menu:'메뉴', calculator:'계산기', about:'정보', aboutText:'이것은 캐세이퍼시픽 A330 공식 웹사이트입니다', versionLabel:'버전', versionNumber:'7.3.0', links:'링크', webMC:'웹 MC', ojangDownload:'ojang pe 다운로드', dialpad:'다이얼 패드', darkMode:'다크 모드', glassMode:'글래스 모드', wallpaper:'배경화면', language:'언어', close:'닫기', welcome:'환영합니다<br>캐세이퍼시픽 A330 공식 웹사이트', bilibili:'My bilibili', fanGroup:'팬 그룹 가입', announcementTitle:'공지사항', announcementSubtitle:'버그 수정, 눈 추가, 새해 테마 최적화', bilibiliDownload:'Bilibili 국제판 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'다운로드', delete:'삭제', footer:'Cathay Pacific • A330 • Minimal' }
+                'zh-CN': { siteTitle:'一架国泰航空A330官方网站', settings:'设置', menu:'菜单', calculator:'计算器', about:'关于', aboutText:'这是一架国泰航空A330官方网站', versionLabel:'版本号', versionNumber:'7.3.1', links:'链接', webMC:'网页版MC', ojangDownload:'ojang pe下载', dialpad:'拨号盘', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁纸', language:'语言', close:'关闭', welcome:'欢迎来到<br>一架国泰航空A330官方网站', bilibili:'我的 bilibili', fanGroup:'加入粉丝群', announcementTitle:'公告栏', announcementSubtitle:'修复了一些bug，添加了雪花，优化了新春主题', bilibiliDownload:'哔哩哔哩国际版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下载', delete:'删除', footer:'Cathay Pacific • A330 • Minimal' },
+                'zh-TW': { siteTitle:'一架國泰航空A330官方網站', settings:'設置', menu:'選單', calculator:'計算機', about:'關於', aboutText:'這是一架國泰航空A330官方網站', versionLabel:'版本號', versionNumber:'7.3.1', links:'連結', webMC:'網頁版MC', ojangDownload:'ojang pe下載', dialpad:'撥號盤', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁紙', language:'語言', close:'關閉', welcome:'歡迎來到<br>一架國泰航空A330官方網站', bilibili:'我的 bilibili', fanGroup:'加入粉絲群', announcementTitle:'公告欄', announcementSubtitle:'修復了一些bug，添加了雪花，優化了新春主題', bilibiliDownload:'嗶哩嗶哩國際版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下載', delete:'刪除', footer:'Cathay Pacific • A330 • Minimal' },
+                'en': { siteTitle:'Cathay Pacific A330 Official Website', settings:'Settings', menu:'Menu', calculator:'Calculator', about:'About', aboutText:'This is Cathay Pacific A330 Official Website', versionLabel:'Version', versionNumber:'7.3.1', links:'Links', webMC:'Web MC', ojangDownload:'ojang pe Download', dialpad:'Dial Pad', darkMode:'Dark Mode', glassMode:'Glass Mode', wallpaper:'Wallpaper', language:'Language', close:'Close', welcome:'Welcome to<br>Cathay Pacific A330 Official Website', bilibili:'My bilibili', fanGroup:'Join Fan Group', announcementTitle:'Announcement', announcementSubtitle:'Fixed some bugs, added snow, optimized New Year theme', bilibiliDownload:'Bilibili International 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'Download', delete:'Delete', footer:'Cathay Pacific • A330 • Minimal' },
+                'ja': { siteTitle:'キャセイパシフィックA330公式サイト', settings:'設定', menu:'メニュー', calculator:'電卓', about:'について', aboutText:'これはキャセイパシフィックA330公式サイトです', versionLabel:'バージョン', versionNumber:'7.3.1', links:'リンク', webMC:'ウェブ版MC', ojangDownload:'ojang peダウンロード', dialpad:'ダイヤルパッド', darkMode:'ダークモード', glassMode:'グラスモード', wallpaper:'壁紙', language:'言語', close:'閉じる', welcome:'ようこそ<br>キャセイパシフィックA330公式サイトへ', bilibili:'My bilibili', fanGroup:'ファングループに参加', announcementTitle:'お知らせ', announcementSubtitle:'バグ修正、雪を追加、新春テーマを最適化', bilibiliDownload:'Bilibili国際版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'ダウンロード', delete:'削除', footer:'Cathay Pacific • A330 • Minimal' },
+                'ko': { siteTitle:'캐세이퍼시픽 A330 공식 웹사이트', settings:'설정', menu:'메뉴', calculator:'계산기', about:'정보', aboutText:'이것은 캐세이퍼시픽 A330 공식 웹사이트입니다', versionLabel:'버전', versionNumber:'7.3.1', links:'링크', webMC:'웹 MC', ojangDownload:'ojang pe 다운로드', dialpad:'다이얼 패드', darkMode:'다크 모드', glassMode:'글래스 모드', wallpaper:'배경화면', language:'언어', close:'닫기', welcome:'환영합니다<br>캐세이퍼시픽 A330 공식 웹사이트', bilibili:'My bilibili', fanGroup:'팬 그룹 가입', announcementTitle:'공지사항', announcementSubtitle:'버그 수정, 눈 추가, 새해 테마 최적화', bilibiliDownload:'Bilibili 국제판 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'다운로드', delete:'삭제', footer:'Cathay Pacific • A330 • Minimal' }
             };
 
             const wallpaperURLs = {
@@ -751,8 +765,67 @@
                 orange: { main: '#ff9500', hover: '#e65100' }
             };
 
-            // 特效逻辑
+            // 特效与音效逻辑
             let particleTimeouts = [];
+            let fireworkInterval = null;
+            const fireworksColors = ['#ff4d4d', '#ffcc00', '#33cc33', '#3399ff', '#cc33ff', '#ff6600'];
+
+            function createFirework() {
+                const container = $('fireworksContainer');
+                if (!container) return;
+                // 随机位置 (留出边距)
+                const x = window.innerWidth * (0.1 + Math.random() * 0.8);
+                const y = window.innerHeight * (0.1 + Math.random() * 0.5);
+                
+                const particleCount = 20 + Math.floor(Math.random() * 15);
+                const color = fireworksColors[Math.floor(Math.random() * fireworksColors.length)];
+
+                for (let i = 0; i < particleCount; i++) {
+                    const el = document.createElement('div');
+                    el.className = 'firework-particle';
+                    
+                    // 随机角度和距离
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 40 + Math.random() * 80;
+                    const dx = Math.cos(angle) * distance;
+                    const dy = Math.sin(angle) * distance;
+                    
+                    el.style.left = x + 'px';
+                    el.style.top = y + 'px';
+                    el.style.backgroundColor = color;
+                    el.style.color = color; // 用于 box-shadow
+                    el.style.setProperty('--dx', dx + 'px');
+                    el.style.setProperty('--dy', dy + 'px');
+                    
+                    // 随机大小
+                    const size = 4 + Math.random() * 4;
+                    el.style.width = size + 'px';
+                    el.style.height = size + 'px';
+
+                    container.appendChild(el);
+
+                    // 动画结束后移除
+                    setTimeout(() => {
+                        el.remove();
+                    }, 1200);
+                }
+            }
+
+            function startFireworks() {
+                if (fireworkInterval) return;
+                createFirework();
+                fireworkInterval = setInterval(createFirework, 800 + Math.random() * 700);
+            }
+
+            function stopFireworks() {
+                if (fireworkInterval) {
+                    clearInterval(fireworkInterval);
+                    fireworkInterval = null;
+                }
+                const container = $('fireworksContainer');
+                if (container) container.innerHTML = '';
+            }
+
             function updateFx() {
                 // 清理旧特效
                 const container = $('leavesContainer');
@@ -760,6 +833,13 @@
                 particleTimeouts.forEach(clearTimeout);
                 particleTimeouts = [];
                 document.body.classList.remove('newyear-active', 'newyear-theme');
+                
+                stopFireworks();
+                const audio = $('fireworksAudio');
+                if (audio) {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }
 
                 if (fxMode === 'newyear') {
                     // 强制新春红
@@ -767,6 +847,13 @@
                     $('selectAccentColor').value = 'red';
                     $('selectAccentColor').disabled = true;
                     accentColor = 'red';
+
+                    // 启动烟花与音效
+                    startFireworks();
+                    if (audio) {
+                        audio.volume = 0.5; // 适当降低音量避免太吵
+                        audio.play().catch(e => console.log('音效播放被拦截:', e));
+                    }
                 } else {
                     $('selectAccentColor').disabled = false;
                     const savedColor = localStorage.getItem('accentColor') || 'blue';
@@ -885,7 +972,7 @@
                 document.querySelectorAll('[data-switch="rtlMode"]').forEach(sw => sw.classList.toggle('on', rtlEnabled));
 
                 applyTranslations(currentLang);
-                updateFx(); // 每次应用设置时重新渲染特效（会处理颜色强制）
+                updateFx(); // 每次应用设置时重新渲染特效
             }
 
             // 保存和更新
@@ -1040,7 +1127,7 @@
             // 初始化
             applySettings();
 
-            console.log('[v7.3.0] 侧边栏全兼容与新春灯笼特效已应用');
+            console.log('[v7.3.1] 新春烟花与音效已加入');
         })();
     </script>
 </body>
