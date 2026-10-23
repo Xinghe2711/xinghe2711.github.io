@@ -28,7 +28,7 @@
             --announcement-title: #1a1a1a;
             --announcement-subtitle: #888888;
             --modal-bg: #ffffff;
-            --modal-overlay: rgba(0,0,0,0.4);
+            --modal-overlay: rgba(0,0,0,0.3);
             --dial-key-bg: #f0f0f0;
             --dial-display-bg: #f8f8f8;
             --dial-display-text: #1a1a1a;
@@ -41,7 +41,9 @@
             --safe-top: env(safe-area-inset-top, 0px);
             --safe-bottom: env(safe-area-inset-bottom, 0px);
             
-            --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+            /* 高级物理缓动曲线 */
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* 回弹弹簧 */
+            --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1); /* 平滑减速 */
         }
         [data-theme="dark"] {
             --default-bg-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=80');
@@ -64,7 +66,7 @@
             --announcement-title: #f0f0f0;
             --announcement-subtitle: #888888;
             --modal-bg: #1e1e1e;
-            --modal-overlay: rgba(0,0,0,0.6);
+            --modal-overlay: rgba(0,0,0,0.5);
             --dial-key-bg: #2a2a2a;
             --dial-display-bg: #171717;
             --dial-display-text: #f0f0f0;
@@ -88,24 +90,27 @@
             padding-bottom: calc(1rem + var(--safe-bottom));
             -webkit-font-smoothing: antialiased; 
             overflow-x: hidden;
-            transition: background-color 0.6s var(--ease-spring), color 0.6s var(--ease-spring);
+            transition: background-color 0.6s var(--ease-smooth), color 0.6s var(--ease-smooth), background-image 0.6s var(--ease-smooth);
         }
         
-        /* 核心入场动画 */
-        @keyframes fadeUp {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+        /* ================= 核心入场动画 (Staggered) ================= */
+        @keyframes contentEnter {
+            0% { opacity: 0; transform: translateY(30px) scale(0.98); filter: blur(8px); }
+            100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
         }
-        .title-wrapper { animation: fadeUp 0.8s var(--ease-spring) 0.1s both; }
-        .divider { animation: fadeUp 0.8s var(--ease-spring) 0.2s both; }
-        .button-group { animation: fadeUp 0.8s var(--ease-spring) 0.3s both; }
-        .announcement { animation: fadeUp 0.8s var(--ease-spring) 0.4s both; }
-        .download-item:nth-child(1) { animation: fadeUp 0.8s var(--ease-spring) 0.5s both; }
-        .download-item:nth-child(2) { animation: fadeUp 0.8s var(--ease-spring) 0.6s both; }
-        .download-item:nth-child(3) { animation: fadeUp 0.8s var(--ease-spring) 0.7s both; }
-        .download-item:nth-child(4) { animation: fadeUp 0.8s var(--ease-spring) 0.8s both; }
-        .download-item:nth-child(5) { animation: fadeUp 0.8s var(--ease-spring) 0.9s both; }
-        .footer-note { animation: fadeUp 0.8s var(--ease-spring) 1s both; }
+        
+        .title-wrapper { animation: contentEnter 0.8s var(--ease-smooth) 0.1s both; }
+        .divider { animation: contentEnter 0.8s var(--ease-smooth) 0.2s both; }
+        .button-group { animation: contentEnter 0.8s var(--ease-smooth) 0.25s both; }
+        .announcement { animation: contentEnter 0.8s var(--ease-smooth) 0.35s both; }
+        
+        .download-group .download-item { animation: contentEnter 0.8s var(--ease-smooth) both; }
+        .download-item:nth-child(1) { animation-delay: 0.45s; }
+        .download-item:nth-child(2) { animation-delay: 0.55s; }
+        .download-item:nth-child(3) { animation-delay: 0.65s; }
+        .download-item:nth-child(4) { animation-delay: 0.75s; }
+        .download-item:nth-child(5) { animation-delay: 0.85s; }
+        .footer-note { animation: contentEnter 0.8s var(--ease-smooth) 0.95s both; }
 
         /* ================= 导航栏控制 ================= */
         html.view-desktop #hamburgerBtn, html.view-desktop .sidebar-menu, html.view-desktop .menu-overlay { display: none !important; }
@@ -113,7 +118,7 @@
         
         html:not(.view-desktop) .desktop-nav { display: none !important; }
 
-        .container { text-align:center; padding:clamp(1.2rem,4vw,2rem); width:100%; margin:auto; position: relative; z-index: 2; transition: max-width 0.4s var(--ease-spring); }
+        .container { text-align:center; padding:clamp(1.2rem,4vw,2rem); width:100%; margin:auto; position: relative; z-index: 2; transition: max-width 0.6s var(--ease-spring); }
         html.view-desktop .container { max-width: 1200px; }
         html.view-tablet .container { max-width: 800px; }
         html.view-phone .container { max-width: 480px; }
@@ -131,7 +136,7 @@
             z-index: 1003; 
             display: flex; align-items: center; justify-content: space-between;
             padding-left: 20px; padding-right: 20px;
-            transition: background-color 0.4s var(--ease-spring), border-color 0.4s var(--ease-spring);
+            transition: background-color 0.6s var(--ease-smooth), border-color 0.6s var(--ease-smooth), backdrop-filter 0.6s;
         }
         .site-title { 
             font-size:1.1rem; font-weight:500; 
@@ -140,6 +145,7 @@
             white-space:nowrap; 
             overflow:hidden; 
             text-overflow:ellipsis; 
+            transition: color 0.4s;
         }
         
         .hamburger-btn {
@@ -147,7 +153,9 @@
             display:flex; flex-direction:column; justify-content:center; align-items:center;
             gap:5px; width:44px; height:44px; padding:10px; border-radius:50%;
             -webkit-tap-highlight-color: transparent;
+            transition: transform 0.3s var(--ease-spring);
         }
+        .hamburger-btn:active { transform: scale(0.85); }
         .hamburger-line { display:block; width:22px; height:2.5px; background-color:#ffffff; border-radius:4px; transition:all 0.4s var(--ease-spring); pointer-events:none; }
         .hamburger-btn.active .hamburger-line:nth-child(1) { transform:translateY(7.5px) rotate(45deg); }
         .hamburger-btn.active .hamburger-line:nth-child(2) { opacity:0; transform: scaleX(0); }
@@ -161,10 +169,10 @@
             background: rgba(255,255,255,0.15); border: none; color: #fff;
             padding: 8px 14px; border-radius: 8px; font-size: 14px; cursor: pointer;
             display: flex; align-items: center; gap: 6px; 
-            transition: background 0.2s, transform 0.2s;
-            font-family: inherit;
+            transition: background 0.3s, transform 0.3s var(--ease-spring);
+            font-family: inherit; position: relative; overflow: hidden;
         }
-        .nav-btn:hover { background: rgba(255,255,255,0.3); }
+        .nav-btn:hover { background: rgba(255,255,255,0.3); transform: translateY(-1px); }
         .nav-btn:active { transform: scale(0.95); }
         
         /* 下拉菜单动画 */
@@ -172,39 +180,41 @@
         .dropdown-content {
             position: absolute; right: 0; top: 130%;
             background-color: var(--menu-bg); min-width: 160px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2); border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-radius: 12px;
             border: 1px solid var(--divider); overflow: hidden; z-index: 1005;
-            opacity: 0; visibility: hidden; transform: translateY(-10px);
-            transition: all 0.3s var(--ease-spring);
+            opacity: 0; visibility: hidden; transform: translateY(-15px) scale(0.95);
+            transform-origin: top right;
+            transition: all 0.4s var(--ease-spring);
         }
         .dropdown:hover .dropdown-content { 
-            opacity: 1; visibility: visible; transform: translateY(0);
+            opacity: 1; visibility: visible; transform: translateY(0) scale(1);
         }
         .dropdown-content a, .dropdown-content button {
             color: var(--text); padding: 12px 16px; text-decoration: none;
             display: flex; align-items: center; justify-content: space-between;
             font-size: 14px; background: transparent; border: none; width: 100%; cursor: pointer;
             border-bottom: 1px solid var(--divider); font-family: inherit; text-align: left;
-            transition: background 0.2s;
+            transition: background 0.2s, padding-left 0.2s;
         }
-        .dropdown-content a:hover, .dropdown-content button:hover { background-color: var(--menu-item-hover); }
+        .dropdown-content a:hover, .dropdown-content button:hover { background-color: var(--menu-item-hover); padding-left: 20px; }
 
         /* ================= 侧边栏 ================= */
         .menu-overlay { 
             position:fixed; inset:0; background-color:var(--modal-overlay); z-index:1000; 
-            opacity:0; pointer-events:none; transition:opacity 0.4s var(--ease-spring); 
+            opacity:0; pointer-events:none; transition:opacity 0.4s var(--ease-smooth); 
+            backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px);
         }
-        .menu-overlay.visible { opacity:1; pointer-events:auto; }
+        .menu-overlay.visible { opacity:1; pointer-events:auto; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
         
         .sidebar-menu { 
             position:fixed; top:0; right:0; z-index:1004; 
             background-color:var(--menu-bg); 
             width:var(--sidebar-width); max-width:85vw; height:100%; 
-            box-shadow:-4px 0 24px rgba(0,0,0,0.15); 
+            box-shadow:-10px 0 30px rgba(0,0,0,0.15); 
             padding: calc(20px + var(--safe-top)) 0 20px 0; 
             overflow-y:auto; 
             transform:translateX(100%); 
-            transition:transform 0.4s var(--ease-spring), background-color 0.4s var(--ease-spring); 
+            transition:transform 0.5s var(--ease-spring), background-color 0.6s var(--ease-smooth); 
             border-left:1px solid var(--divider); 
             -webkit-overflow-scrolling: touch;
         }
@@ -215,14 +225,15 @@
             display:flex; align-items:center; justify-content:space-between; 
             width:100%; padding:14px 20px; background:transparent; border:none; cursor:pointer; 
             font-size:1rem; color:var(--text); font-family:inherit; text-decoration:none; 
-            text-align:left; position:relative; transition: background 0.2s;
+            text-align:left; position:relative; transition: background 0.2s, padding-left 0.2s;
+            overflow: hidden;
         }
-        .menu-item:hover { background-color:var(--menu-item-hover); }
+        .menu-item:hover { background-color:var(--menu-item-hover); padding-left: 24px; }
         .menu-divider { height:1px; background-color:var(--divider); margin:6px 0; opacity:0.5; }
 
         /* ================= 主内容 ================= */
         .title-wrapper { position: relative; display: inline-block; margin-bottom: 1.2rem; max-width: 100%; }
-        h1 { font-size:clamp(1.3rem,4vw,2rem); font-weight:300; color:var(--text); letter-spacing:0.04em; line-height:1.5; margin-bottom:0; transition: color 0.4s; }
+        h1 { font-size:clamp(1.3rem,4vw,2rem); font-weight:300; color:var(--text); letter-spacing:0.04em; line-height:1.5; margin-bottom:0; transition: color 0.6s var(--ease-smooth); }
         
         .splash-text {
             position: absolute; right: -30px; bottom: -15px;
@@ -236,25 +247,22 @@
             100% { transform: rotate(-15deg) scale(1.15); }
         }
 
-        .divider { width:48px; height:1px; background-color:var(--divider); margin:0 auto 1.2rem auto; transition: background-color 0.4s; }
+        .divider { width:48px; height:1px; background-color:var(--divider); margin:0 auto 1.2rem auto; transition: background-color 0.6s; }
         .button-group { display:flex; flex-wrap:wrap; justify-content:center; gap:0.7rem; }
         
-        .btn { 
-            display:inline-block; padding:0.65rem 1.8rem; font-size:0.9rem; 
-            color:var(--btn-primary-text); background-color:var(--btn-primary); 
-            border:1px solid var(--btn-primary); border-radius:50px !important; 
-            cursor:pointer; text-decoration:none; white-space:nowrap; 
-            position:relative; overflow:hidden; 
-            transition: all 0.3s var(--ease-spring);
+        /* 按钮通用高级交互动画 */
+        .btn, .download-btn-action, .nav-btn, .settings-close-btn, .about-close-btn, .dial-action.close {
+            position: relative; overflow: hidden;
+            transition: all 0.4s var(--ease-spring);
         }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-        .btn:active { transform: translateY(0) scale(0.96); }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .btn:active { transform: translateY(0) scale(0.95); }
 
         .announcement { 
             margin:1.2rem auto; max-width:360px; padding:0.7rem 1rem; 
-            border:1.5px solid var(--announcement-border); border-radius:12px !important; 
+            border:1.5px solid var(--announcement-border); border-radius:16px !important; 
             background-color:var(--announcement-bg); 
-            transition: all 0.4s var(--ease-spring);
+            transition: all 0.6s var(--ease-smooth);
             text-align: left;
         }
         .announcement-title { font-size:1.1rem; font-weight:500; color:var(--announcement-title); margin-bottom: 4px; }
@@ -265,30 +273,44 @@
         .download-item { 
             display:flex; align-items:center; justify-content:space-between; 
             width:100%; max-width:360px; padding:1rem 1.2rem; 
-            border:1.5px solid var(--download-btn-border); border-radius:12px !important; 
+            border:1.5px solid var(--download-btn-border); border-radius:16px !important; 
             background-color:var(--download-btn-bg); 
             transition: all 0.4s var(--ease-spring);
+            position: relative; overflow: hidden;
         }
         .download-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
             border-color: var(--accent);
         }
-        .download-text { font-size:1rem; color:var(--download-btn-text); flex:1; text-align:left; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-right:0.8rem; transition: color 0.3s; }
+        .download-text { font-size:1rem; color:var(--download-btn-text); flex:1; text-align:left; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-right:0.8rem; transition: color 0.4s; }
         
         .download-btn-action { 
             display:inline-block; padding:0.5rem 1.2rem; font-size:0.9rem; font-weight:500; 
             color:#ffffff; background-color:var(--btn-primary); border:none; border-radius:50px !important; 
-            cursor:pointer; text-decoration:none; white-space:nowrap; position:relative; overflow:hidden;
-            z-index: 2; transition: all 0.3s var(--ease-spring);
+            cursor:pointer; text-decoration:none; white-space:nowrap; z-index: 2; 
         }
-        .download-btn-action:hover { transform: scale(1.05); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-        .download-btn-action:active { transform: scale(0.95); }
+        .download-btn-action:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .download-btn-action:active { transform: scale(0.92); }
         
         .footer-note { margin-top:1.5rem; font-size:0.6rem; color:var(--text-secondary); letter-spacing:0.12em; text-transform:uppercase; }
 
+        /* ================= 水波纹 Ripple ================= */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(0);
+            animation: rippleAnim 0.6s linear;
+            pointer-events: none;
+        }
+        [data-theme="dark"] .ripple { background: rgba(255, 255, 255, 0.2); }
+        @keyframes rippleAnim {
+            to { transform: scale(4); opacity: 0; }
+        }
+
         /* ================= 特效图层 ================= */
-        .fx-container { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; transition: opacity 0.6s var(--ease-spring); }
+        .fx-container { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; transition: opacity 0.8s var(--ease-smooth); }
         
         .particle { position: fixed; top: -30px; user-select: none; animation: fall linear forwards; }
         @keyframes fall {
@@ -299,17 +321,15 @@
         }
 
         /* 烟花特效 */
-        .fireworks-container { position: fixed; inset: 0; pointer-events: none; z-index: 999; overflow: hidden; transition: opacity 0.6s var(--ease-spring); }
+        .fireworks-container { position: fixed; inset: 0; pointer-events: none; z-index: 999; overflow: hidden; transition: opacity 0.8s var(--ease-smooth); }
         .firework-particle {
-            position: absolute;
-            width: 6px; height: 6px;
-            border-radius: 50%;
+            position: absolute; width: 6px; height: 6px; border-radius: 50%;
             transform: translate(-50%, -50%);
-            animation: explode 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            animation: explode 1.4s var(--ease-smooth) forwards;
         }
         @keyframes explode {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; box-shadow: 0 0 10px currentColor; }
-            80% { opacity: 0.8; }
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; box-shadow: 0 0 12px currentColor; }
+            70% { opacity: 1; }
             100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0); opacity: 0; box-shadow: none; }
         }
 
@@ -326,7 +346,6 @@
         @keyframes swingLeft { 0% { transform: rotate(-8deg); } 100% { transform: rotate(8deg); } }
         @keyframes swingRight { 0% { transform: rotate(8deg); } 100% { transform: rotate(-8deg); } }
 
-        /* CSS 绘制灯笼 */
         .lantern-rope { width: 2px; height: 30px; background: #333; margin: 0 auto; }
         .lantern-top { width: 28px; height: 8px; background: #ffcc00; border-radius: 2px; }
         .lantern-body {
@@ -337,21 +356,16 @@
             box-shadow: inset 0 0 15px rgba(0,0,0,0.4), 0 0 15px rgba(255,0,0,0.6);
             position: relative;
         }
-        .lantern-body::before, .lantern-body::after {
-            content: ''; position: absolute; top: 0; bottom: 0; width: 2px; background: rgba(0,0,0,0.15); border-radius: 1px;
-        }
+        .lantern-body::before, .lantern-body::after { content: ''; position: absolute; top: 0; bottom: 0; width: 2px; background: rgba(0,0,0,0.15); border-radius: 1px; }
         .lantern-body::before { left: 15px; }
         .lantern-body::after { right: 15px; }
         .lantern-bottom { width: 20px; height: 6px; background: #ffcc00; border-radius: 2px; }
         .lantern-tassel { width: 4px; height: 35px; background: #ffcc00; position: relative; }
         .lantern-tassel::after { content: ''; position: absolute; bottom: -12px; left: -6px; width: 16px; height: 20px; background: #ffcc00; border-radius: 50% 50% 20% 20%; }
 
-        /* 强制新春主题色 */
         .newyear-theme {
-            --accent: #cc0000 !important;
-            --accent-hover: #990000 !important;
-            --btn-primary: #cc0000 !important;
-            --btn-primary-hover: #990000 !important;
+            --accent: #cc0000 !important; --accent-hover: #990000 !important;
+            --btn-primary: #cc0000 !important; --btn-primary-hover: #990000 !important;
         }
 
         /* 彩虹壁纸背景 */
@@ -363,29 +377,31 @@
         }
         @keyframes rotateBG { 100% { filter: hue-rotate(360deg); } }
 
-        /* ================= 弹窗动画体系 ================= */
+        /* ================= 弹窗与模态系统重做 ================= */
         .settings-overlay, .about-overlay, .easter-egg-overlay, .calc-overlay, 
         .dialpad-overlay, .more-overlay {
             display: flex; position:fixed; inset:0; background-color:var(--modal-overlay); 
             z-index:2100; justify-content:center; align-items:center; padding:1rem; 
             opacity: 0; visibility: hidden; pointer-events: none;
-            transition: opacity 0.3s var(--ease-spring), visibility 0.3s var(--ease-spring), backdrop-filter 0.3s;
+            backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px);
+            transition: opacity 0.4s var(--ease-smooth), visibility 0.4s var(--ease-smooth), backdrop-filter 0.4s var(--ease-smooth);
         }
         .settings-overlay.visible, .about-overlay.visible, .easter-egg-overlay.visible, 
         .calc-overlay.visible, .dialpad-overlay.visible, .more-overlay.visible { 
             opacity: 1; visibility: visible; pointer-events: auto;
-            backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
         }
 
         .settings-modal, .about-modal, .easter-egg-modal, .calc-modal, 
         .dialpad-modal, .more-modal {
-            background-color:var(--modal-bg); border-radius:18px; 
-            box-shadow:0 12px 48px rgba(0,0,0,0.3); border:1px solid var(--divider); 
+            background-color:var(--modal-bg); border-radius:24px; 
+            box-shadow:0 24px 64px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.1); 
+            border:1px solid var(--divider); 
             display: flex; flex-direction: column; position: relative; 
             overflow: hidden; width: 100%; max-height: 85vh;
             
-            opacity: 0; transform: scale(0.9) translateY(20px);
-            transition: all 0.4s var(--ease-spring);
+            opacity: 0; transform: scale(0.85) translateY(30px);
+            transition: all 0.5s var(--ease-spring);
         }
         .settings-overlay.visible .settings-modal, 
         .about-overlay.visible .about-modal, 
@@ -401,15 +417,16 @@
         .calc-modal { max-width:340px; padding:1rem; }
         .dialpad-modal { max-width:280px; padding:1rem; }
 
-        /* ================= 计算器与拨号盘基础 ================= */
+        /* ================= 计算器与拨号盘 ================= */
         .calc-display, .dialpad-display {
             background: var(--dial-display-bg); color: var(--dial-display-text);
-            border-radius: 16px; padding: 1rem; text-align: right; font-size: 2.5rem;
+            border-radius: 20px; padding: 1rem; text-align: right; font-size: 2.5rem;
             margin-bottom: 1rem; min-height: 80px; display: flex; align-items: center;
             justify-content: flex-end; overflow-x: auto; white-space: nowrap;
-            transition: all 0.3s;
+            transition: all 0.4s;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
         }
-        .dialpad-display { font-size: 1.2rem; min-height: 40px; padding: 0.5rem; border-radius: 8px; }
+        .dialpad-display { font-size: 1.2rem; min-height: 40px; padding: 0.5rem; border-radius: 12px; }
         
         .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
         .dialpad-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
@@ -420,67 +437,68 @@
             background: var(--bg); color: var(--text);
             transition: all 0.2s var(--ease-spring);
         }
-        .calc-key { border-radius: 50%; aspect-ratio: 1; min-height: 60px; font-size: 1.5rem; box-shadow: 0 1px 2px rgba(0,0,0,0.06); }
-        .dial-key { border-radius: 50%; aspect-ratio: 1; font-size: 1.2rem; background: var(--dial-key-bg); }
+        .calc-key { border-radius: 50%; aspect-ratio: 1; min-height: 60px; font-size: 1.5rem; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+        .dial-key { border-radius: 50%; aspect-ratio: 1; font-size: 1.2rem; background: var(--dial-key-bg); box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
         
-        .calc-key:active, .dial-key:active { transform: scale(0.92); }
+        .calc-key:active, .dial-key:active { transform: scale(0.88); box-shadow: 0 0 0 rgba(0,0,0,0); }
         
         .calc-key.operator, .calc-key.equals { background: var(--accent); color: #fff; }
         .calc-key.clear { background: #a5a5a5; color: #fff; }
 
-        /* ================= 设置面板 ================= */
-        .settings-modal { padding: 0; max-width: 400px; border-radius: 12px; }
+        /* ================= 设置面板 UI ================= */
+        .settings-modal { padding: 0; max-width: 400px; border-radius: 16px; }
         .settings-nav {
             display: flex; align-items: center; justify-content: center;
             padding: 0 16px; height: 50px; flex-shrink: 0; position: relative; z-index: 10;
             background: var(--bg); border-bottom: 1px solid var(--divider);
+            transition: background 0.6s var(--ease-smooth), border-color 0.6s var(--ease-smooth);
         }
         .settings-nav-title { font-size: 16px; font-weight: 600; color: var(--text); }
         .settings-content {
             flex: 1; overflow-y: auto; padding: 20px 20px calc(20px + var(--safe-bottom));
             -webkit-overflow-scrolling: touch; background: var(--bg);
+            transition: background 0.6s var(--ease-smooth);
         }
         .settings-header-title { font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--divider); }
-        .setting-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--divider); }
+        .setting-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--divider); transition: border-color 0.6s; }
         .setting-row:last-of-type { border-bottom: none; }
         .setting-label { font-size: 15px; color: var(--text); flex: 1; text-align: left; }
 
         .retro-select {
-            padding: 6px 28px 6px 12px; border-radius: 6px; font-size: 14px; font-family: inherit;
+            padding: 8px 32px 8px 12px; border-radius: 8px; font-size: 14px; font-family: inherit;
             cursor: pointer; outline: none; border: 1px solid var(--divider); background-color: var(--bg); color: var(--text);
             background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
             background-repeat: no-repeat; background-position: right 10px center; background-size: 10px auto;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: all 0.3s var(--ease-spring);
         }
-        .retro-select:focus { border-color: var(--accent); outline: none; }
+        .retro-select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,119,204,0.2); }
+        .retro-select:active { transform: scale(0.96); }
         [data-theme="dark"] .retro-select {
             background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23aaa%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
         }
         .retro-select:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .retro-switch {
-            width: 50px; height: 28px; border-radius: 14px !important; position: relative;
+            width: 51px; height: 31px; border-radius: 16px !important; position: relative;
             cursor: pointer; border: none; background: var(--toggle-off); 
-            transition: background 0.3s var(--ease-spring); flex-shrink: 0;
+            transition: background 0.4s var(--ease-spring); flex-shrink: 0;
         }
         .retro-switch.on { background: var(--toggle-on); }
         .retro-switch .knob {
-            position: absolute; top: 2px; left: 2px; width: 24px; height: 24px;
-            background: #fff; border-radius: 50% !important; box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            transition: transform 0.3s var(--ease-spring);
+            position: absolute; top: 2px; left: 2px; width: 27px; height: 27px;
+            background: #fff; border-radius: 50% !important; box-shadow: 0 3px 8px rgba(0,0,0,0.15), 0 3px 1px rgba(0,0,0,0.06);
+            transition: transform 0.4s var(--ease-spring);
         }
-        .retro-switch.on .knob { transform: translateX(22px); }
+        .retro-switch.on .knob { transform: translateX(20px); }
+        .retro-switch:active .knob { width: 32px; }
 
         .settings-close-btn, .about-close-btn, .dial-action.close {
-            display: block; width: 100%; margin-top: 20px; padding: 12px; border-radius: 8px;
-            background: var(--btn-primary); color: #fff; border: none; font-size: 15px; font-weight: 600; cursor: pointer;
-            transition: background 0.3s, transform 0.2s var(--ease-spring);
+            display: block; width: 100%; margin-top: 20px; padding: 14px; border-radius: 12px;
+            background: var(--btn-primary); color: #fff; border: none; font-size: 16px; font-weight: 600; cursor: pointer;
+            transition: all 0.3s var(--ease-spring);
         }
-        .settings-close-btn:hover, .about-close-btn:hover, .dial-action.close:hover { transform: scale(1.02); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-        .settings-close-btn:active, .about-close-btn:active, .dial-action.close:active { transform: scale(0.98); }
 
         /* ================= 模式适配 ================= */
-        
         /* 1. 拟物化 */
         body.retro-mode .top-bar { background: linear-gradient(to bottom, var(--accent), var(--accent-hover)) !important; border-bottom: 1px solid rgba(0,0,0,0.3) !important; }
         body.retro-mode h1 { color: #222 !important; text-shadow: 2px 2px 0 #fff !important; font-weight: 700; }
@@ -493,7 +511,6 @@
         body.retro-mode .sidebar-menu { background: linear-gradient(to bottom,#f0f0f0,#d0d0d0) !important; }
         body.retro-mode .menu-item { color: #333 !important; border-bottom: 1px solid #b0b0b0 !important; }
         
-        /* 拟物化弹窗 */
         body.retro-mode .settings-modal, body.retro-mode .calc-modal, body.retro-mode .dialpad-modal, body.retro-mode .about-modal, body.retro-mode .easter-egg-modal { background: #f3ebd5 !important; border: 1px solid #d6caab !important; }
         body.retro-mode .settings-nav, body.retro-mode .settings-content { background: #f3ebd5 !important; }
         body.retro-mode .setting-row { border-bottom: 1px solid #e0d7c2 !important; }
@@ -508,19 +525,18 @@
         body.retro-mode .about-title, body.retro-mode .about-info p { color: #333 !important; }
         body.retro-mode .dial-action.delete { border-color: #c4b99c !important; color: #333 !important; }
 
-        /* 2. 液态玻璃 (修复过黑问题，变为明亮通透玻璃) */
-        body.liquid-glass-mode .top-bar { background: rgba(255, 255, 255, 0.15) !important; backdrop-filter: blur(24px); border-bottom: 1px solid rgba(255,255,255,0.3) !important; }
+        /* 2. 液态玻璃 (优化浅色透明度) */
+        body.liquid-glass-mode .top-bar { background: rgba(255, 255, 255, 0.2) !important; backdrop-filter: blur(24px); border-bottom: 1px solid rgba(255,255,255,0.3) !important; }
         body.liquid-glass-mode h1 { color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
         
         body.liquid-glass-mode .download-item, body.liquid-glass-mode .announcement { 
-            background: rgba(255, 255, 255, 0.2) !important; backdrop-filter: blur(24px) !important; border: 1px solid rgba(255, 255, 255, 0.5) !important; border-radius: 16px !important; box-shadow: 0 8px 32px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.6) !important;
+            background: rgba(255, 255, 255, 0.15) !important; backdrop-filter: blur(24px) !important; border: 1px solid rgba(255, 255, 255, 0.4) !important; border-radius: 16px !important; box-shadow: 0 8px 32px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.5) !important;
         }
         body.liquid-glass-mode .download-text, body.liquid-glass-mode .announcement-title, body.liquid-glass-mode .announcement-subtitle { color: #fff !important; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
-        body.liquid-glass-mode .btn, body.liquid-glass-mode .download-btn-action { background: rgba(255, 255, 255, 0.25) !important; backdrop-filter: blur(10px) !important; border: 1px solid rgba(255, 255, 255, 0.6) !important; color: #fff !important; box-shadow: 0 2px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.5) !important; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-        body.liquid-glass-mode .btn:hover, body.liquid-glass-mode .download-btn-action:hover { background: rgba(255, 255, 255, 0.4) !important; }
+        body.liquid-glass-mode .btn, body.liquid-glass-mode .download-btn-action { background: rgba(255, 255, 255, 0.2) !important; backdrop-filter: blur(10px) !important; border: 1px solid rgba(255, 255, 255, 0.5) !important; color: #fff !important; box-shadow: 0 2px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4) !important; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        body.liquid-glass-mode .btn:hover, body.liquid-glass-mode .download-btn-action:hover { background: rgba(255, 255, 255, 0.35) !important; }
         
-        /* 液态玻璃 - 侧边栏与弹窗 */
-        body.liquid-glass-mode .sidebar-menu { background: rgba(255, 255, 255, 0.35) !important; backdrop-filter: blur(30px) !important; border-left: 1px solid rgba(255,255,255,0.5) !important; }
+        body.liquid-glass-mode .sidebar-menu { background: rgba(255, 255, 255, 0.25) !important; backdrop-filter: blur(30px) !important; border-left: 1px solid rgba(255,255,255,0.5) !important; }
         body.liquid-glass-mode .menu-item { color: #333 !important; border-bottom-color: rgba(0,0,0,0.1) !important; }
         [data-theme="dark"] body.liquid-glass-mode .sidebar-menu { background: rgba(30, 30, 30, 0.4) !important; border-left: 1px solid rgba(255,255,255,0.2) !important; }
         [data-theme="dark"] body.liquid-glass-mode .menu-item { color: #fff !important; border-bottom-color: rgba(255,255,255,0.1) !important; }
@@ -536,7 +552,6 @@
         [data-theme="dark"] body.liquid-glass-mode .setting-row { border-bottom-color: rgba(255,255,255,0.1) !important; }
         [data-theme="dark"] body.liquid-glass-mode .retro-select { background: rgba(255,255,255,0.1) !important; border-color: rgba(255,255,255,0.3) !important; color: #fff !important; }
 
-        /* 液态玻璃计算器 */
         body.liquid-glass-mode .calc-display, body.liquid-glass-mode .dialpad-display { background: rgba(255,255,255,0.2) !important; color: #fff !important; border: 1px solid rgba(255,255,255,0.4) !important; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
         body.liquid-glass-mode .calc-key, body.liquid-glass-mode .dial-key { background: rgba(255,255,255,0.3) !important; color: #333 !important; border: 1px solid rgba(255,255,255,0.5) !important; backdrop-filter: blur(10px) !important; }
         [data-theme="dark"] body.liquid-glass-mode .calc-display, [data-theme="dark"] body.liquid-glass-mode .dialpad-display { color: #fff !important; }
@@ -556,7 +571,6 @@
         body.minecraft-mode .sidebar-menu { background:#3a3a3a !important; border-left:4px solid #1a1a1a !important; }
         body.minecraft-mode .menu-item { color:#fff !important; border-bottom:2px dashed #555 !important; font-size:0.8rem; }
         
-        /* Minecraft 弹窗 */
         body.minecraft-mode .settings-modal, body.minecraft-mode .calc-modal, body.minecraft-mode .dialpad-modal, body.minecraft-mode .about-modal, body.minecraft-mode .easter-egg-modal { background: #3a3a3a !important; border: 4px solid #1a1a1a !important; border-radius: 4px !important; }
         body.minecraft-mode .settings-nav, body.minecraft-mode .settings-content { background: #3a3a3a !important; }
         body.minecraft-mode .settings-header-title, body.minecraft-mode .setting-label, body.minecraft-mode .settings-nav-title, body.minecraft-mode .about-title, body.minecraft-mode .about-info p { color: #fff !important; font-size: 12px; font-family:'Press Start 2P', monospace !important; }
@@ -587,7 +601,7 @@
         /* 手机适配 */
         @media (max-width: 768px) {
             .settings-overlay { align-items: flex-end; padding: 0; }
-            .settings-modal { max-width: 100vw; height: auto; max-height: 90vh; border-radius: 16px 16px 0 0 !important; transform: translateY(100%); }
+            .settings-modal { max-width: 100vw; height: auto; max-height: 90vh; border-radius: 24px 24px 0 0 !important; transform: translateY(100%); opacity: 1; }
             .settings-overlay.visible .settings-modal { transform: translateY(0); }
             .newyear-active .lantern { width: 40px; height: 80px; }
             .lantern-body { width: 36px; height: 45px; font-size: 18px; }
@@ -597,7 +611,8 @@
             .lantern-tassel::after { width: 12px; height: 15px; bottom: -8px; left: -4px; }
         }
 
-        .version-text { cursor: pointer; user-select: none; display: inline-block; padding: 5px 10px; border-radius: 6px; }
+        .version-text { cursor: pointer; user-select: none; display: inline-block; padding: 5px 10px; border-radius: 6px; transition: transform 0.2s; }
+        .version-text:active { transform: scale(0.9); }
         .version-label { color: var(--version-label-color); font-weight: 500; }
         .version-number { color: var(--accent); font-weight: 600; margin-left: 5px; }
     </style>
@@ -763,7 +778,7 @@
                 <p data-i18n="aboutText">这是一架国泰航空A330官方网站</p>
                 <p class="version-text" id="versionArea" style="margin-top:8px;">
                     <span class="version-label" data-i18n="versionLabel">版本号</span>
-                    <span class="version-number" data-i18n="versionNumber">7.4.1</span>
+                    <span class="version-number" data-i18n="versionNumber">7.5.0</span>
                 </p>
             </div>
             <button class="about-close-btn" id="aboutCloseBtn" data-i18n="close">关闭</button>
@@ -867,6 +882,56 @@
             const $ = id => document.getElementById(id);
             const htmlElement = document.documentElement;
 
+            // ================= 全局水波纹 Ripple 特效 =================
+            function createRipple(e) {
+                const target = e.currentTarget;
+                if (!target) return;
+                
+                const rect = target.getBoundingClientRect();
+                let x, y;
+                if (e.touches && e.touches[0]) {
+                    x = e.touches[0].clientX - rect.left;
+                    y = e.touches[0].clientY - rect.top;
+                } else {
+                    x = e.clientX - rect.left;
+                    y = e.clientY - rect.top;
+                }
+                
+                // 防止在边缘点击时坐标计算错误
+                if (x === 0 && y === 0) {
+                    x = rect.width / 2;
+                    y = rect.height / 2;
+                }
+
+                const size = Math.max(rect.width, rect.height) * 2;
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple';
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (x - size / 2) + 'px';
+                ripple.style.top = (y - size / 2) + 'px';
+
+                // 确保父元素相对定位且溢出隐藏
+                if (window.getComputedStyle(target).position === 'static') {
+                    target.style.position = 'relative';
+                }
+                if (window.getComputedStyle(target).overflow !== 'hidden') {
+                    target.style.overflow = 'hidden';
+                }
+
+                target.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            }
+
+            const clickableSelectors = '.btn, .download-item, .download-btn-action, .nav-btn, .menu-item, .settings-nav-item, .calc-key, .dial-key, .dial-action, .wallpaper-btn';
+            function bindRipples() {
+                document.querySelectorAll(clickableSelectors).forEach(el => {
+                    if (el.dataset.rippleBound === 'true') return;
+                    el.dataset.rippleBound = 'true';
+                    el.addEventListener('mousedown', createRipple);
+                    el.addEventListener('touchstart', createRipple, { passive: true });
+                });
+            }
+
             // 状态变量
             let currentTheme = localStorage.getItem('theme') || 'light';
             let currentLang = localStorage.getItem('lang') || 'zh-CN';
@@ -880,11 +945,11 @@
 
             // 翻译词条
             const translations = {
-                'zh-CN': { siteTitle:'一架国泰航空A330官方网站', settings:'设置', menu:'菜单', calculator:'计算器', about:'关于', aboutText:'这是一架国泰航空A330官方网站', versionLabel:'版本号', versionNumber:'7.4.1', links:'链接', webMC:'网页版MC', ojangDownload:'ojang pe下载', dialpad:'拨号盘', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁纸', language:'语言', close:'关闭', welcome:'欢迎来到<br>一架国泰航空A330官方网站', bilibili:'我的 bilibili', fanGroup:'加入粉丝群', announcementTitle:'公告栏', announcementSubtitle:'修复了一些bug，添加了雪花，优化了新春主题', bilibiliDownload:'哔哩哔哩国际版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下载', delete:'删除', footer:'Cathay Pacific • A330 • Minimal' },
-                'zh-TW': { siteTitle:'一架國泰航空A330官方網站', settings:'設置', menu:'選單', calculator:'計算機', about:'關於', aboutText:'這是一架國泰航空A330官方網站', versionLabel:'版本號', versionNumber:'7.4.1', links:'連結', webMC:'網頁版MC', ojangDownload:'ojang pe下載', dialpad:'撥號盤', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁紙', language:'語言', close:'關閉', welcome:'歡迎來到<br>一架國泰航空A330官方網站', bilibili:'我的 bilibili', fanGroup:'加入粉絲群', announcementTitle:'公告欄', announcementSubtitle:'修復了一些bug，添加了雪花，優化了新春主題', bilibiliDownload:'嗶哩嗶哩國際版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下載', delete:'刪除', footer:'Cathay Pacific • A330 • Minimal' },
-                'en': { siteTitle:'Cathay Pacific A330 Official Website', settings:'Settings', menu:'Menu', calculator:'Calculator', about:'About', aboutText:'This is Cathay Pacific A330 Official Website', versionLabel:'Version', versionNumber:'7.4.1', links:'Links', webMC:'Web MC', ojangDownload:'ojang pe Download', dialpad:'Dial Pad', darkMode:'Dark Mode', glassMode:'Glass Mode', wallpaper:'Wallpaper', language:'Language', close:'Close', welcome:'Welcome to<br>Cathay Pacific A330 Official Website', bilibili:'My bilibili', fanGroup:'Join Fan Group', announcementTitle:'Announcement', announcementSubtitle:'Fixed some bugs, added snow, optimized New Year theme', bilibiliDownload:'Bilibili International 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'Download', delete:'Delete', footer:'Cathay Pacific • A330 • Minimal' },
-                'ja': { siteTitle:'キャセイパシフィックA330公式サイト', settings:'設定', menu:'メニュー', calculator:'電卓', about:'について', aboutText:'これはキャセイパシフィックA330公式サイトです', versionLabel:'バージョン', versionNumber:'7.4.1', links:'リンク', webMC:'ウェブ版MC', ojangDownload:'ojang peダウンロード', dialpad:'ダイヤルパッド', darkMode:'ダークモード', glassMode:'グラスモード', wallpaper:'壁紙', language:'言語', close:'閉じる', welcome:'ようこそ<br>キャセイパシフィックA330公式サイトへ', bilibili:'My bilibili', fanGroup:'ファングループに参加', announcementTitle:'お知らせ', announcementSubtitle:'バグ修正、雪を追加、新春テーマを最適化', bilibiliDownload:'Bilibili国際版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'ダウンロード', delete:'削除', footer:'Cathay Pacific • A330 • Minimal' },
-                'ko': { siteTitle:'캐세이퍼시픽 A330 공식 웹사이트', settings:'설정', menu:'메뉴', calculator:'계산기', about:'정보', aboutText:'이것은 캐세이퍼시픽 A330 공식 웹사이트입니다', versionLabel:'버전', versionNumber:'7.4.1', links:'링크', webMC:'웹 MC', ojangDownload:'ojang pe 다운로드', dialpad:'다이얼 패드', darkMode:'다크 모드', glassMode:'글래스 모드', wallpaper:'배경화면', language:'언어', close:'닫기', welcome:'환영합니다<br>캐세이퍼시픽 A330 공식 웹사이트', bilibili:'My bilibili', fanGroup:'팬 그룹 가입', announcementTitle:'공지사항', announcementSubtitle:'버그 수정, 눈 추가, 새해 테마 최적화', bilibiliDownload:'Bilibili 국제판 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'다운로드', delete:'삭제', footer:'Cathay Pacific • A330 • Minimal' }
+                'zh-CN': { siteTitle:'一架国泰航空A330官方网站', settings:'设置', menu:'菜单', calculator:'计算器', about:'关于', aboutText:'这是一架国泰航空A330官方网站', versionLabel:'版本号', versionNumber:'7.5.0', links:'链接', webMC:'网页版MC', ojangDownload:'ojang pe下载', dialpad:'拨号盘', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁纸', language:'语言', close:'关闭', welcome:'欢迎来到<br>一架国泰航空A330官方网站', bilibili:'我的 bilibili', fanGroup:'加入粉丝群', announcementTitle:'公告栏', announcementSubtitle:'修复了一些bug，添加了雪花，优化了新春主题', bilibiliDownload:'哔哩哔哩国际版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下载', delete:'删除', footer:'Cathay Pacific • A330 • Minimal' },
+                'zh-TW': { siteTitle:'一架國泰航空A330官方網站', settings:'設置', menu:'選單', calculator:'計算機', about:'關於', aboutText:'這是一架國泰航空A330官方網站', versionLabel:'版本號', versionNumber:'7.5.0', links:'連結', webMC:'網頁版MC', ojangDownload:'ojang pe下載', dialpad:'撥號盤', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁紙', language:'語言', close:'關閉', welcome:'歡迎來到<br>一架國泰航空A330官方網站', bilibili:'我的 bilibili', fanGroup:'加入粉絲群', announcementTitle:'公告欄', announcementSubtitle:'修復了一些bug，添加了雪花，優化了新春主題', bilibiliDownload:'嗶哩嗶哩國際版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下載', delete:'刪除', footer:'Cathay Pacific • A330 • Minimal' },
+                'en': { siteTitle:'Cathay Pacific A330 Official Website', settings:'Settings', menu:'Menu', calculator:'Calculator', about:'About', aboutText:'This is Cathay Pacific A330 Official Website', versionLabel:'Version', versionNumber:'7.5.0', links:'Links', webMC:'Web MC', ojangDownload:'ojang pe Download', dialpad:'Dial Pad', darkMode:'Dark Mode', glassMode:'Glass Mode', wallpaper:'Wallpaper', language:'Language', close:'Close', welcome:'Welcome to<br>Cathay Pacific A330 Official Website', bilibili:'My bilibili', fanGroup:'Join Fan Group', announcementTitle:'Announcement', announcementSubtitle:'Fixed some bugs, added snow, optimized New Year theme', bilibiliDownload:'Bilibili International 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'Download', delete:'Delete', footer:'Cathay Pacific • A330 • Minimal' },
+                'ja': { siteTitle:'キャセイパシフィックA330公式サイト', settings:'設定', menu:'メニュー', calculator:'電卓', about:'について', aboutText:'これはキャセイパシフィックA330公式サイトです', versionLabel:'バージョン', versionNumber:'7.5.0', links:'リンク', webMC:'ウェブ版MC', ojangDownload:'ojang peダウンロード', dialpad:'ダイヤルパッド', darkMode:'ダークモード', glassMode:'グラスモード', wallpaper:'壁紙', language:'言語', close:'閉じる', welcome:'ようこそ<br>キャセイパシフィックA330公式サイトへ', bilibili:'My bilibili', fanGroup:'ファングループに参加', announcementTitle:'お知らせ', announcementSubtitle:'バグ修正、雪を追加、新春テーマを最適化', bilibiliDownload:'Bilibili国際版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'ダウンロード', delete:'削除', footer:'Cathay Pacific • A330 • Minimal' },
+                'ko': { siteTitle:'캐세이퍼시픽 A330 공식 웹사이트', settings:'설정', menu:'메뉴', calculator:'계산기', about:'정보', aboutText:'이것은 캐세이퍼시픽 A330 공식 웹사이트입니다', versionLabel:'버전', versionNumber:'7.5.0', links:'링크', webMC:'웹 MC', ojangDownload:'ojang pe 다운로드', dialpad:'다이얼 패드', darkMode:'다크 모드', glassMode:'글래스 모드', wallpaper:'배경화면', language:'언어', close:'닫기', welcome:'환영합니다<br>캐세이퍼시픽 A330 공식 웹사이트', bilibili:'My bilibili', fanGroup:'팬 그룹 가입', announcementTitle:'공지사항', announcementSubtitle:'버그 수정, 눈 추가, 새해 테마 최적화', bilibiliDownload:'Bilibili 국제판 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'다운로드', delete:'삭제', footer:'Cathay Pacific • A330 • Minimal' }
             };
 
             const wallpaperURLs = {
@@ -945,7 +1010,7 @@
 
                     setTimeout(() => {
                         el.remove();
-                    }, 1200);
+                    }, 1400);
                 }
             }
 
@@ -1044,7 +1109,7 @@
                         }
                         container.style.opacity = '1';
                     }
-                }, 300);
+                }, 400);
             }
 
             function applyTranslations(lang) {
@@ -1272,8 +1337,9 @@
 
             // 初始化
             applySettings();
+            bindRipples();
 
-            console.log('[v7.4.1] 计算器、拨号盘、彩蛋及液态玻璃适配修复完成');
+            console.log('[v7.5.0] 全套丝滑物理动画 & Ripple 系统上线');
         })();
     </script>
 </body>
