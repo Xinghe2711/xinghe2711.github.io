@@ -41,7 +41,6 @@
             --safe-top: env(safe-area-inset-top, 0px);
             --safe-bottom: env(safe-area-inset-bottom, 0px);
             
-            /* 全局动画曲线 */
             --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
         }
         [data-theme="dark"] {
@@ -92,7 +91,7 @@
             transition: background-color 0.6s var(--ease-spring), color 0.6s var(--ease-spring);
         }
         
-        /* ================= 核心入场动画 ================= */
+        /* 核心入场动画 */
         @keyframes fadeUp {
             0% { opacity: 0; transform: translateY(20px); }
             100% { opacity: 1; transform: translateY(0); }
@@ -240,7 +239,6 @@
         .divider { width:48px; height:1px; background-color:var(--divider); margin:0 auto 1.2rem auto; transition: background-color 0.4s; }
         .button-group { display:flex; flex-wrap:wrap; justify-content:center; gap:0.7rem; }
         
-        /* 按钮交互动画 */
         .btn { 
             display:inline-block; padding:0.65rem 1.8rem; font-size:0.9rem; 
             color:var(--btn-primary-text); background-color:var(--btn-primary); 
@@ -386,7 +384,6 @@
             display: flex; flex-direction: column; position: relative; 
             overflow: hidden; width: 100%; max-height: 85vh;
             
-            /* 弹窗默认状态（隐藏时） */
             opacity: 0; transform: scale(0.9) translateY(20px);
             transition: all 0.4s var(--ease-spring);
         }
@@ -400,8 +397,36 @@
         }
 
         .about-modal { max-width:320px; padding:1.5rem; }
+        .easter-egg-modal { max-width:400px; padding:20px; text-align: center; }
         .calc-modal { max-width:340px; padding:1rem; }
         .dialpad-modal { max-width:280px; padding:1rem; }
+
+        /* ================= 计算器与拨号盘基础 ================= */
+        .calc-display, .dialpad-display {
+            background: var(--dial-display-bg); color: var(--dial-display-text);
+            border-radius: 16px; padding: 1rem; text-align: right; font-size: 2.5rem;
+            margin-bottom: 1rem; min-height: 80px; display: flex; align-items: center;
+            justify-content: flex-end; overflow-x: auto; white-space: nowrap;
+            transition: all 0.3s;
+        }
+        .dialpad-display { font-size: 1.2rem; min-height: 40px; padding: 0.5rem; border-radius: 8px; }
+        
+        .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+        .dialpad-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
+
+        .calc-key, .dial-key {
+            border: none; display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-family: inherit; position: relative; overflow: hidden;
+            background: var(--bg); color: var(--text);
+            transition: all 0.2s var(--ease-spring);
+        }
+        .calc-key { border-radius: 50%; aspect-ratio: 1; min-height: 60px; font-size: 1.5rem; box-shadow: 0 1px 2px rgba(0,0,0,0.06); }
+        .dial-key { border-radius: 50%; aspect-ratio: 1; font-size: 1.2rem; background: var(--dial-key-bg); }
+        
+        .calc-key:active, .dial-key:active { transform: scale(0.92); }
+        
+        .calc-key.operator, .calc-key.equals { background: var(--accent); color: #fff; }
+        .calc-key.clear { background: #a5a5a5; color: #fff; }
 
         /* ================= 设置面板 ================= */
         .settings-modal { padding: 0; max-width: 400px; border-radius: 12px; }
@@ -433,7 +458,6 @@
         }
         .retro-select:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* 开关动画 */
         .retro-switch {
             width: 50px; height: 28px; border-radius: 14px !important; position: relative;
             cursor: pointer; border: none; background: var(--toggle-off); 
@@ -447,15 +471,16 @@
         }
         .retro-switch.on .knob { transform: translateX(22px); }
 
-        .settings-close-btn {
+        .settings-close-btn, .about-close-btn, .dial-action.close {
             display: block; width: 100%; margin-top: 20px; padding: 12px; border-radius: 8px;
             background: var(--btn-primary); color: #fff; border: none; font-size: 15px; font-weight: 600; cursor: pointer;
             transition: background 0.3s, transform 0.2s var(--ease-spring);
         }
-        .settings-close-btn:hover { transform: scale(1.02); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-        .settings-close-btn:active { transform: scale(0.98); }
+        .settings-close-btn:hover, .about-close-btn:hover, .dial-action.close:hover { transform: scale(1.02); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .settings-close-btn:active, .about-close-btn:active, .dial-action.close:active { transform: scale(0.98); }
 
-        /* ================= 模式定制 ================= */
+        /* ================= 模式适配 ================= */
+        
         /* 1. 拟物化 */
         body.retro-mode .top-bar { background: linear-gradient(to bottom, var(--accent), var(--accent-hover)) !important; border-bottom: 1px solid rgba(0,0,0,0.3) !important; }
         body.retro-mode h1 { color: #222 !important; text-shadow: 2px 2px 0 #fff !important; font-weight: 700; }
@@ -467,54 +492,56 @@
         body.retro-mode .announcement-subtitle { color: #555 !important; }
         body.retro-mode .sidebar-menu { background: linear-gradient(to bottom,#f0f0f0,#d0d0d0) !important; }
         body.retro-mode .menu-item { color: #333 !important; border-bottom: 1px solid #b0b0b0 !important; }
-        body.retro-mode .settings-modal { background: #f3ebd5 !important; border: 1px solid #d6caab !important; }
+        
+        /* 拟物化弹窗 */
+        body.retro-mode .settings-modal, body.retro-mode .calc-modal, body.retro-mode .dialpad-modal, body.retro-mode .about-modal, body.retro-mode .easter-egg-modal { background: #f3ebd5 !important; border: 1px solid #d6caab !important; }
         body.retro-mode .settings-nav, body.retro-mode .settings-content { background: #f3ebd5 !important; }
         body.retro-mode .setting-row { border-bottom: 1px solid #e0d7c2 !important; }
-        body.retro-mode .setting-label { color: #333 !important; }
+        body.retro-mode .setting-label, body.retro-mode .settings-nav-title, body.retro-mode .settings-header-title { color: #333 !important; }
         body.retro-mode .retro-select { background-color: #f9f7ef !important; border: 1px solid #c4b99c !important; color: #333; }
         body.retro-mode .retro-switch { background: #d5cebf !important; border: 1px solid #b1a690 !important; }
         body.retro-mode .retro-switch.on { background: var(--accent) !important; }
+        body.retro-mode .calc-display, body.retro-mode .dialpad-display { background: #f9f7ef !important; border: 1px solid #c4b99c !important; color: #333 !important; }
+        body.retro-mode .calc-key, body.retro-mode .dial-key { background: linear-gradient(to bottom, #ffffff, #e6e6e6) !important; border: 1px solid #b1a690 !important; color: #333 !important; }
+        body.retro-mode .calc-key.operator, body.retro-mode .calc-key.equals { background: linear-gradient(to bottom, var(--accent), var(--accent-hover)) !important; color: #fff !important; border-color: rgba(0,0,0,0.5) !important; }
+        body.retro-mode .calc-key.clear { background: linear-gradient(to bottom, #d5cebf, #c4b99c) !important; color: #333 !important; border-color: #b1a690 !important; }
+        body.retro-mode .about-title, body.retro-mode .about-info p { color: #333 !important; }
+        body.retro-mode .dial-action.delete { border-color: #c4b99c !important; color: #333 !important; }
 
-        /* 2. 液态玻璃 */
+        /* 2. 液态玻璃 (修复过黑问题，变为明亮通透玻璃) */
         body.liquid-glass-mode .top-bar { background: rgba(255, 255, 255, 0.15) !important; backdrop-filter: blur(24px); border-bottom: 1px solid rgba(255,255,255,0.3) !important; }
         body.liquid-glass-mode h1 { color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
         
-        body.liquid-glass-mode .download-item, 
-        body.liquid-glass-mode .announcement { 
-            background: rgba(255, 255, 255, 0.2) !important; 
-            backdrop-filter: blur(24px) !important; 
-            border: 1px solid rgba(255, 255, 255, 0.5) !important; 
-            border-radius: 16px !important; 
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.6) !important;
+        body.liquid-glass-mode .download-item, body.liquid-glass-mode .announcement { 
+            background: rgba(255, 255, 255, 0.2) !important; backdrop-filter: blur(24px) !important; border: 1px solid rgba(255, 255, 255, 0.5) !important; border-radius: 16px !important; box-shadow: 0 8px 32px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.6) !important;
         }
-        body.liquid-glass-mode .download-text, 
-        body.liquid-glass-mode .announcement-title, 
-        body.liquid-glass-mode .announcement-subtitle { 
-            color: #fff !important; 
-            text-shadow: 0 1px 3px rgba(0,0,0,0.5); 
-        }
+        body.liquid-glass-mode .download-text, body.liquid-glass-mode .announcement-title, body.liquid-glass-mode .announcement-subtitle { color: #fff !important; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+        body.liquid-glass-mode .btn, body.liquid-glass-mode .download-btn-action { background: rgba(255, 255, 255, 0.25) !important; backdrop-filter: blur(10px) !important; border: 1px solid rgba(255, 255, 255, 0.6) !important; color: #fff !important; box-shadow: 0 2px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.5) !important; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        body.liquid-glass-mode .btn:hover, body.liquid-glass-mode .download-btn-action:hover { background: rgba(255, 255, 255, 0.4) !important; }
         
-        body.liquid-glass-mode .btn, 
-        body.liquid-glass-mode .download-btn-action { 
-            background: rgba(255, 255, 255, 0.25) !important; 
-            backdrop-filter: blur(10px) !important; 
-            border: 1px solid rgba(255, 255, 255, 0.6) !important; 
-            color: #fff !important; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.5) !important;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-        }
-        body.liquid-glass-mode .btn:hover,
-        body.liquid-glass-mode .download-btn-action:hover {
-            background: rgba(255, 255, 255, 0.4) !important;
-        }
+        /* 液态玻璃 - 侧边栏与弹窗 */
+        body.liquid-glass-mode .sidebar-menu { background: rgba(255, 255, 255, 0.35) !important; backdrop-filter: blur(30px) !important; border-left: 1px solid rgba(255,255,255,0.5) !important; }
+        body.liquid-glass-mode .menu-item { color: #333 !important; border-bottom-color: rgba(0,0,0,0.1) !important; }
+        [data-theme="dark"] body.liquid-glass-mode .sidebar-menu { background: rgba(30, 30, 30, 0.4) !important; border-left: 1px solid rgba(255,255,255,0.2) !important; }
+        [data-theme="dark"] body.liquid-glass-mode .menu-item { color: #fff !important; border-bottom-color: rgba(255,255,255,0.1) !important; }
 
-        body.liquid-glass-mode .sidebar-menu { background: rgba(30, 30, 30, 0.4) !important; backdrop-filter: blur(40px) !important; border-left: 1px solid rgba(255,255,255,0.4) !important; }
-        body.liquid-glass-mode .menu-item { color: #fff !important; border-bottom-color: rgba(255,255,255,0.1) !important; }
-        body.liquid-glass-mode .settings-modal { background: rgba(30, 30, 30, 0.4) !important; backdrop-filter: blur(40px) !important; border: 1px solid rgba(255,255,255,0.4) !important; }
+        body.liquid-glass-mode .settings-modal, body.liquid-glass-mode .calc-modal, body.liquid-glass-mode .dialpad-modal, body.liquid-glass-mode .about-modal, body.liquid-glass-mode .easter-egg-modal { background: rgba(255, 255, 255, 0.35) !important; backdrop-filter: blur(40px) !important; border: 1px solid rgba(255,255,255,0.6) !important; }
         body.liquid-glass-mode .settings-nav, body.liquid-glass-mode .settings-content { background: transparent !important; }
-        body.liquid-glass-mode .settings-header-title, body.liquid-glass-mode .settings-nav-title, body.liquid-glass-mode .setting-label { color: #fff !important; }
-        body.liquid-glass-mode .setting-row { border-bottom-color: rgba(255,255,255,0.15) !important; }
-        body.liquid-glass-mode .retro-select { background: rgba(255,255,255,0.1) !important; border-color: rgba(255,255,255,0.3) !important; color: #fff; }
+        body.liquid-glass-mode .settings-header-title, body.liquid-glass-mode .settings-nav-title, body.liquid-glass-mode .setting-label, body.liquid-glass-mode .about-title, body.liquid-glass-mode .about-info p { color: #333 !important; }
+        body.liquid-glass-mode .setting-row { border-bottom-color: rgba(0,0,0,0.1) !important; }
+        body.liquid-glass-mode .retro-select { background: rgba(255,255,255,0.5) !important; border-color: rgba(255,255,255,0.6) !important; color: #333 !important; }
+        
+        [data-theme="dark"] body.liquid-glass-mode .settings-modal, [data-theme="dark"] body.liquid-glass-mode .calc-modal, [data-theme="dark"] body.liquid-glass-mode .dialpad-modal, [data-theme="dark"] body.liquid-glass-mode .about-modal, [data-theme="dark"] body.liquid-glass-mode .easter-egg-modal { background: rgba(30, 30, 30, 0.4) !important; border: 1px solid rgba(255,255,255,0.2) !important; }
+        [data-theme="dark"] body.liquid-glass-mode .settings-header-title, [data-theme="dark"] body.liquid-glass-mode .settings-nav-title, [data-theme="dark"] body.liquid-glass-mode .setting-label, [data-theme="dark"] body.liquid-glass-mode .about-title, [data-theme="dark"] body.liquid-glass-mode .about-info p { color: #fff !important; }
+        [data-theme="dark"] body.liquid-glass-mode .setting-row { border-bottom-color: rgba(255,255,255,0.1) !important; }
+        [data-theme="dark"] body.liquid-glass-mode .retro-select { background: rgba(255,255,255,0.1) !important; border-color: rgba(255,255,255,0.3) !important; color: #fff !important; }
+
+        /* 液态玻璃计算器 */
+        body.liquid-glass-mode .calc-display, body.liquid-glass-mode .dialpad-display { background: rgba(255,255,255,0.2) !important; color: #fff !important; border: 1px solid rgba(255,255,255,0.4) !important; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        body.liquid-glass-mode .calc-key, body.liquid-glass-mode .dial-key { background: rgba(255,255,255,0.3) !important; color: #333 !important; border: 1px solid rgba(255,255,255,0.5) !important; backdrop-filter: blur(10px) !important; }
+        [data-theme="dark"] body.liquid-glass-mode .calc-display, [data-theme="dark"] body.liquid-glass-mode .dialpad-display { color: #fff !important; }
+        [data-theme="dark"] body.liquid-glass-mode .calc-key, [data-theme="dark"] body.liquid-glass-mode .dial-key { background: rgba(255,255,255,0.1) !important; color: #fff !important; border: 1px solid rgba(255,255,255,0.2) !important; }
+        body.liquid-glass-mode .calc-key.operator, body.liquid-glass-mode .calc-key.equals { background: var(--accent) !important; color: #fff !important; border-color: rgba(255,255,255,0.5) !important; }
 
         /* 3. Minecraft */
         body.minecraft-mode { font-family: 'Press Start 2P', 'Courier New', monospace !important; }
@@ -528,19 +555,34 @@
         body.minecraft-mode .announcement-subtitle { color:#ccc !important; font-family:'Press Start 2P', monospace !important; }
         body.minecraft-mode .sidebar-menu { background:#3a3a3a !important; border-left:4px solid #1a1a1a !important; }
         body.minecraft-mode .menu-item { color:#fff !important; border-bottom:2px dashed #555 !important; font-size:0.8rem; }
-        body.minecraft-mode .settings-modal { background: #3a3a3a !important; border: 4px solid #1a1a1a !important; border-radius: 4px !important; }
+        
+        /* Minecraft 弹窗 */
+        body.minecraft-mode .settings-modal, body.minecraft-mode .calc-modal, body.minecraft-mode .dialpad-modal, body.minecraft-mode .about-modal, body.minecraft-mode .easter-egg-modal { background: #3a3a3a !important; border: 4px solid #1a1a1a !important; border-radius: 4px !important; }
         body.minecraft-mode .settings-nav, body.minecraft-mode .settings-content { background: #3a3a3a !important; }
-        body.minecraft-mode .settings-header-title, body.minecraft-mode .setting-label { color: #fff !important; font-size: 12px; }
+        body.minecraft-mode .settings-header-title, body.minecraft-mode .setting-label, body.minecraft-mode .settings-nav-title, body.minecraft-mode .about-title, body.minecraft-mode .about-info p { color: #fff !important; font-size: 12px; font-family:'Press Start 2P', monospace !important; }
         body.minecraft-mode .setting-row { border-bottom: 2px dashed #555 !important; }
         body.minecraft-mode .retro-select { background: #1a1a1a !important; border: 2px solid #555 !important; color: #fff !important; border-radius: 0 !important; }
         body.minecraft-mode .retro-switch { border-radius: 0 !important; background: #1a1a1a !important; border: 2px solid #555 !important; }
+        
+        body.minecraft-mode .calc-display, body.minecraft-mode .dialpad-display { background: #1a1a1a !important; border: 2px solid #555 !important; color: #fff !important; border-radius: 0 !important; }
+        body.minecraft-mode .calc-key, body.minecraft-mode .dial-key { background: #4a4a4a !important; border: 2px solid #1a1a1a !important; border-radius: 0 !important; color: #fff !important; font-family: inherit; }
+        body.minecraft-mode .calc-key.operator, body.minecraft-mode .calc-key.equals { background: #55ff55 !important; color: #000 !important; border-color: #fff !important; }
+        body.minecraft-mode .calc-key.clear { background: #8b0000 !important; color: #fff !important; }
 
-        /* 透明模式叠加 */
+        /* 4. 透明模式叠加 */
         body.glass-mode .top-bar { background-color: var(--accent) !important; backdrop-filter:blur(22px) saturate(180%) !important; }
         body.glass-mode .sidebar-menu { background-color: rgba(255,255,255,0.72) !important; backdrop-filter: blur(22px) !important; }
-        body.glass-mode .settings-modal { background-color:rgba(255,255,255,0.85) !important; backdrop-filter:blur(22px) !important; }
+        body.glass-mode .settings-modal, body.glass-mode .calc-modal, body.glass-mode .dialpad-modal, body.glass-mode .about-modal, body.glass-mode .easter-egg-modal { background-color:rgba(255,255,255,0.85) !important; backdrop-filter:blur(22px) !important; }
         body.glass-mode .settings-nav, body.glass-mode .settings-content { background-color: transparent !important; }
         body.glass-mode .download-item, body.glass-mode .announcement { background-color:rgba(255,255,255,0.55) !important; backdrop-filter:blur(8px) !important; }
+        [data-theme="dark"] body.glass-mode .sidebar-menu { background-color: rgba(30,30,30,0.72) !important; }
+        [data-theme="dark"] body.glass-mode .settings-modal, [data-theme="dark"] body.glass-mode .calc-modal, [data-theme="dark"] body.glass-mode .dialpad-modal, [data-theme="dark"] body.glass-mode .about-modal, [data-theme="dark"] body.glass-mode .easter-egg-modal { background-color: rgba(30,30,30,0.85) !important; }
+
+        /* 深色模式兜底适配 */
+        [data-theme="dark"] .calc-key:not(.operator):not(.equals):not(.clear), [data-theme="dark"] .dial-key { background: #333 !important; color: #fff !important; }
+        [data-theme="dark"] .calc-display, [data-theme="dark"] .dialpad-display { background: #000 !important; color: #fff !important; }
+        [data-theme="dark"] .about-title { color: #f0f0f0; }
+        [data-theme="dark"] .about-info p { color: #aaa; }
 
         /* 手机适配 */
         @media (max-width: 768px) {
@@ -555,10 +597,6 @@
             .lantern-tassel::after { width: 12px; height: 15px; bottom: -8px; left: -4px; }
         }
 
-        .about-close-btn, .dial-action.close { display:block; width:100%; margin-top:0.8rem; padding:0.6rem; background-color:var(--accent); color:#fff; border:none; border-radius:10px; font-size:0.9rem; cursor:pointer; transition: transform 0.2s; }
-        .about-close-btn:hover, .dial-action.close:hover { transform: scale(1.02); }
-        .about-close-btn:active, .dial-action.close:active { transform: scale(0.98); }
-        
         .version-text { cursor: pointer; user-select: none; display: inline-block; padding: 5px 10px; border-radius: 6px; }
         .version-label { color: var(--version-label-color); font-weight: 500; }
         .version-number { color: var(--accent); font-weight: 600; margin-left: 5px; }
@@ -568,7 +606,6 @@
     <audio id="mcMusic" loop preload="auto"></audio>
     <audio id="fireworksAudio" src="https://mc-ojang.github.io/fireworks.mp3" loop preload="auto"></audio>
     
-    <!-- 特效容器 -->
     <div class="fx-container" id="leavesContainer"></div>
     <div class="fireworks-container" id="fireworksContainer"></div>
     
@@ -589,7 +626,6 @@
 
     <header class="top-bar">
         <div class="site-title" data-i18n="siteTitle">一架国泰航空A330官方网站</div>
-        <!-- 桌面版导航 -->
         <nav class="desktop-nav">
             <button class="nav-btn" id="settingsTriggerDesktop">⚙️ 设置</button>
             <button class="nav-btn" id="calcTriggerDesktop">🔢 计算器</button>
@@ -603,7 +639,6 @@
                 </div>
             </div>
         </nav>
-        <!-- 移动端汉堡按钮 -->
         <button class="hamburger-btn" id="hamburgerBtn">
             <span class="hamburger-line"></span>
             <span class="hamburger-line"></span>
@@ -613,7 +648,6 @@
 
     <div class="menu-overlay" id="menuOverlay"></div>
 
-    <!-- 侧边栏 -->
     <aside class="sidebar-menu" id="sidebarMenu">
         <div class="sidebar-header" data-i18n="menu">菜单</div>
         <div class="menu-divider"></div>
@@ -631,12 +665,11 @@
     <div class="settings-overlay" id="settingsOverlay">
         <div class="settings-modal" id="settingsModal">
             <div class="settings-nav">
-setting                <div class="settings-nav-title" data-i18n="settings">设置</div>
+                <div class="settings-nav-title" data-i18n="settings">设置</div>
             </div>
             <div class="settings-content">
                 <div class="settings-header-title" data-i18n="settings">设置</div>
                 
-                <!-- 语言 -->
                 <div class="setting-row">
                     <span class="setting-label" data-i18n="language">语言</span>
                     <select id="selectLang" class="retro-select">
@@ -648,7 +681,6 @@ setting                <div class="settings-nav-title" data-i18n="settings">设�
                     </select>
                 </div>
 
-                <!-- 网站模式 -->
                 <div class="setting-row">
                     <span class="setting-label">网站模式</span>
                     <select id="selectViewMode" class="retro-select">
@@ -660,13 +692,11 @@ setting                <div class="settings-nav-title" data-i18n="settings">设�
                     </select>
                 </div>
 
-                <!-- 深色模式 -->
                 <div class="setting-row">
                     <span class="setting-label" data-i18n="darkMode">深色模式</span>
                     <button class="retro-switch" data-switch="themeDark"><span class="knob"></span></button>
                 </div>
 
-                <!-- 主题 -->
                 <div class="setting-row">
                     <span class="setting-label">主题</span>
                     <select id="selectThemeMode" class="retro-select">
@@ -678,7 +708,6 @@ setting                <div class="settings-nav-title" data-i18n="settings">设�
                     </select>
                 </div>
 
-                <!-- 主题色 -->
                 <div class="setting-row">
                     <span class="setting-label">主题色</span>
                     <select id="selectAccentColor" class="retro-select">
@@ -690,7 +719,6 @@ setting                <div class="settings-nav-title" data-i18n="settings">设�
                     </select>
                 </div>
 
-                <!-- 壁纸 -->
                 <div class="setting-row">
                     <span class="setting-label" data-i18n="wallpaper">壁纸</span>
                     <select id="selectWallpaper" class="retro-select">
@@ -707,7 +735,6 @@ setting                <div class="settings-nav-title" data-i18n="settings">设�
                     </select>
                 </div>
 
-                <!-- 主界面特效 -->
                 <div class="setting-row">
                     <span class="setting-label">主界面特效</span>
                     <select id="selectFxMode" class="retro-select">
@@ -718,9 +745,8 @@ setting                <div class="settings-nav-title" data-i18n="settings">设�
                     </select>
                 </div>
 
-                <!-- 颠倒模式 (RTL) -->
                 <div class="setting-row">
-                    <span class="-label">颠倒模式 (RTL)</span>
+                    <span class="setting-label">颠倒模式 (RTL)</span>
                     <button class="retro-switch" data-switch="rtlMode"><span class="knob"></span></button>
                 </div>
 
@@ -729,54 +755,68 @@ setting                <div class="settings-nav-title" data-i18n="settings">设�
         </div>
     </div>
 
+    <!-- 关于窗口 -->
     <div class="about-overlay" id="aboutOverlay">
         <div class="about-modal">
             <div class="about-title" style="font-size:2rem;font-weight:700;color:var(--text);text-align:center;margin-bottom:0.5rem;" data-i18n="about">关于</div>
-            <div style="text-align:center;color:var(--text-secondary);font-size:0.9rem;line-height:1.6;">
+            <div class="about-info" style="text-align:center;font-size:0.9rem;line-height:1.6;">
                 <p data-i18n="aboutText">这是一架国泰航空A330官方网站</p>
                 <p class="version-text" id="versionArea" style="margin-top:8px;">
                     <span class="version-label" data-i18n="versionLabel">版本号</span>
-                    <span class="version-number" data-i18n="versionNumber">7.4.0</span>
+                    <span class="version-number" data-i18n="versionNumber">7.4.1</span>
                 </p>
             </div>
             <button class="about-close-btn" id="aboutCloseBtn" data-i18n="close">关闭</button>
         </div>
     </div>
 
+    <!-- 彩蛋窗口 -->
+    <div class="easter-egg-overlay" id="easterEggOverlay">
+        <div class="easter-egg-modal">
+            <div class="about-title" style="font-size:2rem;font-weight:700;color:var(--text);margin-bottom:0.5rem;">彩蛋</div>
+            <div style="display:flex;justify-content:center;align-items:center;margin:15px 0;">
+                <img src="https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/IMG_6036.gif" alt="彩蛋" style="max-width:100%;max-height:300px;border-radius:8px;object-fit:contain;">
+            </div>
+            <button class="about-close-btn" id="easterEggClose">关闭</button>
+        </div>
+    </div>
+
+    <!-- 计算器 -->
     <div class="calc-overlay" id="calcOverlay">
         <div class="calc-modal" id="calcModal">
-            <div class="calc-display" id="calcDisplay" style="background-color:#fff;color:#000;border-radius:16px;padding:1rem;text-align:right;font-size:2.5rem;margin-bottom:1rem;">0</div>
-            <div class="calc-grid" id="calcGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.6rem;">
-                <button class="calc-key clear" data-action="clear" style="border:none;border-radius:50%;aspect-ratio:1;font-size:1.5rem;background-color:#a5a5a5;color:#fff;transition:transform 0.1s;">C</button>
-                <button class="calc-key" data-action="backspace" style="border:none;border-radius:50%;aspect-ratio:1;font-size:1.5rem;background-color:#fff;transition:transform 0.1s;">⌫</button>
-                <button class="calc-key" data-action="percent" style="border:none;border-radius:50%;aspect-ratio:1;font-size:1.5rem;background-color:#fff;transition:transform 0.1s;">%</button>
-                <button class="calc-key operator" data-action="divide" style="border:none;border-radius:50%;aspect-ratio:1;font-size:1.5rem;background-color:#ff9500;color:#fff;transition:transform 0.1s;">÷</button>
-                <button class="calc-key" data-value="7" style="border:none;border-radius:50%;aspect-ratio:1;font-size:1.5rem;background-color:#fff;transition:transform 0.1s;">7</button>
-                <button class="calc-key" data-value="8" style="border:none;border-radius:50%;aspect-ratio:1;font-size:1.5rem;background-color:#fff;transition:transform 0.1s;">8</button>
-                <button class="calc-key" data-value="9" style="border:none;border-radius:50%;aspect-ratio:1;font-size:1.5rem;background-color:#fff;transition:transform 0.1s;">9</button>
-                <button class="calc-key operator" data-action="multiply" style="border:none;border-radius:50%;aspect-ratio:1;font-size:1.5rem;background-color:#ff9500;color:#fff;transition:transform 0.1s;">×</button>
-                <button class="calc-key" data-value="4" style="border:none;border-radius:50%;aspect-ratio:1;font-size:1.5rem;background-color:#fff;transition:transform 0.1s;">4</button>
-                <button class="calc-key" data-value="5" style="border:none;border-radius:50%;aspect-ratio:1;font-size:1.5rem;background-color:#fff;transition:transform 0.1s;">5</button>
-                <button class="calc-key" data-value="6" style="border:none;border-radius:50%;aspect-ratio:1;font-size:1.5rem;background-color:#fff;transition:transform 0.1s;">6</button>
-                <button class="calc-key operator" data-action="subtract" style="border:none;border-radius:50%;aspect-ratio:1;font-size:1.5rem;background-color:#ff9500;color:#fff;transition:transform 0.1s;">−</button>
-                <button class="calc-key" data-value="1" style="border:none;border-radius:50%;aspect-ratio:1;font-size:1.5rem;background-color:#fff;transition:transform 0.1s;">1</button>
-                <button class="calc-key" data-value="2" style="border:none;border-radius:50%;aspect-ratio:1;font-size:1.5rem;background-color:#fff;transition:transform 0.1s;">2</button>
-                <button class="calc-key" data-value="3" style="border:none;border-radius:50%;aspect-ratio:1;font-size:1.5rem;background-color:#fff;transition:transform 0.1s;">3</button>
-                <button class="calc-key operator" data-action="add" style="border:none;border-radius:50%;aspect-ratio:1;font-size:1.5rem;background-color:#ff9500;color:#fff;transition:transform 0.1s;">+</button>
-                <button class="calc-key zero" data-value="0" style="border:none;border-radius:50%;aspect-ratio:1;font-size:1.5rem;background-color:#fff;grid-column:span 2;transition:transform 0.1s;">0</button>
-                <button class="calc-key" data-value="." style="border:none;border-radius:50%;aspect-ratio:1;font-size:1.5rem;background-color:#fff;transition:transform 0.1s;">.</button>
-                <button class="calc-key equals" data-action="equals" style="border:none;border-radius:50%;aspect-ratio:1;font-size:1.5rem;background-color:#ff9500;color:#fff;transition:transform 0.1s;">=</button>
+            <div class="calc-display" id="calcDisplay">0</div>
+            <div class="calc-grid" id="calcGrid">
+                <button class="calc-key clear" data-action="clear">C</button>
+                <button class="calc-key" data-action="backspace">⌫</button>
+                <button class="calc-key" data-action="percent">%</button>
+                <button class="calc-key operator" data-action="divide">÷</button>
+                <button class="calc-key" data-value="7">7</button>
+                <button class="calc-key" data-value="8">8</button>
+                <button class="calc-key" data-value="9">9</button>
+                <button class="calc-key operator" data-action="multiply">×</button>
+                <button class="calc-key" data-value="4">4</button>
+                <button class="calc-key" data-value="5">5</button>
+                <button class="calc-key" data-value="6">6</button>
+                <button class="calc-key operator" data-action="subtract">−</button>
+                <button class="calc-key" data-value="1">1</button>
+                <button class="calc-key" data-value="2">2</button>
+                <button class="calc-key" data-value="3">3</button>
+                <button class="calc-key operator" data-action="add">+</button>
+                <button class="calc-key zero" data-value="0">0</button>
+                <button class="calc-key" data-value=".">.</button>
+                <button class="calc-key equals" data-action="equals">=</button>
             </div>
         </div>
     </div>
 
+    <!-- 拨号盘 -->
     <div class="dialpad-overlay" id="dialpadOverlay">
         <div class="dialpad-modal" id="dialpadModal">
-            <div class="dialpad-display" id="dialpadDisplay" style="background-color:#f8f8f8;border-radius:8px;padding:0.5rem;font-size:1.2rem;text-align:right;margin-bottom:0.7rem;min-height:40px;"></div>
-            <div class="dialpad-grid" id="dialpadGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.4rem;"></div>
+            <div class="dialpad-display" id="dialpadDisplay"></div>
+            <div class="dialpad-grid" id="dialpadGrid"></div>
             <div class="dial-actions" style="display:flex;gap:0.4rem;margin-top:0.5rem;">
-                <button class="dial-action delete" id="dialDelete" style="flex:1;padding:0.5rem;border-radius:30px;border:1px solid #ddd;background:transparent;transition:transform 0.1s;" data-i18n="delete">删除</button>
-                <button class="dial-action close" id="dialClose" style="flex:1;padding:0.5rem;border-radius:30px;border:none;background-color:var(--accent);color:#fff;transition:transform 0.1s;" data-i18n="close">关闭</button>
+                <button class="dial-action delete" id="dialDelete" style="flex:1;padding:0.5rem;border-radius:30px;border:1px solid var(--divider);background:transparent;color:var(--text);" data-i18n="delete">删除</button>
+                <button class="dial-action close" id="dialClose" data-i18n="close">关闭</button>
             </div>
         </div>
     </div>
@@ -791,9 +831,9 @@ setting                <div class="settings-nav-title" data-i18n="settings">设�
             <a href="https://space.bilibili.com/3546948707551378?spm_id_from=333.1007.0.0" target="_blank" class="btn" data-i18n="bilibili">我的 bilibili</a>
             <a href="https://qun.qq.com/universal-share/share?ac=1&authKey=tR1lPtOfDCeQ7X7EhR0%2BtmavDrNaxJ831B8mpYbP4K0w5SXrYdRbSvWcoAnsoZ4%2F&busi_data=eyJncm91cENvZGUiOiIxMDgxMTA0MzM0IiwidG9rZW4iOiJPOVVsVUxlSDFCL0ZwMHJTSm5QdGZCall5Q3paNld6LzNrVjZ5UFpCOUNQL3R3Q1FiV3V4SmdtTWJUajRVVmZxIiwidWluIjoiMzk5NTQ5MzQ1MyJ9&data=2Di3RQOCRkJZft-Fq-4Mgb7-jYVOWyYNzbmHOgH74lXne5vtTYX4s-80Gs0ZUwhl6ZOFqssj1Ebn3lcV7YDnfg&svctype=4&tempid=h5_group_info" target="_blank" class="btn" data-i18n="fanGroup">加入粉丝群</a>
         </div>
-       OS <div class="announcement">
-            <div class="announce%ment-title" data-i18n="announcementTitle204">公告栏</div>
-            <div class="ann/ouncement-subtitle" data-icompress18n="announcementSubtitle">修复了一些bug/i，添加了雪花，优化了新春主题</div>
+        <div class="announcement">
+            <div class="announcement-title" data-i18n="announcementTitle">公告栏</div>
+            <div class="announcement-subtitle" data-i18n="announcementSubtitle">修复了一些bug，添加了雪花，优化了新春主题</div>
         </div>
         <div class="download-group">
             <div class="download-item">
@@ -836,14 +876,15 @@ setting                <div class="settings-nav-title" data-i18n="settings">设�
             let wallpaperChoice = localStorage.getItem('wallpaperChoice') || 'default';
             let fxMode = localStorage.getItem('fxMode') || 'leaves';
             let rtlEnabled = localStorage.getItem('rtlMode') === 'enabled';
+            let versionClickCount = 0;
 
             // 翻译词条
             const translations = {
-                'zh-CN': { siteTitle:'一架国泰航空A330官方网站', settings:'设置', menu:'菜单', calculator:'计算器', about:'关于', aboutText:'这是一架国泰航空A330官方网站', versionLabel:'版本号', versionNumber:'7.4.0', links:'链接', webMC:'网页版MC', ojangDownload:'ojang pe下载', dialpad:'拨号盘', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁纸', language:'语言', close:'关闭', welcome:'欢迎来到<br>一架国泰航空A330官方网站', bilibili:'我的 bilibili', fanGroup:'加入粉丝群', announcementTitle:'公告栏', announcementSubtitle:'修复了一些bug，添加了雪花，优化了新春主题', bilibiliDownload:'哔哩哔哩国际版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下载', delete:'删除', footer:'Cathay Pacific • A330 • Minimal' },
-                'zh-TW': { siteTitle:'一架國泰航空A330官方網站', settings:'設置', menu:'選單', calculator:'計算機', about:'關於', aboutText:'這是一架國泰航空A330官方網站', versionLabel:'版本號', versionNumber:'7.4.0', links:'連結', webMC:'網頁版MC', ojangDownload:'ojang pe下載', dialpad:'撥號盤', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁紙', language:'語言', close:'關閉', welcome:'歡迎來到<br>一架國泰航空A330官方網站', bilibili:'我的 bilibili', fanGroup:'加入粉絲群', announcementTitle:'公告欄', announcementSubtitle:'修復了一些bug，添加了雪花，優化了新春主題', bilibiliDownload:'嗶哩嗶哩國際版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下載', delete:'刪除', footer:'Cathay Pacific • A330 • Minimal' },
-                'en': { siteTitle:'Cathay Pacific A330 Official Website', settings:'Settings', menu:'Menu', calculator:'Calculator', about:'About', aboutText:'This is Cathay Pacific A330 Official Website', versionLabel:'Version', versionNumber:'7.4.0', links:'Links', webMC:'Web MC', ojangDownload:'ojang pe Download', dialpad:'Dial Pad', darkMode:'Dark Mode', glassMode:'Glass Mode', wallpaper:'Wallpaper', language:'Language', close:'Close', welcome:'Welcome to<br>Cathay Pacific A330 Official Website', bilibili:'My bilibili', fanGroup:'Join Fan Group', announcementTitle:'Announcement', announcementSubtitle:'Fixed some bugs, added snow, optimized New Year theme', bilibiliDownload:'Bilibili International 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'Download', delete:'Delete', footer:'Cathay Pacific • A330 • Minimal' },
-                'ja': { siteTitle:'キャセイパシフィックA330公式サイト', settings:'設定', menu:'メニュー', calculator:'電卓', about:'について', aboutText:'これはキャセイパシフィックA330公式サイトです', versionLabel:'バージョン', versionNumber:'7.4.0', links:'リンク', webMC:'ウェブ版MC', ojangDownload:'ojang peダウンロード', dialpad:'ダイヤルパッド', darkMode:'ダークモード', glassMode:'グラスモード', wallpaper:'壁紙', language:'言語', close:'閉じる', welcome:'ようこそ<br>キャセイパシフィックA330公式サイトへ', bilibili:'My bilibili', fanGroup:'ファングループに参加', announcementTitle:'お知らせ', announcementSubtitle:'バグ修正、雪を追加、新春テーマを最適化', bilibiliDownload:'Bilibili国際版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'ダウンロード', delete:'削除', footer:'Cathay Pacific • A330 • Minimal' },
-                'ko': { siteTitle:'캐세이퍼시픽 A330 공식 웹사이트', settings:'설정', menu:'메뉴', calculator:'계산기', about:'정보', aboutText:'이것은 캐세이퍼시픽 A330 공식 웹사이트입니다', versionLabel:'버전', versionNumber:'7.4.0', links:'링크', webMC:'웹 MC', ojangDownload:'ojang pe 다운로드', dialpad:'다이얼 패드', darkMode:'다크 모드', glassMode:'글래스 모드', wallpaper:'배경화면', language:'언어', close:'닫기', welcome:'환영합니다<br>캐세이퍼시픽 A330 공식 웹사이트', bilibili:'My bilibili', fanGroup:'팬 그룹 가입', announcementTitle:'공지사항', announcementSubtitle:'버그 수정, 눈 추가, 새해 테마 최적화', bilibiliDownload:'Bilibili 국제판 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'다운로드', delete:'삭제', footer:'Cathay Pacific • A330 • Minimal' }
+                'zh-CN': { siteTitle:'一架国泰航空A330官方网站', settings:'设置', menu:'菜单', calculator:'计算器', about:'关于', aboutText:'这是一架国泰航空A330官方网站', versionLabel:'版本号', versionNumber:'7.4.1', links:'链接', webMC:'网页版MC', ojangDownload:'ojang pe下载', dialpad:'拨号盘', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁纸', language:'语言', close:'关闭', welcome:'欢迎来到<br>一架国泰航空A330官方网站', bilibili:'我的 bilibili', fanGroup:'加入粉丝群', announcementTitle:'公告栏', announcementSubtitle:'修复了一些bug，添加了雪花，优化了新春主题', bilibiliDownload:'哔哩哔哩国际版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下载', delete:'删除', footer:'Cathay Pacific • A330 • Minimal' },
+                'zh-TW': { siteTitle:'一架國泰航空A330官方網站', settings:'設置', menu:'選單', calculator:'計算機', about:'關於', aboutText:'這是一架國泰航空A330官方網站', versionLabel:'版本號', versionNumber:'7.4.1', links:'連結', webMC:'網頁版MC', ojangDownload:'ojang pe下載', dialpad:'撥號盤', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁紙', language:'語言', close:'關閉', welcome:'歡迎來到<br>一架國泰航空A330官方網站', bilibili:'我的 bilibili', fanGroup:'加入粉絲群', announcementTitle:'公告欄', announcementSubtitle:'修復了一些bug，添加了雪花，優化了新春主題', bilibiliDownload:'嗶哩嗶哩國際版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下載', delete:'刪除', footer:'Cathay Pacific • A330 • Minimal' },
+                'en': { siteTitle:'Cathay Pacific A330 Official Website', settings:'Settings', menu:'Menu', calculator:'Calculator', about:'About', aboutText:'This is Cathay Pacific A330 Official Website', versionLabel:'Version', versionNumber:'7.4.1', links:'Links', webMC:'Web MC', ojangDownload:'ojang pe Download', dialpad:'Dial Pad', darkMode:'Dark Mode', glassMode:'Glass Mode', wallpaper:'Wallpaper', language:'Language', close:'Close', welcome:'Welcome to<br>Cathay Pacific A330 Official Website', bilibili:'My bilibili', fanGroup:'Join Fan Group', announcementTitle:'Announcement', announcementSubtitle:'Fixed some bugs, added snow, optimized New Year theme', bilibiliDownload:'Bilibili International 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'Download', delete:'Delete', footer:'Cathay Pacific • A330 • Minimal' },
+                'ja': { siteTitle:'キャセイパシフィックA330公式サイト', settings:'設定', menu:'メニュー', calculator:'電卓', about:'について', aboutText:'これはキャセイパシフィックA330公式サイトです', versionLabel:'バージョン', versionNumber:'7.4.1', links:'リンク', webMC:'ウェブ版MC', ojangDownload:'ojang peダウンロード', dialpad:'ダイヤルパッド', darkMode:'ダークモード', glassMode:'グラスモード', wallpaper:'壁紙', language:'言語', close:'閉じる', welcome:'ようこそ<br>キャセイパシフィックA330公式サイトへ', bilibili:'My bilibili', fanGroup:'ファングループに参加', announcementTitle:'お知らせ', announcementSubtitle:'バグ修正、雪を追加、新春テーマを最適化', bilibiliDownload:'Bilibili国際版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'ダウンロード', delete:'削除', footer:'Cathay Pacific • A330 • Minimal' },
+                'ko': { siteTitle:'캐세이퍼시픽 A330 공식 웹사이트', settings:'설정', menu:'메뉴', calculator:'계산기', about:'정보', aboutText:'이것은 캐세이퍼시픽 A330 공식 웹사이트입니다', versionLabel:'버전', versionNumber:'7.4.1', links:'링크', webMC:'웹 MC', ojangDownload:'ojang pe 다운로드', dialpad:'다이얼 패드', darkMode:'다크 모드', glassMode:'글래스 모드', wallpaper:'배경화면', language:'언어', close:'닫기', welcome:'환영합니다<br>캐세이퍼시픽 A330 공식 웹사이트', bilibili:'My bilibili', fanGroup:'팬 그룹 가입', announcementTitle:'공지사항', announcementSubtitle:'버그 수정, 눈 추가, 새해 테마 최적화', bilibiliDownload:'Bilibili 국제판 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'다운로드', delete:'삭제', footer:'Cathay Pacific • A330 • Minimal' }
             };
 
             const wallpaperURLs = {
@@ -855,7 +896,7 @@ setting                <div class="settings-nav-title" data-i18n="settings">设�
                 blue_archive_1: 'https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/IMG_4720.jpeg',
                 rowing: 'https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/F2C1C98699FC68E42D9EF476F436318B.png',
                 blue_archive_2: 'https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/IMG_4671.jpeg',
-                water_drop: 'https://static.applewalls.com/iOS/iOS%204%20-%20100.webp?qq_aio_chat_type=3',
+                water_drop: 'https://static.applewalls.com/iOS/iOS%204/compress/iOS%204%20-%20100.webp?qq_aio_chat_type=3',
                 white: 'white'
             };
 
@@ -927,11 +968,9 @@ setting                <div class="settings-nav-title" data-i18n="settings">设�
                 const container = $('leavesContainer');
                 const fwContainer = $('fireworksContainer');
                 
-                // 淡出所有特效
                 container.style.opacity = '0';
                 fwContainer.style.opacity = '0';
                 
-                // 等待淡出完成后清理并加载新特效
                 setTimeout(() => {
                     if (container) container.innerHTML = '';
                     particleTimeouts.forEach(clearTimeout);
@@ -957,7 +996,6 @@ setting                <div class="settings-nav-title" data-i18n="settings">设�
                             audio.play().catch(e => console.log('音效播放被拦截:', e));
                         }
                         
-                        // 淡入烟花容器
                         fwContainer.style.opacity = '1';
                     } else {
                         $('selectAccentColor').disabled = false;
@@ -1004,8 +1042,6 @@ setting                <div class="settings-nav-title" data-i18n="settings">设�
                         for (let i = 0; i < count; i++) {
                             spawn();
                         }
-                        
-                        // 淡入粒子容器
                         container.style.opacity = '1';
                     }
                 }, 300);
@@ -1037,11 +1073,10 @@ setting                <div class="settings-nav-title" data-i18n="settings">设�
                 if (rtlEnabled) htmlElement.setAttribute('dir', 'rtl');
                 else htmlElement.removeAttribute('dir');
 
-                // 壁纸逻辑：支持彩虹壁纸
                 if (themeMode !== 'minecraft') {
                     if (wallpaperChoice === 'rainbow') {
                         document.body.classList.add('bg-rainbow');
-                        document.body.style.backgroundImage = 'none'; // 清除内联
+                        document.body.style.backgroundImage = 'none';
                         document.body.style.backgroundColor = '#000';
                     } else {
                         const url = wallpaperURLs[wallpaperChoice] || '';
@@ -1148,7 +1183,20 @@ setting                <div class="settings-nav-title" data-i18n="settings">设�
             $('dialClose').addEventListener('click', () => $('dialpadOverlay').classList.remove('visible'));
             $('dialpadOverlay').addEventListener('click', e => { if(e.target === $('dialpadOverlay')) $('dialpadOverlay').classList.remove('visible'); });
 
-            // 计算器和拨号盘逻辑
+            // ============ 彩蛋逻辑 ============
+            const versionArea = $('versionArea');
+            const easterEggOverlay = $('easterEggOverlay');
+            versionArea.addEventListener('click', () => {
+                versionClickCount++;
+                if (versionClickCount >= 7) {
+                    versionClickCount = 0;
+                    easterEggOverlay.classList.add('visible');
+                }
+            });
+            $('easterEggClose').addEventListener('click', () => easterEggOverlay.classList.remove('visible'));
+            easterEggOverlay.addEventListener('click', e => { if(e.target === easterEggOverlay) easterEggOverlay.classList.remove('visible'); });
+
+            // ============ 计算器和拨号盘逻辑 ============
             let calcFirstOperand = null, calcOperator = null, calcShouldResetDisplay = false;
             const calcDisplay = $('calcDisplay');
             function calcInput(value) {
@@ -1189,8 +1237,6 @@ setting                <div class="settings-nav-title" data-i18n="settings">设�
             
             document.querySelectorAll('.calc-key').forEach(btn => {
                 btn.addEventListener('click', () => {
-                    btn.style.transform = 'scale(0.9)';
-                    setTimeout(() => btn.style.transform = '', 100);
                     const value = btn.getAttribute('data-value');
                     const action = btn.getAttribute('data-action');
                     if (value !== null) calcInput(value);
@@ -1218,13 +1264,8 @@ setting                <div class="settings-nav-title" data-i18n="settings">设�
                 const btn = document.createElement('button');
                 btn.type = 'button';
                 btn.className = 'dial-key';
-                btn.style.cssText = 'border:none;border-radius:50%;aspect-ratio:1;font-size:1.2rem;background-color:var(--dial-key-bg);color:var(--text);cursor:pointer;transition:transform 0.1s;';
                 btn.textContent = key;
-                btn.addEventListener('click', () => { 
-                    btn.style.transform = 'scale(0.9)';
-                    setTimeout(() => btn.style.transform = '', 100);
-                    dialValue += key; dialpadDisplay.textContent = dialValue; 
-                });
+                btn.addEventListener('click', () => { dialValue += key; dialpadDisplay.textContent = dialValue; });
                 dialpadGrid.appendChild(btn);
             });
             $('dialDelete').addEventListener('click', () => { dialValue = dialValue.slice(0,-1); dialpadDisplay.textContent = dialValue; });
@@ -1232,7 +1273,7 @@ setting                <div class="settings-nav-title" data-i18n="settings">设�
             // 初始化
             applySettings();
 
-            console.log('[v7.4.0] 丝滑动画更新完成');
+            console.log('[v7.4.1] 计算器、拨号盘、彩蛋及液态玻璃适配修复完成');
         })();
     </script>
 </body>
