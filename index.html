@@ -13,7 +13,6 @@
             --text-secondary: #888888;
             --divider: #dddddd;
             --menu-bg: #ffffff;
-            --menu-shadow: rgba(0,0,0,0.12);
             --menu-item-hover: #f0f0f0;
             --accent: #0077cc;
             --accent-hover: #005fa3;
@@ -32,7 +31,6 @@
             --dial-key-bg: #f0f0f0;
             --dial-display-bg: #f8f8f8;
             --dial-display-text: #1a1a1a;
-            --sidebar-width: 300px;
             --topbar-height: 60px;
             --toggle-on: #34c759;
             --toggle-off: #e9e9ea;
@@ -48,7 +46,6 @@
             --text-secondary: #888888;
             --divider: #3a3a3a;
             --menu-bg: #1e1e1e;
-            --menu-shadow: rgba(0,0,0,0.6);
             --menu-item-hover: #2a2a2a;
             --accent: #42a5f5;
             --accent-hover: #64b5f6;
@@ -99,77 +96,56 @@
         html.view-tv h1 { font-size: clamp(2rem, 6vw, 3rem); }
         html.view-tv .btn { padding: 1rem 2.5rem; font-size: 1.2rem; }
 
+        /* ================= 顶部导航栏 ================= */
         .top-bar { 
             position: fixed; top:0; left:0; right:0; 
             height: calc(var(--topbar-height) + var(--safe-top)); 
             padding-top: var(--safe-top);
-            /* 默认背景色为强调色 */
             background-color: var(--accent); 
             border-bottom: 1px solid var(--divider); 
             z-index: 1003; 
-            display: flex; align-items: center; 
+            display: flex; align-items: center; justify-content: space-between;
             padding-left: 20px; padding-right: 20px;
-            pointer-events: none; 
             transition: background-color 0.4s ease, border-color 0.4s ease;
         }
         .site-title { 
-            font-size:1.05rem; font-weight:400; 
-            /* 字体颜色设为白色以适配主题色背景 */
+            font-size:1.1rem; font-weight:500; 
             color: #ffffff; 
-            letter-spacing:0.04em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; pointer-events: auto; 
+            letter-spacing:0.04em; 
+            white-space:nowrap; 
+            overflow:hidden; 
+            text-overflow:ellipsis; 
         }
         
-        .hamburger-btn {
-            position:fixed;
-            top:calc((var(--topbar-height) - 44px)/2 + var(--safe-top));
-            right:20px;
-            z-index: 99999;
-            background:transparent;
-            border:none;
-            cursor:pointer;
-            padding:10px;
-            border-radius:50%;
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
-            align-items:center;
-            gap:5px;
-            width:44px;
-            height:44px;
-            pointer-events:auto !important;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
+        .top-nav {
+            display: flex; align-items: center; gap: 10px;
         }
-        .hamburger-line { display:block; width:22px; height:2.5px; background-color:#ffffff; border-radius:4px; transition:all 0.4s cubic-bezier(0.68,-0.55,0.27,1.55); pointer-events:none; }
-        .hamburger-btn.active .hamburger-line:nth-child(1) { transform:translateY(7.5px) rotate(45deg); }
-        .hamburger-btn.active .hamburger-line:nth-child(2) { opacity:0; }
-        .hamburger-btn.active .hamburger-line:nth-child(3) { transform:translateY(-7.5px) rotate(-45deg); }
+        .nav-btn {
+            background: rgba(255,255,255,0.15); border: none; color: #fff;
+            padding: 8px 12px; border-radius: 8px; font-size: 14px; cursor: pointer;
+            display: flex; align-items: center; gap: 6px; transition: background 0.2s;
+            font-family: inherit;
+        }
+        .nav-btn:hover { background: rgba(255,255,255,0.3); }
+        .nav-btn .icon { font-size: 16px; }
         
-        .menu-overlay { position:fixed; inset:0; background-color:var(--modal-overlay); z-index:1000; opacity:0; pointer-events:none; transition:opacity 0.3s; }
-        .menu-overlay.visible { opacity:1; pointer-events:auto; }
-        
-        .sidebar-menu { 
-            position:fixed; top:0; right:0; z-index:1004; 
-            background-color:var(--menu-bg); 
-            width:var(--sidebar-width); max-width:85vw; height:100%; 
-            box-shadow:-4px 0 24px var(--menu-shadow); 
-            padding: calc(20px + var(--safe-top)) 0 20px 0; 
-            overflow-y:auto; 
-            transform:translateX(100%); transition:transform 0.35s cubic-bezier(0.22,1,0.36,1); 
-            border-left:1px solid var(--divider); 
-            -webkit-overflow-scrolling: touch;
+        /* 下拉菜单 */
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content {
+            display: none; position: absolute; right: 0; top: 120%;
+            background-color: var(--menu-bg); min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2); border-radius: 8px;
+            border: 1px solid var(--divider); overflow: hidden; z-index: 1005;
         }
-        .sidebar-menu.open { transform:translateX(0); }
-        .sidebar-header { font-size: 1.1rem; font-weight: 700; color: var(--text); padding: 12px 20px; letter-spacing: 0.08em; text-transform: uppercase; }
-        .menu-section { padding:14px 20px 6px; font-size:0.7rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-secondary); }
-        .menu-item { 
-            display:flex; align-items:center; justify-content:space-between; 
-            width:100%; padding:11px 20px; background:transparent; border:none; cursor:pointer; 
-            font-size:0.95rem; color:var(--text); font-family:inherit; text-decoration:none; 
-            text-align:left; position:relative; overflow:hidden; transition: background 0.2s;
+        .dropdown-content a, .dropdown-content button {
+            color: var(--text); padding: 12px 16px; text-decoration: none;
+            display: flex; align-items: center; justify-content: space-between;
+            font-size: 14px; background: transparent; border: none; width: 100%; cursor: pointer;
+            border-bottom: 1px solid var(--divider); font-family: inherit; text-align: left;
         }
-        .menu-item:hover { background-color:var(--menu-item-hover); }
-        .menu-divider { height:1px; background-color:var(--divider); margin:6px 0; opacity:0.5; }
+        .dropdown-content a:last-child, .dropdown-content button:last-child { border-bottom: none; }
+        .dropdown-content a:hover, .dropdown-content button:hover { background-color: var(--menu-item-hover); }
+        .dropdown:hover .dropdown-content { display: block; }
         
         .title-wrapper { position: relative; display: inline-block; margin-bottom: 1.2rem; max-width: 100%; }
         h1 { font-size:clamp(1.3rem,4vw,2rem); font-weight:300; color:var(--text); letter-spacing:0.04em; line-height:1.5; margin-bottom:0; }
@@ -198,23 +174,23 @@
         }
         .announcement { 
             margin:1.2rem auto; max-width:360px; padding:0.7rem 1rem; 
-            border:1.5px solid var(--announcement-border); border-radius:10px !important; 
+            border:1.5px solid var(--announcement-border); border-radius:12px !important; 
             background-color:var(--announcement-bg); transition: all 0.3s;
             text-align: left;
         }
-        .announcement-title { font-size:1.1rem; font-weight:500; color:var(--announcement-title); }
-        .announcement-subtitle { font-size:0.7rem; color:var(--announcement-subtitle); }
+        .announcement-title { font-size:1.1rem; font-weight:500; color:var(--announcement-title); margin-bottom: 4px; }
+        .announcement-subtitle { font-size:0.85rem; color:var(--announcement-subtitle); line-height: 1.4; }
         
-        .download-group { display:flex; flex-direction:column; align-items:center; gap:0.6rem; margin-top:1.2rem; }
+        .download-group { display:flex; flex-direction:column; align-items:center; gap:0.8rem; margin-top:1.2rem; }
         .download-item { 
             display:flex; align-items:center; justify-content:space-between; 
-            width:100%; max-width:340px; padding:0.7rem 1rem; 
-            border:1.5px solid var(--download-btn-border); border-radius:8px !important; 
+            width:100%; max-width:360px; padding:1rem 1.2rem; 
+            border:1.5px solid var(--download-btn-border); border-radius:12px !important; 
             background-color:var(--download-btn-bg); transition: all 0.3s;
         }
-        .download-text { font-size:0.85rem; color:var(--download-btn-text); flex:1; text-align:left; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-right:0.8rem; }
+        .download-text { font-size:1rem; color:var(--download-btn-text); flex:1; text-align:left; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-right:0.8rem; }
         .download-btn-action { 
-            display:inline-block; padding:0.4rem 1rem; font-size:0.8rem; font-weight:500; 
+            display:inline-block; padding:0.5rem 1.2rem; font-size:0.9rem; font-weight:500; 
             color:#ffffff; background-color:var(--btn-primary); border:none; border-radius:50px !important; 
             cursor:pointer; text-decoration:none; white-space:nowrap; position:relative; overflow:hidden;
         }
@@ -263,7 +239,7 @@
         }
 
         .settings-nav {
-            display: flex; align-items: center; justify-content: center; /* 居中 */
+            display: flex; align-items: center; justify-content: center;
             padding: 0 16px; height: 50px; flex-shrink: 0; position: relative; z-index: 10;
             background: var(--bg); border-bottom: 1px solid var(--divider);
         }
@@ -323,9 +299,6 @@
 
         /* 1. 拟物化模式 */
         body.retro-mode .top-bar { background: linear-gradient(to bottom, var(--accent), var(--accent-hover)) !important; border-bottom: 1px solid rgba(0,0,0,0.3) !important; box-shadow: 0 2px 5px rgba(0,0,0,0.2) !important; }
-        body.retro-mode .site-title { text-shadow: 0 -1px 0 rgba(0,0,0,0.3) !important; }
-        body.retro-mode .sidebar-menu { background: linear-gradient(to bottom,#f0f0f0,#d0d0d0) !important; border-left: 1px solid #7f7f7f !important; }
-        body.retro-mode .menu-item { color: #333 !important; border-bottom: 1px solid #b0b0b0 !important; }
         body.retro-mode h1 { color: #222 !important; text-shadow: 2px 2px 0 #fff !important; font-weight: 700; }
         body.retro-mode .btn { background: linear-gradient(to bottom, var(--accent), var(--accent-hover)) !important; border: 1px solid rgba(0,0,0,0.5) !important; border-radius: 6px !important; color: #fff !important; box-shadow: 0 2px 4px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.3) !important; text-shadow: 0 -1px 0 rgba(0,0,0,0.3); }
         body.retro-mode .download-item { background: #fdfaf3 !important; border: 1px solid #d4c9b5 !important; border-radius: 6px !important; color: #333 !important; box-shadow: 2px 2px 5px rgba(0,0,0,0.15), inset 1px 1px 0 #fff !important; }
@@ -334,7 +307,6 @@
         body.retro-mode .announcement { background: #fdfaf3 !important; border: 1px solid #d4c9b5 !important; border-radius: 8px !important; box-shadow: 3px 3px 8px rgba(0,0,0,0.15), inset 1px 1px 0 #fff !important; }
         body.retro-mode .announcement-title { color: var(--accent) !important; font-weight: bold; }
         body.retro-mode .announcement-subtitle { color: #555 !important; }
-        
         body.retro-mode .settings-modal { background: #f3ebd5 !important; border: 1px solid #d6caab !important; box-shadow: 4px 4px 15px rgba(0,0,0,0.2), inset 1px 1px 0 rgba(255,255,255,0.8) !important; }
         body.retro-mode .settings-nav { background: #f3ebd5 !important; border-bottom: 1px solid #d6caab !important; }
         body.retro-mode .settings-content { background: #f3ebd5 !important; }
@@ -345,16 +317,78 @@
         body.retro-mode .retro-switch { background: #d5cebf !important; border: 1px solid #b1a690 !important; box-shadow: inset 0 1px 3px rgba(0,0,0,0.2) !important; }
         body.retro-mode .retro-switch.on { background: var(--accent) !important; border-color: var(--accent-hover) !important; }
         body.retro-mode .retro-switch .knob { background: linear-gradient(to bottom, #fff, #e6e6e6) !important; border: 1px solid #b1a690 !important; }
-        body.retro-mode .settings-close-btn { background: linear-gradient(to bottom, var(--accent), var(--accent-hover)) !important; border: 1px solid rgba(0,0,0,0.5) !important; box-shadow: 0 2px 4px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.3) !important; color: #fff !important; text-shadow: 0 -1px 0 rgba(0,0,0,0.3); }
+        body.retro-mode .settings-close-btn { background: linear-gradient(to bottom, var(--accent), var(--accent-hover)) !important; border: 1px solid rgba(0,0,0,0.5) !important; box-shadow: 0 2px 4px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.3) !important; color: #fff !important; }
 
-        /* 2. 液态玻璃 */
-        body.liquid-glass-mode { background-color:rgba(255,255,255,0.2) !important; }
-        body.liquid-glass-mode .top-bar { background:linear-gradient(180deg, var(--accent), var(--accent-hover)) !important; backdrop-filter:blur(28px) saturate(200%) !important; border-bottom-color: rgba(255,255,255,0.4) !important; }
-        body.liquid-glass-mode .btn { background-color: var(--accent) !important; border: 1px solid rgba(255,255,255,0.35) !important; box-shadow: inset 1px 1px 0 rgba(255,255,255,0.4) !important; }
-        body.liquid-glass-mode .download-item, body.liquid-glass-mode .announcement { background:linear-gradient(135deg, rgba(255,255,255,0.5), rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.35)) !important; backdrop-filter:blur(10px) !important; border:1px solid rgba(0,0,0,0.15) !important; }
-        body.liquid-glass-mode .settings-modal { background: rgba(255,255,255,0.6) !important; backdrop-filter: blur(40px) saturate(200%) !important; border: 1px solid rgba(255,255,255,0.8) !important; }
-        body.liquid-glass-mode .settings-nav, body.liquid-glass-mode .settings-content { background: transparent !important; }
-        body.liquid-glass-mode .retro-select { background: rgba(255,255,255,0.5) !important; border: 1px solid rgba(255,255,255,0.6) !important; backdrop-filter: blur(10px); }
+        /* 2. 液态玻璃 (Liquid Glass) - 重新设计，高度还原截图彩虹流光 */
+        body.liquid-glass-mode { background-color: #000 !important; background-image: none !important; }
+        
+        /* 动态彩虹极光背景 */
+        body.liquid-glass-mode::before {
+            content: ''; position: fixed; inset: -50%;
+            background: conic-gradient(from 0deg, rgba(255,0,0,0.6), rgba(255,165,0,0.6), rgba(255,255,0,0.6), rgba(0,255,0,0.6), rgba(0,255,255,0.6), rgba(0,0,255,0.6), rgba(255,0,255,0.6), rgba(255,0,0,0.6));
+            animation: rotateBG 15s linear infinite;
+            z-index: -1;
+            filter: blur(100px);
+        }
+        @keyframes rotateBG {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        body.liquid-glass-mode .top-bar {
+            background: rgba(255, 255, 255, 0.15) !important;
+            backdrop-filter: blur(24px) saturate(200%);
+            -webkit-backdrop-filter: blur(24px) saturate(200%);
+            border-bottom: 1px solid rgba(255,255,255,0.3) !important;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+        }
+        body.liquid-glass-mode .site-title { color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+        
+        body.liquid-glass-mode h1 { color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        
+        /* 玻璃卡片 */
+        body.liquid-glass-mode .download-item,
+        body.liquid-glass-mode .announcement {
+            background: rgba(255, 255, 255, 0.3) !important;
+            backdrop-filter: blur(24px) saturate(200%) !important;
+            -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.6) !important;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.8), inset 0 0 20px rgba(255,255,255,0.2) !important;
+            border-radius: 16px !important;
+        }
+        body.liquid-glass-mode .download-text, 
+        body.liquid-glass-mode .announcement-title,
+        body.liquid-glass-mode .announcement-subtitle { color: #fff !important; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        
+        /* 按钮保持主题色 */
+        body.liquid-glass-mode .btn, 
+        body.liquid-glass-mode .download-btn-action {
+            background: rgba(255, 255, 255, 0.2) !important;
+            backdrop-filter: blur(10px) !important;
+            border: 1px solid rgba(255,255,255,0.5) !important;
+            color: #fff !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.5) !important;
+        }
+        body.liquid-glass-mode .btn:hover,
+        body.liquid-glass-mode .download-btn-action:hover {
+            background: rgba(255, 255, 255, 0.3) !important;
+        }
+
+        /* 设置窗口玻璃化 */
+        body.liquid-glass-mode .settings-modal {
+            background: rgba(30, 30, 30, 0.4) !important;
+            backdrop-filter: blur(40px) saturate(200%) !important;
+            border: 1px solid rgba(255,255,255,0.4) !important;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3) !important;
+        }
+        body.liquid-glass-mode .settings-nav, 
+        body.liquid-glass-mode .settings-content { background: transparent !important; }
+        body.liquid-glass-mode .settings-header-title,
+        body.liquid-glass-mode .settings-nav-title,
+        body.liquid-glass-mode .setting-label { color: #fff !important; border-color: rgba(255,255,255,0.2) !important; }
+        body.liquid-glass-mode .setting-row { border-bottom-color: rgba(255,255,255,0.15) !important; }
+        body.liquid-glass-mode .retro-select { background: rgba(255,255,255,0.1) !important; border-color: rgba(255,255,255,0.3) !important; color: #fff; }
+        body.liquid-glass-mode .retro-select option { color: #000; }
 
         /* 3. Minecraft */
         body.minecraft-mode { font-family: 'Press Start 2P', 'Courier New', monospace !important; }
@@ -386,6 +420,8 @@
 
         /* 适配手机 */
         @media (max-width: 600px) {
+            .top-nav .nav-text { display: none; } /* 手机端只显示图标 */
+            .nav-btn { padding: 8px; }
             .settings-overlay { align-items: flex-end; padding: 0; }
             .settings-modal { max-width: 100vw; height: auto; max-height: 90vh; border-radius: 16px 16px 0 0 !important; }
         }
@@ -406,30 +442,28 @@
 
     <header class="top-bar">
         <div class="site-title" data-i18n="siteTitle">一架国泰航空A330官方网站</div>
+        <nav class="top-nav">
+            <button class="nav-btn" id="settingsTrigger">
+                <span class="icon">⚙️</span> <span class="nav-text" data-i18n="settings">设置</span>
+            </button>
+            <button class="nav-btn" id="calcTrigger">
+                <span class="icon">🔢</span> <span class="nav-text" data-i18n="calculator">计算器</span>
+            </button>
+            <button class="nav-btn" id="aboutTrigger">
+                <span class="icon">ℹ️</span> <span class="nav-text" data-i18n="about">关于</span>
+            </button>
+            <div class="dropdown">
+                <button class="nav-btn">
+                    <span class="icon">🔗</span> <span class="nav-text" data-i18n="links">链接</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="https://mcjs.cc" target="_blank"><span data-i18n="webMC">网页版MC</span> <span>↗</span></a>
+                    <a href="https://share.feijipan.com/s/Pw8OwB3N" target="_blank"><span data-i18n="ojangDownload">ojang pe下载</span> <span>↗</span></a>
+                    <button id="dialpadTrigger"><span data-i18n="dialpad">拨号盘</span> <span>☎</span></button>
+                </div>
+            </div>
+        </nav>
     </header>
-
-    <button class="hamburger-btn" id="hamburgerBtn" aria-label="打开菜单" type="button"
-        onclick="(function(){var m=document.getElementById('sidebarMenu');var o=document.getElementById('menuOverlay');var b=document.getElementById('hamburgerBtn');if(!m||!o||!b)return;var isOpen=m.classList.contains('open');if(isOpen){m.classList.remove('open');o.classList.remove('visible');b.classList.remove('active');}else{m.classList.add('open');o.classList.add('visible');b.classList.add('active');}})();return false;">
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-    </button>
-
-    <div class="menu-overlay" id="menuOverlay"
-        onclick="(function(){var m=document.getElementById('sidebarMenu');var o=document.getElementById('menuOverlay');var b=document.getElementById('hamburgerBtn');if(m)m.classList.remove('open');if(o)o.classList.remove('visible');if(b)b.classList.remove('active');})();"></div>
-
-    <aside class="sidebar-menu" id="sidebarMenu">
-        <div class="sidebar-header" data-i18n="menu">菜单</div>
-        <div class="menu-divider"></div>
-        <button class="menu-item" id="settingsTrigger"><span data-i18n="settings">设置</span><span>⚙️</span></button>
-        <button class="menu-item" id="calcTrigger"><span data-i18n="calculator">计算器</span><span>🔢</span></button>
-        <button class="menu-item" id="aboutTrigger"><span data-i18n="about">关于</span><span>ℹ️</span></button>
-        <div class="menu-divider"></div>
-        <div class="menu-section" data-i18n="links">链接</div>
-        <a href="https://mcjs.cc" target="_blank" class="menu-item"><span data-i18n="webMC">网页版MC</span> <span>↗</span></a>
-        <a href="https://share.feijipan.com/s/Pw8OwB3N" target="_blank" class="menu-item"><span data-i18n="ojangDownload">ojang pe下载</span> <span>↗</span></a>
-        <button class="menu-item" id="dialpadTrigger"><span data-i18n="dialpad">拨号盘</span> <span>☎</span></button>
-    </aside>
 
     <!-- 设置面板 -->
     <div class="settings-overlay" id="settingsOverlay">
@@ -470,7 +504,7 @@
                     <button class="retro-switch" data-switch="themeDark"><span class="knob"></span></button>
                 </div>
 
-                <!-- 主题 (已合并透明模式) -->
+                <!-- 主题 -->
                 <div class="setting-row">
                     <span class="setting-label">主题</span>
                     <select id="selectThemeMode" class="retro-select">
@@ -534,20 +568,10 @@
                 <p data-i18n="aboutText">这是一架国泰航空A330官方网站</p>
                 <p class="version-text" id="versionArea" style="margin-top:8px;">
                     <span class="version-label" data-i18n="versionLabel">版本号</span>
-                    <span class="version-number" data-i18n="versionNumber">7.2.1</span>
+                    <span class="version-number" data-i18n="versionNumber">7.2.2</span>
                 </p>
             </div>
             <button class="about-close-btn" id="aboutCloseBtn" data-i18n="close">关闭</button>
-        </div>
-    </div>
-
-    <div class="easter-egg-overlay" id="easterEggOverlay">
-        <div class="easter-egg-modal">
-            <div style="font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:10px;border-bottom:1px solid var(--divider);padding-bottom:8px;">彩蛋</div>
-            <div style="display:flex;justify-content:center;align-items:center;margin:15px 0;">
-                <img src="https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/IMG_6036.gif" alt="彩蛋" style="max-width:100%;max-height:300px;border-radius:8px;object-fit:contain;">
-            </div>
-            <button class="easter-egg-close" id="easterEggClose">关闭</button>
         </div>
     </div>
 
@@ -601,24 +625,28 @@
         </div>
         <div class="announcement">
             <div class="announcement-title" data-i18n="announcementTitle">公告栏</div>
-            <div class="announcement-subtitle" data-i18n="announcementSubtitle">支持多语言，已增加拟物化模式</div>
+            <div class="announcement-subtitle" data-i18n="announcementSubtitle">修复了一些bug，添加了雪花，优化了新春主题</div>
         </div>
         <div class="download-group">
             <div class="download-item">
-                <span class="download-text" data-i18n="bilibiliDownload">bilibili国际版3.19.2下载</span>
+                <span class="download-text" data-i18n="bilibiliDownload">哔哩哔哩国际版 3.18.2</span>
                 <a href="https://share.feijipan.com/s/Az5pwlUT" target="_blank" rel="noopener noreferrer" class="download-btn-action" data-i18n="download">下载</a>
             </div>
             <div class="download-item">
-                <span class="download-text" data-i18n="netEaseDownload">网易云音乐极速版1.0.0下载</span>
-                <a href="https://share.feijipan.com/s/2G5pg0br" target="_blank" rel="noopener noreferrer" class="download-btn-action" data-i18n="download">下载</a>
+                <span class="download-text" data-i18n="shizukuDownload">Shizuku 13.6.0</span>
+                <a href="https://share.feijipan.com/s/Az5pwlUT" target="_blank" rel="noopener noreferrer" class="download-btn-action" data-i18n="download">下载</a>
             </div>
             <div class="download-item">
-                <span class="download-text" data-i18n="kuGouDownload">酷狗概念版2.4.2下载</span>
+                <span class="download-text" data-i18n="jianYingDownload">剪映 5.7.0</span>
                 <a href="https://share.feijipan.com/s/Wy8brXh9" target="_blank" rel="noopener noreferrer" class="download-btn-action" data-i18n="download">下载</a>
             </div>
             <div class="download-item">
-                <span class="download-text" data-i18n="jianYingDownload">剪映5.7.0下载</span>
+                <span class="download-text" data-i18n="kuGouDownload">酷狗概念版 2.5.5</span>
                 <a href="https://share.feijipan.com/s/Wy8brXh9" target="_blank" rel="noopener noreferrer" class="download-btn-action" data-i18n="download">下载</a>
+            </div>
+            <div class="download-item">
+                <span class="download-text" data-i18n="ojangDownload">ojang pe 5.1.0</span>
+                <a href="https://share.feijipan.com/s/Pw8OwB3N" target="_blank" rel="noopener noreferrer" class="download-btn-action" data-i18n="download">下载</a>
             </div>
         </div>
         <div class="footer-note" data-i18n="footer">Cathay Pacific &bull; A330 &bull; Minimal</div>
@@ -643,11 +671,11 @@
 
             // 翻译词条
             const translations = {
-                'zh-CN': { siteTitle:'一架国泰航空A330官方网站', settings:'设置', menu:'菜单', calculator:'计算器', about:'关于', aboutText:'这是一架国泰航空A330官方网站', versionLabel:'版本号', versionNumber:'7.2.1', links:'链接', webMC:'网页版MC', ojangDownload:'ojang pe下载', dialpad:'拨号盘', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁纸', language:'语言', close:'关闭', welcome:'欢迎来到<br>一架国泰航空A330官方网站', bilibili:'我的 bilibili', fanGroup:'加入粉丝群', announcementTitle:'公告栏', announcementSubtitle:'支持多语言，已增加拟物化模式', bilibiliDownload:'bilibili国际版3.19.2下载', netEaseDownload:'网易云音乐极速版1.0.0下载', kuGouDownload:'酷狗概念版2.4.2下载', jianYingDownload:'剪映5.7.0下载', download:'下载', delete:'删除', footer:'Cathay Pacific • A330 • Minimal' },
-                'zh-TW': { siteTitle:'一架國泰航空A330官方網站', settings:'設置', menu:'選單', calculator:'計算機', about:'關於', aboutText:'這是一架國泰航空A330官方網站', versionLabel:'版本號', versionNumber:'7.2.1', links:'連結', webMC:'網頁版MC', ojangDownload:'ojang pe下載', dialpad:'撥號盤', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁紙', language:'語言', close:'關閉', welcome:'歡迎來到<br>一架國泰航空A330官方網站', bilibili:'我的 bilibili', fanGroup:'加入粉絲群', announcementTitle:'公告欄', announcementSubtitle:'支援多語言，已增加擬物化模式', bilibiliDownload:'bilibili國際版3.19.2下載', netEaseDownload:'網易雲音樂極速版1.0.0下載', kuGouDownload:'酷狗概念版2.4.2下載', jianYingDownload:'剪映5.7.0下載', download:'下載', delete:'刪除', footer:'Cathay Pacific • A330 • Minimal' },
-                'en': { siteTitle:'Cathay Pacific A330 Official Website', settings:'Settings', menu:'Menu', calculator:'Calculator', about:'About', aboutText:'This is Cathay Pacific A330 Official Website', versionLabel:'Version', versionNumber:'7.2.1', links:'Links', webMC:'Web MC', ojangDownload:'ojang pe Download', dialpad:'Dial Pad', darkMode:'Dark Mode', glassMode:'Glass Mode', wallpaper:'Wallpaper', language:'Language', close:'Close', welcome:'Welcome to<br>Cathay Pacific A330 Official Website', bilibili:'My bilibili', fanGroup:'Join Fan Group', announcementTitle:'Announcement', announcementSubtitle:'Multi-language supported, added skeuomorphic mode', bilibiliDownload:'bilibili International 3.19.2 Download', netEaseDownload:'NetEase Cloud Music Lite 1.0.0 Download', kuGouDownload:'KuGou Concept 2.4.2 Download', jianYingDownload:'JianYing 5.7.0 Download', download:'Download', delete:'Delete', footer:'Cathay Pacific • A330 • Minimal' },
-                'ja': { siteTitle:'キャセイパシフィックA330公式サイト', settings:'設定', menu:'メニュー', calculator:'電卓', about:'について', aboutText:'これはキャセイパシフィックA330公式サイトです', versionLabel:'バージョン', versionNumber:'7.2.1', links:'リンク', webMC:'ウェブ版MC', ojangDownload:'ojang peダウンロード', dialpad:'ダイヤルパッド', darkMode:'ダークモード', glassMode:'グラスモード', wallpaper:'壁紙', language:'言語', close:'閉じる', welcome:'ようこそ<br>キャセイパシフィックA330公式サイトへ', bilibili:'My bilibili', fanGroup:'ファングループに参加', announcementTitle:'お知らせ', announcementSubtitle:'多言語対応、スキューモーフィックモード追加', bilibiliDownload:'bilibili国際版3.19.2ダウンロード', netEaseDownload:'NetEase Cloud Music Lite 1.0.0ダウンロード', kuGouDownload:'KuGou Concept 2.4.2ダウンロード', jianYingDownload:'JianYing 5.7.0ダウンロード', download:'ダウンロード', delete:'削除', footer:'Cathay Pacific • A330 • Minimal' },
-                'ko': { siteTitle:'캐세이퍼시픽 A330 공식 웹사이트', settings:'설정', menu:'메뉴', calculator:'계산기', about:'정보', aboutText:'이것은 캐세이퍼시픽 A330 공식 웹사이트입니다', versionLabel:'버전', versionNumber:'7.2.1', links:'링크', webMC:'웹 MC', ojangDownload:'ojang pe 다운로드', dialpad:'다이얼 패드', darkMode:'다크 모드', glassMode:'글래스 모드', wallpaper:'배경화면', language:'언어', close:'닫기', welcome:'환영합니다<br>캐세이퍼시픽 A330 공식 웹사이트', bilibili:'My bilibili', fanGroup:'팬 그룹 가입', announcementTitle:'공지사항', announcementSubtitle:'다국어 지원, 스큐어모피즘 모드 추가', bilibiliDownload:'bilibili 국제판 3.19.2 다운로드', netEaseDownload:'NetEase Cloud Music Lite 1.0.0 다운로드', kuGouDownload:'KuGou Concept 2.4.2 다운로드', jianYingDownload:'JianYing 5.7.0 다운로드', download:'다운로드', delete:'삭제', footer:'Cathay Pacific • A330 • Minimal' }
+                'zh-CN': { siteTitle:'一架国泰航空A330官方网站', settings:'设置', menu:'菜单', calculator:'计算器', about:'关于', aboutText:'这是一架国泰航空A330官方网站', versionLabel:'版本号', versionNumber:'7.2.2', links:'链接', webMC:'网页版MC', ojangDownload:'ojang pe下载', dialpad:'拨号盘', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁纸', language:'语言', close:'关闭', welcome:'欢迎来到<br>一架国泰航空A330官方网站', bilibili:'我的 bilibili', fanGroup:'加入粉丝群', announcementTitle:'公告栏', announcementSubtitle:'修复了一些bug，添加了雪花，优化了新春主题', bilibiliDownload:'哔哩哔哩国际版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下载', delete:'删除', footer:'Cathay Pacific • A330 • Minimal' },
+                'zh-TW': { siteTitle:'一架國泰航空A330官方網站', settings:'設置', menu:'選單', calculator:'計算機', about:'關於', aboutText:'這是一架國泰航空A330官方網站', versionLabel:'版本號', versionNumber:'7.2.2', links:'連結', webMC:'網頁版MC', ojangDownload:'ojang pe下載', dialpad:'撥號盤', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁紙', language:'語言', close:'關閉', welcome:'歡迎來到<br>一架國泰航空A330官方網站', bilibili:'我的 bilibili', fanGroup:'加入粉絲群', announcementTitle:'公告欄', announcementSubtitle:'修復了一些bug，添加了雪花，優化了新春主題', bilibiliDownload:'嗶哩嗶哩國際版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下載', delete:'刪除', footer:'Cathay Pacific • A330 • Minimal' },
+                'en': { siteTitle:'Cathay Pacific A330 Official Website', settings:'Settings', menu:'Menu', calculator:'Calculator', about:'About', aboutText:'This is Cathay Pacific A330 Official Website', versionLabel:'Version', versionNumber:'7.2.2', links:'Links', webMC:'Web MC', ojangDownload:'ojang pe Download', dialpad:'Dial Pad', darkMode:'Dark Mode', glassMode:'Glass Mode', wallpaper:'Wallpaper', language:'Language', close:'Close', welcome:'Welcome to<br>Cathay Pacific A330 Official Website', bilibili:'My bilibili', fanGroup:'Join Fan Group', announcementTitle:'Announcement', announcementSubtitle:'Fixed some bugs, added snow, optimized New Year theme', bilibiliDownload:'Bilibili International 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'Download', delete:'Delete', footer:'Cathay Pacific • A330 • Minimal' },
+                'ja': { siteTitle:'キャセイパシフィックA330公式サイト', settings:'設定', menu:'メニュー', calculator:'電卓', about:'について', aboutText:'これはキャセイパシフィックA330公式サイトです', versionLabel:'バージョン', versionNumber:'7.2.2', links:'リンク', webMC:'ウェブ版MC', ojangDownload:'ojang peダウンロード', dialpad:'ダイヤルパッド', darkMode:'ダークモード', glassMode:'グラスモード', wallpaper:'壁紙', language:'言語', close:'閉じる', welcome:'ようこそ<br>キャセイパシフィックA330公式サイトへ', bilibili:'My bilibili', fanGroup:'ファングループに参加', announcementTitle:'お知らせ', announcementSubtitle:'バグ修正、雪を追加、新春テーマを最適化', bilibiliDownload:'Bilibili国際版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'ダウンロード', delete:'削除', footer:'Cathay Pacific • A330 • Minimal' },
+                'ko': { siteTitle:'캐세이퍼시픽 A330 공식 웹사이트', settings:'설정', menu:'메뉴', calculator:'계산기', about:'정보', aboutText:'이것은 캐세이퍼시픽 A330 공식 웹사이트입니다', versionLabel:'버전', versionNumber:'7.2.2', links:'링크', webMC:'웹 MC', ojangDownload:'ojang pe 다운로드', dialpad:'다이얼 패드', darkMode:'다크 모드', glassMode:'글래스 모드', wallpaper:'배경화면', language:'언어', close:'닫기', welcome:'환영합니다<br>캐세이퍼시픽 A330 공식 웹사이트', bilibili:'My bilibili', fanGroup:'팬 그룹 가입', announcementTitle:'공지사항', announcementSubtitle:'버그 수정, 눈 추가, 새해 테마 최적화', bilibiliDownload:'Bilibili 국제판 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'다운로드', delete:'삭제', footer:'Cathay Pacific • A330 • Minimal' }
             };
 
             const wallpaperURLs = {
@@ -678,7 +706,7 @@
                 container.innerHTML = '';
                 if (!leavesEnabled) return;
                 
-                const leaves = ['🍁', '🍂', '🍃', '🍁'];
+                const leaves = ['❄️', '❄️', '✨', '❄️']; // 换成雪花以符合截图
                 const count = window.innerWidth < 768 ? 15 : 35;
 
                 function spawn() {
@@ -758,7 +786,7 @@
                 else htmlElement.removeAttribute('dir');
 
                 // 壁纸（让拟物化也能自定义壁纸）
-                if (themeMode !== 'minecraft') {
+                if (themeMode !== 'minecraft' && themeMode !== 'liquid') {
                     const url = wallpaperURLs[wallpaperChoice] || '';
                     if (wallpaperChoice === 'white') {
                         document.body.style.backgroundImage = 'none';
@@ -777,7 +805,7 @@
                         document.body.style.backgroundAttachment = '';
                     }
                 } else {
-                    // MC 模式固定壁纸
+                    // MC 和 液态玻璃模式 使用自身背景
                     document.body.style.backgroundImage = '';
                     document.body.style.backgroundColor = '';
                 }
@@ -840,29 +868,108 @@
             });
 
             // 弹窗控制
-            $('settingsTrigger').addEventListener('click', () => {
-                $('sidebarMenu').classList.remove('open');
-                $('menuOverlay').classList.remove('visible');
-                $('hamburgerBtn').classList.remove('active');
-                $('settingsOverlay').classList.add('visible');
-            });
+            $('settingsTrigger').addEventListener('click', () => $('settingsOverlay').classList.add('visible'));
             $('settingsCloseBtn').addEventListener('click', () => $('settingsOverlay').classList.remove('visible'));
             $('settingsOverlay').addEventListener('click', e => { if(e.target === $('settingsOverlay')) $('settingsOverlay').classList.remove('visible'); });
 
-            $('aboutTrigger').addEventListener('click', () => {
-                $('sidebarMenu').classList.remove('open');
-                $('menuOverlay').classList.remove('visible');
-                $('hamburgerBtn').classList.remove('active');
-                $('aboutOverlay').classList.add('visible');
-            });
+            $('aboutTrigger').addEventListener('click', () => $('aboutOverlay').classList.add('visible'));
             $('aboutCloseBtn').addEventListener('click', () => $('aboutOverlay').classList.remove('visible'));
             $('aboutOverlay').addEventListener('click', e => { if(e.target === $('aboutOverlay')) $('aboutOverlay').classList.remove('visible'); });
+
+            $('calcTrigger').addEventListener('click', () => $('calcOverlay').classList.add('visible'));
+            $('calcOverlay').addEventListener('click', e => { if(e.target === $('calcOverlay')) $('calcOverlay').classList.remove('visible'); });
+
+            $('dialpadTrigger').addEventListener('click', () => $('dialpadOverlay').classList.add('visible'));
+            $('dialClose').addEventListener('click', () => $('dialpadOverlay').classList.remove('visible'));
+            $('dialpadOverlay').addEventListener('click', e => { if(e.target === $('dialpadOverlay')) $('dialpadOverlay').classList.remove('visible'); });
+
+            // 点击外部关闭下拉菜单
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.dropdown')) {
+                    // 保持下拉菜单默认行为
+                }
+            });
 
             // 初始化
             applySettings();
             initLeaves();
 
-            console.log('[v7.2.1] 顶栏变色、合并透明、自由壁纸已应用');
+            // 计算器逻辑
+            let calcFirstOperand = null, calcOperator = null, calcShouldResetDisplay = false;
+            const calcDisplay = $('calcDisplay');
+            function calcInput(value) {
+                if (calcShouldResetDisplay) { calcDisplay.textContent = '0'; calcShouldResetDisplay = false; }
+                const current = calcDisplay.textContent;
+                if (value === '.' && current.includes('.')) return;
+                if (current === '0' && value !== '.') calcDisplay.textContent = value;
+                else calcDisplay.textContent = current + value;
+            }
+            function calcSetOperator(op) {
+                const currentValue = parseFloat(calcDisplay.textContent);
+                if (calcOperator && !calcShouldResetDisplay) { const result = calcCalculate(); calcDisplay.textContent = String(result); calcFirstOperand = result; }
+                else calcFirstOperand = currentValue;
+                calcOperator = op; calcShouldResetDisplay = true;
+            }
+            function calcCalculate() {
+                const second = parseFloat(calcDisplay.textContent);
+                let result = 0;
+                switch(calcOperator) {
+                    case 'add': result = calcFirstOperand + second; break;
+                    case 'subtract': result = calcFirstOperand - second; break;
+                    case 'multiply': result = calcFirstOperand * second; break;
+                    case 'divide': result = calcFirstOperand / second; break;
+                    default: result = second;
+                }
+                return Math.round(result * 1000000) / 1000000;
+            }
+            function calcEquals() {
+                if (calcOperator !== null) { const result = calcCalculate(); calcDisplay.textContent = String(result); calcFirstOperand = null; calcOperator = null; calcShouldResetDisplay = true; }
+            }
+            function calcClear() { calcDisplay.textContent = '0'; calcFirstOperand = null; calcOperator = null; calcShouldResetDisplay = false; }
+            function calcBackspace() {
+                const c = calcDisplay.textContent;
+                if (c.length > 1 && !calcShouldResetDisplay) calcDisplay.textContent = c.slice(0, -1);
+                else { calcDisplay.textContent = '0'; calcShouldResetDisplay = false; }
+            }
+            function calcPercent() { calcDisplay.textContent = String(parseFloat(calcDisplay.textContent) / 100); }
+            
+            document.querySelectorAll('.calc-key').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const value = btn.getAttribute('data-value');
+                    const action = btn.getAttribute('data-action');
+                    if (value !== null) calcInput(value);
+                    else if (action) {
+                        switch(action) {
+                            case 'clear': calcClear(); break;
+                            case 'backspace': calcBackspace(); break;
+                            case 'percent': calcPercent(); break;
+                            case 'add': calcSetOperator('add'); break;
+                            case 'subtract': calcSetOperator('subtract'); break;
+                            case 'multiply': calcSetOperator('multiply'); break;
+                            case 'divide': calcSetOperator('divide'); break;
+                            case 'equals': calcEquals(); break;
+                        }
+                    }
+                });
+            });
+
+            // 拨号盘逻辑
+            let dialValue = '';
+            const dialpadDisplay = $('dialpadDisplay');
+            const dialpadGrid = $('dialpadGrid');
+            const dialKeys = ['1','2','3','4','5','6','7','8','9','*','0','#'];
+            dialKeys.forEach(key => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'dial-key';
+                btn.style.cssText = 'border:none;border-radius:50%;aspect-ratio:1;font-size:1.2rem;background-color:var(--dial-key-bg);color:var(--text);cursor:pointer;';
+                btn.textContent = key;
+                btn.addEventListener('click', () => { dialValue += key; dialpadDisplay.textContent = dialValue; });
+                dialpadGrid.appendChild(btn);
+            });
+            $('dialDelete').addEventListener('click', () => { dialValue = dialValue.slice(0,-1); dialpadDisplay.textContent = dialValue; });
+
+            console.log('[v7.2.2] 顶部导航与液态玻璃极光已就绪');
         })();
     </script>
 </body>
