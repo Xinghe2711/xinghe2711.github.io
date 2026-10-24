@@ -366,23 +366,14 @@
         .firework-particle { position: absolute; width: 6px; height: 6px; border-radius: 50%; transform: translate(-50%, -50%); animation: explode 1.4s var(--ease-smooth) forwards; }
         @keyframes explode { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; box-shadow: 0 0 12px currentColor; } 70% { opacity: 1; } 100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0); opacity: 0; box-shadow: none; } }
 
-        /* ================= 弹窗系统 (最高兼容性修复) ================= */
+        /* ================= 弹窗系统 ================= */
         .settings-overlay, .about-overlay, .easter-egg-overlay, .calc-overlay, .dialpad-overlay, .more-overlay {
-            display: none; 
-            position: fixed; 
-            top: 0; left: 0; right: 0; bottom: 0; /* 替换 inset: 0 */
-            background-color: var(--modal-overlay); 
-            z-index: 2100; 
-            justify-content: center; 
-            align-items: center; 
-            padding: 1rem; 
-            opacity: 0; 
-            transition: opacity 0.4s var(--ease-smooth);
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+            background-color: var(--modal-overlay); z-index: 2100; 
+            justify-content: center; align-items: center; padding: 1rem; 
+            opacity: 0; transition: opacity 0.4s var(--ease-smooth);
         }
-        .settings-overlay.visible, .about-overlay.visible, .easter-egg-overlay.visible, .calc-overlay.visible, .dialpad-overlay.visible, .more-overlay.visible { 
-            display: flex; 
-            opacity: 1; 
-        }
+        .settings-overlay.visible, .about-overlay.visible, .easter-egg-overlay.visible, .calc-overlay.visible, .dialpad-overlay.visible, .more-overlay.visible { display: flex; opacity: 1; }
 
         .settings-modal, .about-modal, .easter-egg-modal, .calc-modal, .dialpad-modal, .more-modal {
             background-color:var(--modal-bg); border-radius:24px; 
@@ -393,9 +384,7 @@
             transform: scale(0.95); transition: transform 0.4s var(--ease-spring);
         }
         .settings-overlay.visible .settings-modal, .about-overlay.visible .about-modal, .easter-egg-overlay.visible .easter-egg-modal,
-        .calc-overlay.visible .calc-modal, .dialpad-overlay.visible .dialpad-modal, .more-overlay.visible .more-modal {
-            transform: scale(1);
-        }
+        .calc-overlay.visible .calc-modal, .dialpad-overlay.visible .dialpad-modal, .more-overlay.visible .more-modal { transform: scale(1); }
 
         .about-modal { max-width:320px; padding:1.5rem; }
         .easter-egg-modal { max-width:400px; padding:20px; text-align: center; }
@@ -816,7 +805,7 @@
             </div>
             <div class="download-item">
                 <span class="download-text" data-i18n="kuGouDownload">酷狗概念版 2.5.5</span>
-                <a href="https://share.feijipan.com/Wy8brXh9" target="_blank" rel="noopener noreferrer" class="download-btn-action" data-i18n="download">下载</a>
+                <a href="https://share.feijipan.com/s/Wy8brXh9" target="_blank" rel="noopener noreferrer" class="download-btn-action" data-i18n="download">下载</a>
             </div>
             <div class="download-item">
                 <span class="download-text" data-i18n="ojangDownload">ojang pe 5.1.0</span>
@@ -913,6 +902,7 @@
                 custom: { main: customHex, hover: customHex, transparent: customHex }
             };
 
+            // 增加后的闪烁标语列表
             const splashMessages = [
                 "秋季大更新！",
                 "hi，我是wqaw5888",
@@ -921,15 +911,26 @@
                 "别杀怪物，你这个海豚",
                 "修复了99.9%的bug",
                 "ojang你的妈呢？",
-                "我的儿子在私服充钱，我要把pcl举报了"
+                "我的儿子在私服充钱，我要把pcl举报了",
+                "正在启动反浩克装甲...",
+                "那一天的寂寞，寂寞起来",
+                "MC 是信仰！",
+                "bug 是我们的核心玩法",
+                "现在你可以呼吸了",
+                "防止屏幕反光"
             ];
 
+            // 刷新时只执行一次，并尽量避免连续两次一样
             function updateSplashText() {
                 const splashEl = $('splashText');
-                if (splashEl) {
-                    const randomMsg = splashMessages[Math.floor(Math.random() * splashMessages.length)];
-                    splashEl.textContent = randomMsg;
+                if (!splashEl) return;
+                
+                let randomIndex = Math.floor(Math.random() * splashMessages.length);
+                // 如果上次显示的和这次一样，就把索引往后推一位（避免连续两次刷新看到一样的）
+                if (splashMessages[randomIndex] === splashEl.textContent) {
+                    randomIndex = (randomIndex + 1) % splashMessages.length;
                 }
+                splashEl.textContent = splashMessages[randomIndex];
             }
 
             let particleTimeouts = [];
@@ -1282,8 +1283,8 @@
             applySettings();
             bindRipples();
             
+            // 在每次页面加载（刷新）时执行一次更换标语，不再使用定时器
             updateSplashText();
-            setInterval(updateSplashText, 4000);
 
         })();
     </script>
