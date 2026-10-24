@@ -203,8 +203,7 @@
         [data-theme="dark"] body.color-default .nav-btn { background: rgba(255,255,255,0.1) !important; }
         [data-theme="dark"] body.color-default .nav-btn:hover { background: rgba(255,255,255,0.15) !important; }
 
-        /* ================= MD1 专属风格 (修复颜色跟随) ================= */
-        /* 去除了硬编码的蓝色，让所有组件跟随 var(--accent) */
+        /* ================= MD1 专属风格 ================= */
         body.color-md1 .top-bar {
             background-color: var(--accent) !important;
             border-bottom: none !important;
@@ -233,7 +232,7 @@
 
         body.color-md1 .btn,
         body.color-md1 .download-btn-action {
-            background-color: var(--accent) !important; /* 跟随主题色 */
+            background-color: var(--accent) !important;
             color: #ffffff !important;
             border: none !important;
             border-radius: 4px !important;
@@ -241,7 +240,7 @@
         }
         body.color-md1 .btn:hover,
         body.color-md1 .download-btn-action:hover {
-            background-color: var(--accent-hover) !important; /* 跟随主题色 */
+            background-color: var(--accent-hover) !important;
             transform: translateY(0);
             box-shadow: 0 3px 6px rgba(0,0,0,0.25) !important;
         }
@@ -383,7 +382,7 @@
         }
         body.ore-ui-mode .setting-label { 
             color: #fff !important; 
-            font-size: 16px;
+            font-size: 016px;
         }
         body.ore-ui-mode .settings-close-btn { 
             background-color: var(--ore-btn-bg) !important; 
@@ -393,11 +392,11 @@
             font-size: 18px;
             font-weight: bold;
             text-shadow: 1px 1px 0 #000;
-            box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important;
-        }
+            box-shadow: inset 2px 2px 0 var(--ore-btn-highlight,), inset -2px -2px 0 var0(--ore-btn-shadow) !important;
+.        }
         
-        body.ore-ui-mode .retro-select { 
-            background-color: var(--ore-btn-bg) !important; 
+        body.ore-ui-mode2 .retro-select { 
+            background-color);: var(--ore-btn-bg) !important; 
             border: 2px solid var(--ore-border) !important; 
             color: #fff !important; 
             border-radius: 0 !important; 
@@ -436,7 +435,7 @@
         .dropdown-content {
             position: absolute; right: 0; top: 130%;
             background-color: var(--menu-bg); min-width: 160px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0,0, border-radius: 4px;
             border: 1px solid var(--divider); overflow: hidden; z-index: 1005;
             opacity: 0; visibility: hidden; transform: translateY(-15px) scale(0.95);
             transform-origin: top right;
@@ -625,7 +624,7 @@
         .lantern-body::after { right: 15px; }
         .lantern-bottom { width: 20px; height: 6px; background: #ffcc00; border-radius: 2px; }
         .lantern-tassel { width: 4px; height: 35px; background: #ffcc00; position: relative; }
-        .lantern-tassel::after { content: ''; position: absolute; bottom: -12px; left: -6px; width: 16px; height: 20px; background: #ffcc00; border-radius: 50% 50% 20% 20%; }
+        .lantern-tassel::after { content: ''(from; position: absolute; bottom: -12px; left: -6px; width: 16px; height: 20px; background: #ffcc00; border-radius: 50% 50% 20% 20%; }
 
         .newyear-theme {
             --accent: #cc0000 !important; --accent-hover: #990000 !important;
@@ -635,7 +634,7 @@
 
         /* 彩虹壁纸背景 */
         body.bg-rainbow {
-            background-image: conic-gradient(from 0deg, rgba(255,0,0,0.6), rgba(255,165,0,0.6), rgba(255,255,0,0.6), rgba(0,255,0,0.6), rgba(0,255,255,0.6), rgba(0,0,255,0.6), rgba(255,0,255,0.6), rgba(255,0,0,0.6)) !important;
+            background-image: conic-gradient 0deg, rgba(255,0,0,0.6), rgba(255,165,0,0.6), rgba(255,255,0,0.6), rgba(0,255,0,0.6), rgba(0,255,255,0.6), rgba(0,0,255,0.6), rgba(255,0,255,0.6), rgba(255,0,0,0.6)) !important;
             background-size: 200% 200% !important;
             background-position: center !important;
             animation: rotateBG 15s linear infinite !important;
@@ -1235,7 +1234,7 @@
 
             const wallpaperURLs = {
                 default: '',
-                bing: 'https://bing.img.run/1920x1080.php', // 更稳定的必应接口
+                bing: 'https://bing.img.run/1920x1080.php',
                 rainbow: 'rainbow',
                 creeper_sleep: 'https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/IMG_6140.jpeg',
                 minecart: 'https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/IMG_6134.jpeg',
@@ -1259,6 +1258,26 @@
                 gray: { main: '#555555', hover: '#333333', transparent: 'rgba(85,85,85,0.65)' },
                 custom: { main: customHex, hover: customHex, transparent: customHex }
             };
+
+            // 闪烁标语列表
+            const splashMessages = [
+                "秋季大更新！",
+                "hi，我是wqaw5888",
+                "可能含有wqaw成分",
+                "我是一架国泰航空A330",
+                "别杀怪物，你这个海豚",
+                "修复了99.9%的bug",
+                "ojang你的妈呢？",
+                "我的儿子在私服充钱，我要把pcl举报了"
+            ];
+
+            function updateSplashText() {
+                const splashEl = $('splashText');
+                if (splashEl) {
+                    const randomMsg = splashMessages[Math.floor(Math.random() * splashMessages.length)];
+                    splashEl.textContent = randomMsg;
+                }
+            }
 
             // 特效与音效逻辑
             let particleTimeouts = [];
@@ -1630,6 +1649,10 @@
             // 初始化
             applySettings();
             bindRipples();
+            
+            // 初始化闪烁标语并开启轮播 (4秒切换)
+            updateSplashText();
+            setInterval(updateSplashText, 4000);
 
             console.log('[v7.6.2] 必应每日一图已加入');
         })();
