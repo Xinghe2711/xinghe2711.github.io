@@ -29,7 +29,7 @@
             --announcement-title: #1a1a1a;
             --announcement-subtitle: #888888;
             --modal-bg: #ffffff;
-            --modal-overlay: rgba(0,0,0,0.3);
+            --modal-overlay: rgba(0,0,0,0.4);
             --dial-key-bg: #f0f0f0;
             --dial-display-bg: #f8f8f8;
             --dial-display-text: #1a1a1a;
@@ -67,7 +67,7 @@
             --announcement-title: #f0f0f0;
             --announcement-subtitle: #888888;
             --modal-bg: #1e1e1e;
-            --modal-overlay: rgba(0,0,0,0.5);
+            --modal-overlay: rgba(0,0,0,0.6);
             --dial-key-bg: #2a2a2a;
             --dial-display-bg: #171717;
             --dial-display-text: #f0f0f0;
@@ -126,15 +126,14 @@
         
         html:not(.view-desktop) .desktop-nav { display: none !important; }
 
-        .container { text-align:center; padding:clamp(1.2rem,4vw,2rem); width:100%; margin:auto; position: relative; z-index: 2; transition: max-width 0.6s var(--ease-spring); }
+        .container { text-align:center; padding: 1.2rem; width:100%; margin:auto; position: relative; z-index: 2; transition: max-width 0.6s var(--ease-spring); }
+        @media (min-width: 769px) { .container { padding: 2rem; } }
         html.view-desktop .container { max-width: 1200px; }
         html.view-tablet .container { max-width: 800px; }
         html.view-phone .container { max-width: 480px; }
         html.view-tv .container { max-width: 1920px; font-size: 1.2rem; }
-        html.view-tv h1 { font-size: clamp(2rem, 6vw, 3rem); }
-        html.view-tv .btn { padding: 1rem 2.5rem; font-size: 1.2rem; }
 
-        /* ================= 顶部导航栏基础 ================= */
+        /* ================= 顶部导航栏 ================= */
         .top-bar { 
             position: fixed; top:0; left:0; right:0; 
             height: calc(var(--topbar-height) + var(--safe-top)); 
@@ -164,9 +163,7 @@
             gap:5px; width:44px; height:44px; padding:10px; border-radius:50%;
             -webkit-tap-highlight-color: transparent;
             transition: transform 0.3s var(--ease-spring);
-            -webkit-appearance: none;
-            appearance: none;
-            flex-shrink: 0; 
+            -webkit-appearance: none; appearance: none; flex-shrink: 0; 
         }
         .hamburger-btn:active { transform: scale(0.85); }
         .hamburger-line { display:block; width:22px; height:2.5px; border-radius:4px; transition:all 0.4s var(--ease-spring); pointer-events:none; }
@@ -175,27 +172,19 @@
         .hamburger-btn.active .hamburger-line:nth-child(3) { transform:translateY(-7.5px) rotate(-45deg); }
 
         /* 桌面版导航链接 */
-        .desktop-nav {
-            display: none; align-items: center; gap: 12px; flex-shrink: 0;
-        }
+        .desktop-nav { display: none; align-items: center; gap: 12px; flex-shrink: 0; }
         .nav-btn {
-            border: none;
-            padding: 8px 14px; border-radius: 4px; font-size: 14px; cursor: pointer;
+            border: none; padding: 8px 14px; border-radius: 4px; font-size: 14px; cursor: pointer;
             display: flex; align-items: center; gap: 6px; 
             transition: background 0.3s, transform 0.3s var(--ease-spring);
             font-family: inherit; position: relative; overflow: hidden;
-            -webkit-appearance: none;
-            appearance: none;
+            -webkit-appearance: none; appearance: none;
         }
         .nav-btn:hover { transform: translateY(-1px); }
         .nav-btn:active { transform: scale(0.95); }
         
         /* ================= 颜色主题控制 ================= */
-        /* 默认颜色主题 */
-        body.color-default .top-bar {
-            background-color: var(--bg) !important;
-            border-bottom: 1px solid var(--divider) !important;
-        }
+        body.color-default .top-bar { background-color: var(--bg) !important; border-bottom: 1px solid var(--divider) !important; }
         body.color-default .site-title { color: var(--text) !important; }
         body.color-default .hamburger-line { background-color: var(--text) !important; }
         body.color-default .nav-btn { color: var(--text) !important; background: rgba(0,0,0,0.05) !important; }
@@ -203,290 +192,85 @@
         [data-theme="dark"] body.color-default .nav-btn { background: rgba(255,255,255,0.1) !important; }
         [data-theme="dark"] body.color-default .nav-btn:hover { background: rgba(255,255,255,0.15) !important; }
 
-        /* ================= MD1 专属风格 ================= */
-        body.color-md1 .top-bar {
-            background-color: var(--accent) !important;
-            border-bottom: none !important;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.15) !important;
-        }
+        /* MD1 专属风格 */
+        body.color-md1 .top-bar { background-color: var(--accent) !important; border-bottom: none !important; box-shadow: 0 2px 4px rgba(0,0,0,0.15) !important; }
         body.color-md1 .site-title { color: #ffffff !important; }
         body.color-md1 .hamburger-line { background-color: #ffffff !important; }
         body.color-md1 .nav-btn { color: #ffffff !important; background: rgba(255,255,255,0.15) !important; }
         body.color-md1 .nav-btn:hover { background: rgba(255,255,255,0.25) !important; }
-
-        body.color-md1 .announcement,
-        body.color-md1 .download-item {
-            background-color: #ffffff !important;
-            border: none !important;
-            border-radius: 4px !important;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1) !important;
-        }
-        body.color-md1 .download-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important;
-            border-color: transparent !important;
-        }
+        body.color-md1 .announcement, body.color-md1 .download-item { background-color: #ffffff !important; border: none !important; border-radius: 4px !important; box-shadow: 0 2px 6px rgba(0,0,0,0.1) !important; }
+        body.color-md1 .download-item:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important; border-color: transparent !important; }
         body.color-md1 .announcement-title { color: var(--accent) !important; font-weight: 600; }
-        body.color-md1 .announcement-subtitle,
-        body.color-md1 .download-text { color: #333333 !important; }
+        body.color-md1 .announcement-subtitle, body.color-md1 .download-text { color: #333333 !important; }
+        body.color-md1 .btn, body.color-md1 .download-btn-action { background-color: var(--accent) !important; color: #ffffff !important; border: none !important; border-radius: 4px !important; box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important; }
+        body.color-md1 .btn:hover, body.color-md1 .download-btn-action:hover { background-color: var(--accent-hover) !important; transform: translateY(0); box-shadow: 0 3px 6px rgba(0,0,0,0.25) !important; }
+        body.color-md1 .btn:active, body.color-md1 .download-btn-action:active { transform: translateY(1px); box-shadow: 0 1px 2px rgba(0,0,0,0.2) !important; }
 
-        body.color-md1 .btn,
-        body.color-md1 .download-btn-action {
-            background-color: var(--accent) !important;
-            color: #ffffff !important;
-            border: none !important;
-            border-radius: 4px !important;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
-        }
-        body.color-md1 .btn:hover,
-        body.color-md1 .download-btn-action:hover {
-            background-color: var(--accent-hover) !important;
-            transform: translateY(0);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.25) !important;
-        }
-        body.color-md1 .btn:active,
-        body.color-md1 .download-btn-action:active {
-            transform: translateY(1px);
-            box-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
-        }
-
-        /* ================= Ore UI 专属风格 ================= */
+        /* Ore UI 专属风格 */
         body.ore-ui-mode {
-            --ore-bg: #1e1e1f;
-            --ore-panel-bg: #313131;
-            --ore-border: #000000;
-            --ore-border-light: #5a5a5a;
-            --ore-btn-bg: #48494a;
-            --ore-btn-highlight: #5f6062;
-            --ore-btn-shadow: #212121;
-            --ore-green: #388e3c;
-            --ore-green-hover: #4caf50;
-            --ore-text: #ffffff;
-            --ore-text-muted: #aaaaaa;
-            
-            --accent: var(--ore-green) !important;
-            --accent-hover: var(--ore-green-hover) !important;
-            --btn-primary: var(--ore-green) !important;
-            --btn-primary-hover: var(--ore-green-hover) !important;
-            --btn-primary-text: #ffffff !important;
-            
-            background-color: #111;
-            color: var(--ore-text);
+            --ore-bg: #1e1e1f; --ore-panel-bg: #313131; --ore-border: #000000; --ore-border-light: #5a5a5a;
+            --ore-btn-bg: #48494a; --ore-btn-highlight: #5f6062; --ore-btn-shadow: #212121;
+            --ore-green: #388e3c; --ore-green-hover: #4caf50; --ore-text: #ffffff; --ore-text-muted: #aaaaaa;
+            --accent: var(--ore-green) !important; --accent-hover: var(--ore-green-hover) !important;
+            --btn-primary: var(--ore-green) !important; --btn-primary-hover: var(--ore-green-hover) !important;
+            background-color: #111; color: var(--ore-text);
         }
-
-        body.ore-ui-mode .top-bar {
-            background-color: #0f0f0f !important;
-            border-bottom: 2px solid var(--ore-border) !important;
-            box-shadow: none !important;
-        }
-        body.ore-ui-mode .site-title { 
-            color: #ffffff !important; 
-            font-weight: bold; 
-            letter-spacing: 1px;
-            text-shadow: 1px 1px 0 #000;
-        }
+        body.ore-ui-mode .top-bar { background-color: #0f0f0f !important; border-bottom: 2px solid var(--ore-border) !important; box-shadow: none !important; }
+        body.ore-ui-mode .site-title { color: #ffffff !important; font-weight: bold; letter-spacing: 1px; text-shadow: 1px 1px 0 #000; }
         body.ore-ui-mode .hamburger-line { background-color: #ffffff !important; }
-        body.ore-ui-mode .nav-btn { 
-            color: #ffffff !important; 
-            background: var(--ore-btn-bg) !important; 
-            border: 2px solid var(--ore-border) !important;
-            border-radius: 0 !important;
-            box-shadow: inset 1px 1px 0 var(--ore-btn-highlight), inset -1px -1px 0 var(--ore-btn-shadow);
-        }
-
-        body.ore-ui-mode .sidebar-menu {
-            background-color: var(--ore-panel-bg) !important;
-            border-left: 2px solid var(--ore-border) !important;
-            color: #fff;
-        }
+        body.ore-ui-mode .nav-btn { color: #ffffff !important; background: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; box-shadow: inset 1px 1px 0 var(--ore-btn-highlight), inset -1px -1px 0 var(--ore-btn-shadow); }
+        body.ore-ui-mode .sidebar-menu { background-color: var(--ore-panel-bg) !important; border-left: 2px solid var(--ore-border) !important; color: #fff; }
         body.ore-ui-mode .sidebar-header { color: #fff; text-shadow: 1px 1px 0 #000; }
-        body.ore-ui-mode .menu-item { 
-            color: #fff !important; 
-            border-bottom: 1px solid var(--ore-border-light) !important; 
-        }
+        body.ore-ui-mode .menu-item { color: #fff !important; border-bottom: 1px solid var(--ore-border-light) !important; }
         body.ore-ui-mode .menu-item:hover { background-color: var(--ore-btn-highlight) !important; }
         body.ore-ui-mode .menu-divider { background-color: var(--ore-border) !important; }
-
         body.ore-ui-mode h1, body.ore-ui-mode .download-text { color: #fff !important; text-shadow: 1px 1px 0 #000; }
-        body.ore-ui-mode .download-item,
-        body.ore-ui-mode .announcement {
-            background-color: var(--ore-panel-bg) !important;
-            border: 2px solid var(--ore-border) !important;
-            border-radius: 0 !important;
-            color: #fff !important;
-            box-shadow: inset 2px 2px 0 var(--ore-border-light), inset -2px -2px 0 var(--ore-border) !important;
-        }
-        body.ore-ui-mode .download-item:hover {
-            border-color: var(--ore-border-light) !important;
-        }
+        body.ore-ui-mode .download-item, body.ore-ui-mode .announcement { background-color: var(--ore-panel-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; color: #fff !important; box-shadow: inset 2px 2px 0 var(--ore-border-light), inset -2px -2px 0 var(--ore-border) !important; }
+        body.ore-ui-mode .download-item:hover { border-color: var(--ore-border-light) !important; }
         body.ore-ui-mode .announcement-title { color: var(--ore-green-hover) !important; text-shadow: 1px 1px 0 #000; }
         body.ore-ui-mode .announcement-subtitle { color: var(--ore-text-muted) !important; }
-        
-        body.ore-ui-mode .btn, 
-        body.ore-ui-mode .download-btn-action {
-            background-color: var(--ore-btn-bg) !important;
-            border: 2px solid var(--ore-border) !important;
-            border-radius: 0 !important;
-            color: #fff !important;
-            box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important;
-        }
-        body.ore-ui-mode .btn:hover, 
-        body.ore-ui-mode .download-btn-action:hover {
-            background-color: var(--ore-btn-highlight) !important;
-            transform: none;
-        }
-        body.ore-ui-mode .btn:active, 
-        body.ore-ui-mode .download-btn-action:active {
-            background-color: var(--ore-btn-shadow) !important;
-            box-shadow: inset 2px 2px 0 var(--ore-border), inset -2px -2px 0 var(--ore-border-light) !important;
-        }
+        body.ore-ui-mode .btn, body.ore-ui-mode .download-btn-action { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; color: #fff !important; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; }
+        body.ore-ui-mode .btn:hover, body.ore-ui-mode .download-btn-action:hover { background-color: var(--ore-btn-highlight) !important; transform: none; }
+        body.ore-ui-mode .btn:active, body.ore-ui-mode .download-btn-action:active { background-color: var(--ore-btn-shadow) !important; box-shadow: inset 2px 2px 0 var(--ore-border), inset -2px -2px 0 var(--ore-border-light) !important; }
+        body.ore-ui-mode .settings-modal, body.ore-ui-mode .about-modal, body.ore-ui-mode .calc-modal, body.ore-ui-mode .dialpad-modal, body.ore-ui-mode .easter-egg-modal { background-color: var(--ore-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; box-shadow: inset 0 0 0 2px var(--ore-border-light), 0 10px 30px rgba(0,0,0,0.8) !important; color: #fff; }
+        body.ore-ui-mode .settings-nav { background-color: var(--ore-border) !important; border-bottom: 2px solid var(--ore-border) !important; height: 60px; }
+        body.ore-ui-mode .settings-nav-title { color: #fff !important; font-size: 20px; font-weight: bold; text-shadow: 2px 2px 0 #000; letter-spacing: 1px; }
+        body.ore-ui-mode .settings-content { background-color: var(--ore-panel-bg) !important; padding-top: 10px; }
+        body.ore-ui-mode .settings-header-title { color: #fff !important; border-bottom: 2px solid var(--ore-border) !important; padding-bottom: 10px; font-size: 22px; text-shadow: 1px 1px 0 #000; }
+        body.ore-ui-mode .setting-row { border-bottom: 1px solid var(--ore-border) !important; padding: 16px 0; }
+        body.ore-ui-mode .setting-label { color: #fff !important; font-size: 16px; }
+        body.ore-ui-mode .settings-close-btn { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; color: #fff !important; border-radius: 0 !important; font-size: 18px; font-weight: bold; text-shadow: 1px 1px 0 #000; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; }
+        body.ore-ui-mode .retro-select { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; color: #fff !important; border-radius: 0 !important; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; }
+        body.ore-ui-mode .retro-switch { background-color: #5a5a5a !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; width: 46px; height: 24px; }
+        body.ore-ui-mode .retro-switch.on { background-color: var(--ore-green) !important; }
+        body.ore-ui-mode .retro-switch .knob { border-radius: 0 !important; background: #ffffff !important; width: 18px !important; height: 18px !important; top: 1px; left: 2px; box-shadow: none !important; border: 2px solid #000; }
+        body.ore-ui-mode .retro-switch.on .knob { transform: translateX(20px) !important; }
+        body.ore-ui-mode .retro-switch:active .knob { width: 18px !important; }
 
-        body.ore-ui-mode .settings-modal, 
-        body.ore-ui-mode .about-modal, 
-        body.ore-ui-mode .calc-modal, 
-        body.ore-ui-mode .dialpad-modal, 
-        body.ore-ui-mode .easter-egg-modal { 
-            background-color: var(--ore-bg) !important; 
-            border: 2px solid var(--ore-border) !important; 
-            border-radius: 0 !important; 
-            box-shadow: inset 0 0 0 2px var(--ore-border-light), 0 10px 30px rgba(0,0,0,0.8) !important;
-            color: #fff;
-        }
-        
-        body.ore-ui-mode .settings-nav { 
-            background-color: var(--ore-border) !important; 
-            border-bottom: 2px solid var(--ore-border) !important; 
-            height: 60px;
-        }
-        body.ore-ui-mode .settings-nav-title { 
-            color: #fff !important; 
-            font-size: 20px; 
-            font-weight: bold; 
-            text-shadow: 2px 2px 0 #000; 
-            letter-spacing: 1px;
-        }
-        body.ore-ui-mode .settings-content { 
-            background-color: var(--ore-panel-bg) !important; 
-            padding-top: 10px;
-        }
-        body.ore-ui-mode .settings-header-title { 
-            color: #fff !important; 
-            border-bottom: 2px solid var(--ore-border) !important; 
-            padding-bottom: 10px;
-            font-size: 22px;
-            text-shadow: 1px 1px 0 #000;
-        }
-        body.ore-ui-mode .setting-row { 
-            border-bottom: 1px solid var(--ore-border) !important; 
-            padding: 16px 0;
-        }
-        body.ore-ui-mode .setting-label { 
-            color: #fff !important; 
-            font-size: 016px;
-        }
-        body.ore-ui-mode .settings-close-btn { 
-            background-color: var(--ore-btn-bg) !important; 
-            border: 2px solid var(--ore-border) !important; 
-            color: #fff !important; 
-            border-radius: 0 !important;
-            font-size: 18px;
-            font-weight: bold;
-            text-shadow: 1px 1px 0 #000;
-            box-shadow: inset 2px 2px 0 var(--ore-btn-highlight,), inset -2px -2px 0 var0(--ore-btn-shadow) !important;
-.        }
-        
-        body.ore-ui-mode2 .retro-select { 
-            background-color);: var(--ore-btn-bg) !important; 
-            border: 2px solid var(--ore-border) !important; 
-            color: #fff !important; 
-            border-radius: 0 !important; 
-            box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important;
-        }
-
-        body.ore-ui-mode .retro-switch {
-            background-color: #5a5a5a !important;
-            border: 2px solid var(--ore-border) !important;
-            border-radius: 0 !important; 
-            width: 46px;
-            height: 24px;
-        }
-        body.ore-ui-mode .retro-switch.on {
-            background-color: var(--ore-green) !important;
-        }
-        body.ore-ui-mode .retro-switch .knob {
-            border-radius: 0 !important; 
-            background: #ffffff !important;
-            width: 18px !important;
-            height: 18px !important;
-            top: 1px;
-            left: 2px;
-            box-shadow: none !important;
-            border: 2px solid #000;
-        }
-        body.ore-ui-mode .retro-switch.on .knob {
-            transform: translateX(20px) !important;
-        }
-        body.ore-ui-mode .retro-switch:active .knob {
-            width: 18px !important;
-        }
-
-        /* 下拉菜单动画 */
-        .dropdown { position: relative; display: inline-block; }
-        .dropdown-content {
-            position: absolute; right: 0; top: 130%;
-            background-color: var(--menu-bg); min-width: 160px;
-            box-shadow: 0 10px 30px rgba(0,0, border-radius: 4px;
-            border: 1px solid var(--divider); overflow: hidden; z-index: 1005;
-            opacity: 0; visibility: hidden; transform: translateY(-15px) scale(0.95);
-            transform-origin: top right;
-            transition: all 0.4s var(--ease-spring);
-        }
-        .dropdown:hover .dropdown-content { 
-            opacity: 1; visibility: visible; transform: translateY(0) scale(1);
-        }
-        .dropdown-content a, .dropdown-content button {
-            color: var(--text); padding: 12px 16px; text-decoration: none;
-            display: flex; align-items: center; justify-content: space-between;
-            font-size: 14px; background: transparent; border: none; width: 100%; cursor: pointer;
-            border-bottom: 1px solid var(--divider); font-family: inherit; text-align: left;
-            transition: background 0.2s, padding-left 0.2s;
-            -webkit-appearance: none;
-            appearance: none;
-        }
-        .dropdown-content a:hover, .dropdown-content button:hover { background-color: var(--menu-item-hover); padding-left: 20px; }
-
-        /* ================= 侧边栏 ================= */
+        /* ================= 侧边栏基础 ================= */
         .menu-overlay { 
-            position:fixed; inset:0; background-color:var(--modal-overlay); z-index:1000; 
-            opacity:0; pointer-events:none; transition:opacity 0.4s var(--ease-smooth); 
-            backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px);
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+            background-color: var(--modal-overlay); z-index: 1000; 
+            opacity: 0; transition: opacity 0.4s var(--ease-smooth); 
         }
-        .menu-overlay.visible { opacity:1; pointer-events:auto; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+        .menu-overlay.visible { display: block; opacity: 1; }
         
         .sidebar-menu { 
-            position:fixed; top:0; right:0; z-index:1004; 
-            background-color:var(--menu-bg); 
-            width:var(--sidebar-width); max-width:85vw; height:100%; 
-            box-shadow:-10px 0 30px rgba(0,0,0,0.15); 
-            padding: calc(20px + var(--safe-top)) 0 20px 0; 
-            overflow-y:auto; 
-            transform:translateX(100%); 
-            transition:transform 0.5s var(--ease-spring), background-color 0.6s var(--ease-smooth); 
-            border-left:1px solid var(--divider); 
-            -webkit-overflow-scrolling: touch;
+            display: none; position: fixed; top: 0; right: 0; bottom: 0; z-index: 1004; 
+            background-color: var(--menu-bg); width: var(--sidebar-width); max-width: 85vw; 
+            box-shadow: -10px 0 30px rgba(0,0,0,0.15); 
+            padding: calc(20px + var(--safe-top)) 0 20px 0; overflow-y: auto; 
+            transition: background-color 0.6s var(--ease-smooth); 
+            border-left: 1px solid var(--divider); -webkit-overflow-scrolling: touch;
         }
-        .sidebar-menu.open { transform:translateX(0); }
+        .sidebar-menu.open { display: block; }
         
-        .sidebar-header-container {
-            display: flex; justify-content: space-between; align-items: center; padding: 12px 20px;
-        }
-        .sidebar-header { 
-            font-size: 1.1rem; font-weight: 700; color: var(--text); letter-spacing: 0.08em; text-transform: uppercase; padding: 0;
-        }
+        .sidebar-header-container { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; }
+        .sidebar-header { font-size: 1.1rem; font-weight: 700; color: var(--text); letter-spacing: 0.08em; text-transform: uppercase; padding: 0; }
         .sidebar-close-btn {
             background: transparent; border: none; color: var(--text-secondary); cursor: pointer; padding: 5px;
             display: flex; align-items: center; justify-content: center; border-radius: 50%;
-            transition: background 0.2s, color 0.2s; -webkit-appearance: none; appearance: none;
+            transition: background 0.2s, color 0.2s;
         }
         .sidebar-close-btn:hover { background: var(--menu-item-hover); color: var(--text); }
         .sidebar-close-btn svg { width: 20px; height: 20px; }
@@ -497,14 +281,15 @@
             width:100%; padding:14px 20px; background:transparent; border:none; cursor:pointer; 
             font-size:1rem; color:var(--text); font-family:inherit; text-decoration:none; 
             text-align:left; position:relative; transition: background 0.2s, padding-left 0.2s;
-            overflow: hidden; -webkit-appearance: none; appearance: none;
+            overflow: hidden;
         }
         .menu-item:hover { background-color:var(--menu-item-hover); padding-left: 24px; }
         .menu-divider { height:1px; background-color:var(--divider); margin:6px 0; opacity:0.5; }
 
         /* ================= 主内容 ================= */
         .title-wrapper { position: relative; display: inline-block; margin-bottom: 1.2rem; max-width: 100%; }
-        h1 { font-size:clamp(1.3rem,4vw,2rem); font-weight:300; color:var(--text); letter-spacing:0.04em; line-height:1.5; margin-bottom:0; transition: color 0.6s var(--ease-smooth); }
+        h1 { font-size: 1.5rem; font-weight:300; color:var(--text); letter-spacing:0.04em; line-height:1.5; margin-bottom:0; transition: color 0.6s var(--ease-smooth); }
+        @media (min-width: 769px) { h1 { font-size: 2rem; } }
         
         .splash-text {
             position: absolute; right: -30px; bottom: -15px;
@@ -521,16 +306,13 @@
         .divider { width:48px; height:1px; background-color:var(--divider); margin:0 auto 1.2rem auto; transition: background-color 0.6s; }
         .button-group { display:flex; flex-wrap:wrap; justify-content:center; gap:0.7rem; }
         
-        .btn, .download-btn-action, .nav-btn, .settings-close-btn, .about-close-btn, .dial-action.close {
-            position: relative; overflow: hidden;
-            transition: all 0.4s var(--ease-spring);
-        }
         .btn { 
             display:inline-block; padding:0.65rem 1.8rem; font-size:0.9rem; 
             color:var(--btn-primary-text); background-color:var(--btn-primary); 
             border:1px solid var(--btn-primary); border-radius:50px !important; 
             cursor:pointer; text-decoration:none; white-space:nowrap; 
-            -webkit-appearance: none; appearance: none;
+            transition: all 0.4s var(--ease-spring);
+            position: relative; overflow: hidden;
         }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
         .btn:active { transform: translateY(0) scale(0.95); }
@@ -555,18 +337,15 @@
             transition: all 0.4s var(--ease-spring);
             position: relative; overflow: hidden;
         }
-        .download-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
-            border-color: var(--accent);
-        }
+        .download-item:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); border-color: var(--accent); }
         .download-text { font-size:1rem; color:var(--download-btn-text); flex:1; text-align:left; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-right:0.8rem; transition: color 0.4s; }
         
         .download-btn-action { 
             display:inline-block; padding:0.5rem 1.2rem; font-size:0.9rem; font-weight:500; 
             color:#ffffff; background-color:var(--btn-primary); border:none; border-radius:50px !important; 
             cursor:pointer; text-decoration:none; white-space:nowrap; z-index: 2; 
-            -webkit-appearance: none; appearance: none;
+            transition: all 0.4s var(--ease-spring);
+            position: relative; overflow: hidden;
         }
         .download-btn-action:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
         .download-btn-action:active { transform: scale(0.92); }
@@ -574,84 +353,35 @@
         .footer-note { margin-top:1.5rem; font-size:0.6rem; color:var(--text-secondary); letter-spacing:0.12em; text-transform:uppercase; }
 
         /* ================= 水波纹 ================= */
-        .ripple {
-            position: absolute; border-radius: 50%;
-            background: rgba(255, 255, 255, 0.4);
-            transform: scale(0); animation: rippleAnim 0.6s linear;
-            pointer-events: none;
-        }
+        .ripple { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.4); transform: scale(0); animation: rippleAnim 0.6s linear; pointer-events: none; }
         [data-theme="dark"] .ripple { background: rgba(255, 255, 255, 0.2); }
         @keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
 
         /* ================= 特效图层 ================= */
-        .fx-container { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; transition: opacity 0.8s var(--ease-smooth); }
+        .fx-container { position: fixed; top:0; left:0; right:0; bottom:0; pointer-events: none; z-index: 1; overflow: hidden; transition: opacity 0.8s var(--ease-smooth); }
         .particle { position: fixed; top: -30px; user-select: none; animation: fall linear forwards; }
-        @keyframes fall {
-            0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(105vh) translateX(var(--sway)) rotate(720deg); opacity: 0; }
-        }
-        .fireworks-container { position: fixed; inset: 0; pointer-events: none; z-index: 999; overflow: hidden; transition: opacity 0.8s var(--ease-smooth); }
-        .firework-particle {
-            position: absolute; width: 6px; height: 6px; border-radius: 50%;
-            transform: translate(-50%, -50%);
-            animation: explode 1.4s var(--ease-smooth) forwards;
-        }
-        @keyframes explode {
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; box-shadow: 0 0 12px currentColor; }
-            70% { opacity: 1; }
-            100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0); opacity: 0; box-shadow: none; }
-        }
-        .lantern { position: fixed; top: 0; width: 60px; height: 120px; z-index: 1000; pointer-events: none; display: none; transform-origin: top center; }
-        .newyear-active .lantern { display: flex; flex-direction: column; align-items: center; animation: swingLeft 3s ease-in-out infinite alternate; }
-        .lantern.left { left: 20px; }
-        .lantern.right { right: 20px; animation-name: swingRight; }
-        @keyframes swingLeft { 0% { transform: rotate(-8deg); } 100% { transform: rotate(8deg); } }
-        @keyframes swingRight { 0% { transform: rotate(8deg); } 100% { transform: rotate(-8deg); } }
-        .lantern-rope { width: 2px; height: 30px; background: #333; margin: 0 auto; }
-        .lantern-top { width: 28px; height: 8px; background: #ffcc00; border-radius: 2px; }
-        .lantern-body {
-            width: 52px; height: 60px; background: radial-gradient(circle, #ff4d4d, #cc0000);
-            border-radius: 50%; border: 2px solid #ffcc00;
-            display: flex; align-items: center; justify-content: center;
-            color: #ffcc00; font-size: 26px; font-weight: bold; font-family: "KaiTi", "STKaiti", serif;
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.4), 0 0 15px rgba(255,0,0,0.6);
-            position: relative;
-        }
-        .lantern-body::before, .lantern-body::after { content: ''; position: absolute; top: 0; bottom: 0; width: 2px; background: rgba(0,0,0,0.15); border-radius: 1px; }
-        .lantern-body::before { left: 15px; }
-        .lantern-body::after { right: 15px; }
-        .lantern-bottom { width: 20px; height: 6px; background: #ffcc00; border-radius: 2px; }
-        .lantern-tassel { width: 4px; height: 35px; background: #ffcc00; position: relative; }
-        .lantern-tassel::after { content: ''(from; position: absolute; bottom: -12px; left: -6px; width: 16px; height: 20px; background: #ffcc00; border-radius: 50% 50% 20% 20%; }
+        @keyframes fall { 0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(105vh) translateX(var(--sway)) rotate(720deg); opacity: 0; } }
+        
+        .fireworks-container { position: fixed; top:0; left:0; right:0; bottom:0; pointer-events: none; z-index: 999; overflow: hidden; transition: opacity 0.8s var(--ease-smooth); }
+        .firework-particle { position: absolute; width: 6px; height: 6px; border-radius: 50%; transform: translate(-50%, -50%); animation: explode 1.4s var(--ease-smooth) forwards; }
+        @keyframes explode { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; box-shadow: 0 0 12px currentColor; } 70% { opacity: 1; } 100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0); opacity: 0; box-shadow: none; } }
 
-        .newyear-theme {
-            --accent: #cc0000 !important; --accent-hover: #990000 !important;
-            --accent-transparent: rgba(204, 0, 0, 0.65) !important;
-            --btn-primary: #cc0000 !important; --btn-primary-hover: #990000 !important;
-        }
-
-        /* 彩虹壁纸背景 */
-        body.bg-rainbow {
-            background-image: conic-gradient 0deg, rgba(255,0,0,0.6), rgba(255,165,0,0.6), rgba(255,255,0,0.6), rgba(0,255,0,0.6), rgba(0,255,255,0.6), rgba(0,0,255,0.6), rgba(255,0,255,0.6), rgba(255,0,0,0.6)) !important;
-            background-size: 200% 200% !important;
-            background-position: center !important;
-            animation: rotateBG 15s linear infinite !important;
-        }
-        @keyframes rotateBG { 100% { filter: hue-rotate(360deg); } }
-
-        /* ================= 弹窗系统 ================= */
+        /* ================= 弹窗系统 (最高兼容性修复) ================= */
         .settings-overlay, .about-overlay, .easter-egg-overlay, .calc-overlay, .dialpad-overlay, .more-overlay {
-            display: flex; position:fixed; inset:0; background-color:var(--modal-overlay); 
-            z-index:2100; justify-content:center; align-items:center; padding:1rem; 
-            opacity: 0; visibility: hidden; pointer-events: none;
-            backdrop-filter: blur(0px); -webkit-backdrop-filter: blur(0px);
-            transition: opacity 0.4s var(--ease-smooth), visibility 0.4s var(--ease-smooth), backdrop-filter 0.4s var(--ease-smooth);
+            display: none; 
+            position: fixed; 
+            top: 0; left: 0; right: 0; bottom: 0; /* 替换 inset: 0 */
+            background-color: var(--modal-overlay); 
+            z-index: 2100; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 1rem; 
+            opacity: 0; 
+            transition: opacity 0.4s var(--ease-smooth);
         }
         .settings-overlay.visible, .about-overlay.visible, .easter-egg-overlay.visible, .calc-overlay.visible, .dialpad-overlay.visible, .more-overlay.visible { 
-            opacity: 1; visibility: visible; pointer-events: auto;
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            display: flex; 
+            opacity: 1; 
         }
 
         .settings-modal, .about-modal, .easter-egg-modal, .calc-modal, .dialpad-modal, .more-modal {
@@ -660,12 +390,11 @@
             border:1px solid var(--divider); 
             display: flex; flex-direction: column; position: relative; 
             overflow: hidden; width: 100%; max-height: 85vh;
-            opacity: 0; transform: scale(0.85) translateY(30px);
-            transition: all 0.5s var(--ease-spring);
+            transform: scale(0.95); transition: transform 0.4s var(--ease-spring);
         }
         .settings-overlay.visible .settings-modal, .about-overlay.visible .about-modal, .easter-egg-overlay.visible .easter-egg-modal,
         .calc-overlay.visible .calc-modal, .dialpad-overlay.visible .dialpad-modal, .more-overlay.visible .more-modal {
-            opacity: 1; transform: scale(1) translateY(0);
+            transform: scale(1);
         }
 
         .about-modal { max-width:320px; padding:1.5rem; }
@@ -674,13 +403,7 @@
         .dialpad-modal { max-width:280px; padding:1rem; }
 
         /* 计算器与拨号盘 */
-        .calc-display, .dialpad-display {
-            background: var(--dial-display-bg); color: var(--dial-display-text);
-            border-radius: 20px; padding: 1rem; text-align: right; font-size: 2.5rem;
-            margin-bottom: 1rem; min-height: 80px; display: flex; align-items: center;
-            justify-content: flex-end; overflow-x: auto; white-space: nowrap;
-            transition: all 0.4s; box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
-        }
+        .calc-display, .dialpad-display { background: var(--dial-display-bg); color: var(--dial-display-text); border-radius: 20px; padding: 1rem; text-align: right; font-size: 2.5rem; margin-bottom: 1rem; min-height: 80px; display: flex; align-items: center; justify-content: flex-end; overflow-x: auto; white-space: nowrap; transition: all 0.4s; box-shadow: inset 0 2px 8px rgba(0,0,0,0.05); }
         .dialpad-display { font-size: 1.2rem; min-height: 40px; padding: 0.5rem; border-radius: 12px; }
         .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
         .dialpad-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
@@ -690,7 +413,6 @@
             cursor: pointer; font-family: inherit; position: relative; overflow: hidden;
             background: var(--bg); color: var(--text);
             transition: all 0.2s var(--ease-spring);
-            -webkit-appearance: none; appearance: none;
         }
         .calc-key { border-radius: 50%; aspect-ratio: 1; min-height: 60px; font-size: 1.5rem; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
         .dial-key { border-radius: 50%; aspect-ratio: 1; font-size: 1.2rem; background: var(--dial-key-bg); box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
@@ -700,18 +422,9 @@
 
         /* 设置面板 */
         .settings-modal { padding: 0; max-width: 400px; border-radius: 16px; }
-        .settings-nav {
-            display: flex; align-items: center; justify-content: center;
-            padding: 0 16px; height: 50px; flex-shrink: 0; position: relative; z-index: 10;
-            background: var(--bg); border-bottom: 1px solid var(--divider);
-            transition: background 0.6s var(--ease-smooth), border-color 0.6s var(--ease-smooth);
-        }
+        .settings-nav { display: flex; align-items: center; justify-content: center; padding: 0 16px; height: 50px; flex-shrink: 0; position: relative; z-index: 10; background: var(--bg); border-bottom: 1px solid var(--divider); transition: background 0.6s var(--ease-smooth), border-color 0.6s var(--ease-smooth); }
         .settings-nav-title { font-size: 16px; font-weight: 600; color: var(--text); }
-        .settings-content {
-            flex: 1; overflow-y: auto; padding: 20px 20px calc(20px + var(--safe-bottom));
-            -webkit-overflow-scrolling: touch; background: var(--bg);
-            transition: background 0.6s var(--ease-smooth);
-        }
+        .settings-content { flex: 1; overflow-y: auto; padding: 20px 20px calc(20px + var(--safe-bottom)); -webkit-overflow-scrolling: touch; background: var(--bg); transition: background 0.6s var(--ease-smooth); }
         .settings-header-title { font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--divider); }
         .setting-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--divider); transition: border-color 0.6s; }
         .setting-row:last-of-type { border-bottom: none; }
@@ -727,9 +440,7 @@
         }
         .retro-select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,119,204,0.2); }
         .retro-select:active { transform: scale(0.96); }
-        [data-theme="dark"] .retro-select {
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23aaa%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-        }
+        [data-theme="dark"] .retro-select { background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23aaa%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); }
         .retro-select:disabled { opacity: 0.5; cursor: not-allowed; }
 
         .retro-switch {
@@ -739,11 +450,7 @@
             -webkit-appearance: none; appearance: none;
         }
         .retro-switch.on { background: var(--toggle-on); }
-        .retro-switch .knob {
-            position: absolute; top: 2px; left: 2px; width: 27px; height: 27px;
-            background: #fff; border-radius: 50% !important; box-shadow: 0 3px 8px rgba(0,0,0,0.15), 0 3px 1px rgba(0,0,0,0.06);
-            transition: transform 0.4s var(--ease-spring);
-        }
+        .retro-switch .knob { position: absolute; top: 2px; left: 2px; width: 27px; height: 27px; background: #fff; border-radius: 50% !important; box-shadow: 0 3px 8px rgba(0,0,0,0.15), 0 3px 1px rgba(0,0,0,0.06); transition: transform 0.4s var(--ease-spring); }
         .retro-switch.on .knob { transform: translateX(20px); }
         .retro-switch:active .knob { width: 32px; }
 
@@ -751,26 +458,17 @@
             display: block; width: 100%; margin-top: 20px; padding: 14px; border-radius: 12px;
             background: var(--btn-primary); color: #fff; border: none; font-size: 16px; font-weight: 600; cursor: pointer;
             transition: all 0.3s var(--ease-spring);
-            -webkit-appearance: none; appearance: none;
         }
 
-        /* ================= 拟物化 (Retro) ================= */
-        body.retro-mode.color-default .top-bar {
-            background: linear-gradient(to bottom, #f9f9f9, #e0e0e0) !important;
-            border-bottom: 1px solid #b0b0b0 !important;
-        }
+        /* ================= 拟物化 ================= */
+        body.retro-mode.color-default .top-bar { background: linear-gradient(to bottom, #f9f9f9, #e0e0e0) !important; border-bottom: 1px solid #b0b0b0 !important; }
         body.retro-mode.color-default .site-title { color: #333 !important; text-shadow: 0 1px 0 #fff; }
         body.retro-mode.color-default .hamburger-line { background-color: #333 !important; box-shadow: 0 1px 0 #fff; }
         body.retro-mode.color-default .nav-btn { color: #333 !important; background: linear-gradient(to bottom, #ffffff, #e6e6e6) !important; border: 1px solid #b0b0b0 !important; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-
-        body.retro-mode.color-md1 .top-bar {
-            background: linear-gradient(to bottom, var(--accent), var(--accent-hover)) !important;
-            border-bottom: 1px solid rgba(0,0,0,0.5) !important;
-        }
+        body.retro-mode.color-md1 .top-bar { background: linear-gradient(to bottom, var(--accent), var(--accent-hover)) !important; border-bottom: 1px solid rgba(0,0,0,0.5) !important; }
         body.retro-mode.color-md1 .site-title { color: #fff !important; text-shadow: 0 -1px 0 rgba(0,0,0,0.4); }
         body.retro-mode.color-md1 .hamburger-line { background-color: #fff !important; box-shadow: 0 -1px 0 rgba(0,0,0,0.4); }
         body.retro-mode.color-md1 .nav-btn { color: #fff !important; background: linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(0,0,0,0.1)) !important; border: 1px solid rgba(0,0,0,0.3) !important; }
-
         body.retro-mode h1 { color: #222 !important; text-shadow: 2px 2px 0 #fff !important; font-weight: 700; }
         body.retro-mode .download-item { background: #fcfcfc !important; border: 1px solid #d0d0d0 !important; border-radius: 12px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.1), inset 0 1px 0 #fff !important; }
         body.retro-mode .download-item:hover { border-color: #a0a0a0 !important; }
@@ -826,29 +524,11 @@
         body.liquid-glass-mode .calc-key.operator, body.liquid-glass-mode .calc-key.equals { background: var(--accent) !important; color: #fff !important; border-color: rgba(255,255,255,0.5) !important; }
 
         /* ================= 透明模式 ================= */
-        body.glass-mode.color-default .top-bar { 
-            background-color: rgba(255, 255, 255, 0.55) !important; 
-            backdrop-filter: blur(22px) saturate(180%) !important; 
-            -webkit-backdrop-filter: blur(22px) saturate(180%) !important; 
-            border-bottom: 1px solid rgba(0,0,0,0.1) !important; 
-        }
-        [data-theme="dark"] body.glass-mode.color-default .top-bar {
-            background-color: rgba(28, 28, 30, 0.55) !important;
-            border-bottom: 1px solid rgba(255,255,255,0.1) !important;
-        }
-        body.glass-mode.color-md1 .top-bar { 
-            background-color: var(--accent-transparent) !important; 
-            backdrop-filter: blur(22px) saturate(180%) !important; 
-            -webkit-backdrop-filter: blur(22px) saturate(180%) !important; 
-            border-bottom: 1px solid rgba(255,255,255,0.2) !important; 
-        }
-        body.glass-mode.color-md1 .site-title { 
-            color: #fff !important; 
-            background-color: transparent !important; 
-        }
-        body.glass-mode.color-md1 .hamburger-line { 
-            background-color: #fff !important; 
-        }
+        body.glass-mode.color-default .top-bar { background-color: rgba(255, 255, 255, 0.55) !important; backdrop-filter: blur(22px) saturate(180%) !important; -webkit-backdrop-filter: blur(22px) saturate(180%) !important; border-bottom: 1px solid rgba(0,0,0,0.1) !important; }
+        [data-theme="dark"] body.glass-mode.color-default .top-bar { background-color: rgba(28, 28, 30, 0.55) !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; }
+        body.glass-mode.color-md1 .top-bar { background-color: var(--accent-transparent) !important; backdrop-filter: blur(22px) saturate(180%) !important; -webkit-backdrop-filter: blur(22px) saturate(180%) !important; border-bottom: 1px solid rgba(255,255,255,0.2) !important; }
+        body.glass-mode.color-md1 .site-title { color: #fff !important; background-color: transparent !important; }
+        body.glass-mode.color-md1 .hamburger-line { background-color: #fff !important; }
         body.glass-mode.color-md1 .nav-btn { color: #fff !important; background: rgba(255,255,255,0.2) !important; }
         body.glass-mode .sidebar-menu { background-color: rgba(255,255,255,0.65) !important; backdrop-filter: blur(22px) saturate(180%) !important; }
         [data-theme="dark"] body.glass-mode .sidebar-menu { background-color: rgba(28,28,30,0.65) !important; }
@@ -868,12 +548,6 @@
             .settings-overlay { align-items: flex-end; padding: 0; }
             .settings-modal { max-width: 100vw; height: auto; max-height: 90vh; border-radius: 24px 24px 0 0 !important; transform: translateY(100%); opacity: 1; }
             .settings-overlay.visible .settings-modal { transform: translateY(0); }
-            .newyear-active .lantern { width: 40px; height: 80px; }
-            .lantern-body { width: 36px; height: 45px; font-size: 18px; }
-            .lantern-top { width: 20px; height: 6px; }
-            .lantern-bottom { width: 14px; height: 4px; }
-            .lantern-tassel { height: 25px; }
-            .lantern-tassel::after { width: 12px; height: 15px; bottom: -8px; left: -4px; }
         }
 
         .version-text { cursor: pointer; user-select: none; display: inline-block; padding: 5px 10px; border-radius: 6px; transition: transform 0.2s; }
@@ -889,21 +563,6 @@
     <div class="fx-container" id="leavesContainer"></div>
     <div class="fireworks-container" id="fireworksContainer"></div>
     
-    <div class="lantern left" id="lanternLeft">
-        <div class="lantern-rope"></div>
-        <div class="lantern-top"></div>
-        <div class="lantern-body">春</div>
-        <div class="lantern-bottom"></div>
-        <div class="lantern-tassel"></div>
-    </div>
-    <div class="lantern right" id="lanternRight">
-        <div class="lantern-rope"></div>
-        <div class="lantern-top"></div>
-        <div class="lantern-body">节</div>
-        <div class="lantern-bottom"></div>
-        <div class="lantern-tassel"></div>
-    </div>
-
     <header class="top-bar">
         <div class="site-title" data-i18n="siteTitle">一架国泰航空A330官方网站</div>
         <nav class="desktop-nav">
@@ -996,7 +655,6 @@
                     </select>
                 </div>
 
-                <!-- 颜色主题 -->
                 <div class="setting-row">
                     <span class="setting-label">颜色主题</span>
                     <select id="selectColorTheme" class="retro-select">
@@ -1021,7 +679,6 @@
                     </select>
                 </div>
 
-                <!-- 自定义颜色选择器 -->
                 <div class="setting-row" id="customColorRow" style="display: none;">
                     <span class="setting-label">自定义主题色</span>
                     <input type="color" id="customColorInput" style="border:none; width:50px; height:35px; cursor:pointer; background:none; border-radius:6px; -webkit-appearance: none; appearance: none;">
@@ -1124,7 +781,7 @@
             <div class="dialpad-display" id="dialpadDisplay"></div>
             <div class="dialpad-grid" id="dialpadGrid"></div>
             <div class="dial-actions" style="display:flex;gap:0.4rem;margin-top:0.5rem;">
-                <button class="dial-action delete" id="dialDelete" style="flex:1;padding:0.5rem;border-radius:30px;border:1px solid var(--divider);background:transparent;color:var(--text); -webkit-appearance: none; appearance: none;" data-i18n="delete">删除</button>
+                <button class="dial-action delete" id="dialDelete" style="flex:1;padding:0.5rem;border-radius:30px;border:1px solid var(--divider);background:transparent;color:var(--text);" data-i18n="delete">删除</button>
                 <button class="dial-action close" id="dialClose" data-i18n="close">关闭</button>
             </div>
         </div>
@@ -1159,7 +816,7 @@
             </div>
             <div class="download-item">
                 <span class="download-text" data-i18n="kuGouDownload">酷狗概念版 2.5.5</span>
-                <a href="https://share.feijipan.com/s/Wy8brXh9" target="_blank" rel="noopener noreferrer" class="download-btn-action" data-i18n="download">下载</a>
+                <a href="https://share.feijipan.com/Wy8brXh9" target="_blank" rel="noopener noreferrer" class="download-btn-action" data-i18n="download">下载</a>
             </div>
             <div class="download-item">
                 <span class="download-text" data-i18n="ojangDownload">ojang pe 5.1.0</span>
@@ -1176,7 +833,6 @@
             const $ = id => document.getElementById(id);
             const htmlElement = document.documentElement;
 
-            // ================= 水波纹 =================
             function createRipple(e) {
                 const target = e.currentTarget;
                 if (!target) return;
@@ -1210,7 +866,6 @@
                 });
             }
 
-            // 状态变量
             let currentTheme = localStorage.getItem('theme') || 'light';
             let currentLang = localStorage.getItem('lang') || 'zh-CN';
             let viewMode = localStorage.getItem('viewMode') || 'auto';
@@ -1223,7 +878,6 @@
             let rtlEnabled = localStorage.getItem('rtlMode') === 'enabled';
             let versionClickCount = 0;
 
-            // 翻译词条
             const translations = {
                 'zh-CN': { siteTitle:'一架国泰航空A330官方网站', settings:'设置', menu:'菜单', calculator:'计算器', about:'关于', aboutText:'这是一架国泰航空A330官方网站', versionLabel:'版本号', versionNumber:'7.6.2', links:'链接', webMC:'网页版MC', ojangDownload:'ojang pe下载', dialpad:'拨号盘', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁纸', language:'语言', close:'关闭', welcome:'欢迎来到<br>一架国泰航空A330官方网站', bilibili:'我的 bilibili', fanGroup:'加入粉丝群', announcementTitle:'公告栏', announcementSubtitle:'修复了一些bug，添加了雪花，优化了新春主题', bilibiliDownload:'哔哩哔哩国际版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下载', delete:'删除', footer:'Cathay Pacific • A330 • Minimal' },
                 'zh-TW': { siteTitle:'一架國泰航空A330官方網站', settings:'設置', menu:'選單', calculator:'計算機', about:'關於', aboutText:'這是一架國泰航空A330官方網站', versionLabel:'版本號', versionNumber:'7.6.2', links:'連結', webMC:'網頁版MC', ojangDownload:'ojang pe下載', dialpad:'撥號盤', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁紙', language:'語言', close:'關閉', welcome:'歡迎來到<br>一架國泰航空A330官方網站', bilibili:'我的 bilibili', fanGroup:'加入粉絲群', announcementTitle:'公告欄', announcementSubtitle:'修復了一些bug，添加了雪花，優化了新春主題', bilibiliDownload:'嗶哩嗶哩國際版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下載', delete:'刪除', footer:'Cathay Pacific • A330 • Minimal' },
@@ -1259,7 +913,6 @@
                 custom: { main: customHex, hover: customHex, transparent: customHex }
             };
 
-            // 闪烁标语列表
             const splashMessages = [
                 "秋季大更新！",
                 "hi，我是wqaw5888",
@@ -1279,7 +932,6 @@
                 }
             }
 
-            // 特效与音效逻辑
             let particleTimeouts = [];
             let fireworkInterval = null;
             const fireworksColors = ['#ff4d4d', '#ffcc00', '#33cc33', '#3399ff', '#cc33ff', '#ff6600'];
@@ -1325,6 +977,8 @@
             function updateFx() {
                 const container = $('leavesContainer');
                 const fwContainer = $('fireworksContainer');
+                if (!container || !fwContainer) return;
+                
                 container.style.opacity = '0';
                 fwContainer.style.opacity = '0';
                 
@@ -1407,29 +1061,23 @@
             }
 
             function applySettings() {
-                // 基础主题
                 document.body.classList.remove('retro-mode', 'liquid-glass-mode', 'ore-ui-mode', 'glass-mode', 'bg-rainbow');
                 if (themeMode === 'retro') document.body.classList.add('retro-mode');
                 else if (themeMode === 'liquid') document.body.classList.add('liquid-glass-mode');
                 else if (themeMode === 'ore-ui') document.body.classList.add('ore-ui-mode');
                 else if (themeMode === 'glass') document.body.classList.add('glass-mode');
 
-                // 颜色主题
                 document.body.classList.remove('color-default', 'color-md1');
                 document.body.classList.add('color-' + colorTheme);
 
-                // 深浅色
                 htmlElement.setAttribute('data-theme', currentTheme);
 
-                // 网站模式
                 htmlElement.classList.remove('view-auto', 'view-desktop', 'view-tablet', 'view-phone', 'view-tv');
                 htmlElement.classList.add('view-' + viewMode);
 
-                // RTL
                 if (rtlEnabled) htmlElement.setAttribute('dir', 'rtl');
                 else htmlElement.removeAttribute('dir');
 
-                // 壁纸
                 if (themeMode !== 'ore-ui') {
                     if (wallpaperChoice === 'rainbow') {
                         document.body.classList.add('bg-rainbow');
@@ -1459,14 +1107,12 @@
                     document.body.style.backgroundColor = '#111';
                 }
 
-                // 自定义颜色显示控制
                 if (accentColor === 'custom') {
                     document.getElementById('customColorRow').style.display = 'flex';
                 } else {
                     document.getElementById('customColorRow').style.display = 'none';
                 }
 
-                // 同步 UI 控件
                 $('selectLang').value = currentLang;
                 $('selectViewMode').value = viewMode;
                 $('selectThemeMode').value = themeMode;
@@ -1498,7 +1144,6 @@
                 applySettings();
             }
 
-            // 绑定下拉框
             $('selectLang').addEventListener('change', (e) => updateSetting('lang', e.target.value));
             $('selectViewMode').addEventListener('change', (e) => updateSetting('viewMode', e.target.value));
             $('selectThemeMode').addEventListener('change', (e) => updateSetting('themeMode', e.target.value));
@@ -1507,21 +1152,13 @@
             $('selectWallpaper').addEventListener('change', (e) => updateSetting('wallpaperChoice', e.target.value));
             $('selectFxMode').addEventListener('change', (e) => updateSetting('fxMode', e.target.value));
 
-            // 绑定自定义颜色取色器
             $('customColorInput').addEventListener('input', (e) => {
                 customHex = e.target.value;
                 localStorage.setItem('customHex', customHex);
-                accentColors.custom = { 
-                    main: customHex, 
-                    hover: customHex,
-                    transparent: hexToRgba(customHex, 0.65)
-                };
-                if (accentColor === 'custom') {
-                    updateSetting('accentColor', 'custom');
-                }
+                accentColors.custom = { main: customHex, hover: customHex, transparent: hexToRgba(customHex, 0.65) };
+                if (accentColor === 'custom') updateSetting('accentColor', 'custom');
             });
 
-            // 绑定开关
             document.querySelectorAll('[data-switch="themeDark"]').forEach(sw => {
                 sw.addEventListener('click', () => updateSetting('theme', currentTheme === 'dark' ? 'light' : 'dark'));
             });
@@ -1529,7 +1166,6 @@
                 sw.addEventListener('click', () => updateSetting('rtlMode', rtlEnabled ? 'disabled' : 'enabled'));
             });
 
-            // 导航栏控制
             const sidebar = $('sidebarMenu'), overlay = $('menuOverlay'), hbBtn = $('hamburgerBtn'), sidebarCloseBtn = $('sidebarCloseBtn');
             function toggleMenu(force) {
                 const isOpen = force !== undefined ? force : !sidebar.classList.contains('open');
@@ -1564,7 +1200,6 @@
             $('dialClose').addEventListener('click', () => $('dialpadOverlay').classList.remove('visible'));
             $('dialpadOverlay').addEventListener('click', e => { if(e.target === $('dialpadOverlay')) $('dialpadOverlay').classList.remove('visible'); });
 
-            // 彩蛋逻辑
             const versionArea = $('versionArea');
             const easterEggOverlay = $('easterEggOverlay');
             versionArea.addEventListener('click', () => {
@@ -1574,7 +1209,6 @@
             $('easterEggClose').addEventListener('click', () => easterEggOverlay.classList.remove('visible'));
             easterEggOverlay.addEventListener('click', e => { if(e.target === easterEggOverlay) easterEggOverlay.classList.remove('visible'); });
 
-            // 计算器和拨号盘逻辑
             let calcFirstOperand = null, calcOperator = null, calcShouldResetDisplay = false;
             const calcDisplay = $('calcDisplay');
             function calcInput(value) {
@@ -1631,7 +1265,6 @@
                 });
             });
 
-            // 拨号盘
             let dialValue = '';
             const dialpadDisplay = $('dialpadDisplay');
             const dialpadGrid = $('dialpadGrid');
@@ -1646,15 +1279,12 @@
             });
             $('dialDelete').addEventListener('click', () => { dialValue = dialValue.slice(0,-1); dialpadDisplay.textContent = dialValue; });
 
-            // 初始化
             applySettings();
             bindRipples();
             
-            // 初始化闪烁标语并开启轮播 (4秒切换)
             updateSplashText();
             setInterval(updateSplashText, 4000);
 
-            console.log('[v7.6.2] 必应每日一图已加入');
         })();
     </script>
 </body>
