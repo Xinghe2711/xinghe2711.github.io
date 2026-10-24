@@ -76,12 +76,11 @@
             --version-label-color: #f0f0f0;
         }
         
-        /* 移除了全局的 -webkit-appearance: none，避免引起 iOS 渲染异常 */
         * { margin:0; padding:0; box-sizing:border-box; }
         
         html, body { 
             touch-action: manipulation; 
-            -webkit-text-size-adjust: 100%; /* 防止 iOS 字体自动放大 */
+            -webkit-text-size-adjust: 100%; /* 防止移动端字体自动放大 */
             text-size-adjust: 100%; 
         }
         
@@ -135,7 +134,7 @@
         html.view-tv h1 { font-size: clamp(2rem, 6vw, 3rem); }
         html.view-tv .btn { padding: 1rem 2.5rem; font-size: 1.2rem; }
 
-        /* ================= 顶部导航栏基础 ================= */
+        /* ================= 顶部导航栏基础 (重点修复区域) ================= */
         .top-bar { 
             position: fixed; top:0; left:0; right:0; 
             height: calc(var(--topbar-height) + var(--safe-top)); 
@@ -143,26 +142,41 @@
             z-index: 1003; 
             display: flex; align-items: center; justify-content: space-between;
             padding-left: 20px; padding-right: 20px;
-            transition: background-color 0.6s var(--ease-smooth), border-color 0.6s var(--ease-smooth), backdrop-filter 0.6s;
+            transition: background-color 0.6s var(--ease-smooth), border-color 0.6s var(--ease-smooth);
             
-            /* 修复 iOS 上 backdrop-filter 导致的渲染白块 Bug */
+            /* 确保导航栏为独立图层，防止渲染穿透 */
+            transform: translateZ(0);
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            transform: translateZ(0);
         }
         
         .site-title { 
-            font-size:1.1rem; font-weight:500; 
-            letter-spacing:0.04em; 
-            white-space:nowrap; 
-            overflow:hidden; 
-            text-overflow:ellipsis; 
-            transition: color 0.4s;
+            font-size: 1.1rem; 
+            /* 移除 font-weight: 500，防止安卓部分机型渲染失败变白块 */
+            font-weight: bold; 
+            letter-spacing: 0.04em; 
             
+            /* 防止文字超长或 Flex 挤压导致的渲染崩溃 */
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            flex: 1; /* 占据剩余空间 */
+            min-width: 0; /* 允许收缩 */
+            margin-right: 15px; /* 与右侧按钮留出间距 */
+            
+            /* 移除过渡动画，减少重绘导致的光栅化错误 */
+            /* transition: color 0.4s; */
+
             /* 防止 iOS 长按或双击文字产生白色高亮块 */
             -webkit-user-select: none; 
             user-select: none;
             -webkit-touch-callout: none; 
+            
+            /* 强行指定文字填充色，防止系统强制暗黑模式干扰 */
+            -webkit-text-fill-color: currentColor; 
+            
+            /* 极微弱的阴影，可强制浏览器启用正常文本渲染，防止画出实心方块 */
+            text-shadow: 0 0 1px rgba(0,0,0,0.01);
         }
         
         .hamburger-btn {
@@ -173,6 +187,7 @@
             transition: transform 0.3s var(--ease-spring);
             -webkit-appearance: none;
             appearance: none;
+            flex-shrink: 0; /* 确保按钮不被挤压 */
         }
         .hamburger-btn:active { transform: scale(0.85); }
         .hamburger-line { display:block; width:22px; height:2.5px; border-radius:4px; transition:all 0.4s var(--ease-spring); pointer-events:none; }
@@ -182,7 +197,7 @@
 
         /* 桌面版导航链接 */
         .desktop-nav {
-            display: none; align-items: center; gap: 12px;
+            display: none; align-items: center; gap: 12px; flex-shrink: 0;
         }
         .nav-btn {
             border: none;
@@ -214,7 +229,10 @@
             background-color: var(--accent) !important;
             border-bottom: 1px solid rgba(0,0,0,0.1) !important;
         }
-        body.color-md1 .site-title { color: #ffffff !important; }
+        body.color-md1 .site-title { 
+            color: #ffffff !important; 
+            -webkit-text-fill-color: #ffffff !important; /* 强制白色填充 */
+        }
         body.color-md1 .hamburger-line { background-color: #ffffff !important; }
         body.color-md1 .nav-btn { color: #ffffff !important; background: rgba(255,255,255,0.15) !important; }
         body.color-md1 .nav-btn:hover { background: rgba(255,255,255,0.3) !important; }
