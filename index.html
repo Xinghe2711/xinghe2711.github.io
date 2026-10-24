@@ -75,8 +75,16 @@
             --toggle-off: #39393d;
             --version-label-color: #f0f0f0;
         }
-        * { margin:0; padding:0; box-sizing:border-box; -webkit-appearance: none; }
-        html, body { touch-action: manipulation; }
+        
+        /* 移除了全局的 -webkit-appearance: none，避免引起 iOS 渲染异常 */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        
+        html, body { 
+            touch-action: manipulation; 
+            -webkit-text-size-adjust: 100%; /* 防止 iOS 字体自动放大 */
+            text-size-adjust: 100%; 
+        }
+        
         body {
             background-color: var(--bg);
             background-image: var(--default-bg-image);
@@ -136,7 +144,13 @@
             display: flex; align-items: center; justify-content: space-between;
             padding-left: 20px; padding-right: 20px;
             transition: background-color 0.6s var(--ease-smooth), border-color 0.6s var(--ease-smooth), backdrop-filter 0.6s;
+            
+            /* 修复 iOS 上 backdrop-filter 导致的渲染白块 Bug */
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
         }
+        
         .site-title { 
             font-size:1.1rem; font-weight:500; 
             letter-spacing:0.04em; 
@@ -144,6 +158,11 @@
             overflow:hidden; 
             text-overflow:ellipsis; 
             transition: color 0.4s;
+            
+            /* 防止 iOS 长按或双击文字产生白色高亮块 */
+            -webkit-user-select: none; 
+            user-select: none;
+            -webkit-touch-callout: none; 
         }
         
         .hamburger-btn {
@@ -152,6 +171,8 @@
             gap:5px; width:44px; height:44px; padding:10px; border-radius:50%;
             -webkit-tap-highlight-color: transparent;
             transition: transform 0.3s var(--ease-spring);
+            -webkit-appearance: none;
+            appearance: none;
         }
         .hamburger-btn:active { transform: scale(0.85); }
         .hamburger-line { display:block; width:22px; height:2.5px; border-radius:4px; transition:all 0.4s var(--ease-spring); pointer-events:none; }
@@ -169,6 +190,8 @@
             display: flex; align-items: center; gap: 6px; 
             transition: background 0.3s, transform 0.3s var(--ease-spring);
             font-family: inherit; position: relative; overflow: hidden;
+            -webkit-appearance: none;
+            appearance: none;
         }
         .nav-btn:hover { transform: translateY(-1px); }
         .nav-btn:active { transform: scale(0.95); }
@@ -216,6 +239,8 @@
             font-size: 14px; background: transparent; border: none; width: 100%; cursor: pointer;
             border-bottom: 1px solid var(--divider); font-family: inherit; text-align: left;
             transition: background 0.2s, padding-left 0.2s;
+            -webkit-appearance: none;
+            appearance: none;
         }
         .dropdown-content a:hover, .dropdown-content button:hover { background-color: var(--menu-item-hover); padding-left: 20px; }
 
@@ -248,6 +273,8 @@
             font-size:1rem; color:var(--text); font-family:inherit; text-decoration:none; 
             text-align:left; position:relative; transition: background 0.2s, padding-left 0.2s;
             overflow: hidden;
+            -webkit-appearance: none;
+            appearance: none;
         }
         .menu-item:hover { background-color:var(--menu-item-hover); padding-left: 24px; }
         .menu-divider { height:1px; background-color:var(--divider); margin:6px 0; opacity:0.5; }
@@ -280,6 +307,8 @@
             color:var(--btn-primary-text); background-color:var(--btn-primary); 
             border:1px solid var(--btn-primary); border-radius:50px !important; 
             cursor:pointer; text-decoration:none; white-space:nowrap; 
+            -webkit-appearance: none;
+            appearance: none;
         }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
         .btn:active { transform: translateY(0) scale(0.95); }
@@ -315,6 +344,8 @@
             display:inline-block; padding:0.5rem 1.2rem; font-size:0.9rem; font-weight:500; 
             color:#ffffff; background-color:var(--btn-primary); border:none; border-radius:50px !important; 
             cursor:pointer; text-decoration:none; white-space:nowrap; z-index: 2; 
+            -webkit-appearance: none;
+            appearance: none;
         }
         .download-btn-action:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
         .download-btn-action:active { transform: scale(0.92); }
@@ -382,7 +413,7 @@
 
         /* 彩虹壁纸背景 */
         body.bg-rainbow {
-            background-image: conic-gradient(from 0deg, rgba(255,0,0,0.6), rgba(255,165,0,0.6), rgba(255,255,0,0.6), rgba(0,255,0,0.6), rgba(0,255,255,0.6), rgba(0,0,255,0.6), rgba(255,0,255,0.6), rgba(255,0,0,0.6)) !important;
+            background-image: conic-gradient(from 0deg, rgba(255,0,0,0.6), rgba(255,165,0,0.6), rgba(255,255,0.6), rgba(0,255,0,0.6), rgba(0,255,255,0.6), rgba(0,0,255,0.6), rgba(255,0,255,0.6), rgba(255,0,0,0.6)) !important;
             background-size: 200% 200% !important;
             background-position: center !important;
             animation: rotateBG 15s linear infinite !important;
@@ -438,6 +469,8 @@
             cursor: pointer; font-family: inherit; position: relative; overflow: hidden;
             background: var(--bg); color: var(--text);
             transition: all 0.2s var(--ease-spring);
+            -webkit-appearance: none;
+            appearance: none;
         }
         .calc-key { border-radius: 50%; aspect-ratio: 1; min-height: 60px; font-size: 1.5rem; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
         .dial-key { border-radius: 50%; aspect-ratio: 1; font-size: 1.2rem; background: var(--dial-key-bg); box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
@@ -470,6 +503,8 @@
             background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
             background-repeat: no-repeat; background-position: right 10px center; background-size: 10px auto;
             transition: all 0.3s var(--ease-spring);
+            -webkit-appearance: none;
+            appearance: none;
         }
         .retro-select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,119,204,0.2); }
         .retro-select:active { transform: scale(0.96); }
@@ -482,6 +517,8 @@
             width: 51px; height: 31px; border-radius: 16px !important; position: relative;
             cursor: pointer; border: none; background: var(--toggle-off); 
             transition: background 0.4s var(--ease-spring); flex-shrink: 0;
+            -webkit-appearance: none;
+            appearance: none;
         }
         .retro-switch.on { background: var(--toggle-on); }
         .retro-switch .knob {
@@ -496,6 +533,8 @@
             display: block; width: 100%; margin-top: 20px; padding: 14px; border-radius: 12px;
             background: var(--btn-primary); color: #fff; border: none; font-size: 16px; font-weight: 600; cursor: pointer;
             transition: all 0.3s var(--ease-spring);
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         /* ================= 拟物化 (Retro) ================= */
@@ -778,7 +817,7 @@
                 <!-- 自定义颜色选择器 -->
                 <div class="setting-row" id="customColorRow" style="display: none;">
                     <span class="setting-label">自定义主题色</span>
-                    <input type="color" id="customColorInput" style="border:none; width:50px; height:35px; cursor:pointer; background:none; border-radius:6px;">
+                    <input type="color" id="customColorInput" style="border:none; width:50px; height:35px; cursor:pointer; background:none; border-radius:6px; -webkit-appearance: none; appearance: none;">
                 </div>
 
                 <div class="setting-row">
@@ -878,7 +917,7 @@
             <div class="dialpad-display" id="dialpadDisplay"></div>
             <div class="dialpad-grid" id="dialpadGrid"></div>
             <div class="dial-actions" style="display:flex;gap:0.4rem;margin-top:0.5rem;">
-                <button class="dial-action delete" id="dialDelete" style="flex:1;padding:0.5rem;border-radius:30px;border:1px solid var(--divider);background:transparent;color:var(--text);" data-i18n="delete">删除</button>
+                <button class="dial-action delete" id="dialDelete" style="flex:1;padding:0.5rem;border-radius:30px;border:1px solid var(--divider);background:transparent;color:var(--text); -webkit-appearance: none; appearance: none;" data-i18n="delete">删除</button>
                 <button class="dial-action close" id="dialClose" data-i18n="close">关闭</button>
             </div>
         </div>
