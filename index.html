@@ -203,17 +203,10 @@
         [data-theme="dark"] body.color-default .nav-btn { background: rgba(255,255,255,0.1) !important; }
         [data-theme="dark"] body.color-default .nav-btn:hover { background: rgba(255,255,255,0.15) !important; }
 
-        /* ================= MD1 专属风格 ================= */
-        body.color-md1 {
-            --accent: #1976d2 !important;
-            --accent-hover: #1565c0 !important;
-            --btn-primary: #1976d2 !important;
-            --btn-primary-hover: #1565c0 !important;
-            --btn-primary-text: #ffffff !important;
-        }
-
+        /* ================= MD1 专属风格 (修复颜色跟随) ================= */
+        /* 去除了硬编码的蓝色，让所有组件跟随 var(--accent) */
         body.color-md1 .top-bar {
-            background-color: #1976d2 !important;
+            background-color: var(--accent) !important;
             border-bottom: none !important;
             box-shadow: 0 2px 4px rgba(0,0,0,0.15) !important;
         }
@@ -234,13 +227,13 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important;
             border-color: transparent !important;
         }
-        body.color-md1 .announcement-title { color: #1976d2 !important; font-weight: 600; }
+        body.color-md1 .announcement-title { color: var(--accent) !important; font-weight: 600; }
         body.color-md1 .announcement-subtitle,
         body.color-md1 .download-text { color: #333333 !important; }
 
         body.color-md1 .btn,
         body.color-md1 .download-btn-action {
-            background-color: #1976d2 !important;
+            background-color: var(--accent) !important; /* 跟随主题色 */
             color: #ffffff !important;
             border: none !important;
             border-radius: 4px !important;
@@ -248,7 +241,7 @@
         }
         body.color-md1 .btn:hover,
         body.color-md1 .download-btn-action:hover {
-            background-color: #1565c0 !important;
+            background-color: var(--accent-hover) !important; /* 跟随主题色 */
             transform: translateY(0);
             box-shadow: 0 3px 6px rgba(0,0,0,0.25) !important;
         }
@@ -258,7 +251,7 @@
             box-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
         }
 
-        /* ================= Ore UI 专属风格 (完全重写) ================= */
+        /* ================= Ore UI 专属风格 ================= */
         body.ore-ui-mode {
             --ore-bg: #1e1e1f;
             --ore-panel-bg: #313131;
@@ -282,7 +275,6 @@
             color: var(--ore-text);
         }
 
-        /* 顶部导航栏 - 模拟 Ore UI 黑底白字 */
         body.ore-ui-mode .top-bar {
             background-color: #0f0f0f !important;
             border-bottom: 2px solid var(--ore-border) !important;
@@ -303,7 +295,6 @@
             box-shadow: inset 1px 1px 0 var(--ore-btn-highlight), inset -1px -1px 0 var(--ore-btn-shadow);
         }
 
-        /* 侧边栏 */
         body.ore-ui-mode .sidebar-menu {
             background-color: var(--ore-panel-bg) !important;
             border-left: 2px solid var(--ore-border) !important;
@@ -317,7 +308,6 @@
         body.ore-ui-mode .menu-item:hover { background-color: var(--ore-btn-highlight) !important; }
         body.ore-ui-mode .menu-divider { background-color: var(--ore-border) !important; }
 
-        /* 主界面卡片 */
         body.ore-ui-mode h1, body.ore-ui-mode .download-text { color: #fff !important; text-shadow: 1px 1px 0 #000; }
         body.ore-ui-mode .download-item,
         body.ore-ui-mode .announcement {
@@ -333,7 +323,6 @@
         body.ore-ui-mode .announcement-title { color: var(--ore-green-hover) !important; text-shadow: 1px 1px 0 #000; }
         body.ore-ui-mode .announcement-subtitle { color: var(--ore-text-muted) !important; }
         
-        /* 主界面按钮 */
         body.ore-ui-mode .btn, 
         body.ore-ui-mode .download-btn-action {
             background-color: var(--ore-btn-bg) !important;
@@ -353,7 +342,6 @@
             box-shadow: inset 2px 2px 0 var(--ore-border), inset -2px -2px 0 var(--ore-border-light) !important;
         }
 
-        /* 设置面板 (模拟截图的 Ore UI 界面) */
         body.ore-ui-mode .settings-modal, 
         body.ore-ui-mode .about-modal, 
         body.ore-ui-mode .calc-modal, 
@@ -408,7 +396,6 @@
             box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important;
         }
         
-        /* Ore UI 选择框 */
         body.ore-ui-mode .retro-select { 
             background-color: var(--ore-btn-bg) !important; 
             border: 2px solid var(--ore-border) !important; 
@@ -417,11 +404,10 @@
             box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important;
         }
 
-        /* Ore UI 方形开关 (关键特征) */
         body.ore-ui-mode .retro-switch {
             background-color: #5a5a5a !important;
             border: 2px solid var(--ore-border) !important;
-            border-radius: 0 !important; /* 去除圆角 */
+            border-radius: 0 !important; 
             width: 46px;
             height: 24px;
         }
@@ -429,7 +415,7 @@
             background-color: var(--ore-green) !important;
         }
         body.ore-ui-mode .retro-switch .knob {
-            border-radius: 0 !important; /* 方块滑块 */
+            border-radius: 0 !important; 
             background: #ffffff !important;
             width: 18px !important;
             height: 18px !important;
@@ -470,7 +456,7 @@
         }
         .dropdown-content a:hover, .dropdown-content button:hover { background-color: var(--menu-item-hover); padding-left: 20px; }
 
-        /* ================= 侧边栏基础 ================= */
+        /* ================= 侧边栏 ================= */
         .menu-overlay { 
             position:fixed; inset:0; background-color:var(--modal-overlay); z-index:1000; 
             opacity:0; pointer-events:none; transition:opacity 0.4s var(--ease-smooth); 
@@ -656,7 +642,7 @@
         }
         @keyframes rotateBG { 100% { filter: hue-rotate(360deg); } }
 
-        /* ================= 弹窗系统基础 ================= */
+        /* ================= 弹窗系统 ================= */
         .settings-overlay, .about-overlay, .easter-egg-overlay, .calc-overlay, .dialpad-overlay, .more-overlay {
             display: flex; position:fixed; inset:0; background-color:var(--modal-overlay); 
             z-index:2100; justify-content:center; align-items:center; padding:1rem; 
@@ -688,7 +674,7 @@
         .calc-modal { max-width:340px; padding:1rem; }
         .dialpad-modal { max-width:280px; padding:1rem; }
 
-        /* 计算器与拨号盘基础 */
+        /* 计算器与拨号盘 */
         .calc-display, .dialpad-display {
             background: var(--dial-display-bg); color: var(--dial-display-text);
             border-radius: 20px; padding: 1rem; text-align: right; font-size: 2.5rem;
@@ -713,7 +699,7 @@
         .calc-key.operator, .calc-key.equals { background: var(--accent); color: #fff; }
         .calc-key.clear { background: #a5a5a5; color: #fff; }
 
-        /* 设置面板基础 */
+        /* 设置面板 */
         .settings-modal { padding: 0; max-width: 400px; border-radius: 16px; }
         .settings-nav {
             display: flex; align-items: center; justify-content: center;
@@ -1249,7 +1235,7 @@
 
             const wallpaperURLs = {
                 default: '',
-                bing: 'https://api.dujin.org/bing/1920.php', // 必应每日一图
+                bing: 'https://bing.img.run/1920x1080.php', // 更稳定的必应接口
                 rainbow: 'rainbow',
                 creeper_sleep: 'https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/IMG_6140.jpeg',
                 minecart: 'https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/IMG_6134.jpeg',
@@ -1450,7 +1436,6 @@
                         }
                     }
                 } else {
-                    // Ore UI 模式下可以强制黑色背景
                     document.body.style.backgroundImage = '';
                     document.body.style.backgroundColor = '#111';
                 }
@@ -1507,13 +1492,11 @@
             $('customColorInput').addEventListener('input', (e) => {
                 customHex = e.target.value;
                 localStorage.setItem('customHex', customHex);
-                // 更新颜色映射表
                 accentColors.custom = { 
                     main: customHex, 
                     hover: customHex,
                     transparent: hexToRgba(customHex, 0.65)
                 };
-                // 如果当前选中的就是自定义，则触发更新
                 if (accentColor === 'custom') {
                     updateSetting('accentColor', 'custom');
                 }
