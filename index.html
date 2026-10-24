@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light" class="view-auto" dir="ltr">
+<html lang="zh-CN" data-theme="light" class="view-auto" dir="ltr" translate="no">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -134,7 +134,7 @@
         html.view-tv h1 { font-size: clamp(2rem, 6vw, 3rem); }
         html.view-tv .btn { padding: 1rem 2.5rem; font-size: 1.2rem; }
 
-        /* ================= 顶部导航栏基础 ================= */
+        /* ================= 顶部导航栏基础 (简化以防止渲染 Bug) ================= */
         .top-bar { 
             position: fixed; top:0; left:0; right:0; 
             height: calc(var(--topbar-height) + var(--safe-top)); 
@@ -142,26 +142,21 @@
             z-index: 1003; 
             display: flex; align-items: center; justify-content: space-between;
             padding-left: 20px; padding-right: 20px;
-            transition: background-color 0.6s var(--ease-smooth), border-color 0.6s var(--ease-smooth);
-            transform: translateZ(0);
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
+            transition: background-color 0.4s, box-shadow 0.4s;
         }
         
+        /* 移除了容易引起渲染 Bug 的阴影和填充色属性 */
         .site-title { 
-            font-size: 1.1rem; 
-            font-weight: bold; 
+            font-size: 1.15rem; 
+            font-weight: 600; 
             letter-spacing: 0.04em; 
-            max-width: 85%; 
-            margin-right: 15px;
             white-space: nowrap; 
             overflow: hidden; 
             text-overflow: ellipsis; 
-            background-color: transparent !important; 
-            -webkit-text-fill-color: currentColor; 
-            -webkit-user-select: none; 
-            user-select: none;
-            -webkit-touch-callout: none; 
+            flex-shrink: 0; 
+            max-width: calc(100% - 60px);
+            background: transparent !important;
+            color: inherit;
         }
         
         .hamburger-btn {
@@ -186,7 +181,7 @@
         }
         .nav-btn {
             border: none;
-            padding: 8px 14px; border-radius: 8px; font-size: 14px; cursor: pointer;
+            padding: 8px 14px; border-radius: 4px; font-size: 14px; cursor: pointer;
             display: flex; align-items: center; gap: 6px; 
             transition: background 0.3s, transform 0.3s var(--ease-spring);
             font-family: inherit; position: relative; overflow: hidden;
@@ -209,22 +204,70 @@
         [data-theme="dark"] body.color-default .nav-btn { background: rgba(255,255,255,0.1) !important; }
         [data-theme="dark"] body.color-default .nav-btn:hover { background: rgba(255,255,255,0.15) !important; }
 
-        /* MD1 颜色主题 */
+        /* ================= MD1 专属风格 (参考图2 Material Design) ================= */
+        body.color-md1 {
+            --accent: #1976d2 !important;
+            --accent-hover: #1565c0 !important;
+            --btn-primary: #1976d2 !important;
+            --btn-primary-hover: #1565c0 !important;
+            --btn-primary-text: #ffffff !important;
+        }
+
+        /* 顶部导航：纯蓝，带阴影 */
         body.color-md1 .top-bar {
-            background-color: var(--accent) !important;
-            border-bottom: 1px solid rgba(0,0,0,0.1) !important;
+            background-color: #1976d2 !important;
+            border-bottom: none !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15) !important;
         }
         body.color-md1 .site-title { color: #ffffff !important; }
         body.color-md1 .hamburger-line { background-color: #ffffff !important; }
         body.color-md1 .nav-btn { color: #ffffff !important; background: rgba(255,255,255,0.15) !important; }
-        body.color-md1 .nav-btn:hover { background: rgba(255,255,255,0.3) !important; }
+        body.color-md1 .nav-btn:hover { background: rgba(255,255,255,0.25) !important; }
+
+        /* 卡片：纯白，小圆角，轻微阴影 */
+        body.color-md1 .announcement,
+        body.color-md1 .download-item {
+            background-color: #ffffff !important;
+            border: none !important;
+            border-radius: 4px !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1) !important;
+        }
+        body.color-md1 .download-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important;
+            border-color: transparent !important;
+        }
+        body.color-md1 .announcement-title { color: #1976d2 !important; font-weight: 600; }
+        body.color-md1 .announcement-subtitle,
+        body.color-md1 .download-text { color: #333333 !important; }
+
+        /* 按钮：MD 经典蓝，小圆角，有按压反馈 */
+        body.color-md1 .btn,
+        body.color-md1 .download-btn-action {
+            background-color: #1976d2 !important;
+            color: #ffffff !important;
+            border: none !important;
+            border-radius: 4px !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+        }
+        body.color-md1 .btn:hover,
+        body.color-md1 .download-btn-action:hover {
+            background-color: #1565c0 !important;
+            transform: translateY(0);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.25) !important;
+        }
+        body.color-md1 .btn:active,
+        body.color-md1 .download-btn-action:active {
+            transform: translateY(1px);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+        }
 
         /* 下拉菜单动画 */
         .dropdown { position: relative; display: inline-block; }
         .dropdown-content {
             position: absolute; right: 0; top: 130%;
             background-color: var(--menu-bg); min-width: 160px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-radius: 4px;
             border: 1px solid var(--divider); overflow: hidden; z-index: 1005;
             opacity: 0; visibility: hidden; transform: translateY(-15px) scale(0.95);
             transform-origin: top right;
@@ -266,7 +309,6 @@
         }
         .sidebar-menu.open { transform:translateX(0); }
         
-        /* 新增：侧边栏头部容器，让文字和关闭按钮左右对齐 */
         .sidebar-header-container {
             display: flex; 
             justify-content: space-between; 
@@ -279,10 +321,9 @@
             color: var(--text); 
             letter-spacing: 0.08em; 
             text-transform: uppercase; 
-            padding: 0; /* 移除原本的 padding */
+            padding: 0;
         }
         
-        /* 新增：关闭按钮样式 */
         .sidebar-close-btn {
             background: transparent;
             border: none;
@@ -682,8 +723,13 @@
             -webkit-backdrop-filter: blur(22px) saturate(180%) !important; 
             border-bottom: 1px solid rgba(255,255,255,0.2) !important; 
         }
-        body.glass-mode.color-md1 .site-title,
-        body.glass-mode.color-md1 .hamburger-line { color: #fff !important; background-color: #fff !important; }
+        body.glass-mode.color-md1 .site-title { 
+            color: #fff !important; 
+            background-color: transparent !important; 
+        }
+        body.glass-mode.color-md1 .hamburger-line { 
+            background-color: #fff !important; 
+        }
         body.glass-mode.color-md1 .nav-btn { color: #fff !important; background: rgba(255,255,255,0.2) !important; }
         body.glass-mode .sidebar-menu { background-color: rgba(255,255,255,0.65) !important; backdrop-filter: blur(22px) saturate(180%) !important; }
         [data-theme="dark"] body.glass-mode .sidebar-menu { background-color: rgba(28,28,30,0.65) !important; }
@@ -763,7 +809,6 @@
 
     <div class="menu-overlay" id="menuOverlay"></div>
 
-    <!-- 修改了这里的头部，加上了关闭按钮 -->
     <aside class="sidebar-menu" id="sidebarMenu">
         <div class="sidebar-header-container">
             <div class="sidebar-header" data-i18n="menu">菜单</div>
