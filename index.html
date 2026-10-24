@@ -134,7 +134,7 @@
         html.view-tv h1 { font-size: clamp(2rem, 6vw, 3rem); }
         html.view-tv .btn { padding: 1rem 2.5rem; font-size: 1.2rem; }
 
-        /* ================= 顶部导航栏基础 (彻底修复白块) ================= */
+        /* ================= 顶部导航栏基础 ================= */
         .top-bar { 
             position: fixed; top:0; left:0; right:0; 
             height: calc(var(--topbar-height) + var(--safe-top)); 
@@ -143,7 +143,6 @@
             display: flex; align-items: center; justify-content: space-between;
             padding-left: 20px; padding-right: 20px;
             transition: background-color 0.6s var(--ease-smooth), border-color 0.6s var(--ease-smooth);
-            
             transform: translateZ(0);
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
@@ -153,19 +152,12 @@
             font-size: 1.1rem; 
             font-weight: bold; 
             letter-spacing: 0.04em; 
-            
-            /* 取消 flex: 1 的拉伸，改为自适应，防止撑满整个白条 */
             max-width: 85%; 
             margin-right: 15px;
-            
             white-space: nowrap; 
             overflow: hidden; 
             text-overflow: ellipsis; 
-            
-            /* 强制清除背景色，这是修复白块的核心！ */
             background-color: transparent !important; 
-            
-            /* 保证文字颜色正常渲染 */
             -webkit-text-fill-color: currentColor; 
             -webkit-user-select: none; 
             user-select: none;
@@ -222,9 +214,7 @@
             background-color: var(--accent) !important;
             border-bottom: 1px solid rgba(0,0,0,0.1) !important;
         }
-        body.color-md1 .site-title { 
-            color: #ffffff !important; 
-        }
+        body.color-md1 .site-title { color: #ffffff !important; }
         body.color-md1 .hamburger-line { background-color: #ffffff !important; }
         body.color-md1 .nav-btn { color: #ffffff !important; background: rgba(255,255,255,0.15) !important; }
         body.color-md1 .nav-btn:hover { background: rgba(255,255,255,0.3) !important; }
@@ -275,7 +265,41 @@
             -webkit-overflow-scrolling: touch;
         }
         .sidebar-menu.open { transform:translateX(0); }
-        .sidebar-header { font-size: 1.1rem; font-weight: 700; color: var(--text); padding: 12px 20px; letter-spacing: 0.08em; text-transform: uppercase; }
+        
+        /* 新增：侧边栏头部容器，让文字和关闭按钮左右对齐 */
+        .sidebar-header-container {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 12px 20px;
+        }
+        .sidebar-header { 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            color: var(--text); 
+            letter-spacing: 0.08em; 
+            text-transform: uppercase; 
+            padding: 0; /* 移除原本的 padding */
+        }
+        
+        /* 新增：关闭按钮样式 */
+        .sidebar-close-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s, color 0.2s;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .sidebar-close-btn:hover { background: var(--menu-item-hover); color: var(--text); }
+        .sidebar-close-btn svg { width: 20px; height: 20px; }
+
         .menu-section { padding:14px 20px 6px; font-size:0.7rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-secondary); }
         .menu-item { 
             display:flex; align-items:center; justify-content:space-between; 
@@ -658,14 +682,8 @@
             -webkit-backdrop-filter: blur(22px) saturate(180%) !important; 
             border-bottom: 1px solid rgba(255,255,255,0.2) !important; 
         }
-        /* 删除了这里原本导致白底白字的代码，强制透明 */
-        body.glass-mode.color-md1 .site-title { 
-            color: #fff !important; 
-            background-color: transparent !important; 
-        }
-        body.glass-mode.color-md1 .hamburger-line { 
-            background-color: #fff !important; 
-        }
+        body.glass-mode.color-md1 .site-title,
+        body.glass-mode.color-md1 .hamburger-line { color: #fff !important; background-color: #fff !important; }
         body.glass-mode.color-md1 .nav-btn { color: #fff !important; background: rgba(255,255,255,0.2) !important; }
         body.glass-mode .sidebar-menu { background-color: rgba(255,255,255,0.65) !important; backdrop-filter: blur(22px) saturate(180%) !important; }
         [data-theme="dark"] body.glass-mode .sidebar-menu { background-color: rgba(28,28,30,0.65) !important; }
@@ -745,8 +763,17 @@
 
     <div class="menu-overlay" id="menuOverlay"></div>
 
+    <!-- 修改了这里的头部，加上了关闭按钮 -->
     <aside class="sidebar-menu" id="sidebarMenu">
-        <div class="sidebar-header" data-i18n="menu">菜单</div>
+        <div class="sidebar-header-container">
+            <div class="sidebar-header" data-i18n="menu">菜单</div>
+            <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="关闭菜单">
+                <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
         <div class="menu-divider"></div>
         <button class="menu-item" id="settingsTriggerMobile"><span data-i18n="settings">设置</span><span>⚙️</span></button>
         <button class="menu-item" id="calcTriggerMobile"><span data-i18n="calculator">计算器</span><span>🔢</span></button>
@@ -1321,7 +1348,7 @@
             });
 
             // 导航栏控制
-            const sidebar = $('sidebarMenu'), overlay = $('menuOverlay'), hbBtn = $('hamburgerBtn');
+            const sidebar = $('sidebarMenu'), overlay = $('menuOverlay'), hbBtn = $('hamburgerBtn'), sidebarCloseBtn = $('sidebarCloseBtn');
             function toggleMenu(force) {
                 const isOpen = force !== undefined ? force : !sidebar.classList.contains('open');
                 sidebar.classList.toggle('open', isOpen);
@@ -1329,6 +1356,7 @@
                 if(hbBtn) hbBtn.classList.toggle('active', isOpen);
             }
             if(hbBtn) hbBtn.addEventListener('click', () => toggleMenu());
+            if(sidebarCloseBtn) sidebarCloseBtn.addEventListener('click', () => toggleMenu(false));
             overlay.addEventListener('click', () => toggleMenu(false));
 
             function openSettings() { toggleMenu(false); $('settingsOverlay').classList.add('visible'); }
