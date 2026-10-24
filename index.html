@@ -94,7 +94,7 @@
             transition: background-color 0.6s var(--ease-smooth), color 0.6s var(--ease-smooth), background-image 0.6s var(--ease-smooth);
         }
         
-        /* ================= 核心入场动画 ================= */
+        /* 核心入场动画 */
         @keyframes contentEnter {
             0% { opacity: 0; transform: translateY(30px) scale(0.98); filter: blur(8px); }
             100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
@@ -592,8 +592,7 @@
         body.minecraft-mode .calc-key.operator, body.minecraft-mode .calc-key.equals { background: #55ff55 !important; color: #000 !important; border-color: #fff !important; }
         body.minecraft-mode .calc-key.clear { background: #8b0000 !important; color: #fff !important; }
 
-        /* ================= 透明模式 (修复毛玻璃) ================= */
-        /* 默认颜色主题下的透明模式顶部 */
+        /* ================= 透明模式 ================= */
         body.glass-mode.color-default .top-bar { 
             background-color: rgba(255, 255, 255, 0.55) !important; 
             backdrop-filter: blur(22px) saturate(180%) !important; 
@@ -604,8 +603,6 @@
             background-color: rgba(28, 28, 30, 0.55) !important;
             border-bottom: 1px solid rgba(255,255,255,0.1) !important;
         }
-        
-        /* MD1 颜色主题下的透明模式顶部（带主题色的毛玻璃） */
         body.glass-mode.color-md1 .top-bar { 
             background-color: var(--accent-transparent) !important; 
             backdrop-filter: blur(22px) saturate(180%) !important; 
@@ -615,8 +612,6 @@
         body.glass-mode.color-md1 .site-title,
         body.glass-mode.color-md1 .hamburger-line { color: #fff !important; background-color: #fff !important; }
         body.glass-mode.color-md1 .nav-btn { color: #fff !important; background: rgba(255,255,255,0.2) !important; }
-
-        /* 透明模式其他组件 */
         body.glass-mode .sidebar-menu { background-color: rgba(255,255,255,0.65) !important; backdrop-filter: blur(22px) saturate(180%) !important; }
         [data-theme="dark"] body.glass-mode .sidebar-menu { background-color: rgba(28,28,30,0.65) !important; }
         body.glass-mode .settings-modal, body.glass-mode .calc-modal, body.glass-mode .dialpad-modal, body.glass-mode .about-modal, body.glass-mode .easter-egg-modal { background-color:rgba(255,255,255,0.85) !important; backdrop-filter:blur(22px) !important; }
@@ -790,6 +785,7 @@
                     <span class="setting-label" data-i18n="wallpaper">壁纸</span>
                     <select id="selectWallpaper" class="retro-select">
                         <option value="default">默认</option>
+                        <option value="bing">必应每日一图</option>
                         <option value="rainbow">彩虹</option>
                         <option value="creeper_sleep">苦力怕娘睡觉</option>
                         <option value="minecart">矿车</option>
@@ -830,7 +826,7 @@
                 <p data-i18n="aboutText">这是一架国泰航空A330官方网站</p>
                 <p class="version-text" id="versionArea" style="margin-top:8px;">
                     <span class="version-label" data-i18n="versionLabel">版本号</span>
-                    <span class="version-number" data-i18n="versionNumber">7.6.1</span>
+                    <span class="version-number" data-i18n="versionNumber">7.6.2</span>
                 </p>
             </div>
             <button class="about-close-btn" id="aboutCloseBtn" data-i18n="close">关闭</button>
@@ -983,15 +979,16 @@
 
             // 翻译词条
             const translations = {
-                'zh-CN': { siteTitle:'一架国泰航空A330官方网站', settings:'设置', menu:'菜单', calculator:'计算器', about:'关于', aboutText:'这是一架国泰航空A330官方网站', versionLabel:'版本号', versionNumber:'7.6.1', links:'链接', webMC:'网页版MC', ojangDownload:'ojang pe下载', dialpad:'拨号盘', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁纸', language:'语言', close:'关闭', welcome:'欢迎来到<br>一架国泰航空A330官方网站', bilibili:'我的 bilibili', fanGroup:'加入粉丝群', announcementTitle:'公告栏', announcementSubtitle:'修复了一些bug，添加了雪花，优化了新春主题', bilibiliDownload:'哔哩哔哩国际版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下载', delete:'删除', footer:'Cathay Pacific • A330 • Minimal' },
-                'zh-TW': { siteTitle:'一架國泰航空A330官方網站', settings:'設置', menu:'選單', calculator:'計算機', about:'關於', aboutText:'這是一架國泰航空A330官方網站', versionLabel:'版本號', versionNumber:'7.6.1', links:'連結', webMC:'網頁版MC', ojangDownload:'ojang pe下載', dialpad:'撥號盤', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁紙', language:'語言', close:'關閉', welcome:'歡迎來到<br>一架國泰航空A330官方網站', bilibili:'我的 bilibili', fanGroup:'加入粉絲群', announcementTitle:'公告欄', announcementSubtitle:'修復了一些bug，添加了雪花，優化了新春主題', bilibiliDownload:'嗶哩嗶哩國際版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下載', delete:'刪除', footer:'Cathay Pacific • A330 • Minimal' },
-                'en': { siteTitle:'Cathay Pacific A330 Official Website', settings:'Settings', menu:'Menu', calculator:'Calculator', about:'About', aboutText:'This is Cathay Pacific A330 Official Website', versionLabel:'Version', versionNumber:'7.6.1', links:'Links', webMC:'Web MC', ojangDownload:'ojang pe Download', dialpad:'Dial Pad', darkMode:'Dark Mode', glassMode:'Glass Mode', wallpaper:'Wallpaper', language:'Language', close:'Close', welcome:'Welcome to<br>Cathay Pacific A330 Official Website', bilibili:'My bilibili', fanGroup:'Join Fan Group', announcementTitle:'Announcement', announcementSubtitle:'Fixed some bugs, added snow, optimized New Year theme', bilibiliDownload:'Bilibili International 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'Download', delete:'Delete', footer:'Cathay Pacific • A330 • Minimal' },
-                'ja': { siteTitle:'キャセイパシフィックA330公式サイト', settings:'設定', menu:'メニュー', calculator:'電卓', about:'について', aboutText:'これはキャセイパシフィックA330公式サイトです', versionLabel:'バージョン', versionNumber:'7.6.1', links:'リンク', webMC:'ウェブ版MC', ojangDownload:'ojang peダウンロード', dialpad:'ダイヤルパッド', darkMode:'ダークモード', glassMode:'グラスモード', wallpaper:'壁紙', language:'言語', close:'閉じる', welcome:'ようこそ<br>キャセイパシフィックA330公式サイトへ', bilibili:'My bilibili', fanGroup:'ファングループに参加', announcementTitle:'お知らせ', announcementSubtitle:'バグ修正、雪を追加、新春テーマを最適化', bilibiliDownload:'Bilibili国際版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'ダウンロード', delete:'削除', footer:'Cathay Pacific • A330 • Minimal' },
-                'ko': { siteTitle:'캐세이퍼시픽 A330 공식 웹사이트', settings:'설정', menu:'메뉴', calculator:'계산기', about:'정보', aboutText:'이것은 캐세이퍼시픽 A330 공식 웹사이트입니다', versionLabel:'버전', versionNumber:'7.6.1', links:'링크', webMC:'웹 MC', ojangDownload:'ojang pe 다운로드', dialpad:'다이얼 패드', darkMode:'다크 모드', glassMode:'글래스 모드', wallpaper:'배경화면', language:'언어', close:'닫기', welcome:'환영합니다<br>캐세이퍼시픽 A330 공식 웹사이트', bilibili:'My bilibili', fanGroup:'팬 그룹 가입', announcementTitle:'공지사항', announcementSubtitle:'버그 수정, 눈 추가, 새해 테마 최적화', bilibiliDownload:'Bilibili 국제판 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'다운로드', delete:'삭제', footer:'Cathay Pacific • A330 • Minimal' }
+                'zh-CN': { siteTitle:'一架国泰航空A330官方网站', settings:'设置', menu:'菜单', calculator:'计算器', about:'关于', aboutText:'这是一架国泰航空A330官方网站', versionLabel:'版本号', versionNumber:'7.6.2', links:'链接', webMC:'网页版MC', ojangDownload:'ojang pe下载', dialpad:'拨号盘', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁纸', language:'语言', close:'关闭', welcome:'欢迎来到<br>一架国泰航空A330官方网站', bilibili:'我的 bilibili', fanGroup:'加入粉丝群', announcementTitle:'公告栏', announcementSubtitle:'修复了一些bug，添加了雪花，优化了新春主题', bilibiliDownload:'哔哩哔哩国际版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下载', delete:'删除', footer:'Cathay Pacific • A330 • Minimal' },
+                'zh-TW': { siteTitle:'一架國泰航空A330官方網站', settings:'設置', menu:'選單', calculator:'計算機', about:'關於', aboutText:'這是一架國泰航空A330官方網站', versionLabel:'版本號', versionNumber:'7.6.2', links:'連結', webMC:'網頁版MC', ojangDownload:'ojang pe下載', dialpad:'撥號盤', darkMode:'深色模式', glassMode:'透明模式', wallpaper:'壁紙', language:'語言', close:'關閉', welcome:'歡迎來到<br>一架國泰航空A330官方網站', bilibili:'我的 bilibili', fanGroup:'加入粉絲群', announcementTitle:'公告欄', announcementSubtitle:'修復了一些bug，添加了雪花，優化了新春主題', bilibiliDownload:'嗶哩嗶哩國際版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'剪映 5.7.0', kuGouDownload:'酷狗概念版 2.5.5', ojDownload:'ojang pe 5.1.0', download:'下載', delete:'刪除', footer:'Cathay Pacific • A330 • Minimal' },
+                'en': { siteTitle:'Cathay Pacific A330 Official Website', settings:'Settings', menu:'Menu', calculator:'Calculator', about:'About', aboutText:'This is Cathay Pacific A330 Official Website', versionLabel:'Version', versionNumber:'7.6.2', links:'Links', webMC:'Web MC', ojangDownload:'ojang pe Download', dialpad:'Dial Pad', darkMode:'Dark Mode', glassMode:'Glass Mode', wallpaper:'Wallpaper', language:'Language', close:'Close', welcome:'Welcome to<br>Cathay Pacific A330 Official Website', bilibili:'My bilibili', fanGroup:'Join Fan Group', announcementTitle:'Announcement', announcementSubtitle:'Fixed some bugs, added snow, optimized New Year theme', bilibiliDownload:'Bilibili International 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'Download', delete:'Delete', footer:'Cathay Pacific • A330 • Minimal' },
+                'ja': { siteTitle:'キャセイパシフィックA330公式サイト', settings:'設定', menu:'メニュー', calculator:'電卓', about:'について', aboutText:'これはキャセイパシフィックA330公式サイトです', versionLabel:'バージョン', versionNumber:'7.6.2', links:'リンク', webMC:'ウェブ版MC', ojangDownload:'ojang peダウンロード', dialpad:'ダイヤルパッド', darkMode:'ダークモード', glassMode:'グラスモード', wallpaper:'壁紙', language:'言語', close:'閉じる', welcome:'ようこそ<br>キャセイパシフィックA330公式サイトへ', bilibili:'My bilibili', fanGroup:'ファングループに参加', announcementTitle:'お知らせ', announcementSubtitle:'バグ修正、雪を追加、新春テーマを最適化', bilibiliDownload:'Bilibili国際版 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'ダウンロード', delete:'削除', footer:'Cathay Pacific • A330 • Minimal' },
+                'ko': { siteTitle:'캐세이퍼시픽 A330 공식 웹사이트', settings:'설정', menu:'메뉴', calculator:'계산기', about:'정보', aboutText:'이것은 캐세이퍼시픽 A330 공식 웹사이트입니다', versionLabel:'버전', versionNumber:'7.6.2', links:'링크', webMC:'웹 MC', ojangDownload:'ojang pe 다운로드', dialpad:'다이얼 패드', darkMode:'다크 모드', glassMode:'글래스 모드', wallpaper:'배경화면', language:'언어', close:'닫기', welcome:'환영합니다<br>캐세이퍼시픽 A330 공식 웹사이트', bilibili:'My bilibili', fanGroup:'팬 그룹 가입', announcementTitle:'공지사항', announcementSubtitle:'버그 수정, 눈 추가, 새해 테마 최적화', bilibiliDownload:'Bilibili 국제판 3.18.2', shizukuDownload:'Shizuku 13.6.0', jianYingDownload:'JianYing 5.7.0', kuGouDownload:'KuGou Concept 2.5.5', ojDownload:'ojang pe 5.1.0', download:'다운로드', delete:'삭제', footer:'Cathay Pacific • A330 • Minimal' }
             };
 
             const wallpaperURLs = {
                 default: '',
+                bing: 'https://api.dujin.org/bing/1920.php', // 必应每日一图
                 rainbow: 'rainbow',
                 creeper_sleep: 'https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/IMG_6140.jpeg',
                 minecart: 'https://raw.githubusercontent.com/Xinghe2711/Xinghe2711.github.io/refs/heads/main/IMG_6134.jpeg',
@@ -1134,7 +1131,6 @@
                 });
             }
 
-            // 计算 HEX 颜色带透明度
             function hexToRgba(hex, alpha) {
                 hex = hex.replace('#', '');
                 if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
@@ -1389,7 +1385,7 @@
             applySettings();
             bindRipples();
 
-            console.log('[v7.6.1] 透明模式毛玻璃已修复');
+            console.log('[v7.6.2] 必应每日一图已加入');
         })();
     </script>
 </body>
