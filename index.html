@@ -101,7 +101,6 @@
             transition: background-color 0.6s var(--ease-smooth), color 0.6s var(--ease-smooth), background-image 0.6s var(--ease-smooth);
         }
         
-        /* ================= 主界面入场动画 ================= */
         @keyframes contentEnter {
             0% { opacity: 0; transform: translateY(30px) scale(0.98); filter: blur(8px); }
             100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
@@ -120,10 +119,8 @@
         .download-item:nth-child(5) { animation-delay: 0.85s; }
         .footer-note { animation: contentEnter 0.8s var(--ease-smooth) 0.95s both; }
 
-        /* ================= 导航栏控制 ================= */
         html.view-desktop #hamburgerBtn, html.view-desktop .sidebar-menu, html.view-desktop .menu-overlay { display: none !important; }
         html.view-desktop .desktop-nav { display: flex !important; }
-        
         html:not(.view-desktop) .desktop-nav { display: none !important; }
 
         .container { text-align:center; padding: 1.2rem; width:100%; margin:auto; position: relative; z-index: 2; transition: max-width 0.6s var(--ease-spring); }
@@ -133,7 +130,6 @@
         html.view-phone .container { max-width: 480px; }
         html.view-tv .container { max-width: 1920px; font-size: 1.2rem; }
 
-        /* ================= 顶部导航栏 ================= */
         .top-bar { 
             position: fixed; top:0; left:0; right:0; 
             height: calc(var(--topbar-height) + var(--safe-top)); 
@@ -144,18 +140,7 @@
             transition: background-color 0.4s, box-shadow 0.4s;
         }
         
-        .site-title { 
-            font-size: 1.15rem; 
-            font-weight: 600; 
-            letter-spacing: 0.04em; 
-            white-space: nowrap; 
-            overflow: hidden; 
-            text-overflow: ellipsis; 
-            flex-shrink: 0; 
-            max-width: calc(100% - 60px);
-            background: transparent !important;
-            color: inherit;
-        }
+        .site-title { font-size: 1.15rem; font-weight: 600; letter-spacing: 0.04em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0; max-width: calc(100% - 60px); background: transparent !important; color: inherit; }
         
         .hamburger-btn {
             background:transparent; border:none; cursor:pointer;
@@ -171,7 +156,6 @@
         .hamburger-btn.active .hamburger-line:nth-child(2) { opacity:0; transform: scaleX(0); }
         .hamburger-btn.active .hamburger-line:nth-child(3) { transform:translateY(-7.5px) rotate(-45deg); }
 
-        /* 桌面版导航链接 */
         .desktop-nav { display: none; align-items: center; gap: 12px; flex-shrink: 0; }
         .nav-btn {
             border: none; padding: 8px 14px; border-radius: 4px; font-size: 14px; cursor: pointer;
@@ -183,7 +167,6 @@
         .nav-btn:hover { transform: translateY(-1px); }
         .nav-btn:active { transform: scale(0.95); }
         
-        /* ================= 颜色主题控制 ================= */
         body.color-default .top-bar { background-color: var(--bg) !important; border-bottom: 1px solid var(--divider) !important; }
         body.color-default .site-title { color: var(--text) !important; }
         body.color-default .hamburger-line { background-color: var(--text) !important; }
@@ -192,7 +175,6 @@
         [data-theme="dark"] body.color-default .nav-btn { background: rgba(255,255,255,0.1) !important; }
         [data-theme="dark"] body.color-default .nav-btn:hover { background: rgba(255,255,255,0.15) !important; }
 
-        /* MD1 专属风格 */
         body.color-md1 .top-bar { background-color: var(--accent) !important; border-bottom: none !important; box-shadow: 0 2px 4px rgba(0,0,0,0.15) !important; }
         body.color-md1 .site-title { color: #ffffff !important; }
         body.color-md1 .hamburger-line { background-color: #ffffff !important; }
@@ -206,7 +188,6 @@
         body.color-md1 .btn:hover, body.color-md1 .download-btn-action:hover { background-color: var(--accent-hover) !important; transform: translateY(0); box-shadow: 0 3px 6px rgba(0,0,0,0.25) !important; }
         body.color-md1 .btn:active, body.color-md1 .download-btn-action:active { transform: translateY(1px); box-shadow: 0 1px 2px rgba(0,0,0,0.2) !important; }
 
-        /* Ore UI 专属风格 */
         body.ore-ui-mode {
             --ore-bg: #1e1e1f; --ore-panel-bg: #313131; --ore-border: #000000; --ore-border-light: #5a5a5a;
             --ore-btn-bg: #48494a; --ore-btn-highlight: #5f6062; --ore-btn-shadow: #212121;
@@ -232,14 +213,14 @@
         body.ore-ui-mode .btn, body.ore-ui-mode .download-btn-action { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; color: #fff !important; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; }
         body.ore-ui-mode .btn:hover, body.ore-ui-mode .download-btn-action:hover { background-color: var(--ore-btn-highlight) !important; transform: none; }
         body.ore-ui-mode .btn:active, body.ore-ui-mode .download-btn-action:active { background-color: var(--ore-btn-shadow) !important; box-shadow: inset 2px 2px 0 var(--ore-border), inset -2px -2px 0 var(--ore-border-light) !important; }
-        body.ore-ui-mode .settings-modal, body.ore-ui-mode .about-modal, body.ore-ui-mode .calc-modal, body.ore-ui-mode .dialpad-modal, body.ore-ui-mode .easter-egg-modal { background-color: var(--ore-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; box-shadow: inset 0 0 0 2px var(--ore-border-light), 0 10px 30px rgba(0,0,0,0.8) !important; color: #fff; }
-        body.ore-ui-mode .settings-nav { background-color: var(--ore-border) !important; border-bottom: 2px solid var(--ore-border) !important; height: 60px; }
-        body.ore-ui-mode .settings-nav-title { color: #fff !important; font-size: 20px; font-weight: bold; text-shadow: 2px 2px 0 #000; letter-spacing: 1px; }
-        body.ore-ui-mode .settings-content { background-color: var(--ore-panel-bg) !important; padding-top: 10px; }
+        body.ore-ui-mode .settings-modal, body.ore-ui-mode .about-modal, body.ore-ui-mode .calc-modal, body.ore-ui-mode .dialpad-modal, body.ore-ui-mode .easter-egg-modal, body.ore-ui-mode .game-modal { background-color: var(--ore-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; box-shadow: inset 0 0 0 2px var(--ore-border-light), 0 10px 30px rgba(0,0,0,0.8) !important; color: #fff; }
+        body.ore-ui-mode .settings-nav, body.ore-ui-mode .game-header { background-color: var(--ore-border) !important; border-bottom: 2px solid var(--ore-border) !important; height: 60px; }
+        body.ore-ui-mode .settings-nav-title, body.ore-ui-mode .game-title { color: #fff !important; font-size: 20px; font-weight: bold; text-shadow: 2px 2px 0 #000; letter-spacing: 1px; }
+        body.ore-ui-mode .settings-content, body.ore-ui-mode .game-content { background-color: var(--ore-panel-bg) !important; padding-top: 10px; }
         body.ore-ui-mode .settings-header-title { color: #fff !important; border-bottom: 2px solid var(--ore-border) !important; padding-bottom: 10px; font-size: 22px; text-shadow: 1px 1px 0 #000; }
         body.ore-ui-mode .setting-row { border-bottom: 1px solid var(--ore-border) !important; padding: 16px 0; }
         body.ore-ui-mode .setting-label { color: #fff !important; font-size: 16px; }
-        body.ore-ui-mode .settings-close-btn { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; color: #fff !important; border-radius: 0 !important; font-size: 18px; font-weight: bold; text-shadow: 1px 1px 0 #000; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; }
+        body.ore-ui-mode .settings-close-btn, body.ore-ui-mode .game-close-btn { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; color: #fff !important; border-radius: 0 !important; font-size: 18px; font-weight: bold; text-shadow: 1px 1px 0 #000; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; }
         body.ore-ui-mode .retro-select { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; color: #fff !important; border-radius: 0 !important; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; }
         body.ore-ui-mode .retro-switch { background-color: #5a5a5a !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; width: 46px; height: 24px; }
         body.ore-ui-mode .retro-switch.on { background-color: var(--ore-green) !important; }
@@ -247,120 +228,46 @@
         body.ore-ui-mode .retro-switch.on .knob { transform: translateX(20px) !important; }
         body.ore-ui-mode .retro-switch:active .knob { width: 18px !important; }
 
-        /* ================= 侧边栏基础 (恢复动画) ================= */
-        .menu-overlay { 
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
-            background-color: var(--modal-overlay); z-index: 1000; 
-            opacity: 0; visibility: hidden; pointer-events: none;
-            transition: opacity 0.4s var(--ease-smooth), visibility 0.4s var(--ease-smooth); 
-        }
+        .menu-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--modal-overlay); z-index: 1000; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.4s var(--ease-smooth), visibility 0.4s var(--ease-smooth); }
         .menu-overlay.visible { opacity: 1; visibility: visible; pointer-events: auto; }
-        
-        .sidebar-menu { 
-            position: fixed; top: 0; right: 0; bottom: 0; z-index: 1004; 
-            background-color: var(--menu-bg); width: var(--sidebar-width); max-width: 85vw; 
-            box-shadow: -10px 0 30px rgba(0,0,0,0.15); 
-            padding: calc(20px + var(--safe-top)) 0 20px 0; overflow-y: auto; 
-            visibility: hidden;
-            transform: translateX(100%); 
-            transition: transform 0.5s var(--ease-spring), visibility 0.5s var(--ease-spring), background-color 0.6s var(--ease-smooth); 
-            border-left: 1px solid var(--divider); -webkit-overflow-scrolling: touch;
-        }
+        .sidebar-menu { position: fixed; top: 0; right: 0; bottom: 0; z-index: 1004; background-color: var(--menu-bg); width: var(--sidebar-width); max-width: 85vw; box-shadow: -10px 0 30px rgba(0,0,0,0.15); padding: calc(20px + var(--safe-top)) 0 20px 0; overflow-y: auto; visibility: hidden; transform: translateX(100%); transition: transform 0.5s var(--ease-spring), visibility 0.5s var(--ease-spring), background-color 0.6s var(--ease-smooth); border-left: 1px solid var(--divider); -webkit-overflow-scrolling: touch; }
         .sidebar-menu.open { transform: translateX(0); visibility: visible; }
-        
         .sidebar-header-container { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; }
         .sidebar-header { font-size: 1.1rem; font-weight: 700; color: var(--text); letter-spacing: 0.08em; text-transform: uppercase; padding: 0; }
-        .sidebar-close-btn {
-            background: transparent; border: none; color: var(--text-secondary); cursor: pointer; padding: 5px;
-            display: flex; align-items: center; justify-content: center; border-radius: 50%;
-            transition: background 0.2s, color 0.2s;
-        }
+        .sidebar-close-btn { background: transparent; border: none; color: var(--text-secondary); cursor: pointer; padding: 5px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background 0.2s, color 0.2s; }
         .sidebar-close-btn:hover { background: var(--menu-item-hover); color: var(--text); }
         .sidebar-close-btn svg { width: 20px; height: 20px; }
-
         .menu-section { padding:14px 20px 6px; font-size:0.7rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-secondary); }
-        .menu-item { 
-            display:flex; align-items:center; justify-content:space-between; 
-            width:100%; padding:14px 20px; background:transparent; border:none; cursor:pointer; 
-            font-size:1rem; color:var(--text); font-family:inherit; text-decoration:none; 
-            text-align:left; position:relative; transition: background 0.2s, padding-left 0.2s;
-            overflow: hidden;
-        }
+        .menu-item { display:flex; align-items:center; justify-content:space-between; width:100%; padding:14px 20px; background:transparent; border:none; cursor:pointer; font-size:1rem; color:var(--text); font-family:inherit; text-decoration:none; text-align:left; position:relative; transition: background 0.2s, padding-left 0.2s; overflow: hidden; }
         .menu-item:hover { background-color:var(--menu-item-hover); padding-left: 24px; }
         .menu-divider { height:1px; background-color:var(--divider); margin:6px 0; opacity:0.5; }
 
-        /* ================= 主内容 ================= */
         .title-wrapper { position: relative; display: inline-block; margin-bottom: 1.2rem; max-width: 100%; }
         h1 { font-size: 1.5rem; font-weight:300; color:var(--text); letter-spacing:0.04em; line-height:1.5; margin-bottom:0; transition: color 0.6s var(--ease-smooth); }
         @media (min-width: 769px) { h1 { font-size: 2rem; } }
-        
-        .splash-text {
-            position: absolute; right: -30px; bottom: -15px;
-            color: #ffff00; font-weight: 700; font-style: italic; font-size: 1rem;
-            text-shadow: 2px 2px 0 #3f3f00; transform-origin: center;
-            animation: splashBounce 0.6s ease-in-out infinite alternate;
-            pointer-events: none; white-space: nowrap; z-index: 10;
-        }
-        @keyframes splashBounce {
-            0% { transform: rotate(-15deg) scale(1); }
-            100% { transform: rotate(-15deg) scale(1.15); }
-        }
-
+        .splash-text { position: absolute; right: -30px; bottom: -15px; color: #ffff00; font-weight: 700; font-style: italic; font-size: 1rem; text-shadow: 2px 2px 0 #3f3f00; transform-origin: center; animation: splashBounce 0.6s ease-in-out infinite alternate; pointer-events: none; white-space: nowrap; z-index: 10; }
+        @keyframes splashBounce { 0% { transform: rotate(-15deg) scale(1); } 100% { transform: rotate(-15deg) scale(1.15); } }
         .divider { width:48px; height:1px; background-color:var(--divider); margin:0 auto 1.2rem auto; transition: background-color 0.6s; }
         .button-group { display:flex; flex-wrap:wrap; justify-content:center; gap:0.7rem; }
-        
-        .btn { 
-            display:inline-block; padding:0.65rem 1.8rem; font-size:0.9rem; 
-            color:var(--btn-primary-text); background-color:var(--btn-primary); 
-            border:1px solid var(--btn-primary); border-radius:50px !important; 
-            cursor:pointer; text-decoration:none; white-space:nowrap; 
-            transition: all 0.4s var(--ease-spring);
-            position: relative; overflow: hidden;
-        }
+        .btn { display:inline-block; padding:0.65rem 1.8rem; font-size:0.9rem; color:var(--btn-primary-text); background-color:var(--btn-primary); border:1px solid var(--btn-primary); border-radius:50px !important; cursor:pointer; text-decoration:none; white-space:nowrap; transition: all 0.4s var(--ease-spring); position: relative; overflow: hidden; }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
         .btn:active { transform: translateY(0) scale(0.95); }
-
-        .announcement { 
-            margin:1.2rem auto; max-width:360px; padding:0.7rem 1rem; 
-            border:1.5px solid var(--announcement-border); border-radius:16px !important; 
-            background-color:var(--announcement-bg); 
-            transition: all 0.6s var(--ease-smooth);
-            text-align: left;
-        }
+        .announcement { margin:1.2rem auto; max-width:360px; padding:0.7rem 1rem; border:1.5px solid var(--announcement-border); border-radius:16px !important; background-color:var(--announcement-bg); transition: all 0.6s var(--ease-smooth); text-align: left; }
         .announcement-title { font-size:1.1rem; font-weight:500; color:var(--announcement-title); margin-bottom: 4px; }
         .announcement-subtitle { font-size:0.85rem; color:var(--announcement-subtitle); line-height: 1.4; }
-        
         .download-group { display:flex; flex-direction:column; align-items:center; gap:0.8rem; margin-top:1.2rem; }
-        
-        .download-item { 
-            display:flex; align-items:center; justify-content:space-between; 
-            width:100%; max-width:360px; padding:1rem 1.2rem; 
-            border:1.5px solid var(--download-btn-border); border-radius:16px !important; 
-            background-color:var(--download-btn-bg); 
-            transition: all 0.4s var(--ease-spring);
-            position: relative; overflow: hidden;
-        }
+        .download-item { display:flex; align-items:center; justify-content:space-between; width:100%; max-width:360px; padding:1rem 1.2rem; border:1.5px solid var(--download-btn-border); border-radius:16px !important; background-color:var(--download-btn-bg); transition: all 0.4s var(--ease-spring); position: relative; overflow: hidden; }
         .download-item:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.08); border-color: var(--accent); }
         .download-text { font-size:1rem; color:var(--download-btn-text); flex:1; text-align:left; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-right:0.8rem; transition: color 0.4s; }
-        
-        .download-btn-action { 
-            display:inline-block; padding:0.5rem 1.2rem; font-size:0.9rem; font-weight:500; 
-            color:#ffffff; background-color:var(--btn-primary); border:none; border-radius:50px !important; 
-            cursor:pointer; text-decoration:none; white-space:nowrap; z-index: 2; 
-            transition: all 0.4s var(--ease-spring);
-            position: relative; overflow: hidden;
-        }
+        .download-btn-action { display:inline-block; padding:0.5rem 1.2rem; font-size:0.9rem; font-weight:500; color:#ffffff; background-color:var(--btn-primary); border:none; border-radius:50px !important; cursor:pointer; text-decoration:none; white-space:nowrap; z-index: 2; transition: all 0.4s var(--ease-spring); position: relative; overflow: hidden; }
         .download-btn-action:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
         .download-btn-action:active { transform: scale(0.92); }
-        
         .footer-note { margin-top:1.5rem; font-size:0.6rem; color:var(--text-secondary); letter-spacing:0.12em; text-transform:uppercase; }
 
-        /* ================= 水波纹 ================= */
         .ripple { position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.4); transform: scale(0); animation: rippleAnim 0.6s linear; pointer-events: none; }
         [data-theme="dark"] .ripple { background: rgba(255, 255, 255, 0.2); }
         @keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
 
-        /* ================= 特效图层 ================= */
         .fx-container { position: fixed; top:0; left:0; right:0; bottom:0; pointer-events: none; z-index: 1; overflow: hidden; transition: opacity 0.8s var(--ease-smooth); }
         .particle { position: fixed; top: -30px; user-select: none; animation: fall linear forwards; }
         @keyframes fall { 0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(105vh) translateX(var(--sway)) rotate(720deg); opacity: 0; } }
@@ -369,30 +276,29 @@
         .firework-particle { position: absolute; width: 6px; height: 6px; border-radius: 50%; transform: translate(-50%, -50%); animation: explode 1.4s var(--ease-smooth) forwards; }
         @keyframes explode { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; box-shadow: 0 0 12px currentColor; } 70% { opacity: 1; } 100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0); opacity: 0; box-shadow: none; } }
 
-        /* ================= 弹窗系统 (恢复流畅动画，使用 visibility 替代 display) ================= */
-        .settings-overlay, .about-overlay, .easter-egg-overlay, .calc-overlay, .dialpad-overlay, .more-overlay {
+        /* ================= 弹窗系统 ================= */
+        .settings-overlay, .about-overlay, .easter-egg-overlay, .calc-overlay, .dialpad-overlay, .more-overlay, .game-overlay {
             display: flex; position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
             background-color: var(--modal-overlay); z-index: 2100; 
             justify-content: center; align-items: center; padding: 1rem; 
             opacity: 0; visibility: hidden; pointer-events: none;
             transition: opacity 0.4s var(--ease-smooth), visibility 0.4s var(--ease-smooth);
         }
-        .settings-overlay.visible, .about-overlay.visible, .easter-egg-overlay.visible, .calc-overlay.visible, .dialpad-overlay.visible, .more-overlay.visible { 
+        .settings-overlay.visible, .about-overlay.visible, .easter-egg-overlay.visible, .calc-overlay.visible, .dialpad-overlay.visible, .more-overlay.visible, .game-overlay.visible { 
             opacity: 1; visibility: visible; pointer-events: auto; 
         }
 
-        .settings-modal, .about-modal, .easter-egg-modal, .calc-modal, .dialpad-modal, .more-modal {
+        .settings-modal, .about-modal, .easter-egg-modal, .calc-modal, .dialpad-modal, .more-modal, .game-modal {
             background-color:var(--modal-bg); border-radius:24px; 
             box-shadow:0 24px 64px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.1); 
             border:1px solid var(--divider); 
             display: flex; flex-direction: column; position: relative; 
             overflow: hidden; width: 100%; max-height: 85vh;
-            /* 弹窗缩放动画 */
             opacity: 0; transform: scale(0.85) translateY(30px);
             transition: all 0.5s var(--ease-spring);
         }
         .settings-overlay.visible .settings-modal, .about-overlay.visible .about-modal, .easter-egg-overlay.visible .easter-egg-modal,
-        .calc-overlay.visible .calc-modal, .dialpad-overlay.visible .dialpad-modal, .more-overlay.visible .more-modal { 
+        .calc-overlay.visible .calc-modal, .dialpad-overlay.visible .dialpad-modal, .more-overlay.visible .more-modal, .game-overlay.visible .game-modal { 
             opacity: 1; transform: scale(1) translateY(0); 
         }
 
@@ -401,18 +307,29 @@
         .calc-modal { max-width:340px; padding:1rem; }
         .dialpad-modal { max-width:280px; padding:1rem; }
 
+        /* ================= 游戏专属样式 ================= */
+        .game-modal { max-width: 500px; padding: 0; border-radius: 16px; overflow: hidden; background: #1a1a1a; border: 2px solid #333; }
+        .game-header { display: flex; align-items: center; justify-content: space-between; padding: 0 16px; height: 50px; background: #222; border-bottom: 1px solid #333; }
+        .game-title { font-size: 16px; font-weight: 600; color: #fff; }
+        .game-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; background: #111; position: relative; }
+        .game-close-btn { background: #333; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 14px; transition: background 0.2s; }
+        .game-close-btn:hover { background: #555; }
+        
+        .game-canvas { background: #000; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); max-width: 100%; }
+        .game-ui { display: flex; justify-content: space-between; width: 100%; margin-bottom: 10px; color: #fff; font-family: monospace; font-size: 16px; }
+        .game-hint { font-size: 12px; color: #888; margin-top: 10px; text-align: center; }
+        .mobile-controls { display: flex; gap: 10px; margin-top: 15px; }
+        .mobile-btn { background: #333; border: none; color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 18px; cursor: pointer; user-select: none; }
+        .mobile-btn:active { background: #555; }
+        @media (min-width: 769px) { .mobile-controls { display: none; } }
+
         /* 计算器与拨号盘 */
         .calc-display, .dialpad-display { background: var(--dial-display-bg); color: var(--dial-display-text); border-radius: 20px; padding: 1rem; text-align: right; font-size: 2.5rem; margin-bottom: 1rem; min-height: 80px; display: flex; align-items: center; justify-content: flex-end; overflow-x: auto; white-space: nowrap; transition: all 0.4s; box-shadow: inset 0 2px 8px rgba(0,0,0,0.05); }
         .dialpad-display { font-size: 1.2rem; min-height: 40px; padding: 0.5rem; border-radius: 12px; }
         .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
         .dialpad-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
 
-        .calc-key, .dial-key {
-            border: none; display: flex; align-items: center; justify-content: center;
-            cursor: pointer; font-family: inherit; position: relative; overflow: hidden;
-            background: var(--bg); color: var(--text);
-            transition: all 0.2s var(--ease-spring);
-        }
+        .calc-key, .dial-key { border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; font-family: inherit; position: relative; overflow: hidden; background: var(--bg); color: var(--text); transition: all 0.2s var(--ease-spring); }
         .calc-key { border-radius: 50%; aspect-ratio: 1; min-height: 60px; font-size: 1.5rem; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
         .dial-key { border-radius: 50%; aspect-ratio: 1; font-size: 1.2rem; background: var(--dial-key-bg); box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
         .calc-key:active, .dial-key:active { transform: scale(0.88); box-shadow: 0 0 0 rgba(0,0,0,0); }
@@ -482,7 +399,7 @@
         body.retro-mode .menu-item:hover { background: #fff !important; border-color: #b0a590 !important; }
         body.retro-mode .menu-divider { background: #c4b99c !important; }
         body.retro-mode .menu-section { color: #666 !important; }
-        body.retro-mode .settings-modal, body.retro-mode .calc-modal, body.retro-mode .dialpad-modal, body.retro-mode .about-modal, body.retro-mode .easter-egg-modal { background: #f3ebd5 !important; border: 1px solid #d6caab !important; box-shadow: 0 10px 30px rgba(0,0,0,0.2), inset 0 1px 0 #fff !important; }
+        body.retro-mode .settings-modal, body.retro-mode .calc-modal, body.retro-mode .dialpad-modal, body.retro-mode .about-modal, body.retro-mode .easter-egg-modal, body.retro-mode .game-modal { background: #f3ebd5 !important; border: 1px solid #d6caab !important; box-shadow: 0 10px 30px rgba(0,0,0,0.2), inset 0 1px 0 #fff !important; }
         body.retro-mode .settings-nav, body.retro-mode .settings-content { background: #f3ebd5 !important; }
         body.retro-mode .settings-header-title { color: #333 !important; border-color: #d6caab !important; }
         body.retro-mode .setting-row { border-bottom: 1px solid #e0d7c2 !important; }
@@ -507,12 +424,12 @@
         body.liquid-glass-mode .menu-item { color: #333 !important; border-bottom-color: rgba(0,0,0,0.1) !important; }
         [data-theme="dark"] body.liquid-glass-mode .sidebar-menu { background: rgba(30, 30, 30, 0.4) !important; border-left: 1px solid rgba(255,255,255,0.2) !important; }
         [data-theme="dark"] body.liquid-glass-mode .menu-item { color: #fff !important; border-bottom-color: rgba(255,255,255,0.1) !important; }
-        body.liquid-glass-mode .settings-modal, body.liquid-glass-mode .calc-modal, body.liquid-glass-mode .dialpad-modal, body.liquid-glass-mode .about-modal, body.liquid-glass-mode .easter-egg-modal { background: rgba(255, 255, 255, 0.35) !important; backdrop-filter: blur(40px) !important; border: 1px solid rgba(255,255,255,0.6) !important; }
+        body.liquid-glass-mode .settings-modal, body.liquid-glass-mode .calc-modal, body.liquid-glass-mode .dialpad-modal, body.liquid-glass-mode .about-modal, body.liquid-glass-mode .easter-egg-modal, body.liquid-glass-mode .game-modal { background: rgba(255, 255, 255, 0.35) !important; backdrop-filter: blur(40px) !important; border: 1px solid rgba(255,255,255,0.6) !important; }
         body.liquid-glass-mode .settings-nav, body.liquid-glass-mode .settings-content { background: transparent !important; }
         body.liquid-glass-mode .settings-header-title, body.liquid-glass-mode .settings-nav-title, body.liquid-glass-mode .setting-label, body.liquid-glass-mode .about-title, body.liquid-glass-mode .about-info p { color: #333 !important; }
         body.liquid-glass-mode .setting-row { border-bottom-color: rgba(0,0,0,0.1) !important; }
         body.liquid-glass-mode .retro-select { background: rgba(255,255,255,0.5) !important; border-color: rgba(255,255,255,0.6) !important; color: #333 !important; }
-        [data-theme="dark"] body.liquid-glass-mode .settings-modal, [data-theme="dark"] body.liquid-glass-mode .calc-modal, [data-theme="dark"] body.liquid-glass-mode .dialpad-modal, [data-theme="dark"] body.liquid-glass-mode .about-modal, [data-theme="dark"] body.liquid-glass-mode .easter-egg-modal { background: rgba(30, 30, 30, 0.4) !important; border: 1px solid rgba(255,255,255,0.2) !important; }
+        [data-theme="dark"] body.liquid-glass-mode .settings-modal, [data-theme="dark"] body.liquid-glass-mode .calc-modal, [data-theme="dark"] body.liquid-glass-mode .dialpad-modal, [data-theme="dark"] body.liquid-glass-mode .about-modal, [data-theme="dark"] body.liquid-glass-mode .easter-egg-modal, [data-theme="dark"] body.liquid-glass-mode .game-modal { background: rgba(30, 30, 30, 0.4) !important; border: 1px solid rgba(255,255,255,0.2) !important; }
         [data-theme="dark"] body.liquid-glass-mode .settings-header-title, [data-theme="dark"] body.liquid-glass-mode .settings-nav-title, [data-theme="dark"] body.liquid-glass-mode .setting-label, [data-theme="dark"] body.liquid-glass-mode .about-title, [data-theme="dark"] body.liquid-glass-mode .about-info p { color: #fff !important; }
         [data-theme="dark"] body.liquid-glass-mode .setting-row { border-bottom-color: rgba(255,255,255,0.1) !important; }
         [data-theme="dark"] body.liquid-glass-mode .retro-select { background: rgba(255,255,255,0.1) !important; border-color: rgba(255,255,255,0.3) !important; color: #fff !important; }
@@ -531,8 +448,8 @@
         body.glass-mode.color-md1 .nav-btn { color: #fff !important; background: rgba(255,255,255,0.2) !important; }
         body.glass-mode .sidebar-menu { background-color: rgba(255,255,255,0.65) !important; backdrop-filter: blur(22px) saturate(180%) !important; }
         [data-theme="dark"] body.glass-mode .sidebar-menu { background-color: rgba(28,28,30,0.65) !important; }
-        body.glass-mode .settings-modal, body.glass-mode .calc-modal, body.glass-mode .dialpad-modal, body.glass-mode .about-modal, body.glass-mode .easter-egg-modal { background-color:rgba(255,255,255,0.85) !important; backdrop-filter:blur(22px) !important; }
-        [data-theme="dark"] body.glass-mode .settings-modal, [data-theme="dark"] body.glass-mode .calc-modal, [data-theme="dark"] body.glass-mode .dialpad-modal, [data-theme="dark"] body.glass-mode .about-modal, [data-theme="dark"] body.glass-mode .easter-egg-modal { background-color:rgba(28,28,30,0.85) !important; }
+        body.glass-mode .settings-modal, body.glass-mode .calc-modal, body.glass-mode .dialpad-modal, body.glass-mode .about-modal, body.glass-mode .easter-egg-modal, body.glass-mode .game-modal { background-color:rgba(255,255,255,0.85) !important; backdrop-filter:blur(22px) !important; }
+        [data-theme="dark"] body.glass-mode .settings-modal, [data-theme="dark"] body.glass-mode .calc-modal, [data-theme="dark"] body.glass-mode .dialpad-modal, [data-theme="dark"] body.glass-mode .about-modal, [data-theme="dark"] body.glass-mode .easter-egg-modal, [data-theme="dark"] body.glass-mode .game-modal { background-color:rgba(28,28,30,0.85) !important; }
         body.glass-mode .settings-nav, body.glass-mode .settings-content { background-color: transparent !important; }
         body.glass-mode .download-item, body.glass-mode .announcement { background-color:rgba(255,255,255,0.55) !important; backdrop-filter:blur(8px) !important; }
         [data-theme="dark"] body.glass-mode .download-item, [data-theme="dark"] body.glass-mode .announcement { background-color:rgba(44,44,46,0.55) !important; }
@@ -574,6 +491,8 @@
                     <a href="https://mcjs.cc" target="_blank"><span>网页版MC</span> <span>↗</span></a>
                     <a href="https://share.feijipan.com/s/Pw8OwB3N" target="_blank"><span>ojang pe下载</span> <span>↗</span></a>
                     <button id="dialpadTriggerDesktop">拨号盘 ☎</button>
+                    <button id="tetrisTriggerDesktop">俄罗斯方块 🧱</button>
+                    <button id="mcGameTriggerDesktop">沙盒游戏 ⛏️</button>
                 </div>
             </div>
         </nav>
@@ -600,6 +519,10 @@
         <button class="menu-item" id="settingsTriggerMobile"><span data-i18n="settings">设置</span><span>⚙️</span></button>
         <button class="menu-item" id="calcTriggerMobile"><span data-i18n="calculator">计算器</span><span>🔢</span></button>
         <button class="menu-item" id="aboutTriggerMobile"><span data-i18n="about">关于</span><span>ℹ️</span></button>
+        <div class="menu-divider"></div>
+        <div class="menu-section">游戏中心</div>
+        <button class="menu-item" id="tetrisTriggerMobile"><span>俄罗斯方块</span><span>🧱</span></button>
+        <button class="menu-item" id="mcGameTriggerMobile"><span>沙盒游戏</span><span>⛏️</span></button>
         <div class="menu-divider"></div>
         <div class="menu-section" data-i18n="links">链接</div>
         <a href="https://mcjs.cc" target="_blank" class="menu-item"><span data-i18n="webMC">网页版MC</span> <span>↗</span></a>
@@ -786,6 +709,45 @@
         </div>
     </div>
 
+    <!-- ================= 俄罗斯方块弹窗 ================= -->
+    <div class="game-overlay" id="tetrisOverlay">
+        <div class="game-modal">
+            <div class="game-header">
+                <div class="game-title">俄罗斯方块</div>
+                <button class="game-close-btn" id="tetrisCloseBtn">关闭</button>
+            </div>
+            <div class="game-content">
+                <div class="game-ui">
+                    <span>分数: <span id="tetrisScore">0</span></span>
+                </div>
+                <canvas id="tetrisCanvas" class="game-canvas" width="240" height="480"></canvas>
+                <div class="game-hint">电脑端：方向键移动/旋转，空格速降<br>手机端：使用下方按钮</div>
+                <div class="mobile-controls">
+                    <button class="mobile-btn" id="btnLeft">←</button>
+                    <button class="mobile-btn" id="btnRotate">↻</button>
+                    <button class="mobile-btn" id="btnRight">→</button>
+                    <button class="mobile-btn" id="btnDown">↓</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= 沙盒游戏弹窗 ================= -->
+    <div class="game-overlay" id="mcGameOverlay">
+        <div class="game-modal" style="max-width: 400px;">
+            <div class="game-header">
+                <div class="game-title">2D 沙盒游戏</div>
+                <button class="game-close-btn" id="mcGameCloseBtn">关闭</button>
+            </div>
+            <div class="game-content">
+                <canvas id="mcCanvas" class="game-canvas" width="320" height="320" style="cursor: crosshair;"></canvas>
+                <div class="game-hint" style="margin-top: 15px;">
+                    左键/单指点击挖掘，右键/双指点击放置方块
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="title-wrapper">
             <h1 id="mainTitle" data-i18n="welcome">欢迎来到<br>一架国泰航空A330官方网站</h1>
@@ -857,7 +819,7 @@
                 setTimeout(() => ripple.remove(), 600);
             }
             function bindRipples() {
-                document.querySelectorAll('.btn, .download-item, .download-btn-action, .nav-btn, .menu-item, .settings-nav-item, .calc-key, .dial-key, .dial-action, .wallpaper-btn').forEach(el => {
+                document.querySelectorAll('.btn, .download-item, .download-btn-action, .nav-btn, .menu-item, .settings-nav-item, .calc-key, .dial-key, .dial-action, .wallpaper-btn, .game-close-btn, .mobile-btn').forEach(el => {
                     if (el.dataset.rippleBound === 'true') return;
                     el.dataset.rippleBound = 'true';
                     el.addEventListener('mousedown', createRipple);
@@ -913,26 +875,15 @@
             };
 
             const splashMessages = [
-                "秋季大更新！",
-                "hi，我是wqaw5888",
-                "可能含有wqaw成分",
-                "我是一架国泰航空A330",
-                "别杀怪物，你这个海豚",
-                "修复了99.9%的bug",
-                "ojang你的妈呢？",
-                "我的儿子在私服充钱，我要把pcl举报了",
-                "正在启动反浩克装甲...",
-                "那一天的寂寞，寂寞起来",
-                "MC 是信仰！",
-                "bug 是我们的核心玩法",
-                "现在你可以呼吸了",
-                "防止屏幕反光"
+                "秋季大更新！", "hi，我是wqaw5888", "可能含有wqaw成分", "我是一架国泰航空A330",
+                "别杀怪物，你这个海豚", "修复了99.9%的bug", "ojang你的妈呢？",
+                "我的儿子在私服充钱，我要把pcl举报了", "正在启动反浩克装甲...", "那一天的寂寞，寂寞起来",
+                "MC 是信仰！", "bug 是我们的核心玩法", "现在你可以呼吸了", "防止屏幕反光"
             ];
 
             function updateSplashText() {
                 const splashEl = $('splashText');
                 if (!splashEl) return;
-                
                 let randomIndex = Math.floor(Math.random() * splashMessages.length);
                 if (splashMessages[randomIndex] === splashEl.textContent) {
                     randomIndex = (randomIndex + 1) % splashMessages.length;
@@ -1287,9 +1238,352 @@
             });
             $('dialDelete').addEventListener('click', () => { dialValue = dialValue.slice(0,-1); dialpadDisplay.textContent = dialValue; });
 
+            // ==========================================
+            // 游戏逻辑区域
+            // ==========================================
+
+            // 1. 俄罗斯方块 (Tetris)
+            let tetrisInterval = null;
+            const tetrisCanvas = $('tetrisCanvas');
+            const tetrisCtx = tetrisCanvas.getContext('2d');
+            const COLS = 12, ROWS = 24, BLOCK_SIZE = 20;
+            
+            const TETROMINOS = {
+                'I': [[1,1,1,1]],
+                'J': [[1,0,0],[1,1,1]],
+                'L': [[0,0,1],[1,1,1]],
+                'O': [[1,1],[1,1]],
+                'S': [[0,1,1],[1,1,0]],
+                'T': [[0,1,0],[1,1,1]],
+                'Z': [[1,1,0],[0,1,1]]
+            };
+            const COLORS = { 'I': '#00f0f0', 'J': '#0000f0', 'L': '#f0a000', 'O': '#f0f000', 'S': '#00f000', 'T': '#a000f0', 'Z': '#f00000' };
+
+            let board = [];
+            let currentPiece = null;
+            let dropCounter = 0;
+            let dropInterval = 500;
+            let lastTime = 0;
+            let tetrisScore = 0;
+
+            function createBoard() {
+                for (let y = 0; y < ROWS; y++) {
+                    board[y] = [];
+                    for (let x = 0; x < COLS; x++) {
+                        board[y][x] = 0;
+                    }
+                }
+            }
+
+            function newPiece() {
+                const pieces = 'IJLOSTZ';
+                const type = pieces[Math.floor(Math.random() * pieces.length)];
+                currentPiece = {
+                    type: type,
+                    shape: TETROMINOS[type],
+                    x: Math.floor(COLS / 2) - Math.floor(TETROMINOS[type][0].length / 2),
+                    y: 0
+                };
+            }
+
+            function collide() {
+                const m = currentPiece.shape;
+                for (let y = 0; y < m.length; y++) {
+                    for (let x = 0; x < m[y].length; x++) {
+                        if (m[y][x] !== 0) {
+                            let boardX = currentPiece.x + x;
+                            let boardY = currentPiece.y + y;
+                            if (boardX < 0 || boardX >= COLS || boardY >= ROWS || (boardY >= 0 && board[boardY][boardX] !== 0)) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+
+            function merge() {
+                const m = currentPiece.shape;
+                for (let y = 0; y < m.length; y++) {
+                    for (let x = 0; x < m[y].length; x++) {
+                        if (m[y][x] !== 0) {
+                            board[currentPiece.y + y][currentPiece.x + x] = currentPiece.type;
+                        }
+                    }
+                }
+            }
+
+            function rotate(matrix) {
+                const N = matrix.length;
+                const result = [];
+                for (let y = 0; y < N; y++) {
+                    result[y] = [];
+                    for (let x = 0; x < N; x++) {
+                        result[y][x] = matrix[N - 1 - x][y];
+                    }
+                }
+                return result;
+            }
+
+            function playerRotate() {
+                if (!currentPiece) return;
+                const pos = currentPiece.x;
+                let offset = 1;
+                currentPiece.shape = rotate(currentPiece.shape);
+                while (collide()) {
+                    currentPiece.x += offset;
+                    offset = -(offset + (offset > 0 ? 1 : -1));
+                    if (offset > currentPiece.shape[0].length) {
+                        currentPiece.shape = rotate(rotate(rotate(currentPiece.shape)));
+                        currentPiece.x = pos;
+                        return;
+                    }
+                }
+            }
+
+            function playerDrop() {
+                if (!currentPiece) return;
+                currentPiece.y++;
+                if (collide()) {
+                    currentPiece.y--;
+                    merge();
+                    resetPiece();
+                }
+                dropCounter = 0;
+            }
+
+            function playerMove(dir) {
+                if (!currentPiece) return;
+                currentPiece.x += dir;
+                if (collide()) {
+                    currentPiece.x -= dir;
+                }
+            }
+
+            function resetPiece() {
+                newPiece();
+                if (collide()) {
+                    // Game Over
+                    createBoard();
+                    tetrisScore = 0;
+                    $('tetrisScore').textContent = tetrisScore;
+                }
+                // Clear lines
+                let rowCount = 1;
+                for (let y = ROWS - 1; y >= 0; y--) {
+                    let isFull = true;
+                    for (let x = 0; x < COLS; x++) {
+                        if (board[y][x] === 0) {
+                            isFull = false;
+                            break;
+                        }
+                    }
+                    if (isFull) {
+                        for (let yy = y; yy > 0; yy--) {
+                            board[yy] = board[yy - 1].slice();
+                        }
+                        board[0] = new Array(COLS).fill(0);
+                        y++;
+                        tetrisScore += 100 * rowCount;
+                        rowCount *= 2;
+                    }
+                }
+                $('tetrisScore').textContent = tetrisScore;
+            }
+
+            function drawTetris() {
+                tetrisCtx.fillStyle = '#000';
+                tetrisCtx.fillRect(0, 0, tetrisCanvas.width, tetrisCanvas.height);
+
+                // Draw board
+                for (let y = 0; y < ROWS; y++) {
+                    for (let x = 0; x < COLS; x++) {
+                        if (board[y][x] !== 0) {
+                            tetrisCtx.fillStyle = COLORS[board[y][x]];
+                            tetrisCtx.fillRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE - 1, BLOCK_SIZE - 1);
+                            tetrisCtx.strokeStyle = '#000';
+                            tetrisCtx.strokeRect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE - 1, BLOCK_SIZE - 1);
+                        }
+                    }
+                }
+
+                // Draw piece
+                if (currentPiece) {
+                    const m = currentPiece.shape;
+                    for (let y = 0; y < m.length; y++) {
+                        for (let x = 0; x < m[y].length; x++) {
+                            if (m[y][x] !== 0) {
+                                tetrisCtx.fillStyle = COLORS[currentPiece.type];
+                                tetrisCtx.fillRect((currentPiece.x + x) * BLOCK_SIZE, (currentPiece.y + y) * BLOCK_SIZE, BLOCK_SIZE - 1, BLOCK_SIZE - 1);
+                                tetrisCtx.strokeStyle = '#000';
+                                tetrisCtx.strokeRect((currentPiece.x + x) * BLOCK_SIZE, (currentPiece.y + y) * BLOCK_SIZE, BLOCK_SIZE - 1, BLOCK_SIZE - 1);
+                            }
+                        }
+                    }
+                }
+            }
+
+            function updateTetris(time = 0) {
+                if (!tetrisInterval) return;
+                const deltaTime = time - lastTime;
+                lastTime = time;
+                dropCounter += deltaTime;
+                if (dropCounter > dropInterval) {
+                    playerDrop();
+                }
+                drawTetris();
+                requestAnimationFrame(updateTetris);
+            }
+
+            function startTetris() {
+                if (tetrisInterval) return;
+                createBoard();
+                newPiece();
+                tetrisScore = 0;
+                $('tetrisScore').textContent = tetrisScore;
+                dropCounter = 0;
+                lastTime = performance.now();
+                tetrisInterval = true;
+                requestAnimationFrame(updateTetris);
+            }
+
+            function stopTetris() {
+                tetrisInterval = null;
+            }
+
+            // 俄罗斯方块控制事件
+            document.addEventListener('keydown', (e) => {
+                if (!$('tetrisOverlay').classList.contains('visible')) return;
+                if (e.key === 'ArrowLeft') playerMove(-1);
+                if (e.key === 'ArrowRight') playerMove(1);
+                if (e.key === 'ArrowDown') playerDrop();
+                if (e.key === 'ArrowUp') playerRotate();
+                if (e.key === ' ') { while(!collide()) { currentPiece.y++; } currentPiece.y--; playerDrop(); }
+            });
+
+            $('btnLeft').addEventListener('click', () => playerMove(-1));
+            $('btnRight').addEventListener('click', () => playerMove(1));
+            $('btnDown').addEventListener('click', () => playerDrop());
+            $('btnRotate').addEventListener('click', () => playerRotate());
+
+            function openTetris() { toggleMenu(false); $('tetrisOverlay').classList.add('visible'); startTetris(); }
+            function closeTetris() { $('tetrisOverlay').classList.remove('visible'); stopTetris(); }
+            $('tetrisTriggerDesktop').addEventListener('click', openTetris);
+            $('tetrisTriggerMobile').addEventListener('click', openTetris);
+            $('tetrisCloseBtn').addEventListener('click', closeTetris);
+
+            // 2. 2D 沙盒游戏 (Minecraft 风格)
+            let mcGameInterval = null;
+            const mcCanvas = $('mcCanvas');
+            const mcCtx = mcCanvas.getContext('2d');
+            const MC_COLS = 16, MC_ROWS = 16, MC_BLOCK = 20;
+            let mcWorld = [];
+            const BLOCK_TYPES = {
+                0: null, // 空气
+                1: '#5c4033', // 泥土
+                2: '#228B22', // 草地
+                3: '#808080', // 石头
+                4: '#00bfff'  // 水
+            };
+            let currentBlock = 2; // 默认放置草地
+
+            function initMcWorld() {
+                mcWorld = [];
+                for (let y = 0; y < MC_ROWS; y++) {
+                    mcWorld[y] = [];
+                    for (let x = 0; x < MC_COLS; x++) {
+                        if (y > 10) {
+                            mcWorld[y][x] = Math.random() > 0.2 ? 3 : 1; // 底下全是石头或泥土
+                        } else if (y === 10) {
+                            mcWorld[y][x] = 2; // 表面是草地
+                        } else {
+                            mcWorld[y][x] = 0; // 上面是空气
+                        }
+                    }
+                }
+            }
+
+            function drawMc() {
+                mcCtx.clearRect(0, 0, mcCanvas.width, mcCanvas.height);
+                for (let y = 0; y < MC_ROWS; y++) {
+                    for (let x = 0; x < MC_COLS; x++) {
+                        const type = mcWorld[y][x];
+                        if (type !== 0) {
+                            mcCtx.fillStyle = BLOCK_TYPES[type];
+                            mcCtx.fillRect(x * MC_BLOCK, y * MC_BLOCK, MC_BLOCK, MC_BLOCK);
+                            
+                            // 简单的像素边缘效果
+                            mcCtx.fillStyle = 'rgba(255,255,255,0.1)';
+                            mcCtx.fillRect(x * MC_BLOCK, y * MC_BLOCK, MC_BLOCK, 2);
+                            mcCtx.fillStyle = 'rgba(0,0,0,0.2)';
+                            mcCtx.fillRect(x * MC_BLOCK, y * MC_BLOCK + MC_BLOCK - 2, MC_BLOCK, 2);
+                        }
+                    }
+                }
+            }
+
+            function updateMc() {
+                if (!mcGameInterval) return;
+                drawMc();
+                requestAnimationFrame(updateMc);
+            }
+
+            function handleMcInteraction(e) {
+                e.preventDefault();
+                const rect = mcCanvas.getBoundingClientRect();
+                let clientX, clientY;
+                
+                if (e.touches && e.touches.length > 0) {
+                    clientX = e.touches[0].clientX;
+                    clientY = e.touches[0].clientY;
+                } else {
+                    clientX = e.clientX;
+                    clientY = e.clientY;
+                }
+
+                const scaleX = mcCanvas.width / rect.width;
+                const scaleY = mcCanvas.height / rect.height;
+                
+                const x = Math.floor((clientX - rect.left) * scaleX / MC_BLOCK);
+                const y = Math.floor((clientY - rect.top) * scaleY / MC_BLOCK);
+
+                if (x >= 0 && x < MC_COLS && y >= 0 && y < MC_ROWS) {
+                    if (e.button === 2 || e.touches && e.touches.length > 1) {
+                        // 右键 / 双指放置方块
+                        mcWorld[y][x] = currentBlock;
+                    } else {
+                        // 左键 / 单指挖掘方块
+                        mcWorld[y][x] = 0;
+                    }
+                }
+            }
+
+            // 禁用右键菜单
+            mcCanvas.addEventListener('contextmenu', e => e.preventDefault());
+            mcCanvas.addEventListener('mousedown', handleMcInteraction);
+            mcCanvas.addEventListener('touchstart', handleMcInteraction, { passive: false });
+
+            function startMcGame() {
+                if (mcGameInterval) return;
+                if (mcWorld.length === 0) initMcWorld();
+                mcGameInterval = true;
+                requestAnimationFrame(updateMc);
+            }
+
+            function stopMcGame() {
+                mcGameInterval = null;
+            }
+
+            function openMcGame() { toggleMenu(false); $('mcGameOverlay').classList.add('visible'); startMcGame(); }
+            function closeMcGame() { $('mcGameOverlay').classList.remove('visible'); stopMcGame(); }
+            
+            $('mcGameTriggerDesktop').addEventListener('click', openMcGame);
+            $('mcGameTriggerMobile').addEventListener('click', openMcGame);
+            $('mcGameCloseBtn').addEventListener('click', closeMcGame);
+
+            // 初始化
             applySettings();
             bindRipples();
-            
             updateSplashText();
 
         })();
