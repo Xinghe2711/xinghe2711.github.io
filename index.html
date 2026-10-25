@@ -101,7 +101,7 @@
             transition: background-color 0.6s var(--ease-smooth), color 0.6s var(--ease-smooth), background-image 0.6s var(--ease-smooth);
         }
         
-        /* 核心入场动画 */
+        /* ================= 主界面入场动画 ================= */
         @keyframes contentEnter {
             0% { opacity: 0; transform: translateY(30px) scale(0.98); filter: blur(8px); }
             100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
@@ -247,23 +247,26 @@
         body.ore-ui-mode .retro-switch.on .knob { transform: translateX(20px) !important; }
         body.ore-ui-mode .retro-switch:active .knob { width: 18px !important; }
 
-        /* ================= 侧边栏基础 ================= */
+        /* ================= 侧边栏基础 (恢复动画) ================= */
         .menu-overlay { 
-            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
             background-color: var(--modal-overlay); z-index: 1000; 
-            opacity: 0; transition: opacity 0.4s var(--ease-smooth); 
+            opacity: 0; visibility: hidden; pointer-events: none;
+            transition: opacity 0.4s var(--ease-smooth), visibility 0.4s var(--ease-smooth); 
         }
-        .menu-overlay.visible { display: block; opacity: 1; }
+        .menu-overlay.visible { opacity: 1; visibility: visible; pointer-events: auto; }
         
         .sidebar-menu { 
-            display: none; position: fixed; top: 0; right: 0; bottom: 0; z-index: 1004; 
+            position: fixed; top: 0; right: 0; bottom: 0; z-index: 1004; 
             background-color: var(--menu-bg); width: var(--sidebar-width); max-width: 85vw; 
             box-shadow: -10px 0 30px rgba(0,0,0,0.15); 
             padding: calc(20px + var(--safe-top)) 0 20px 0; overflow-y: auto; 
-            transition: background-color 0.6s var(--ease-smooth); 
+            visibility: hidden;
+            transform: translateX(100%); 
+            transition: transform 0.5s var(--ease-spring), visibility 0.5s var(--ease-spring), background-color 0.6s var(--ease-smooth); 
             border-left: 1px solid var(--divider); -webkit-overflow-scrolling: touch;
         }
-        .sidebar-menu.open { display: block; }
+        .sidebar-menu.open { transform: translateX(0); visibility: visible; }
         
         .sidebar-header-container { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; }
         .sidebar-header { font-size: 1.1rem; font-weight: 700; color: var(--text); letter-spacing: 0.08em; text-transform: uppercase; padding: 0; }
@@ -366,14 +369,17 @@
         .firework-particle { position: absolute; width: 6px; height: 6px; border-radius: 50%; transform: translate(-50%, -50%); animation: explode 1.4s var(--ease-smooth) forwards; }
         @keyframes explode { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; box-shadow: 0 0 12px currentColor; } 70% { opacity: 1; } 100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0); opacity: 0; box-shadow: none; } }
 
-        /* ================= 弹窗系统 ================= */
+        /* ================= 弹窗系统 (恢复流畅动画，使用 visibility 替代 display) ================= */
         .settings-overlay, .about-overlay, .easter-egg-overlay, .calc-overlay, .dialpad-overlay, .more-overlay {
-            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
+            display: flex; position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
             background-color: var(--modal-overlay); z-index: 2100; 
             justify-content: center; align-items: center; padding: 1rem; 
-            opacity: 0; transition: opacity 0.4s var(--ease-smooth);
+            opacity: 0; visibility: hidden; pointer-events: none;
+            transition: opacity 0.4s var(--ease-smooth), visibility 0.4s var(--ease-smooth);
         }
-        .settings-overlay.visible, .about-overlay.visible, .easter-egg-overlay.visible, .calc-overlay.visible, .dialpad-overlay.visible, .more-overlay.visible { display: flex; opacity: 1; }
+        .settings-overlay.visible, .about-overlay.visible, .easter-egg-overlay.visible, .calc-overlay.visible, .dialpad-overlay.visible, .more-overlay.visible { 
+            opacity: 1; visibility: visible; pointer-events: auto; 
+        }
 
         .settings-modal, .about-modal, .easter-egg-modal, .calc-modal, .dialpad-modal, .more-modal {
             background-color:var(--modal-bg); border-radius:24px; 
@@ -381,10 +387,14 @@
             border:1px solid var(--divider); 
             display: flex; flex-direction: column; position: relative; 
             overflow: hidden; width: 100%; max-height: 85vh;
-            transform: scale(0.95); transition: transform 0.4s var(--ease-spring);
+            /* 弹窗缩放动画 */
+            opacity: 0; transform: scale(0.85) translateY(30px);
+            transition: all 0.5s var(--ease-spring);
         }
         .settings-overlay.visible .settings-modal, .about-overlay.visible .about-modal, .easter-egg-overlay.visible .easter-egg-modal,
-        .calc-overlay.visible .calc-modal, .dialpad-overlay.visible .dialpad-modal, .more-overlay.visible .more-modal { transform: scale(1); }
+        .calc-overlay.visible .calc-modal, .dialpad-overlay.visible .dialpad-modal, .more-overlay.visible .more-modal { 
+            opacity: 1; transform: scale(1) translateY(0); 
+        }
 
         .about-modal { max-width:320px; padding:1.5rem; }
         .easter-egg-modal { max-width:400px; padding:20px; text-align: center; }
@@ -902,7 +912,6 @@
                 custom: { main: customHex, hover: customHex, transparent: customHex }
             };
 
-            // 增加后的闪烁标语列表
             const splashMessages = [
                 "秋季大更新！",
                 "hi，我是wqaw5888",
@@ -920,13 +929,11 @@
                 "防止屏幕反光"
             ];
 
-            // 刷新时只执行一次，并尽量避免连续两次一样
             function updateSplashText() {
                 const splashEl = $('splashText');
                 if (!splashEl) return;
                 
                 let randomIndex = Math.floor(Math.random() * splashMessages.length);
-                // 如果上次显示的和这次一样，就把索引往后推一位（避免连续两次刷新看到一样的）
                 if (splashMessages[randomIndex] === splashEl.textContent) {
                     randomIndex = (randomIndex + 1) % splashMessages.length;
                 }
@@ -1283,7 +1290,6 @@
             applySettings();
             bindRipples();
             
-            // 在每次页面加载（刷新）时执行一次更换标语，不再使用定时器
             updateSplashText();
 
         })();
