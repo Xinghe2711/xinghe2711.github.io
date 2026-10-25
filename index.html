@@ -197,51 +197,38 @@
         body.color-md1 .btn:hover, body.color-md1 .download-btn-action:hover { background-color: var(--accent-hover) !important; transform: translateY(0); box-shadow: 0 3px 6px rgba(0,0,0,0.25) !important; }
         body.color-md1 .btn:active, body.color-md1 .download-btn-action:active { transform: translateY(1px); box-shadow: 0 1px 2px rgba(0,0,0,0.2) !important; }
 
-        /* ================= Ore UI 专属风格 (修复版，不使用 !important 在变量中) ================= */
+        /* ================= Ore UI 专属风格 ================= */
         body.ore-ui-mode {
-            --ore-bg: #1e1e1f; --ore-panel-bg: #313131; --ore-border: #000000; --ore-border-light: #5a5a5a;
-            --ore-btn-bg: #48494a; --ore-btn-highlight: #5f6062; --ore-btn-shadow: #212121;
-            --ore-green: #388e3c; --ore-green-hover: #4caf50; --ore-text: #ffffff; --ore-text-muted: #aaaaaa;
-            
-            background-color: #111; color: var(--ore-text);
+            background-color: #111 !important; color: #ffffff !important;
         }
-        
-        /* 使用超高的选择器权重来覆盖 JS 注入的变量，保证 Ore UI 颜色不被污染 */
-        html body.ore-ui-mode {
-            --accent: #388e3c;
-            --accent-hover: #4caf50;
-            --btn-primary: #388e3c;
-            --btn-primary-hover: #4caf50;
-        }
-
-        body.ore-ui-mode .top-bar { background-color: #0f0f0f !important; border-bottom: 2px solid var(--ore-border) !important; box-shadow: none !important; }
+        body.ore-ui-mode .top-bar { background-color: #0f0f0f !important; border-bottom: 2px solid #000 !important; box-shadow: none !important; }
         body.ore-ui-mode .site-title { color: #ffffff !important; font-weight: bold; letter-spacing: 1px; text-shadow: 1px 1px 0 #000; }
         body.ore-ui-mode .hamburger-line { background-color: #ffffff !important; }
-        body.ore-ui-mode .nav-btn { color: #ffffff !important; background: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; box-shadow: inset 1px 1px 0 var(--ore-btn-highlight), inset -1px -1px 0 var(--ore-btn-shadow); }
+        body.ore-ui-mode .nav-btn { color: #ffffff !important; background: #48494a !important; border: 2px solid #000 !important; border-radius: 0 !important; box-shadow: inset 1px 1px 0 #5f6062, inset -1px -1px 0 #212121; }
         
-        body.ore-ui-mode .sidebar-menu { background-color: var(--ore-panel-bg) !important; border-left: 2px solid var(--ore-border) !important; color: #fff !important; }
+        body.ore-ui-mode .sidebar-menu { background-color: #313131 !important; border-left: 2px solid #000 !important; color: #fff !important; }
         body.ore-ui-mode .sidebar-header { color: #fff !important; text-shadow: 1px 1px 0 #000; }
-        body.ore-ui-mode .menu-item { color: #fff !important; border-bottom: 1px solid var(--ore-border-light) !important; }
-        body.ore-ui-mode .menu-item:hover { background-color: var(--ore-btn-highlight) !important; }
-        body.ore-ui-mode .menu-divider { background-color: var(--ore-border) !important; }
+        body.ore-ui-mode .menu-item { color: #fff !important; border-bottom: 1px solid #5a5a5a !important; }
+        body.ore-ui-mode .menu-item:hover { background-color: #5f6062 !important; }
+        body.ore-ui-mode .menu-divider { background-color: #000 !important; }
         
         body.ore-ui-mode h1, body.ore-ui-mode .download-text { color: #fff !important; text-shadow: 1px 1px 0 #000; }
         body.ore-ui-mode .download-item, 
         body.ore-ui-mode .announcement { 
-            background-color: var(--ore-panel-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; color: #fff !important; box-shadow: inset 2px 2px 0 var(--ore-border-light), inset -2px -2px 0 var(--ore-border) !important; 
+            background-color: #313131 !important; border: 2px solid #000 !important; border-radius: 0 !important; color: #fff !important; box-shadow: inset 2px 2px 0 #5a5a5a, inset -2px -2px 0 #000 !important; 
         }
-        body.ore-ui-mode .download-item:hover { border-color: var(--ore-border-light) !important; }
-        body.ore-ui-mode .announcement-title { color: var(--ore-green-hover) !important; text-shadow: 1px 1px 0 #000; }
-        body.ore-ui-mode .announcement-subtitle { color: var(--ore-text-muted) !important; }
+        body.ore-ui-mode .download-item:hover { border-color: #5a5a5a !important; }
+        body.ore-ui-mode .announcement-title { color: #4caf50 !important; text-shadow: 1px 1px 0 #000; }
+        body.ore-ui-mode .announcement-subtitle { color: #aaaaaa !important; }
         
         body.ore-ui-mode .btn, 
         body.ore-ui-mode .download-btn-action { 
-            background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; color: #fff !important; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; 
+            background-color: #48494a !important; border: 2px solid #000 !important; border-radius: 0 !important; color: #fff !important; box-shadow: inset 2px 2px 0 #5f6062, inset -2px -2px 0 #212121 !important; 
         }
         body.ore-ui-mode .btn:hover, 
-        body.ore-ui-mode .download-btn-action:hover { background-color: var(--ore-btn-highlight) !important; transform: none; }
+        body.ore-ui-mode .download-btn-action:hover { background-color: #5f6062 !important; transform: none; }
         body.ore-ui-mode .btn:active, 
-        body.ore-ui-mode .download-btn-action:active { background-color: var(--ore-btn-shadow) !important; box-shadow: inset 2px 2px 0 var(--ore-border), inset -2px -2px 0 var(--ore-border-light) !important; }
+        body.ore-ui-mode .download-btn-action:active { background-color: #212121 !important; box-shadow: inset 2px 2px 0 #000, inset -2px -2px 0 #5f6062 !important; }
 
         /* 通用游戏弹窗和面板的 Ore UI 适配 */
         body.ore-ui-mode .game-modal, 
@@ -250,27 +237,26 @@
         body.ore-ui-mode .calc-modal, 
         body.ore-ui-mode .dialpad-modal, 
         body.ore-ui-mode .easter-egg-modal { 
-            background-color: var(--ore-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; box-shadow: inset 0 0 0 2px var(--ore-border-light), 0 10px 30px rgba(0,0,0,0.8) !important; color: #fff !important; 
+            background-color: #1e1e1f !important; border: 2px solid #000 !important; border-radius: 0 !important; box-shadow: inset 0 0 0 2px #5a5a5a, 0 10px 30px rgba(0,0,0,0.8) !important; color: #fff !important; 
         }
         body.ore-ui-mode .game-header, 
-        body.ore-ui-mode .settings-nav { background-color: var(--ore-border) !important; border-bottom: 2px solid var(--ore-border) !important; height: 60px; }
+        body.ore-ui-mode .settings-nav { background-color: #000 !important; border-bottom: 2px solid #000 !important; height: 60px; }
         body.ore-ui-mode .game-title, 
         body.ore-ui-mode .settings-nav-title { color: #fff !important; font-size: 20px; font-weight: bold; text-shadow: 2px 2px 0 #000; letter-spacing: 1px; }
         body.ore-ui-mode .game-content, 
-        body.ore-ui-mode .settings-content { background-color: var(--ore-panel-bg) !important; padding-top: 10px; }
+        body.ore-ui-mode .settings-content { background-color: #313131 !important; padding-top: 10px; }
         body.ore-ui-mode .game-close-btn, 
         body.ore-ui-mode .settings-close-btn, 
-        body.ore-ui-mode .mobile-btn { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; color: #fff !important; border-radius: 0 !important; font-size: 18px; font-weight: bold; text-shadow: 1px 1px 0 #000; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; }
-        body.ore-ui-mode .settings-header-title { color: #fff !important; border-bottom: 2px solid var(--ore-border) !important; padding-bottom: 10px; font-size: 22px; text-shadow: 1px 1px 0 #000; }
-        body.ore-ui-mode .setting-row { border-bottom: 1px solid var(--ore-border) !important; padding: 16px 0; }
+        body.ore-ui-mode .mobile-btn { background-color: #48494a !important; border: 2px solid #000 !important; color: #fff !important; border-radius: 0 !important; font-size: 18px; font-weight: bold; text-shadow: 1px 1px 0 #000; box-shadow: inset 2px 2px 0 #5f6062, inset -2px -2px 0 #212121 !important; }
+        body.ore-ui-mode .settings-header-title { color: #fff !important; border-bottom: 2px solid #000 !important; padding-bottom: 10px; font-size: 22px; text-shadow: 1px 1px 0 #000; }
+        body.ore-ui-mode .setting-row { border-bottom: 1px solid #000 !important; padding: 16px 0; }
         body.ore-ui-mode .setting-label { color: #fff !important; font-size: 16px; }
-        body.ore-ui-mode .retro-select { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; color: #fff !important; border-radius: 0 !important; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; }
-        body.ore-ui-mode .retro-switch { background-color: #5a5a5a !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; width: 46px; height: 24px; }
-        body.ore-ui-mode .retro-switch.on { background-color: var(--ore-green) !important; }
+        body.ore-ui-mode .retro-select { background-color: #48494a !important; border: 2px solid #000 !important; color: #fff !important; border-radius: 0 !important; box-shadow: inset 2px 2px 0 #5f6062, inset -2px -2px 0 #212121 !important; }
+        body.ore-ui-mode .retro-switch { background-color: #5a5a5a !important; border: 2px solid #000 !important; border-radius: 0 !important; width: 46px; height: 24px; }
+        body.ore-ui-mode .retro-switch.on { background-color: #388e3c !important; }
         body.ore-ui-mode .retro-switch .knob { border-radius: 0 !important; background: #ffffff !important; width: 18px !important; height: 18px !important; top: 1px; left: 2px; box-shadow: none !important; border: 2px solid #000; }
         body.ore-ui-mode .retro-switch.on .knob { transform: translateX(20px) !important; }
         body.ore-ui-mode .retro-switch:active .knob { width: 18px !important; }
-
 
         /* ================= 通用基础组件 ================= */
         .menu-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--modal-overlay); z-index: 1000; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.4s var(--ease-smooth), visibility 0.4s var(--ease-smooth); }
@@ -886,6 +872,26 @@
                 if (container) container.innerHTML = '';
             }
 
+            function applyColors() {
+                // 核心逻辑：清除行内样式
+                htmlElement.style.removeProperty('--accent');
+                htmlElement.style.removeProperty('--accent-hover');
+                htmlElement.style.removeProperty('--accent-transparent');
+                htmlElement.style.removeProperty('--btn-primary');
+                htmlElement.style.removeProperty('--btn-primary-hover');
+
+                // 如果是 Ore UI，不应用颜色，CSS 中有专门的 Ore UI 颜色
+                if (themeMode === 'ore-ui') return;
+
+                // 其他模式应用自定义颜色
+                const color = accentColors[accentColor] || accentColors.blue;
+                htmlElement.style.setProperty('--accent', color.main);
+                htmlElement.style.setProperty('--accent-hover', color.hover);
+                htmlElement.style.setProperty('--accent-transparent', color.transparent || color.main);
+                htmlElement.style.setProperty('--btn-primary', color.main);
+                htmlElement.style.setProperty('--btn-primary-hover', color.hover);
+            }
+
             function updateFx() {
                 const container = $('leavesContainer');
                 const fwContainer = $('fireworksContainer');
@@ -917,22 +923,9 @@
                         $('selectAccentColor').value = savedColor;
                         accentColor = savedColor;
                     }
-
-                    // 修复：如果是 Ore UI，清除行内变量，强制使用 CSS 变量
-                    if (themeMode === 'ore-ui') {
-                        htmlElement.style.removeProperty('--accent');
-                        htmlElement.style.removeProperty('--accent-hover');
-                        htmlElement.style.removeProperty('--accent-transparent');
-                        htmlElement.style.removeProperty('--btn-primary');
-                        htmlElement.style.removeProperty('--btn-primary-hover');
-                    } else {
-                        const color = accentColors[accentColor] || accentColors.blue;
-                        htmlElement.style.setProperty('--accent', color.main);
-                        htmlElement.style.setProperty('--accent-hover', color.hover);
-                        htmlElement.style.setProperty('--accent-transparent', color.transparent || color.main);
-                        htmlElement.style.setProperty('--btn-primary', color.main);
-                        htmlElement.style.setProperty('--btn-primary-hover', color.hover);
-                    }
+                    
+                    // 在特效更新后调用颜色应用
+                    applyColors();
 
                     if (fxMode === 'leaves' || fxMode === 'snow') {
                         const chars = fxMode === 'snow' ? ['❄️', '❄️', '✨', '❄️'] : ['🍁', '🍂', '🍃', '🍁'];
@@ -1047,7 +1040,7 @@
                 document.querySelectorAll('[data-switch="rtlMode"]').forEach(sw => sw.classList.toggle('on', rtlEnabled));
 
                 applyTranslations(currentLang);
-                updateFx();
+                updateFx(); // 在 updateFx 中调用了 applyColors
             }
 
             function updateSetting(key, val) {
