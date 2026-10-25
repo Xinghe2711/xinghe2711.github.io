@@ -175,61 +175,159 @@
         [data-theme="dark"] body.color-default .nav-btn { background: rgba(255,255,255,0.1) !important; }
         [data-theme="dark"] body.color-default .nav-btn:hover { background: rgba(255,255,255,0.15) !important; }
 
+        /* ================= 颜色主题控制 (MD1) ================= */
+        /* 强制使用 CSS 变量，确保不依赖内联样式 */
+        body.color-md1 {
+            --btn-primary: var(--accent) !important;
+            --btn-primary-hover: var(--accent-hover) !important;
+        }
         body.color-md1 .top-bar { background-color: var(--accent) !important; border-bottom: none !important; box-shadow: 0 2px 4px rgba(0,0,0,0.15) !important; }
         body.color-md1 .site-title { color: #ffffff !important; }
         body.color-md1 .hamburger-line { background-color: #ffffff !important; }
         body.color-md1 .nav-btn { color: #ffffff !important; background: rgba(255,255,255,0.15) !important; }
         body.color-md1 .nav-btn:hover { background: rgba(255,255,255,0.25) !important; }
-        body.color-md1 .announcement, body.color-md1 .download-item { background-color: #ffffff !important; border: none !important; border-radius: 4px !important; box-shadow: 0 2px 6px rgba(0,0,0,0.1) !important; }
-        body.color-md1 .download-item:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important; border-color: transparent !important; }
+        
+        body.color-md1 .announcement, 
+        body.color-md1 .download-item { 
+            background-color: #ffffff !important; 
+            border: none !important; 
+            border-radius: 4px !important; 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1) !important; 
+        }
+        body.color-md1 .download-item:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important; 
+            border-color: transparent !important; 
+        }
         body.color-md1 .announcement-title { color: var(--accent) !important; font-weight: 600; }
-        body.color-md1 .announcement-subtitle, body.color-md1 .download-text { color: #333333 !important; }
-        body.color-md1 .btn, body.color-md1 .download-btn-action { background-color: var(--accent) !important; color: #ffffff !important; border: none !important; border-radius: 4px !important; box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important; }
-        body.color-md1 .btn:hover, body.color-md1 .download-btn-action:hover { background-color: var(--accent-hover) !important; transform: translateY(0); box-shadow: 0 3px 6px rgba(0,0,0,0.25) !important; }
-        body.color-md1 .btn:active, body.color-md1 .download-btn-action:active { transform: translateY(1px); box-shadow: 0 1px 2px rgba(0,0,0,0.2) !important; }
+        body.color-md1 .announcement-subtitle, 
+        body.color-md1 .download-text { color: #333333 !important; }
+        
+        body.color-md1 .btn, 
+        body.color-md1 .download-btn-action { 
+            background-color: var(--accent) !important; 
+            color: #ffffff !important; 
+            border: none !important; 
+            border-radius: 4px !important; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important; 
+        }
+        body.color-md1 .btn:hover, 
+        body.color-md1 .download-btn-action:hover { 
+            background-color: var(--accent-hover) !important; 
+            transform: translateY(0); 
+            box-shadow: 0 3px 6px rgba(0,0,0,0.25) !important; 
+        }
+        body.color-md1 .btn:active, 
+        body.color-md1 .download-btn-action:active { 
+            transform: translateY(1px); 
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2) !important; 
+        }
 
+        /* ================= Ore UI 专属风格 ================= */
         body.ore-ui-mode {
             --ore-bg: #1e1e1f; --ore-panel-bg: #313131; --ore-border: #000000; --ore-border-light: #5a5a5a;
             --ore-btn-bg: #48494a; --ore-btn-highlight: #5f6062; --ore-btn-shadow: #212121;
             --ore-green: #388e3c; --ore-green-hover: #4caf50; --ore-text: #ffffff; --ore-text-muted: #aaaaaa;
-            --accent: var(--ore-green) !important; --accent-hover: var(--ore-green-hover) !important;
-            --btn-primary: var(--ore-green) !important; --btn-primary-hover: var(--ore-green-hover) !important;
-            background-color: #111; color: var(--ore-text);
+            
+            /* 强制覆盖 CSS 变量 */
+            --accent: var(--ore-green) !important; 
+            --accent-hover: var(--ore-green-hover) !important;
+            --btn-primary: var(--ore-green) !important; 
+            --btn-primary-hover: var(--ore-green-hover) !important;
+            
+            background-color: #111 !important; 
+            color: var(--ore-text) !important;
         }
         body.ore-ui-mode .top-bar { background-color: #0f0f0f !important; border-bottom: 2px solid var(--ore-border) !important; box-shadow: none !important; }
         body.ore-ui-mode .site-title { color: #ffffff !important; font-weight: bold; letter-spacing: 1px; text-shadow: 1px 1px 0 #000; }
         body.ore-ui-mode .hamburger-line { background-color: #ffffff !important; }
         body.ore-ui-mode .nav-btn { color: #ffffff !important; background: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; box-shadow: inset 1px 1px 0 var(--ore-btn-highlight), inset -1px -1px 0 var(--ore-btn-shadow); }
-        body.ore-ui-mode .sidebar-menu { background-color: var(--ore-panel-bg) !important; border-left: 2px solid var(--ore-border) !important; color: #fff; }
-        body.ore-ui-mode .sidebar-header { color: #fff; text-shadow: 1px 1px 0 #000; }
+        
+        body.ore-ui-mode .sidebar-menu { background-color: var(--ore-panel-bg) !important; border-left: 2px solid var(--ore-border) !important; color: #fff !important; }
+        body.ore-ui-mode .sidebar-header { color: #fff !important; text-shadow: 1px 1px 0 #000; }
         body.ore-ui-mode .menu-item { color: #fff !important; border-bottom: 1px solid var(--ore-border-light) !important; }
         body.ore-ui-mode .menu-item:hover { background-color: var(--ore-btn-highlight) !important; }
         body.ore-ui-mode .menu-divider { background-color: var(--ore-border) !important; }
+        
         body.ore-ui-mode h1, body.ore-ui-mode .download-text { color: #fff !important; text-shadow: 1px 1px 0 #000; }
-        body.ore-ui-mode .download-item, body.ore-ui-mode .announcement { background-color: var(--ore-panel-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; color: #fff !important; box-shadow: inset 2px 2px 0 var(--ore-border-light), inset -2px -2px 0 var(--ore-border) !important; }
+        body.ore-ui-mode .download-item, 
+        body.ore-ui-mode .announcement { 
+            background-color: var(--ore-panel-bg) !important; 
+            border: 2px solid var(--ore-border) !important; 
+            border-radius: 0 !important; 
+            color: #fff !important; 
+            box-shadow: inset 2px 2px 0 var(--ore-border-light), inset -2px -2px 0 var(--ore-border) !important; 
+        }
         body.ore-ui-mode .download-item:hover { border-color: var(--ore-border-light) !important; }
         body.ore-ui-mode .announcement-title { color: var(--ore-green-hover) !important; text-shadow: 1px 1px 0 #000; }
         body.ore-ui-mode .announcement-subtitle { color: var(--ore-text-muted) !important; }
-        body.ore-ui-mode .btn, body.ore-ui-mode .download-btn-action { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; color: #fff !important; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; }
-        body.ore-ui-mode .btn:hover, body.ore-ui-mode .download-btn-action:hover { background-color: var(--ore-btn-highlight) !important; transform: none; }
-        body.ore-ui-mode .btn:active, body.ore-ui-mode .download-btn-action:active { background-color: var(--ore-btn-shadow) !important; box-shadow: inset 2px 2px 0 var(--ore-border), inset -2px -2px 0 var(--ore-border-light) !important; }
         
-        /* Ore UI 游戏窗口适配 */
-        body.ore-ui-mode .game-modal { background-color: var(--ore-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; box-shadow: inset 0 0 0 2px var(--ore-border-light), 0 10px 30px rgba(0,0,0,0.8) !important; }
-        body.ore-ui-mode .game-header { background-color: var(--ore-border) !important; border-bottom: 2px solid var(--ore-border) !important; }
-        body.ore-ui-mode .game-title { color: #fff !important; text-shadow: 2px 2px 0 #000; }
-        body.ore-ui-mode .game-content { background-color: var(--ore-panel-bg) !important; }
-        body.ore-ui-mode .game-close-btn { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; color: #fff !important; text-shadow: 1px 1px 0 #000; }
-        body.ore-ui-mode .mobile-btn { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; color: #fff !important; }
-        
-        body.ore-ui-mode .settings-modal, body.ore-ui-mode .about-modal, body.ore-ui-mode .calc-modal, body.ore-ui-mode .dialpad-modal, body.ore-ui-mode .easter-egg-modal { background-color: var(--ore-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; box-shadow: inset 0 0 0 2px var(--ore-border-light), 0 10px 30px rgba(0,0,0,0.8) !important; color: #fff; }
-        body.ore-ui-mode .settings-nav { background-color: var(--ore-border) !important; border-bottom: 2px solid var(--ore-border) !important; height: 60px; }
-        body.ore-ui-mode .settings-nav-title { color: #fff !important; font-size: 20px; font-weight: bold; text-shadow: 2px 2px 0 #000; letter-spacing: 1px; }
-        body.ore-ui-mode .settings-content { background-color: var(--ore-panel-bg) !important; padding-top: 10px; }
+        body.ore-ui-mode .btn, 
+        body.ore-ui-mode .download-btn-action { 
+            background-color: var(--ore-btn-bg) !important; 
+            border: 2px solid var(--ore-border) !important; 
+            border-radius: 0 !important; 
+            color: #fff !important; 
+            box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; 
+        }
+        body.ore-ui-mode .btn:hover, 
+        body.ore-ui-mode .download-btn-action:hover { 
+            background-color: var(--ore-btn-highlight) !important; 
+            transform: none; 
+        }
+        body.ore-ui-mode .btn:active, 
+        body.ore-ui-mode .download-btn-action:active { 
+            background-color: var(--ore-btn-shadow) !important; 
+            box-shadow: inset 2px 2px 0 var(--ore-border), inset -2px -2px 0 var(--ore-border-light) !important; 
+        }
+
+        /* 通用游戏弹窗和面板的 Ore UI 适配 */
+        body.ore-ui-mode .game-modal, 
+        body.ore-ui-mode .settings-modal, 
+        body.ore-ui-mode .about-modal, 
+        body.ore-ui-mode .calc-modal, 
+        body.ore-ui-mode .dialpad-modal, 
+        body.ore-ui-mode .easter-egg-modal { 
+            background-color: var(--ore-bg) !important; 
+            border: 2px solid var(--ore-border) !important; 
+            border-radius: 0 !important; 
+            box-shadow: inset 0 0 0 2px var(--ore-border-light), 0 10px 30px rgba(0,0,0,0.8) !important; 
+            color: #fff !important; 
+        }
+        body.ore-ui-mode .game-header, 
+        body.ore-ui-mode .settings-nav { 
+            background-color: var(--ore-border) !important; 
+            border-bottom: 2px solid var(--ore-border) !important; 
+            height: 60px; 
+        }
+        body.ore-ui-mode .game-title, 
+        body.ore-ui-mode .settings-nav-title { 
+            color: #fff !important; 
+            font-size: 20px; 
+            font-weight: bold; 
+            text-shadow: 2px 2px 0 #000; 
+            letter-spacing: 1px; 
+        }
+        body.ore-ui-mode .game-content, 
+        body.ore-ui-mode .settings-content { 
+            background-color: var(--ore-panel-bg) !important; 
+            padding-top: 10px; 
+        }
+        body.ore-ui-mode .game-close-btn, 
+        body.ore-ui-mode .settings-close-btn, 
+        body.ore-ui-mode .mobile-btn { 
+            background-color: var(--ore-btn-bg) !important; 
+            border: 2px solid var(--ore-border) !important; 
+            color: #fff !important; 
+            border-radius: 0 !important; 
+            font-size: 18px; 
+            font-weight: bold; 
+            text-shadow: 1px 1px 0 #000; 
+            box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; 
+        }
         body.ore-ui-mode .settings-header-title { color: #fff !important; border-bottom: 2px solid var(--ore-border) !important; padding-bottom: 10px; font-size: 22px; text-shadow: 1px 1px 0 #000; }
         body.ore-ui-mode .setting-row { border-bottom: 1px solid var(--ore-border) !important; padding: 16px 0; }
         body.ore-ui-mode .setting-label { color: #fff !important; font-size: 16px; }
-        body.ore-ui-mode .settings-close-btn { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; color: #fff !important; border-radius: 0 !important; font-size: 18px; font-weight: bold; text-shadow: 1px 1px 0 #000; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; }
         body.ore-ui-mode .retro-select { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; color: #fff !important; border-radius: 0 !important; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; }
         body.ore-ui-mode .retro-switch { background-color: #5a5a5a !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; width: 46px; height: 24px; }
         body.ore-ui-mode .retro-switch.on { background-color: var(--ore-green) !important; }
@@ -237,33 +335,8 @@
         body.ore-ui-mode .retro-switch.on .knob { transform: translateX(20px) !important; }
         body.ore-ui-mode .retro-switch:active .knob { width: 18px !important; }
 
-        /* 游戏通用弹窗样式 */
-        .game-modal { max-width: 500px; padding: 0; border-radius: 16px; overflow: hidden; background: var(--modal-bg); border: 1px solid var(--divider); }
-        .game-header { display: flex; align-items: center; justify-content: space-between; padding: 0 16px; height: 50px; background: var(--bg); border-bottom: 1px solid var(--divider); }
-        .game-title { font-size: 16px; font-weight: 600; color: var(--text); }
-        .game-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; background: var(--bg); position: relative; }
-        .game-close-btn { background: var(--menu-item-hover); color: var(--text); border: 1px solid var(--divider); padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 14px; transition: background 0.2s; }
-        .game-close-btn:hover { background: var(--divider); }
-        
-        .game-canvas { background: #000; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); max-width: 100%; max-height: 50vh; object-fit: contain; }
-        .game-ui { display: flex; justify-content: space-between; width: 100%; margin-bottom: 10px; color: var(--text); font-family: monospace; font-size: 16px; }
-        .game-hint { font-size: 12px; color: var(--text-secondary); margin-top: 10px; text-align: center; }
-        
-        /* 控制按钮，为了兼容所有设备，去掉了隐藏逻辑，增加了多指操作友好度 */
-        .mobile-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 15px; width: 100%; }
-        .mobile-btn { background: var(--menu-item-hover); border: 1px solid var(--divider); color: var(--text); padding: 12px 20px; border-radius: 8px; font-size: 18px; cursor: pointer; user-select: none; min-width: 60px; }
-        .mobile-btn:active { background: var(--divider); }
 
-        /* MD1 游戏窗口适配 */
-        body.color-md1 .game-modal { background-color: #fff !important; border: none !important; border-radius: 4px !important; box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important; }
-        body.color-md1 .game-header { background-color: #fff !important; border-bottom: 1px solid #eee !important; }
-        body.color-md1 .game-title { color: #333 !important; }
-        body.color-md1 .game-content { background-color: #fafafa !important; }
-        body.color-md1 .game-hint { color: #666 !important; }
-        body.color-md1 .mobile-btn { background-color: var(--accent) !important; color: #fff !important; border-radius: 4px !important; border: none; }
-        body.color-md1 .mobile-btn:active { background-color: var(--accent-hover) !important; }
-        body.color-md1 .game-close-btn { background-color: #f0f0f0; color: #333; border: none; }
-
+        /* ================= 通用基础组件 ================= */
         .menu-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--modal-overlay); z-index: 1000; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.4s var(--ease-smooth), visibility 0.4s var(--ease-smooth); }
         .menu-overlay.visible { opacity: 1; visibility: visible; pointer-events: auto; }
         .sidebar-menu { position: fixed; top: 0; right: 0; bottom: 0; z-index: 1004; background-color: var(--menu-bg); width: var(--sidebar-width); max-width: 85vw; box-shadow: -10px 0 30px rgba(0,0,0,0.15); padding: calc(20px + var(--safe-top)) 0 20px 0; overflow-y: auto; visibility: hidden; transform: translateX(100%); transition: transform 0.5s var(--ease-spring), visibility 0.5s var(--ease-spring), background-color 0.6s var(--ease-smooth); border-left: 1px solid var(--divider); -webkit-overflow-scrolling: touch; }
@@ -312,6 +385,7 @@
         .firework-particle { position: absolute; width: 6px; height: 6px; border-radius: 50%; transform: translate(-50%, -50%); animation: explode 1.4s var(--ease-smooth) forwards; }
         @keyframes explode { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; box-shadow: 0 0 12px currentColor; } 70% { opacity: 1; } 100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0); opacity: 0; box-shadow: none; } }
 
+        /* 弹窗系统通用 */
         .settings-overlay, .about-overlay, .easter-egg-overlay, .calc-overlay, .dialpad-overlay, .more-overlay, .game-overlay {
             display: flex; position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
             background-color: var(--modal-overlay); z-index: 2100; 
@@ -337,16 +411,35 @@
             opacity: 1; transform: scale(1) translateY(0); 
         }
 
-        .about-modal { max-width:320px; padding:1.5rem; }
-        .easter-egg-modal { max-width:400px; padding:20px; text-align: center; }
-        .calc-modal { max-width:340px; padding:1rem; }
-        .dialpad-modal { max-width:280px; padding:1rem; }
+        /* 游戏专属样式 */
+        .game-modal { max-width: 500px; padding: 0; border-radius: 16px; overflow: hidden; }
+        .game-header { display: flex; align-items: center; justify-content: space-between; padding: 0 16px; height: 50px; background: var(--bg); border-bottom: 1px solid var(--divider); }
+        .game-title { font-size: 16px; font-weight: 600; color: var(--text); }
+        .game-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; background: var(--bg); position: relative; }
+        .game-close-btn { background: var(--menu-item-hover); color: var(--text); border: 1px solid var(--divider); padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 14px; transition: background 0.2s; }
+        .game-close-btn:hover { background: var(--divider); }
+        .game-canvas { background: #000; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); max-width: 100%; max-height: 50vh; object-fit: contain; }
+        .game-ui { display: flex; justify-content: space-between; width: 100%; margin-bottom: 10px; color: var(--text); font-family: monospace; font-size: 16px; }
+        .game-hint { font-size: 12px; color: var(--text-secondary); margin-top: 10px; text-align: center; }
+        .mobile-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 15px; width: 100%; }
+        .mobile-btn { background: var(--menu-item-hover); border: 1px solid var(--divider); color: var(--text); padding: 12px 20px; border-radius: 8px; font-size: 18px; cursor: pointer; user-select: none; min-width: 60px; }
+        .mobile-btn:active { background: var(--divider); }
 
+        /* MD1 游戏窗口适配 */
+        body.color-md1 .game-modal { background-color: #fff !important; border: none !important; border-radius: 4px !important; box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important; }
+        body.color-md1 .game-header { background-color: #fff !important; border-bottom: 1px solid #eee !important; }
+        body.color-md1 .game-title { color: #333 !important; }
+        body.color-md1 .game-content { background-color: #fafafa !important; }
+        body.color-md1 .game-hint { color: #666 !important; }
+        body.color-md1 .mobile-btn { background-color: var(--accent) !important; color: #fff !important; border-radius: 4px !important; border: none; }
+        body.color-md1 .mobile-btn:active { background-color: var(--accent-hover) !important; }
+        body.color-md1 .game-close-btn { background-color: #f0f0f0; color: #333; border: none; }
+
+        /* 计算器与拨号盘 */
         .calc-display, .dialpad-display { background: var(--dial-display-bg); color: var(--dial-display-text); border-radius: 20px; padding: 1rem; text-align: right; font-size: 2.5rem; margin-bottom: 1rem; min-height: 80px; display: flex; align-items: center; justify-content: flex-end; overflow-x: auto; white-space: nowrap; transition: all 0.4s; box-shadow: inset 0 2px 8px rgba(0,0,0,0.05); }
         .dialpad-display { font-size: 1.2rem; min-height: 40px; padding: 0.5rem; border-radius: 12px; }
         .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
         .dialpad-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.4rem; }
-
         .calc-key, .dial-key { border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; font-family: inherit; position: relative; overflow: hidden; background: var(--bg); color: var(--text); transition: all 0.2s var(--ease-spring); }
         .calc-key { border-radius: 50%; aspect-ratio: 1; min-height: 60px; font-size: 1.5rem; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
         .dial-key { border-radius: 50%; aspect-ratio: 1; font-size: 1.2rem; background: var(--dial-key-bg); box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
@@ -362,36 +455,21 @@
         .setting-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--divider); transition: border-color 0.6s; }
         .setting-row:last-of-type { border-bottom: none; }
         .setting-label { font-size: 15px; color: var(--text); flex: 1; text-align: left; }
-
-        .retro-select {
-            padding: 8px 32px 8px 12px; border-radius: 8px; font-size: 14px; font-family: inherit;
-            cursor: pointer; outline: none; border: 1px solid var(--divider); background-color: var(--bg); color: var(--text);
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-            background-repeat: no-repeat; background-position: right 10px center; background-size: 10px auto;
-            transition: all 0.3s var(--ease-spring);
-            -webkit-appearance: none; appearance: none;
-        }
+        .retro-select { padding: 8px 32px 8px 12px; border-radius: 8px; font-size: 14px; font-family: inherit; cursor: pointer; outline: none; border: 1px solid var(--divider); background-color: var(--bg); color: var(--text); background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 10px center; background-size: 10px auto; transition: all 0.3s var(--ease-spring); -webkit-appearance: none; appearance: none; }
         .retro-select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,119,204,0.2); }
         .retro-select:active { transform: scale(0.96); }
         [data-theme="dark"] .retro-select { background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23aaa%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); }
         .retro-select:disabled { opacity: 0.5; cursor: not-allowed; }
-
-        .retro-switch {
-            width: 51px; height: 31px; border-radius: 16px !important; position: relative;
-            cursor: pointer; border: none; background: var(--toggle-off); 
-            transition: background 0.4s var(--ease-spring); flex-shrink: 0;
-            -webkit-appearance: none; appearance: none;
-        }
+        .retro-switch { width: 51px; height: 31px; border-radius: 16px !important; position: relative; cursor: pointer; border: none; background: var(--toggle-off); transition: background 0.4s var(--ease-spring); flex-shrink: 0; -webkit-appearance: none; appearance: none; }
         .retro-switch.on { background: var(--toggle-on); }
         .retro-switch .knob { position: absolute; top: 2px; left: 2px; width: 27px; height: 27px; background: #fff; border-radius: 50% !important; box-shadow: 0 3px 8px rgba(0,0,0,0.15), 0 3px 1px rgba(0,0,0,0.06); transition: transform 0.4s var(--ease-spring); }
         .retro-switch.on .knob { transform: translateX(20px); }
         .retro-switch:active .knob { width: 32px; }
-
-        .settings-close-btn, .about-close-btn, .dial-action.close {
-            display: block; width: 100%; margin-top: 20px; padding: 14px; border-radius: 12px;
-            background: var(--btn-primary); color: #fff; border: none; font-size: 16px; font-weight: 600; cursor: pointer;
-            transition: all 0.3s var(--ease-spring);
-        }
+        .settings-close-btn, .about-close-btn, .dial-action.close { display: block; width: 100%; margin-top: 20px; padding: 14px; border-radius: 12px; background: var(--btn-primary); color: #fff; border: none; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s var(--ease-spring); }
+        .about-modal { max-width:320px; padding:1.5rem; }
+        .easter-egg-modal { max-width:400px; padding:20px; text-align: center; }
+        .calc-modal { max-width:340px; padding:1rem; }
+        .dialpad-modal { max-width:280px; padding:1rem; }
 
         /* 深色模式兜底 */
         [data-theme="dark"] .calc-key:not(.operator):not(.equals):not(.clear), [data-theme="dark"] .dial-key { background: #333 !important; color: #fff !important; }
@@ -661,7 +739,6 @@
                 </div>
                 <canvas id="tetrisCanvas" class="game-canvas" width="240" height="480"></canvas>
                 <div class="game-hint">电脑端：方向键移动/旋转，空格速降</div>
-                <!-- 移除了隐藏限制，所有设备都可以点击 -->
                 <div class="mobile-controls">
                     <button class="mobile-btn" id="btnLeft">←</button>
                     <button class="mobile-btn" id="btnRotate">↻</button>
@@ -905,12 +982,21 @@
                         accentColor = savedColor;
                     }
 
-                    const color = accentColors[accentColor] || accentColors.blue;
-                    htmlElement.style.setProperty('--accent', color.main);
-                    htmlElement.style.setProperty('--accent-hover', color.hover);
-                    htmlElement.style.setProperty('--accent-transparent', color.transparent || color.main);
-                    htmlElement.style.setProperty('--btn-primary', color.main);
-                    htmlElement.style.setProperty('--btn-primary-hover', color.hover);
+                    // 修复：如果是 Ore UI，清除行内变量，强制使用 CSS 变量
+                    if (themeMode === 'ore-ui') {
+                        htmlElement.style.removeProperty('--accent');
+                        htmlElement.style.removeProperty('--accent-hover');
+                        htmlElement.style.removeProperty('--accent-transparent');
+                        htmlElement.style.removeProperty('--btn-primary');
+                        htmlElement.style.removeProperty('--btn-primary-hover');
+                    } else {
+                        const color = accentColors[accentColor] || accentColors.blue;
+                        htmlElement.style.setProperty('--accent', color.main);
+                        htmlElement.style.setProperty('--accent-hover', color.hover);
+                        htmlElement.style.setProperty('--accent-transparent', color.transparent || color.main);
+                        htmlElement.style.setProperty('--btn-primary', color.main);
+                        htmlElement.style.setProperty('--btn-primary-hover', color.hover);
+                    }
 
                     if (fxMode === 'leaves' || fxMode === 'snow') {
                         const chars = fxMode === 'snow' ? ['❄️', '❄️', '✨', '❄️'] : ['🍁', '🍂', '🍃', '🍁'];
