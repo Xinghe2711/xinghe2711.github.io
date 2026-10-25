@@ -213,20 +213,56 @@
         body.ore-ui-mode .btn, body.ore-ui-mode .download-btn-action { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; color: #fff !important; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; }
         body.ore-ui-mode .btn:hover, body.ore-ui-mode .download-btn-action:hover { background-color: var(--ore-btn-highlight) !important; transform: none; }
         body.ore-ui-mode .btn:active, body.ore-ui-mode .download-btn-action:active { background-color: var(--ore-btn-shadow) !important; box-shadow: inset 2px 2px 0 var(--ore-border), inset -2px -2px 0 var(--ore-border-light) !important; }
-        body.ore-ui-mode .settings-modal, body.ore-ui-mode .about-modal, body.ore-ui-mode .calc-modal, body.ore-ui-mode .dialpad-modal, body.ore-ui-mode .easter-egg-modal, body.ore-ui-mode .game-modal { background-color: var(--ore-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; box-shadow: inset 0 0 0 2px var(--ore-border-light), 0 10px 30px rgba(0,0,0,0.8) !important; color: #fff; }
-        body.ore-ui-mode .settings-nav, body.ore-ui-mode .game-header { background-color: var(--ore-border) !important; border-bottom: 2px solid var(--ore-border) !important; height: 60px; }
-        body.ore-ui-mode .settings-nav-title, body.ore-ui-mode .game-title { color: #fff !important; font-size: 20px; font-weight: bold; text-shadow: 2px 2px 0 #000; letter-spacing: 1px; }
-        body.ore-ui-mode .settings-content, body.ore-ui-mode .game-content { background-color: var(--ore-panel-bg) !important; padding-top: 10px; }
+        
+        /* Ore UI 游戏窗口适配 */
+        body.ore-ui-mode .game-modal { background-color: var(--ore-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; box-shadow: inset 0 0 0 2px var(--ore-border-light), 0 10px 30px rgba(0,0,0,0.8) !important; }
+        body.ore-ui-mode .game-header { background-color: var(--ore-border) !important; border-bottom: 2px solid var(--ore-border) !important; }
+        body.ore-ui-mode .game-title { color: #fff !important; text-shadow: 2px 2px 0 #000; }
+        body.ore-ui-mode .game-content { background-color: var(--ore-panel-bg) !important; }
+        body.ore-ui-mode .game-close-btn { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; color: #fff !important; text-shadow: 1px 1px 0 #000; }
+        body.ore-ui-mode .mobile-btn { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; color: #fff !important; }
+        
+        body.ore-ui-mode .settings-modal, body.ore-ui-mode .about-modal, body.ore-ui-mode .calc-modal, body.ore-ui-mode .dialpad-modal, body.ore-ui-mode .easter-egg-modal { background-color: var(--ore-bg) !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; box-shadow: inset 0 0 0 2px var(--ore-border-light), 0 10px 30px rgba(0,0,0,0.8) !important; color: #fff; }
+        body.ore-ui-mode .settings-nav { background-color: var(--ore-border) !important; border-bottom: 2px solid var(--ore-border) !important; height: 60px; }
+        body.ore-ui-mode .settings-nav-title { color: #fff !important; font-size: 20px; font-weight: bold; text-shadow: 2px 2px 0 #000; letter-spacing: 1px; }
+        body.ore-ui-mode .settings-content { background-color: var(--ore-panel-bg) !important; padding-top: 10px; }
         body.ore-ui-mode .settings-header-title { color: #fff !important; border-bottom: 2px solid var(--ore-border) !important; padding-bottom: 10px; font-size: 22px; text-shadow: 1px 1px 0 #000; }
         body.ore-ui-mode .setting-row { border-bottom: 1px solid var(--ore-border) !important; padding: 16px 0; }
         body.ore-ui-mode .setting-label { color: #fff !important; font-size: 16px; }
-        body.ore-ui-mode .settings-close-btn, body.ore-ui-mode .game-close-btn { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; color: #fff !important; border-radius: 0 !important; font-size: 18px; font-weight: bold; text-shadow: 1px 1px 0 #000; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; }
+        body.ore-ui-mode .settings-close-btn { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; color: #fff !important; border-radius: 0 !important; font-size: 18px; font-weight: bold; text-shadow: 1px 1px 0 #000; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; }
         body.ore-ui-mode .retro-select { background-color: var(--ore-btn-bg) !important; border: 2px solid var(--ore-border) !important; color: #fff !important; border-radius: 0 !important; box-shadow: inset 2px 2px 0 var(--ore-btn-highlight), inset -2px -2px 0 var(--ore-btn-shadow) !important; }
         body.ore-ui-mode .retro-switch { background-color: #5a5a5a !important; border: 2px solid var(--ore-border) !important; border-radius: 0 !important; width: 46px; height: 24px; }
         body.ore-ui-mode .retro-switch.on { background-color: var(--ore-green) !important; }
         body.ore-ui-mode .retro-switch .knob { border-radius: 0 !important; background: #ffffff !important; width: 18px !important; height: 18px !important; top: 1px; left: 2px; box-shadow: none !important; border: 2px solid #000; }
         body.ore-ui-mode .retro-switch.on .knob { transform: translateX(20px) !important; }
         body.ore-ui-mode .retro-switch:active .knob { width: 18px !important; }
+
+        /* 游戏通用弹窗样式 */
+        .game-modal { max-width: 500px; padding: 0; border-radius: 16px; overflow: hidden; background: var(--modal-bg); border: 1px solid var(--divider); }
+        .game-header { display: flex; align-items: center; justify-content: space-between; padding: 0 16px; height: 50px; background: var(--bg); border-bottom: 1px solid var(--divider); }
+        .game-title { font-size: 16px; font-weight: 600; color: var(--text); }
+        .game-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; background: var(--bg); position: relative; }
+        .game-close-btn { background: var(--menu-item-hover); color: var(--text); border: 1px solid var(--divider); padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 14px; transition: background 0.2s; }
+        .game-close-btn:hover { background: var(--divider); }
+        
+        .game-canvas { background: #000; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); max-width: 100%; max-height: 50vh; object-fit: contain; }
+        .game-ui { display: flex; justify-content: space-between; width: 100%; margin-bottom: 10px; color: var(--text); font-family: monospace; font-size: 16px; }
+        .game-hint { font-size: 12px; color: var(--text-secondary); margin-top: 10px; text-align: center; }
+        
+        /* 控制按钮，为了兼容所有设备，去掉了隐藏逻辑，增加了多指操作友好度 */
+        .mobile-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 15px; width: 100%; }
+        .mobile-btn { background: var(--menu-item-hover); border: 1px solid var(--divider); color: var(--text); padding: 12px 20px; border-radius: 8px; font-size: 18px; cursor: pointer; user-select: none; min-width: 60px; }
+        .mobile-btn:active { background: var(--divider); }
+
+        /* MD1 游戏窗口适配 */
+        body.color-md1 .game-modal { background-color: #fff !important; border: none !important; border-radius: 4px !important; box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important; }
+        body.color-md1 .game-header { background-color: #fff !important; border-bottom: 1px solid #eee !important; }
+        body.color-md1 .game-title { color: #333 !important; }
+        body.color-md1 .game-content { background-color: #fafafa !important; }
+        body.color-md1 .game-hint { color: #666 !important; }
+        body.color-md1 .mobile-btn { background-color: var(--accent) !important; color: #fff !important; border-radius: 4px !important; border: none; }
+        body.color-md1 .mobile-btn:active { background-color: var(--accent-hover) !important; }
+        body.color-md1 .game-close-btn { background-color: #f0f0f0; color: #333; border: none; }
 
         .menu-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--modal-overlay); z-index: 1000; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.4s var(--ease-smooth), visibility 0.4s var(--ease-smooth); }
         .menu-overlay.visible { opacity: 1; visibility: visible; pointer-events: auto; }
@@ -276,7 +312,6 @@
         .firework-particle { position: absolute; width: 6px; height: 6px; border-radius: 50%; transform: translate(-50%, -50%); animation: explode 1.4s var(--ease-smooth) forwards; }
         @keyframes explode { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; box-shadow: 0 0 12px currentColor; } 70% { opacity: 1; } 100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0); opacity: 0; box-shadow: none; } }
 
-        /* ================= 弹窗系统 ================= */
         .settings-overlay, .about-overlay, .easter-egg-overlay, .calc-overlay, .dialpad-overlay, .more-overlay, .game-overlay {
             display: flex; position: fixed; top: 0; left: 0; right: 0; bottom: 0; 
             background-color: var(--modal-overlay); z-index: 2100; 
@@ -307,23 +342,6 @@
         .calc-modal { max-width:340px; padding:1rem; }
         .dialpad-modal { max-width:280px; padding:1rem; }
 
-        /* ================= 游戏专属样式 ================= */
-        .game-modal { max-width: 500px; padding: 0; border-radius: 16px; overflow: hidden; background: #1a1a1a; border: 2px solid #333; }
-        .game-header { display: flex; align-items: center; justify-content: space-between; padding: 0 16px; height: 50px; background: #222; border-bottom: 1px solid #333; }
-        .game-title { font-size: 16px; font-weight: 600; color: #fff; }
-        .game-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; background: #111; position: relative; }
-        .game-close-btn { background: #333; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 14px; transition: background 0.2s; }
-        .game-close-btn:hover { background: #555; }
-        
-        .game-canvas { background: #000; border-radius: 4px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); max-width: 100%; }
-        .game-ui { display: flex; justify-content: space-between; width: 100%; margin-bottom: 10px; color: #fff; font-family: monospace; font-size: 16px; }
-        .game-hint { font-size: 12px; color: #888; margin-top: 10px; text-align: center; }
-        .mobile-controls { display: flex; gap: 10px; margin-top: 15px; }
-        .mobile-btn { background: #333; border: none; color: #fff; padding: 12px 20px; border-radius: 8px; font-size: 18px; cursor: pointer; user-select: none; }
-        .mobile-btn:active { background: #555; }
-        @media (min-width: 769px) { .mobile-controls { display: none; } }
-
-        /* 计算器与拨号盘 */
         .calc-display, .dialpad-display { background: var(--dial-display-bg); color: var(--dial-display-text); border-radius: 20px; padding: 1rem; text-align: right; font-size: 2.5rem; margin-bottom: 1rem; min-height: 80px; display: flex; align-items: center; justify-content: flex-end; overflow-x: auto; white-space: nowrap; transition: all 0.4s; box-shadow: inset 0 2px 8px rgba(0,0,0,0.05); }
         .dialpad-display { font-size: 1.2rem; min-height: 40px; padding: 0.5rem; border-radius: 12px; }
         .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
@@ -336,7 +354,6 @@
         .calc-key.operator, .calc-key.equals { background: var(--accent); color: #fff; }
         .calc-key.clear { background: #a5a5a5; color: #fff; }
 
-        /* 设置面板 */
         .settings-modal { padding: 0; max-width: 400px; border-radius: 16px; }
         .settings-nav { display: flex; align-items: center; justify-content: center; padding: 0 16px; height: 50px; flex-shrink: 0; position: relative; z-index: 10; background: var(--bg); border-bottom: 1px solid var(--divider); transition: background 0.6s var(--ease-smooth), border-color 0.6s var(--ease-smooth); }
         .settings-nav-title { font-size: 16px; font-weight: 600; color: var(--text); }
@@ -375,84 +392,6 @@
             background: var(--btn-primary); color: #fff; border: none; font-size: 16px; font-weight: 600; cursor: pointer;
             transition: all 0.3s var(--ease-spring);
         }
-
-        /* ================= 拟物化 ================= */
-        body.retro-mode.color-default .top-bar { background: linear-gradient(to bottom, #f9f9f9, #e0e0e0) !important; border-bottom: 1px solid #b0b0b0 !important; }
-        body.retro-mode.color-default .site-title { color: #333 !important; text-shadow: 0 1px 0 #fff; }
-        body.retro-mode.color-default .hamburger-line { background-color: #333 !important; box-shadow: 0 1px 0 #fff; }
-        body.retro-mode.color-default .nav-btn { color: #333 !important; background: linear-gradient(to bottom, #ffffff, #e6e6e6) !important; border: 1px solid #b0b0b0 !important; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        body.retro-mode.color-md1 .top-bar { background: linear-gradient(to bottom, var(--accent), var(--accent-hover)) !important; border-bottom: 1px solid rgba(0,0,0,0.5) !important; }
-        body.retro-mode.color-md1 .site-title { color: #fff !important; text-shadow: 0 -1px 0 rgba(0,0,0,0.4); }
-        body.retro-mode.color-md1 .hamburger-line { background-color: #fff !important; box-shadow: 0 -1px 0 rgba(0,0,0,0.4); }
-        body.retro-mode.color-md1 .nav-btn { color: #fff !important; background: linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(0,0,0,0.1)) !important; border: 1px solid rgba(0,0,0,0.3) !important; }
-        body.retro-mode h1 { color: #222 !important; text-shadow: 2px 2px 0 #fff !important; font-weight: 700; }
-        body.retro-mode .download-item { background: #fcfcfc !important; border: 1px solid #d0d0d0 !important; border-radius: 12px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.1), inset 0 1px 0 #fff !important; }
-        body.retro-mode .download-item:hover { border-color: #a0a0a0 !important; }
-        body.retro-mode .download-text { color: #333 !important; }
-        body.retro-mode .btn, body.retro-mode .download-btn-action { background: linear-gradient(to bottom, var(--accent), var(--accent-hover)) !important; border: 1px solid rgba(0,0,0,0.4) !important; color: #fff !important; border-radius: 8px !important; box-shadow: 0 2px 4px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4) !important; text-shadow: 0 -1px 0 rgba(0,0,0,0.3); }
-        body.retro-mode .announcement { background: #fdfaf3 !important; border: 1px solid #d4c9b5 !important; border-radius: 12px !important; box-shadow: 0 4px 10px rgba(0,0,0,0.08), inset 0 1px 0 #fff !important; }
-        body.retro-mode .announcement-title { color: var(--accent) !important; font-weight: bold; }
-        body.retro-mode .announcement-subtitle { color: #555 !important; }
-        body.retro-mode .sidebar-menu { background: #f2ebd9 !important; border-left: 1px solid #d1c6b0 !important; }
-        body.retro-mode .sidebar-header { color: #333 !important; text-shadow: 0 1px 0 #fff; }
-        body.retro-mode .menu-item { background: #fdfaf3 !important; border: 1px solid #d4c9b5 !important; border-radius: 8px !important; margin: 6px 12px !important; width: calc(100% - 24px) !important; box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important; color: #333 !important; padding: 14px 16px; }
-        body.retro-mode .menu-item:hover { background: #fff !important; border-color: #b0a590 !important; }
-        body.retro-mode .menu-divider { background: #c4b99c !important; }
-        body.retro-mode .menu-section { color: #666 !important; }
-        body.retro-mode .settings-modal, body.retro-mode .calc-modal, body.retro-mode .dialpad-modal, body.retro-mode .about-modal, body.retro-mode .easter-egg-modal, body.retro-mode .game-modal { background: #f3ebd5 !important; border: 1px solid #d6caab !important; box-shadow: 0 10px 30px rgba(0,0,0,0.2), inset 0 1px 0 #fff !important; }
-        body.retro-mode .settings-nav, body.retro-mode .settings-content { background: #f3ebd5 !important; }
-        body.retro-mode .settings-header-title { color: #333 !important; border-color: #d6caab !important; }
-        body.retro-mode .setting-row { border-bottom: 1px solid #e0d7c2 !important; }
-        body.retro-mode .setting-label, body.retro-mode .settings-nav-title { color: #333 !important; }
-        body.retro-mode .retro-select { background-color: #f9f7ef !important; border: 1px solid #c4b99c !important; color: #333 !important; border-radius: 6px; }
-        body.retro-mode .retro-switch { background: #d5cebf !important; border: 1px solid #b1a690 !important; }
-        body.retro-mode .retro-switch.on { background: var(--accent) !important; }
-        body.retro-mode .calc-display, body.retro-mode .dialpad-display { background: #f9f7ef !important; border: 1px solid #c4b99c !important; color: #333 !important; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1) !important; border-radius: 8px !important; }
-        body.retro-mode .calc-key, body.retro-mode .dial-key { background: linear-gradient(to bottom, #ffffff, #e6e6e6) !important; border: 1px solid #b1a690 !important; color: #333 !important; box-shadow: 0 1px 2px rgba(0,0,0,0.1), inset 0 1px 0 #fff !important; }
-        body.retro-mode .calc-key.operator, body.retro-mode .calc-key.equals { background: linear-gradient(to bottom, var(--accent), var(--accent-hover)) !important; color: #fff !important; border-color: rgba(0,0,0,0.5) !important; }
-        body.retro-mode .calc-key.clear { background: linear-gradient(to bottom, #d5cebf, #c4b99c) !important; color: #333 !important; border-color: #b1a690 !important; }
-        body.retro-mode .about-title, body.retro-mode .about-info p { color: #333 !important; }
-        body.retro-mode .dial-action.delete { border-color: #c4b99c !important; color: #333 !important; }
-
-        /* ================= 液态玻璃 ================= */
-        body.liquid-glass-mode .top-bar { background: rgba(255, 255, 255, 0.15) !important; backdrop-filter: blur(24px); border-bottom: 1px solid rgba(255,255,255,0.3) !important; }
-        body.liquid-glass-mode h1 { color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-        body.liquid-glass-mode .download-item, body.liquid-glass-mode .announcement { background: rgba(255, 255, 255, 0.15) !important; backdrop-filter: blur(24px) !important; border: 1px solid rgba(255, 255, 255, 0.4) !important; border-radius: 16px !important; box-shadow: 0 8px 32px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.5) !important; }
-        body.liquid-glass-mode .download-text, body.liquid-glass-mode .announcement-title, body.liquid-glass-mode .announcement-subtitle { color: #fff !important; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
-        body.liquid-glass-mode .btn, body.liquid-glass-mode .download-btn-action { background: rgba(255, 255, 255, 0.2) !important; backdrop-filter: blur(10px) !important; border: 1px solid rgba(255, 255, 255, 0.5) !important; color: #fff !important; box-shadow: 0 2px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4) !important; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-        body.liquid-glass-mode .sidebar-menu { background: rgba(255, 255, 255, 0.25) !important; backdrop-filter: blur(30px) !important; border-left: 1px solid rgba(255,255,255,0.5) !important; }
-        body.liquid-glass-mode .menu-item { color: #333 !important; border-bottom-color: rgba(0,0,0,0.1) !important; }
-        [data-theme="dark"] body.liquid-glass-mode .sidebar-menu { background: rgba(30, 30, 30, 0.4) !important; border-left: 1px solid rgba(255,255,255,0.2) !important; }
-        [data-theme="dark"] body.liquid-glass-mode .menu-item { color: #fff !important; border-bottom-color: rgba(255,255,255,0.1) !important; }
-        body.liquid-glass-mode .settings-modal, body.liquid-glass-mode .calc-modal, body.liquid-glass-mode .dialpad-modal, body.liquid-glass-mode .about-modal, body.liquid-glass-mode .easter-egg-modal, body.liquid-glass-mode .game-modal { background: rgba(255, 255, 255, 0.35) !important; backdrop-filter: blur(40px) !important; border: 1px solid rgba(255,255,255,0.6) !important; }
-        body.liquid-glass-mode .settings-nav, body.liquid-glass-mode .settings-content { background: transparent !important; }
-        body.liquid-glass-mode .settings-header-title, body.liquid-glass-mode .settings-nav-title, body.liquid-glass-mode .setting-label, body.liquid-glass-mode .about-title, body.liquid-glass-mode .about-info p { color: #333 !important; }
-        body.liquid-glass-mode .setting-row { border-bottom-color: rgba(0,0,0,0.1) !important; }
-        body.liquid-glass-mode .retro-select { background: rgba(255,255,255,0.5) !important; border-color: rgba(255,255,255,0.6) !important; color: #333 !important; }
-        [data-theme="dark"] body.liquid-glass-mode .settings-modal, [data-theme="dark"] body.liquid-glass-mode .calc-modal, [data-theme="dark"] body.liquid-glass-mode .dialpad-modal, [data-theme="dark"] body.liquid-glass-mode .about-modal, [data-theme="dark"] body.liquid-glass-mode .easter-egg-modal, [data-theme="dark"] body.liquid-glass-mode .game-modal { background: rgba(30, 30, 30, 0.4) !important; border: 1px solid rgba(255,255,255,0.2) !important; }
-        [data-theme="dark"] body.liquid-glass-mode .settings-header-title, [data-theme="dark"] body.liquid-glass-mode .settings-nav-title, [data-theme="dark"] body.liquid-glass-mode .setting-label, [data-theme="dark"] body.liquid-glass-mode .about-title, [data-theme="dark"] body.liquid-glass-mode .about-info p { color: #fff !important; }
-        [data-theme="dark"] body.liquid-glass-mode .setting-row { border-bottom-color: rgba(255,255,255,0.1) !important; }
-        [data-theme="dark"] body.liquid-glass-mode .retro-select { background: rgba(255,255,255,0.1) !important; border-color: rgba(255,255,255,0.3) !important; color: #fff !important; }
-        body.liquid-glass-mode .calc-display, body.liquid-glass-mode .dialpad-display { background: rgba(255,255,255,0.2) !important; color: #fff !important; border: 1px solid rgba(255,255,255,0.4) !important; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-        body.liquid-glass-mode .calc-key, body.liquid-glass-mode .dial-key { background: rgba(255,255,255,0.3) !important; color: #333 !important; border: 1px solid rgba(255,255,255,0.5) !important; backdrop-filter: blur(10px) !important; }
-        [data-theme="dark"] body.liquid-glass-mode .calc-display, [data-theme="dark"] body.liquid-glass-mode .dialpad-display { color: #fff !important; }
-        [data-theme="dark"] body.liquid-glass-mode .calc-key, [data-theme="dark"] body.liquid-glass-mode .dial-key { background: rgba(255,255,255,0.1) !important; color: #fff !important; border: 1px solid rgba(255,255,255,0.2) !important; }
-        body.liquid-glass-mode .calc-key.operator, body.liquid-glass-mode .calc-key.equals { background: var(--accent) !important; color: #fff !important; border-color: rgba(255,255,255,0.5) !important; }
-
-        /* ================= 透明模式 ================= */
-        body.glass-mode.color-default .top-bar { background-color: rgba(255, 255, 255, 0.55) !important; backdrop-filter: blur(22px) saturate(180%) !important; -webkit-backdrop-filter: blur(22px) saturate(180%) !important; border-bottom: 1px solid rgba(0,0,0,0.1) !important; }
-        [data-theme="dark"] body.glass-mode.color-default .top-bar { background-color: rgba(28, 28, 30, 0.55) !important; border-bottom: 1px solid rgba(255,255,255,0.1) !important; }
-        body.glass-mode.color-md1 .top-bar { background-color: var(--accent-transparent) !important; backdrop-filter: blur(22px) saturate(180%) !important; -webkit-backdrop-filter: blur(22px) saturate(180%) !important; border-bottom: 1px solid rgba(255,255,255,0.2) !important; }
-        body.glass-mode.color-md1 .site-title { color: #fff !important; background-color: transparent !important; }
-        body.glass-mode.color-md1 .hamburger-line { background-color: #fff !important; }
-        body.glass-mode.color-md1 .nav-btn { color: #fff !important; background: rgba(255,255,255,0.2) !important; }
-        body.glass-mode .sidebar-menu { background-color: rgba(255,255,255,0.65) !important; backdrop-filter: blur(22px) saturate(180%) !important; }
-        [data-theme="dark"] body.glass-mode .sidebar-menu { background-color: rgba(28,28,30,0.65) !important; }
-        body.glass-mode .settings-modal, body.glass-mode .calc-modal, body.glass-mode .dialpad-modal, body.glass-mode .about-modal, body.glass-mode .easter-egg-modal, body.glass-mode .game-modal { background-color:rgba(255,255,255,0.85) !important; backdrop-filter:blur(22px) !important; }
-        [data-theme="dark"] body.glass-mode .settings-modal, [data-theme="dark"] body.glass-mode .calc-modal, [data-theme="dark"] body.glass-mode .dialpad-modal, [data-theme="dark"] body.glass-mode .about-modal, [data-theme="dark"] body.glass-mode .easter-egg-modal, [data-theme="dark"] body.glass-mode .game-modal { background-color:rgba(28,28,30,0.85) !important; }
-        body.glass-mode .settings-nav, body.glass-mode .settings-content { background-color: transparent !important; }
-        body.glass-mode .download-item, body.glass-mode .announcement { background-color:rgba(255,255,255,0.55) !important; backdrop-filter:blur(8px) !important; }
-        [data-theme="dark"] body.glass-mode .download-item, [data-theme="dark"] body.glass-mode .announcement { background-color:rgba(44,44,46,0.55) !important; }
 
         /* 深色模式兜底 */
         [data-theme="dark"] .calc-key:not(.operator):not(.equals):not(.clear), [data-theme="dark"] .dial-key { background: #333 !important; color: #fff !important; }
@@ -721,7 +660,8 @@
                     <span>分数: <span id="tetrisScore">0</span></span>
                 </div>
                 <canvas id="tetrisCanvas" class="game-canvas" width="240" height="480"></canvas>
-                <div class="game-hint">电脑端：方向键移动/旋转，空格速降<br>手机端：使用下方按钮</div>
+                <div class="game-hint">电脑端：方向键移动/旋转，空格速降</div>
+                <!-- 移除了隐藏限制，所有设备都可以点击 -->
                 <div class="mobile-controls">
                     <button class="mobile-btn" id="btnLeft">←</button>
                     <button class="mobile-btn" id="btnRotate">↻</button>
@@ -740,7 +680,7 @@
                 <button class="game-close-btn" id="mcGameCloseBtn">关闭</button>
             </div>
             <div class="game-content">
-                <canvas id="mcCanvas" class="game-canvas" width="320" height="320" style="cursor: crosshair;"></canvas>
+                <canvas id="mcCanvas" class="game-canvas" width="320" height="320" style="cursor: crosshair; max-height: 40vh;"></canvas>
                 <div class="game-hint" style="margin-top: 15px;">
                     左键/单指点击挖掘，右键/双指点击放置方块
                 </div>
@@ -1451,7 +1391,6 @@
                 tetrisInterval = null;
             }
 
-            // 俄罗斯方块控制事件
             document.addEventListener('keydown', (e) => {
                 if (!$('tetrisOverlay').classList.contains('visible')) return;
                 if (e.key === 'ArrowLeft') playerMove(-1);
@@ -1558,7 +1497,6 @@
                 }
             }
 
-            // 禁用右键菜单
             mcCanvas.addEventListener('contextmenu', e => e.preventDefault());
             mcCanvas.addEventListener('mousedown', handleMcInteraction);
             mcCanvas.addEventListener('touchstart', handleMcInteraction, { passive: false });
@@ -1581,7 +1519,6 @@
             $('mcGameTriggerMobile').addEventListener('click', openMcGame);
             $('mcGameCloseBtn').addEventListener('click', closeMcGame);
 
-            // 初始化
             applySettings();
             bindRipples();
             updateSplashText();
